@@ -51,6 +51,12 @@
         .ig-tlacitko {
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
+        /* Oddělovací čára */
+        hr {
+            border: 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 30px 0;
+        }
         .video-box {
             margin-top: 15px;
             border-radius: 10px;
@@ -58,12 +64,10 @@
             border: 2px solid rgba(255,255,255,0.2);
         }
         h3 {
-            margin-top: 40px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: normal;
         }
         .login-box {
-            margin-top: 40px;
             padding: 20px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -75,10 +79,11 @@
             margin-right: 10px;
             font-size: 16px;
             outline: none;
+            margin-bottom: 10px;
         }
+        /* Tajná sekce je na začátku schovaná (display: none) */
         .tajna-sekce {
             display: none;
-            margin-top: 40px;
             padding: 20px;
             background: rgba(46, 204, 113, 0.2);
             border-radius: 10px;
@@ -91,30 +96,30 @@
     <div class="kontejner">
         <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
         
-        <h1>Ahoj, já jsem Tomáš! </h1>
-        <p>Vítejte na mém prvním webu.</p>
+        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
+        <p>Vítejte na mém webu, který je zrovna v rekonstrukci🪚, ale bude se postupně vylepšovat!🤩</p>
         
         <div>
             <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
             <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko ig-tlacitko">Můj Instagram</a>
         </div>
         
-        <h3>Současný oblíbený song 🎵</h3>
-        <div class="video-box">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        <hr>
 
         <div class="login-box" id="loginSekce">
-            <h3>Tajná zóna 🕵️‍♂️</h3>
-            <p>Zadej heslo pro odemčení tajného obsahu:</p>
+            <h3>Tajná hudební zóna 🎧</h3>
+            <p>Můj současný oblíbený song je pod zámkem. Znáš heslo?</p>
             <input type="password" id="hesloInput" placeholder="Tvé heslo...">
             <button onclick="zkontrolujHeslo()" class="tlacitko">Odemknout</button>
         </div>
 
         <div class="tajna-sekce" id="tajnyObsah">
-            <h2>🎉 Povedlo se! 🎉</h2>
-            <p>Jsi v tajné sekci. Tohle vidí jen ti, co znají správné heslo.</p>
-            <img src="https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif" alt="Úspěch" style="border-radius: 10px; width: 100%; max-width: 400px; margin-top: 15px;">
+            <h3>🎵 Současný oblíbený song 🎵:</h3>
+            <p>🎉 Výborně, heslo jsi uhodl,, songem není nic jiného než TINTED WINDOWS od mého oblíbence PTK</p>
+            
+            <div class="video-box">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
@@ -122,124 +127,14 @@
         function zkontrolujHeslo() {
             var zadaneHeslo = document.getElementById("hesloInput").value;
             
-            if (zadaneHeslo === "tomik123") {
+            if (zadaneHeslo === "tomasturecek") {
+                // Schová přihlašování a ukáže video
                 document.getElementById("loginSekce").style.display = "none";
                 document.getElementById("tajnyObsah").style.display = "block";
             } else {
-                alert("Špatné heslo! Zkus to znovu.");
+                alert("Špatné heslo!");
             }
         }
     </script>
-</body>
-</html>            padding: 12px 30px;
-            background-color: #ff7e67;
-            color: white;
-            text-decoration: none; 
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer; /* Změní myš na ručičku při najetí */
-            font-size: 16px;
-        }
-        .tlacitko:hover {
-            transform: scale(1.05); 
-            filter: brightness(1.1);
-        }
-        .ig-tlacitko {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-        .video-box {
-            margin-top: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        h3 {
-            margin-top: 40px;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-
-        /* --- NOVÉ VĚCI PRO PŘIHLÁŠENÍ --- */
-        .login-box {
-            margin-top: 40px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-        input[type="password"] {
-            padding: 12px;
-            border-radius: 5px;
-            border: none;
-            margin-right: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-        .tajna-sekce {
-            display: none; /* DŮLEŽITÉ: Tohle skryje tajnou sekci na začátku */
-            margin-top: 40px;
-            padding: 20px;
-            background: rgba(46, 204, 113, 0.2); /* Lehce zelené pozadí */
-            border-radius: 10px;
-            border: 2px dashed #2ecc71;
-        }
-    </style>
-</head>
-<body>        .tlacitko {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 30px;
-            background-color: #ff7e67;
-            color: white;
-            text-decoration: none; 
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s; 
-        }
-        /* Zvětšení tlačítka po najetí myší */
-        .tlacitko:hover {
-            transform: scale(1.05); 
-            filter: brightness(1.1);
-        }
-        /* Speciální barvy pro Instagram tlačítko */
-        .ig-tlacitko {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-        /* Rámeček pro video */
-        .video-box {
-            margin-top: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        /* Styl pro text nad videem */
-        h3 {
-            margin-top: 40px;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="kontejner">
-        <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
-        
-        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
-        <p>Vítejte na mém webe, který je zrovna v rekonstrukci, ale bude se postupně vylepšovat!.</p>
-        
-        <div>
-            <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
-            <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko ig-tlacitko">Můj Instagram</a>
-        </div>
-        
-        <h3>Současný oblíbený song: </h3>
-        
-        <div class="video-box">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-
 </body>
 </html>
