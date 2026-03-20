@@ -3,38 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tomáš Tureček - Můj Web</title>
+    <title>Tomáš Tureček | Portfolio</title>
     <style>
+        /* --- ZÁKLADNÍ NASTAVENÍ A MODERNÍ POZADÍ --- */
+        html {
+            scroll-behavior: smooth; /* Plynulé rolování při kliknutí na menu */
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
             margin: 0;
-            padding: 50px 20px;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: pozadiAnimace 15s ease infinite; /* Pohyblivé pozadí! */
+            color: white;
             min-height: 100vh;
         }
-        .kontejner {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px); 
+        @keyframes pozadiAnimace {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
+        /* --- HORNÍ NAVIGAČNÍ MENU --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        nav a:hover {
+            color: #ffdf00;
+        }
+
+        /* --- SPOLEČNÝ STYL PRO VŠECHNY SEKCE (Efekt skla) --- */
+        section {
+            padding: 80px 20px 40px; /* Mezera nahoře kvůli fixnímu menu */
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: nabehnuti 1s forwards;
+        }
+        @keyframes nabehnuti {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PROFILOVKA A TLAČÍTKA --- */
         img.profilovka {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; 
-            border: 4px solid white;
-            margin-bottom: 20px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            transition: transform 0.5s;
+        }
+        img.profilovka:hover {
+            transform: rotate(360deg); /* Profilovka se po najetí myší zatočí! */
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .podtitul {
+            font-size: 1.2em;
+            color: #f1f1f1;
+            margin-bottom: 30px;
         }
         .tlacitko {
             display: inline-block;
             margin: 10px;
             padding: 12px 30px;
-            background-color: #ff7e67;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tlacitko:hover {
+            background: white;
+            color: #333;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- SEKCE DOVEDNOSTÍ (Kartičky) --- */
+        .grid-dovednosti {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .karta {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .karta:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* --- TAJNÁ ZÓNA --- */
+        input[type="password"] {
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 15px;
+            width: 60%;
+            max-width: 300px;
+        }
+        .video-box {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.3);
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #tajnyObsah { display: none; }
+        
+        /* Patička */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#domu">O mně</a>
+        <a href="#dovednosti">Dovednosti</a>
+        <a href="#tajne">Tajná zóna</a>
+    </nav>
+
+    <section id="domu">
+        <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
+        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
+        <p class="podtitul">Zrovna stavím svůj první web a dobývám internet.</p>
+        
+        <div>
+            <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
+            <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko">Můj Instagram</a>
+            <a href="#tajne" class="tlacitko">Odemknout tajemství</a>
+        </div>
+    </section>
+
+    <section id="dovednosti">
+        <h2>Co už umím a co se učím 🛠️</h2>
+        <p>Tohle jsou technologie a věci, se kterými momentálně pracuji nebo mě zajímají.</p>
+        
+        <div class="grid-dovednosti">
+            <div class="karta">HTML5</div>
+            <div class="karta">CSS3</div>
+            <div class="karta">JavaScript</div>
+            <div class="karta">GitHub</div>
+            <div class="karta">Design</div>
+        </div>
+    </section>
+
+    <section id="tajne">
+        <h2>Tajná hudební zóna 🎧</h2>
+        
+        <div id="loginSekce">
+            <p>Můj současný oblíbený song je pod zámkem. Znáš heslo?</p>
+            <input type="password" id="hesloInput" placeholder="Zadej heslo (tomik123)..."><br>
+            <button onclick="zkontrolujHeslo()" class="tlacitko" style="background: #2ecc71; border: none;">Odemknout</button>
+        </div>
+
+        <div id="tajnyObsah">
+            <p>🎉 Výborně, uhodl jsi to! Tady je slíbená pecka:</p>
+            <div class="video-box">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <br>
+            <button onclick="zamknoutZnovu()" class="tlacitko" style="background: #e74c3c; border: none; font-size: 0.8em;">Znovu zamknout</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tomáš Tureček. Vytvořeno s nadšením a trochou kódu.</p>
+    </footer>
+
+    <script>
+        function zkontrolujHeslo() {
+            var zadaneHeslo = document.getElementById("hesloInput").value;
+            
+            if (zadaneHeslo === "tomik123") {
+                document.getElementById("loginSekce").style.display = "none";
+                document.getElementById("tajnyObsah").style.display = "block";
+                // Vymaže políčko pro příště
+                document.getElementById("hesloInput").value = ""; 
+            } else {
+                alert("Kdepak, špatné heslo! Zkus to znovu.");
+            }
+        }
+
+        // Bonus: Tlačítko pro opětovné zamčení sekce!
+        function zamknoutZnovu() {
+            document.getElementById("tajnyObsah").style.display = "none";
+            document.getElementById("loginSekce").style.display = "block";
+        }
+    </script>
+</body>
+</html>            background-color: #ff7e67;
             color: white;
             text-decoration: none; 
             border-radius: 25px;
