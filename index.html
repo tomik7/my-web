@@ -3,117 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Tomášovi úkoly | Zabezpečeno</title>
     <style>
-        html { scroll-behavior: smooth; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; padding: 0;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
             background-size: 400% 400%;
             animation: pozadiAnimace 15s ease infinite;
             color: white; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         @keyframes pozadiAnimace {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        nav {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
-            padding: 15px 0; text-align: center; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        
+        .kontejner {
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px);
+            padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            text-align: center; width: 90%; max-width: 500px;
         }
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; transition: 0.3s; text-transform: uppercase; }
-        nav a:hover { color: #ffdf00; }
-        section {
-            padding: 80px 20px 40px; max-width: 800px; margin: 40px auto;
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
-            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); text-align: center;
-        }
-        img.profilovka { width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.8); transition: transform 0.5s; }
-        img.profilovka:hover { transform: rotate(360deg); }
-        .tlacitko {
-            display: inline-block; margin: 10px; padding: 12px 30px; background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white; color: white; text-decoration: none; border-radius: 30px;
-            font-weight: bold; transition: 0.3s; cursor: pointer; border: none;
-        }
-        .tlacitko:hover { background: white; color: #333; transform: translateY(-5px); }
-        .grid-dovednosti { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .karta { background: rgba(0, 0, 0, 0.3); padding: 15px 25px; border-radius: 10px; font-weight: bold; transition: 0.3s; }
-        .karta:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
+
+        h1 { margin-top: 0; font-size: 2.5em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         
         input[type="email"], input[type="password"] {
-            padding: 15px; border-radius: 30px; border: none; outline: none;
-            font-size: 16px; text-align: center; margin-bottom: 10px;
-            width: 60%; max-width: 300px; display: block; margin-left: auto; margin-right: auto;
+            padding: 15px; border-radius: 10px; border: none; outline: none;
+            font-size: 16px; text-align: center; margin-bottom: 15px;
+            width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.9);
         }
-        .video-box { border-radius: 15px; overflow: hidden; border: 3px solid rgba(255,255,255,0.3); margin-top: 20px; }
+
+        .tlacitko {
+            padding: 15px 30px; border: none; border-radius: 10px;
+            font-size: 1.1em; font-weight: bold; color: white; cursor: pointer;
+            transition: 0.3s; width: 100%; margin-top: 10px;
+        }
+        .tlacitko-login { background: #2ecc71; }
+        .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
+        .tlacitko-logout { background: #e74c3c; margin-top: 30px; }
+
+        /* --- STYL PRO JEDNOTLIVÉ ÚKOLY --- */
         #tajnyObsah { display: none; }
         
-        #mistoProTajnyText {
-            background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;
-            font-size: 1.2em; border: 2px dashed #ffdf00; margin-bottom: 20px;
+        .ukol-karta {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 20px; margin-bottom: 15px; border-radius: 12px;
+            display: flex; align-items: center; gap: 15px; text-align: left;
+            transition: 0.3s;
         }
-        footer { text-align: center; padding: 20px; opacity: 0.7; }
+        .ukol-karta:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(5px); }
+        
+        /* Checkbox (Zaškrtávátko) */
+        input[type="checkbox"] {
+            width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71;
+        }
+        
+        /* Text úkolu */
+        .text-ukolu { font-size: 1.2em; font-weight: bold; transition: 0.3s; }
+        
+        /* Třída, která se přidá, když je úkol hotový (škrtnutí) */
+        .hotovo .text-ukolu {
+            text-decoration: line-through; color: rgba(255,255,255,0.4);
+        }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#domu">O mně</a>
-        <a href="#dovednosti">Dovednosti</a>
-        <a href="#tajne">Tajná zóna</a>
-    </nav>
-
-    <section id="domu">
-        <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
-        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
-        <p>Zrovna stavím svůj první web a dobývám internet.</p>
-        <div>
-            <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
-            <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko">Můj Instagram</a>
-        </div>
-    </section>
-
-    <section id="dovednosti">
-        <h2>Co už umím a co se učím 🛠️</h2>
-        <div class="grid-dovednosti">
-            <div class="karta">HTML5 & CSS3</div>
-            <div class="karta">JavaScript</div>
-            <div class="karta">GitHub Pages</div>
-            <div class="karta">Firestore Databáze 🔒</div>
-        </div>
-    </section>
-
-    <section id="tajne">
-        <h2>Tajná zóna s trezorem 🔒</h2>
+    <div class="kontejner">
+        <h1>Tomášovi úkoly ✅</h1>
         
         <div id="loginSekce">
-            <p>Tato zóna je 100% neprůstřelná. Tajný text se stáhne ze serveru až po přihlášení.</p>
-            <input type="email" id="emailInput" placeholder="Zadej e-mail...">
-            <input type="password" id="hesloInput" placeholder="Zadej heslo...">
-            <button id="loginBtn" class="tlacitko" style="background: #2ecc71;">Odemknout trezor</button>
+            <p>Vítej ve své soukromé aplikaci. Prosím, přihlas se.</p>
+            <input type="email" id="emailInput" placeholder="Tvůj e-mail...">
+            <input type="password" id="hesloInput" placeholder="Tvé tajné heslo...">
+            <button id="loginBtn" class="tlacitko tlacitko-login">Odemknout úkoly</button>
         </div>
 
         <div id="tajnyObsah">
-            <p>🎉 Úspěšné ověření! Tady jsou data stažená živě z databáze:</p>
+            <p style="color: #2ecc71; font-weight: bold;">Přístup povolen. Tvé úkoly ze serveru:</p>
             
-            <div id="mistoProTajnyText">Načítám tajná data ze serveru...</div>
+            <div id="seznamUkolu">Načítám data z trezoru...</div>
 
-            <div class="video-box">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <br>
-            <button id="logoutBtn" class="tlacitko" style="background: #e74c3c;">Zavřít trezor a odhlásit se</button>
+            <button id="logoutBtn" class="tlacitko tlacitko-logout">Zamknout a odhlásit se</button>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Tomáš Tureček. Zabezpečeno přes Google Firestore.</p>
-    </footer>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -133,33 +109,58 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Funkce pro odškrtávání úkolů (musí být dostupná pro HTML)
+        window.odskrtniUkol = function(checkboxElement) {
+            const karta = checkboxElement.parentElement; // Najde nadřazenou krabičku úkolu
+            if (checkboxElement.checked) {
+                karta.classList.add("hotovo"); // Přidá škrtanec
+            } else {
+                karta.classList.remove("hotovo"); // Odebere škrtanec
+            }
+        };
+
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value;
             const heslo = document.getElementById("hesloInput").value;
 
             signInWithEmailAndPassword(auth, email, heslo)
                 .then((userCredential) => {
-                    const tajnyDokument = doc(db, "tajnosti", "vzkaz1");
                     
-                    getDoc(tajnyDokument).then((dokument) => {
+                    // Jdeme do trezoru pro složku "ukoly" a dokument "seznam"
+                    const tajneUkoly = doc(db, "ukoly", "seznam");
+                    
+                    getDoc(tajneUkoly).then((dokument) => {
                         if (dokument.exists()) {
-                            document.getElementById("mistoProTajnyText").innerHTML = "<strong>Tvůj tajný vzkaz zní:</strong><br><br>" + dokument.data().text;
+                            const data = dokument.data();
+                            let htmlUkolu = "";
+                            
+                            // Projdeme všechny úkoly z databáze a vytvoříme pro ně HTML krabičky
+                            for (const klic in data) {
+                                htmlUkolu += `
+                                    <div class="ukol-karta">
+                                        <input type="checkbox" onchange="odskrtniUkol(this)">
+                                        <span class="text-ukolu">${data[klic]}</span>
+                                    </div>
+                                `;
+                            }
+                            
+                            document.getElementById("seznamUkolu").innerHTML = htmlUkolu;
                             
                             document.getElementById("loginSekce").style.display = "none";
                             document.getElementById("tajnyObsah").style.display = "block";
                             document.getElementById("emailInput").value = ""; 
                             document.getElementById("hesloInput").value = ""; 
                         } else {
-                            alert("Dokument se v trezoru nenašel. Zkontroloval jsi názvy 'tajnosti' a 'vzkaz1'?");
+                            alert("Úkoly se nenašly. Založil jsi ve Firebase složku 'ukoly' a dokument 'seznam'?");
                         }
                     }).catch((chyba) => {
                         console.error(chyba);
-                        alert("Chyba čtení z databáze.");
+                        alert("Chyba při stahování úkolů z trezoru.");
                     });
 
                 })
                 .catch((error) => {
-                    alert("Chyba: Zadal jsi špatný e-mail nebo heslo!");
+                    alert("Špatný e-mail nebo heslo!");
                 });
         });
 
@@ -167,8 +168,7 @@
             signOut(auth).then(() => {
                 document.getElementById("tajnyObsah").style.display = "none";
                 document.getElementById("loginSekce").style.display = "block";
-                document.getElementById("mistoProTajnyText").innerHTML = "Načítám tajná data ze serveru...";
-                alert("Trezor byl úspěšně uzavřen.");
+                document.getElementById("seznamUkolu").innerHTML = "Načítám data z trezoru...";
             });
         });
     </script>
