@@ -1,126 +1,4 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rodinné úkoly | Turečkovi</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0;
-            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
-            background-size: 400% 400%;
-            animation: pozadiAnimace 15s ease infinite;
-            color: white; min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        @keyframes pozadiAnimace { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .kontejner {
-            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            text-align: center; width: 90%; max-width: 650px; margin: 20px 0;
-        }
-
-        h1 { margin-top: 0; font-size: 2.2em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .podtitul { color: #f1c40f; font-weight: bold; margin-bottom: 25px; font-size: 1.1em; }
-        
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
-            padding: 12px; border-radius: 10px; border: none; outline: none;
-            font-size: 16px; margin-bottom: 15px; box-sizing: border-box; 
-            background: rgba(255,255,255,0.9); font-family: inherit;
-        }
-
-        .tlacitko {
-            padding: 15px 20px; border: none; border-radius: 10px;
-            font-size: 1.1em; font-weight: bold; color: white; cursor: pointer;
-            transition: 0.3s; width: 100%;
-        }
-        .tlacitko-login { background: #2ecc71; }
-        .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
-        .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
-        .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
-        .tlacitko-pridat:hover { background: #e67e22; }
-
-        #tajnyObsah { display: none; }
-        
-        #bankaSekce { margin-bottom: 20px; }
-        
-        .pridavani-box {
-            display: none; gap: 10px; margin-bottom: 25px;
-            background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;
-            border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center;
-        }
-        .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
-        
-        .ukol-karta {
-            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: space-between; text-align: left;
-            transition: 0.3s; flex-wrap: wrap; gap: 10px;
-        }
-        .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
-        
-        .ukol-leva-cast { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
-        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
-        .text-ukolu { font-size: 1.2em; font-weight: bold; transition: 0.3s; }
-        
-        .odmena-stitek {
-            background: #ffdf00; color: #333; padding: 5px 10px;
-            border-radius: 20px; font-weight: bold; font-size: 0.9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap;
-        }
-
-        .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; font-size: 0.8em; }
-
-        .hotovo { opacity: 0.5; }
-        .hotovo .text-ukolu { text-decoration: line-through; color: rgba(255,255,255,0.6); }
-        
-        .smazat-btn {
-            background: transparent; border: none; color: #ff7675; cursor: pointer;
-            font-size: 1.2em; transition: 0.3s; margin-left: 10px;
-        }
-        .smazat-btn:hover { color: #d63031; transform: scale(1.2); }
-        
-        .odznak-kdo { font-size: 0.7em; background: #3498db; padding: 3px 8px; border-radius: 10px; margin-left: 10px; color: white; text-decoration: none !important;}
-        .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
-
-    </style>
-</head>
-<body>
-
-    <div class="kontejner">
-        <h1>Letní brigáda 💰</h1>
-        <p class="podtitul" id="uvitaciText">Turečkovi</p>
-        
-        <div id="loginSekce">
-            <input type="email" id="emailInput" placeholder="Tvůj e-mail..." style="width: 100%;">
-            <input type="password" id="hesloInput" placeholder="Tvé heslo..." style="width: 100%;">
-            <button id="loginBtn" class="tlacitko tlacitko-login">Přihlásit se do systému</button>
-        </div>
-
-        <div id="tajnyObsah">
-            <div id="bankaSekce"></div>
-
-            <div class="pridavani-box" id="ridiciPanel">
-                <input type="text" id="novyUkol" placeholder="Název úkolu...">
-                <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
-                <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
-                <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
-                <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
-            </div>
-            
-            <div id="seznamUkolu">Načítám data z trezoru...</div>
-
-            <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se</button>
-        </div>
-    </div>
-
-    <audio id="zvukCinknuti" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
-
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -172,10 +50,13 @@
 
         function ziskejAktualniOdmenu(ukol) {
             let dnes = new Date().toISOString().split('T')[0];
+            // POJISTKA 1: Převod na čisté matematické číslo
+            let odmenaCislo = parseInt(ukol.odmena) || 0; 
+            
             if (ukol.termin && ukol.termin < dnes && !ukol.splneno) {
-                return Math.floor(ukol.odmena / 2); 
+                return Math.floor(odmenaCislo / 2); 
             }
-            return ukol.odmena;
+            return odmenaCislo;
         }
 
         function vykresliUkoly() {
@@ -189,10 +70,9 @@
             poleUkolu.forEach((ukol, index) => {
                 let checked = ukol.splneno ? "checked" : "";
                 let tridaHotovo = ukol.splneno ? "hotovo" : "";
-                
                 let tlacitkoSmazat = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
-                
                 let odznak = "";
+                
                 if (ukol.splneno && ukol.splnilKdo === "tomas") odznak = `<span class="odznak-kdo">Splnil Tomáš</span>`;
                 if (ukol.splneno && ukol.splnilKdo === "martin") odznak = `<span class="odznak-kdo">Splnil Martin</span>`;
 
@@ -225,6 +105,10 @@
         }
 
         function ulozDoDatabaze() {
+            // POJISTKA 2: Nikdy neuložíme záporné číslo
+            if (kontoTomas < 0) kontoTomas = 0;
+            if (kontoMartin < 0) kontoMartin = 0;
+            
             const tajneUkoly = doc(db, "ukoly", "seznam");
             setDoc(tajneUkoly, { dataUkolu: poleUkolu, bankaTomas: kontoTomas, bankaMartin: kontoMartin });
         }
@@ -232,36 +116,35 @@
         window.zmenStav = function(index, jeSplneno) {
             let ukol = poleUkolu[index];
 
-            // 1. Zkoušíš úkol SPLNIT (zaškrtnout)
             if (jeSplneno) {
                 if (roleUzivatele === "rodic") {
                     alert("Vy úkoly plnit nemůžete, nechte to na kluky! 😄");
-                    vykresliUkoly(); // Vrátí zaškrtávátko zpět do odškrtnutého stavu
+                    vykresliUkoly(); 
                     return;
                 }
 
                 let castka = ziskejAktualniOdmenu(ukol); 
-                document.getElementById('zvukCinknuti').play().catch(e => console.log("Zvuk blokován prohlížečem"));
+                document.getElementById('zvukCinknuti')?.play().catch(e => console.log("Zvuk blokován"));
                 
                 ukol.splneno = true;
                 ukol.splnilKdo = roleUzivatele; 
                 ukol.odmena = castka; 
                 
-                if (roleUzivatele === "tomas") kontoTomas += castka;
-                if (roleUzivatele === "martin") kontoMartin += castka;
+                if (roleUzivatele === "tomas") kontoTomas = (parseInt(kontoTomas) || 0) + castka;
+                if (roleUzivatele === "martin") kontoMartin = (parseInt(kontoMartin) || 0) + castka;
 
-            // 2. Zkoušíš úkol ZRUŠIT (odškrtnout)
             } else {
-                // Kontrola: Nemůžeš rušit bráchův úkol (rodič ale rušit může všechno)
                 if (roleUzivatele !== "rodic" && roleUzivatele !== ukol.splnilKdo) {
                     alert("Tento úkol už splnil brácha! Nemůžeš mu ho zrušit. 🛑");
-                    vykresliUkoly(); // Vrátí zaškrtávátko zpět do zaškrtnutého stavu
+                    vykresliUkoly(); 
                     return;
                 }
 
                 ukol.splneno = false;
-                if (ukol.splnilKdo === "tomas") kontoTomas -= ukol.odmena;
-                if (ukol.splnilKdo === "martin") kontoMartin -= ukol.odmena;
+                let castkaKOdecteni = parseInt(ukol.odmena) || 0;
+                
+                if (ukol.splnilKdo === "tomas") kontoTomas = (parseInt(kontoTomas) || 0) - castkaKOdecteni;
+                if (ukol.splnilKdo === "martin") kontoMartin = (parseInt(kontoMartin) || 0) - castkaKOdecteni;
                 ukol.splnilKdo = null;
             }
             
@@ -300,7 +183,7 @@
         });
 
         window.vyplatit = function(jmeno) {
-            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            if(typeof confetti === "function") confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
             setTimeout(() => {
                 alert(`🎉 Skvělá práce, ${jmeno}! Běž ukázat mobil rodičům, ať ti dají peníze a vynulují konto.`);
             }, 500);
@@ -343,8 +226,9 @@
                         if (dokument.exists()) {
                             let data = dokument.data();
                             poleUkolu = data.dataUkolu || [];
-                            kontoTomas = data.bankaTomas || 0;
-                            kontoMartin = data.bankaMartin || 0;
+                            // POJISTKA 3: Z databáze bereme vždycky jen čisté číslo
+                            kontoTomas = parseInt(data.bankaTomas) || 0;
+                            kontoMartin = parseInt(data.bankaMartin) || 0;
                         } else {
                             poleUkolu = []; kontoTomas = 0; kontoMartin = 0;
                         }
@@ -368,5 +252,3 @@
             });
         });
     </script>
-</body>
-</html>
