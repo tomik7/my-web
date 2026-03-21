@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomáš Tureček | Portfolio</title>
     <style>
-        /* --- ZÁKLADNÍ NASTAVENÍ A POZADÍ --- */
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,21 +19,169 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        
-        /* --- MENU --- */
         nav {
             position: fixed; top: 0; width: 100%;
             background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
             padding: 15px 0; text-align: center; z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        nav a {
-            color: white; text-decoration: none; margin: 0 15px;
-            font-weight: bold; transition: 0.3s; text-transform: uppercase;
-        }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; transition: 0.3s; text-transform: uppercase; }
         nav a:hover { color: #ffdf00; }
+        section {
+            padding: 80px 20px 40px; max-width: 800px; margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); text-align: center;
+        }
+        img.profilovka { width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.8); transition: transform 0.5s; }
+        img.profilovka:hover { transform: rotate(360deg); }
+        .tlacitko {
+            display: inline-block; margin: 10px; padding: 12px 30px; background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white; color: white; text-decoration: none; border-radius: 30px;
+            font-weight: bold; transition: 0.3s; cursor: pointer;
+        }
+        .tlacitko:hover { background: white; color: #333; transform: translateY(-5px); }
+        .grid-dovednosti { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .karta { background: rgba(0, 0, 0, 0.3); padding: 15px 25px; border-radius: 10px; font-weight: bold; transition: 0.3s; }
+        .karta:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
+        
+        input[type="email"], input[type="password"] {
+            padding: 15px; border-radius: 30px; border: none; outline: none;
+            font-size: 16px; text-align: center; margin-bottom: 10px;
+            width: 60%; max-width: 300px; display: block; margin-left: auto; margin-right: auto;
+        }
+        .video-box { border-radius: 15px; overflow: hidden; border: 3px solid rgba(255,255,255,0.3); margin-top: 20px; }
+        #tajnyObsah { display: none; }
+        
+        /* Nový styl pro tvůj tajný text stažený ze serveru */
+        #mistoProTajnyText {
+            background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;
+            font-size: 1.2em; border: 2px dashed #ffdf00; margin-bottom: 20px;
+        }
+        footer { text-align: center; padding: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
 
-        /* --- SEKCE A KARTIČKY --- */
+    <nav>
+        <a href="#domu">O mně</a>
+        <a href="#dovednosti">Dovednosti</a>
+        <a href="#tajne">Tajná zóna</a>
+    </nav>
+
+    <section id="domu">
+        <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
+        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
+        <p>Zrovna stavím svůj první web a dobývám internet.</p>
+        <div>
+            <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
+            <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko">Můj Instagram</a>
+        </div>
+    </section>
+
+    <section id="dovednosti">
+        <h2>Co už umím a co se učím 🛠️</h2>
+        <div class="grid-dovednosti">
+            <div class="karta">HTML5 & CSS3</div>
+            <div class="karta">JavaScript</div>
+            <div class="karta">GitHub Pages</div>
+            <div class="karta">Firestore Databáze 🔒</div>
+        </div>
+    </section>
+
+    <section id="tajne">
+        <h2>Tajná zóna s trezorem 🔒</h2>
+        
+        <div id="loginSekce">
+            <p>Tato zóna je 100% neprůstřelná. Tajný text se stáhne ze serveru až po přihlášení.</p>
+            <input type="email" id="emailInput" placeholder="Zadej e-mail...">
+            <input type="password" id="hesloInput" placeholder="Zadej heslo...">
+            <button id="loginBtn" class="tlacitko" style="background: #2ecc71; border: none;">Odemknout trezor</button>
+        </div>
+
+        <div id="tajnyObsah">
+            <p>🎉 Úspěšné ověření! Tady jsou data stažená živě z databáze:</p>
+            
+            <div id="mistoProTajnyText">Načítám tajná data ze serveru...</div>
+
+            <div class="video-box">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <br>
+            <button id="logoutBtn" class="tlacitko" style="background: #e74c3c; border: none;">Zavřít trezor a odhlásit se</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tomáš Tureček. Zabezpečeno přes Google Firestore.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Tvoje propojení s Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9PqKSsLJkv8DFewTSedXuUGSLw-U719Y",
+            authDomain: "muj-web-heslo.firebaseapp.com",
+            projectId: "muj-web-heslo",
+            storageBucket: "muj-web-heslo.firebasestorage.app",
+            messagingSenderId: "527159202010",
+            appId: "1:527159202010:web:4863618e3aa8eb3cac55e3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById("loginBtn").addEventListener("click", () => {
+            const email = document.getElementById("emailInput").value;
+            const heslo = document.getElementById("hesloInput").value;
+
+            // Zkusíme přihlásit uživatele
+            signInWithEmailAndPassword(auth, email, heslo)
+                .then((userCredential) => {
+                    
+                    // Přihlášení funguje, jdeme pro text do trezoru!
+                    // Hledáme sbírku "tajnosti" a v ní dokument "vzkaz1"
+                    const tajnyDokument = doc(db, "tajnosti", "vzkaz1");
+                    
+                    getDoc(tajnyDokument).then((dokument) => {
+                        if (dokument.exists()) {
+                            // Vypsání textu na obrazovku z databáze
+                            document.getElementById("mistoProTajnyText").innerHTML = "<strong>Tvůj tajný vzkaz zní:</strong><br><br>" + dokument.data().text;
+                            
+                            document.getElementById("loginSekce").style.display = "none";
+                            document.getElementById("tajnyObsah").style.display = "block";
+                            document.getElementById("emailInput").value = ""; 
+                            document.getElementById("hesloInput").value = ""; 
+                        } else {
+                            alert("Dokument se v trezoru nenašel. Zkontroloval jsi názvy 'tajnosti' a 'vzkaz1'?");
+                        }
+                    }).catch((chyba) => {
+                        console.error(chyba);
+                        alert("Chyba čtení z databáze.");
+                    });
+
+                })
+                .catch((error) => {
+                    alert("Chyba: Zadal jsi špatný e-mail nebo heslo!");
+                });
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                document.getElementById("tajnyObsah").style.display = "none";
+                document.getElementById("loginSekce").style.display = "block";
+                // Promažeme text z obrazovky, ať ho tam nenecháme viset!
+                document.getElementById("mistoProTajnyText").innerHTML = "Načítám tajná data ze serveru...";
+                alert("Trezor byl úspěšně uzavřen.");
+            });
+        });
+    </script>
+</body>
+</html>        /* --- SEKCE A KARTIČKY --- */
         section {
             padding: 80px 20px 40px; max-width: 800px; margin: 40px auto;
             background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
