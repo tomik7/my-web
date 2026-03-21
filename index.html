@@ -21,69 +21,93 @@
         }
         
         .kontejner {
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
             padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            text-align: center; width: 90%; max-width: 500px;
+            text-align: center; width: 90%; max-width: 550px;
         }
 
         h1 { margin-top: 0; font-size: 2.5em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         
-        input[type="email"], input[type="password"] {
+        input[type="email"], input[type="password"], input[type="text"] {
             padding: 15px; border-radius: 10px; border: none; outline: none;
-            font-size: 16px; text-align: center; margin-bottom: 15px;
-            width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.9);
+            font-size: 16px; margin-bottom: 15px; box-sizing: border-box; 
+            background: rgba(255,255,255,0.9);
         }
 
+        /* Tlačítka */
         .tlacitko {
-            padding: 15px 30px; border: none; border-radius: 10px;
+            padding: 15px 20px; border: none; border-radius: 10px;
             font-size: 1.1em; font-weight: bold; color: white; cursor: pointer;
-            transition: 0.3s; width: 100%; margin-top: 10px;
+            transition: 0.3s; width: 100%; margin-top: 5px;
         }
         .tlacitko-login { background: #2ecc71; }
         .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
         .tlacitko-logout { background: #e74c3c; margin-top: 30px; }
+        .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 15px; }
+        .tlacitko-pridat:hover { background: #e67e22; }
 
-        /* --- STYL PRO JEDNOTLIVÉ ÚKOLY --- */
         #tajnyObsah { display: none; }
         
+        /* Formulář pro přidání nového úkolu */
+        .pridavani-box {
+            display: flex; gap: 10px; margin-bottom: 25px;
+            background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;
+        }
+        .pridavani-box input { margin-bottom: 0; width: 100%; }
+        
+        /* Kartička úkolu */
         .ukol-karta {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 20px; margin-bottom: 15px; border-radius: 12px;
-            display: flex; align-items: center; gap: 15px; text-align: left;
+            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; text-align: left;
             transition: 0.3s;
         }
-        .ukol-karta:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(5px); }
+        .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
         
-        /* Checkbox (Zaškrtávátko) */
-        input[type="checkbox"] {
-            width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71;
-        }
+        .ukol-leva-cast { display: flex; align-items: center; gap: 15px; }
         
-        /* Text úkolu */
+        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; }
+        
         .text-ukolu { font-size: 1.2em; font-weight: bold; transition: 0.3s; }
         
-        /* Třída, která se přidá, když je úkol hotový (škrtnutí) */
-        .hotovo .text-ukolu {
-            text-decoration: line-through; color: rgba(255,255,255,0.4);
+        /* Odměna štítek */
+        .odmena-stitek {
+            background: #ffdf00; color: #333; padding: 5px 10px;
+            border-radius: 20px; font-weight: bold; font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+
+        /* Stav splněno */
+        .hotovo { opacity: 0.6; }
+        .hotovo .text-ukolu { text-decoration: line-through; color: rgba(255,255,255,0.6); }
+        .hotovo .odmena-stitek { background: #95a5a6; color: white; text-decoration: line-through; }
+
+        .smazat-btn {
+            background: transparent; border: none; color: #ff7675; cursor: pointer;
+            font-size: 1.2em; transition: 0.3s;
+        }
+        .smazat-btn:hover { color: #d63031; transform: scale(1.2); }
 
     </style>
 </head>
 <body>
 
     <div class="kontejner">
-        <h1>Tomášovi úkoly ✅</h1>
+        <h1>Tomášovi úkoly 📝</h1>
         
         <div id="loginSekce">
-            <p>Vítej ve své soukromé aplikaci. Prosím, přihlas se.</p>
-            <input type="email" id="emailInput" placeholder="Tvůj e-mail...">
-            <input type="password" id="hesloInput" placeholder="Tvé tajné heslo...">
-            <button id="loginBtn" class="tlacitko tlacitko-login">Odemknout úkoly</button>
+            <input type="email" id="emailInput" placeholder="Tvůj e-mail..." style="width: 100%;">
+            <input type="password" id="hesloInput" placeholder="Tvé tajné heslo..." style="width: 100%;">
+            <button id="loginBtn" class="tlacitko tlacitko-login">Přihlásit se do databáze</button>
         </div>
 
         <div id="tajnyObsah">
-            <p style="color: #2ecc71; font-weight: bold;">Přístup povolen. Tvé úkoly ze serveru:</p>
+            <div class="pridavani-box">
+                <input type="text" id="novyUkol" placeholder="Nový úkol (např. Vyluxovat)">
+                <input type="text" id="novaOdmena" placeholder="Odměna (např. 50 Kč)" style="width: 150px;">
+                <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
+            </div>
             
             <div id="seznamUkolu">Načítám data z trezoru...</div>
 
@@ -94,7 +118,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        // Přidali jsme 'setDoc' - funkci, která umí data ZAPISOVAT!
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyA9PqKSsLJkv8DFewTSedXuUGSLw-U719Y",
@@ -109,66 +134,114 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Funkce pro odškrtávání úkolů (musí být dostupná pro HTML)
-        window.odskrtniUkol = function(checkboxElement) {
-            const karta = checkboxElement.parentElement; // Najde nadřazenou krabičku úkolu
-            if (checkboxElement.checked) {
-                karta.classList.add("hotovo"); // Přidá škrtanec
-            } else {
-                karta.classList.remove("hotovo"); // Odebere škrtanec
+        // Proměnná, která drží naše úkoly v paměti webu
+        let poleUkolu = [];
+
+        // Funkce pro vykreslení úkolů na obrazovku
+        function vykresliUkoly() {
+            let html = "";
+            
+            if (poleUkolu.length === 0) {
+                html = "<p style='color: rgba(255,255,255,0.7);'>Zatím tu nemáš žádné úkoly. Přidej první nahoře!</p>";
             }
+
+            poleUkolu.forEach((ukol, index) => {
+                let checked = ukol.splneno ? "checked" : "";
+                let tridaHotovo = ukol.splneno ? "hotovo" : "";
+                
+                html += `
+                <div class="ukol-karta ${tridaHotovo}">
+                    <div class="ukol-leva-cast">
+                        <input type="checkbox" ${checked} onchange="zmenStav(${index}, this.checked)">
+                        <span class="text-ukolu">${ukol.nazev}</span>
+                    </div>
+                    <div>
+                        <span class="odmena-stitek">${ukol.odmena}</span>
+                        <button class="smazat-btn" onclick="smazUkol(${index})" title="Smazat úkol">✖</button>
+                    </div>
+                </div>`;
+            });
+            document.getElementById("seznamUkolu").innerHTML = html;
+        }
+
+        // Uložení aktuálního stavu pole zpět k Googlu
+        function ulozDoDatabaze() {
+            const tajneUkoly = doc(db, "ukoly", "seznam");
+            // Pošleme Googlu celý náš aktuální seznam (i s odškrtnutými věcmi)
+            setDoc(tajneUkoly, { dataUkolu: poleUkolu });
+        }
+
+        // Co se stane, když klikneš na Checkbox
+        window.zmenStav = function(index, jeSplneno) {
+            poleUkolu[index].splneno = jeSplneno; // Upravíme paměť
+            ulozDoDatabaze(); // Zapíšeme do Googlu
+            vykresliUkoly(); // Překreslíme obrazovku (aby se úkol přeškrtl)
         };
 
+        // Co se stane, když klikneš na červený křížek (Smazání)
+        window.smazUkol = function(index) {
+            poleUkolu.splice(index, 1); // Odstraníme z paměti
+            ulozDoDatabaze(); // Smažeme to i u Googlu
+            vykresliUkoly();
+        };
+
+        // Přidání nového úkolu přeslačítko "➕"
+        document.getElementById("pridatBtn").addEventListener("click", () => {
+            let nazev = document.getElementById("novyUkol").value;
+            let odmena = document.getElementById("novaOdmena").value;
+
+            if (nazev.trim() !== "") {
+                // Přidáme nový úkol do paměti (jako výchozí je nesplněný)
+                poleUkolu.push({
+                    nazev: nazev,
+                    odmena: odmena !== "" ? odmena : "Bez odměny",
+                    splneno: false
+                });
+                
+                ulozDoDatabaze(); // Pošleme Googlu
+                vykresliUkoly();  // Vykreslíme na web
+                
+                // Vymažeme políčka
+                document.getElementById("novyUkol").value = "";
+                document.getElementById("novaOdmena").value = "";
+            }
+        });
+
+        // Přihlášení
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value;
             const heslo = document.getElementById("hesloInput").value;
 
             signInWithEmailAndPassword(auth, email, heslo)
                 .then((userCredential) => {
-                    
-                    // Jdeme do trezoru pro složku "ukoly" a dokument "seznam"
+                    // Stáhneme úkoly z trezoru
                     const tajneUkoly = doc(db, "ukoly", "seznam");
                     
                     getDoc(tajneUkoly).then((dokument) => {
-                        if (dokument.exists()) {
-                            const data = dokument.data();
-                            let htmlUkolu = "";
-                            
-                            // Projdeme všechny úkoly z databáze a vytvoříme pro ně HTML krabičky
-                            for (const klic in data) {
-                                htmlUkolu += `
-                                    <div class="ukol-karta">
-                                        <input type="checkbox" onchange="odskrtniUkol(this)">
-                                        <span class="text-ukolu">${data[klic]}</span>
-                                    </div>
-                                `;
-                            }
-                            
-                            document.getElementById("seznamUkolu").innerHTML = htmlUkolu;
-                            
-                            document.getElementById("loginSekce").style.display = "none";
-                            document.getElementById("tajnyObsah").style.display = "block";
-                            document.getElementById("emailInput").value = ""; 
-                            document.getElementById("hesloInput").value = ""; 
+                        if (dokument.exists() && dokument.data().dataUkolu) {
+                            poleUkolu = dokument.data().dataUkolu; // Načteme staré úkoly
                         } else {
-                            alert("Úkoly se nenašly. Založil jsi ve Firebase složku 'ukoly' a dokument 'seznam'?");
+                            poleUkolu = []; // Pokud tam nic není, začneme s prázdným polem
                         }
+                        
+                        vykresliUkoly();
+                        document.getElementById("loginSekce").style.display = "none";
+                        document.getElementById("tajnyObsah").style.display = "block";
                     }).catch((chyba) => {
                         console.error(chyba);
-                        alert("Chyba při stahování úkolů z trezoru.");
                     });
-
                 })
-                .catch((error) => {
-                    alert("Špatný e-mail nebo heslo!");
-                });
+                .catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
+        // Odhlášení
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
                 document.getElementById("tajnyObsah").style.display = "none";
                 document.getElementById("loginSekce").style.display = "block";
-                document.getElementById("seznamUkolu").innerHTML = "Načítám data z trezoru...";
+                document.getElementById("emailInput").value = ""; 
+                document.getElementById("hesloInput").value = ""; 
+                poleUkolu = []; // Vymažeme paměť prohlížeče
             });
         });
     </script>
