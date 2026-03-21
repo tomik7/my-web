@@ -5,162 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomáš Tureček | Portfolio</title>
     <style>
-        /* --- ZÁKLADNÍ NASTAVENÍ A MODERNÍ POZADÍ --- */
-        html {
-            scroll-behavior: smooth; /* Plynulé rolování při kliknutí na menu */
-        }
+        /* --- ZÁKLADNÍ NASTAVENÍ A POZADÍ --- */
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: pozadiAnimace 15s ease infinite; /* Pohyblivé pozadí! */
-            color: white;
-            min-height: 100vh;
+            animation: pozadiAnimace 15s ease infinite;
+            color: white; min-height: 100vh;
         }
         @keyframes pozadiAnimace {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        /* --- HORNÍ NAVIGAČNÍ MENU --- */
+        
+        /* --- MENU --- */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            text-align: center;
-            z-index: 1000;
+            position: fixed; top: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
+            padding: 15px 0; text-align: center; z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: white; text-decoration: none; margin: 0 15px;
+            font-weight: bold; transition: 0.3s; text-transform: uppercase;
         }
-        nav a:hover {
-            color: #ffdf00;
-        }
+        nav a:hover { color: #ffdf00; }
 
-        /* --- SPOLEČNÝ STYL PRO VŠECHNY SEKCE (Efekt skla) --- */
+        /* --- SEKCE A KARTIČKY --- */
         section {
-            padding: 80px 20px 40px; /* Mezera nahoře kvůli fixnímu menu */
-            max-width: 800px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: nabehnuti 1s forwards;
+            padding: 80px 20px 40px; max-width: 800px; margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); text-align: center;
         }
-        @keyframes nabehnuti {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- PROFILOVKA A TLAČÍTKA --- */
         img.profilovka {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            border: 5px solid rgba(255,255,255,0.8);
-            box-shadow: 0 0 20px rgba(0,0,0,0.4);
-            transition: transform 0.5s;
+            width: 160px; height: 160px; border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.8); transition: transform 0.5s;
         }
-        img.profilovka:hover {
-            transform: rotate(360deg); /* Profilovka se po najetí myší zatočí! */
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        .podtitul {
-            font-size: 1.2em;
-            color: #f1f1f1;
-            margin-bottom: 30px;
-        }
+        img.profilovka:hover { transform: rotate(360deg); }
         .tlacitko {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            display: inline-block; margin: 10px; padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2); border: 1px solid white;
+            color: white; text-decoration: none; border-radius: 30px;
+            font-weight: bold; transition: 0.3s; cursor: pointer;
         }
         .tlacitko:hover {
-            background: white;
-            color: #333;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: white; color: #333; transform: translateY(-5px);
         }
-
-        /* --- SEKCE DOVEDNOSTÍ (Kartičky) --- */
-        .grid-dovednosti {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .karta {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .karta:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* --- TAJNÁ ZÓNA --- */
-        input[type="password"] {
-            padding: 15px;
-            border-radius: 30px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            text-align: center;
-            margin-bottom: 15px;
-            width: 60%;
-            max-width: 300px;
-        }
-        .video-box {
-            border-radius: 15px;
-            overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.3);
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        #tajnyObsah { display: none; }
+        .grid-dovednosti { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .karta { background: rgba(0, 0, 0, 0.3); padding: 15px 25px; border-radius: 10px; font-weight: bold; transition: 0.3s; }
+        .karta:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
         
-        /* Patička */
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-            opacity: 0.7;
+        /* --- TAJNÁ ZÓNA A PŘIHLÁŠENÍ --- */
+        input[type="email"], input[type="password"] {
+            padding: 15px; border-radius: 30px; border: none; outline: none;
+            font-size: 16px; text-align: center; margin-bottom: 10px;
+            width: 60%; max-width: 300px; display: block; margin-left: auto; margin-right: auto;
         }
+        .video-box { border-radius: 15px; overflow: hidden; border: 3px solid rgba(255,255,255,0.3); margin-top: 20px; }
+        #tajnyObsah { display: none; }
+        footer { text-align: center; padding: 20px; opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -174,25 +81,20 @@
     <section id="domu">
         <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
         <h1>Ahoj, já jsem Tomáš! 🚀</h1>
-        <p class="podtitul">Zrovna stavím svůj první web a dobývám internet.</p>
-        
+        <p>Zrovna stavím svůj první web a dobývám internet.</p>
         <div>
             <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
             <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko">Můj Instagram</a>
-            <a href="#tajne" class="tlacitko">Odemknout tajemství</a>
         </div>
     </section>
 
     <section id="dovednosti">
         <h2>Co už umím a co se učím 🛠️</h2>
-        <p>Tohle jsou technologie a věci, se kterými momentálně pracuji nebo mě zajímají.</p>
-        
         <div class="grid-dovednosti">
-            <div class="karta">HTML5</div>
-            <div class="karta">CSS3</div>
+            <div class="karta">HTML5 & CSS3</div>
             <div class="karta">JavaScript</div>
-            <div class="karta">GitHub</div>
-            <div class="karta">Design</div>
+            <div class="karta">GitHub Pages</div>
+            <div class="karta">Firebase Auth 🔥</div>
         </div>
     </section>
 
@@ -200,147 +102,75 @@
         <h2>Tajná hudební zóna 🎧</h2>
         
         <div id="loginSekce">
-            <p>Můj současný oblíbený song je pod zámkem. Znáš heslo?</p>
-            <input type="password" id="hesloInput" placeholder="Zadej heslo (tomik123)..."><br>
-            <button onclick="zkontrolujHeslo()" class="tlacitko" style="background: #2ecc71; border: none;">Odemknout</button>
+            <p>Tato zóna je zabezpečena profesionální databází od Googlu.</p>
+            <input type="email" id="emailInput" placeholder="Zadej e-mail...">
+            <input type="password" id="hesloInput" placeholder="Zadej heslo...">
+            <button id="loginBtn" class="tlacitko" style="background: #2ecc71; border: none;">Ověřit v databázi</button>
         </div>
 
         <div id="tajnyObsah">
-            <p>🎉 Výborně, uhodl jsi to! Tady je slíbená pecka:</p>
+            <p>🎉 Jsi tam! Přístup povolen serverem.</p>
             <div class="video-box">
                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <br>
-            <button onclick="zamknoutZnovu()" class="tlacitko" style="background: #e74c3c; border: none; font-size: 0.8em;">Znovu zamknout</button>
+            <button id="logoutBtn" class="tlacitko" style="background: #e74c3c; border: none;">Odhlásit se a zamknout</button>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Tomáš Tureček. Vytvořeno s nadšením a trochou kódu.</p>
+        <p>&copy; 2026 Tomáš Tureček. Zabezpečeno přes Firebase.</p>
     </footer>
 
-    <script>
-        function zkontrolujHeslo() {
-            var zadaneHeslo = document.getElementById("hesloInput").value;
-            
-            if (zadaneHeslo === "tomik123") {
-                document.getElementById("loginSekce").style.display = "none";
-                document.getElementById("tajnyObsah").style.display = "block";
-                // Vymaže políčko pro příště
-                document.getElementById("hesloInput").value = ""; 
-            } else {
-                alert("Kdepak, špatné heslo! Zkus to znovu.");
-            }
-        }
+    <script type="module">
+        // 1. Načteme komunikační balíčky od Googlu
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // Bonus: Tlačítko pro opětovné zamčení sekce!
-        function zamknoutZnovu() {
-            document.getElementById("tajnyObsah").style.display = "none";
-            document.getElementById("loginSekce").style.display = "block";
-        }
-    </script>
-</body>
-</html>            background-color: #ff7e67;
-            color: white;
-            text-decoration: none; 
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .tlacitko:hover {
-            transform: scale(1.05); 
-            filter: brightness(1.1);
-        }
-        .ig-tlacitko {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-        /* Oddělovací čára */
-        hr {
-            border: 0;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin: 30px 0;
-        }
-        .video-box {
-            margin-top: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        h3 {
-            margin-bottom: 15px;
-            font-weight: normal;
-        }
-        .login-box {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-        input[type="password"] {
-            padding: 12px;
-            border-radius: 5px;
-            border: none;
-            margin-right: 10px;
-            font-size: 16px;
-            outline: none;
-            margin-bottom: 10px;
-        }
-        /* Tajná sekce je na začátku schovaná (display: none) */
-        .tajna-sekce {
-            display: none;
-            padding: 20px;
-            background: rgba(46, 204, 113, 0.2);
-            border-radius: 10px;
-            border: 2px dashed #2ecc71;
-        }
-    </style>
-</head>
-<body>
+        // 2. Vaše osobní klíče (přesně ty, co jste mi poslal)
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9PqKSsLJkv8DFewTSedXuUGSLw-U719Y",
+            authDomain: "muj-web-heslo.firebaseapp.com",
+            projectId: "muj-web-heslo",
+            storageBucket: "muj-web-heslo.firebasestorage.app",
+            messagingSenderId: "527159202010",
+            appId: "1:527159202010:web:4863618e3aa8eb3cac55e3"
+        };
 
-    <div class="kontejner">
-        <img src="https://github.com/tomik7.png" alt="Tomáš Tureček" class="profilovka">
-        
-        <h1>Ahoj, já jsem Tomáš! 🚀</h1>
-        <p>Vítejte na mém webu, který je zrovna v rekonstrukci🪚, ale bude se postupně vylepšovat!🤩</p>
-        
-        <div>
-            <a href="https://github.com/tomik7" target="_blank" class="tlacitko">Můj GitHub</a>
-            <a href="https://www.instagram.com/tom_turecek/#" target="_blank" class="tlacitko ig-tlacitko">Můj Instagram</a>
-        </div>
-        
-        <hr>
+        // 3. Spuštění napojení
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-        <div class="login-box" id="loginSekce">
-            <h3>Tajná hudební zóna 🎧</h3>
-            <p>Můj současný oblíbený song je pod zámkem. Znáš heslo?</p>
-            <input type="password" id="hesloInput" placeholder="Tvé heslo...">
-            <button onclick="zkontrolujHeslo()" class="tlacitko">Odemknout</button>
-        </div>
+        // 4. Co se má stát po kliknutí na "Ověřit v databázi"
+        document.getElementById("loginBtn").addEventListener("click", () => {
+            const email = document.getElementById("emailInput").value;
+            const heslo = document.getElementById("hesloInput").value;
 
-        <div class="tajna-sekce" id="tajnyObsah">
-            <h3>🎵 Současný oblíbený song 🎵:</h3>
-            <p>🎉 Výborně, heslo jsi uhodl,, songem není nic jiného než TINTED WINDOWS od mého oblíbence PTK</p>
-            
-            <div class="video-box">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/p1J1NakmZRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+            // Zkusíme přihlásit uživatele přes Firebase
+            signInWithEmailAndPassword(auth, email, heslo)
+                .then((userCredential) => {
+                    // Povedlo se! Schováme přihlašování a ukážeme tajnou zónu
+                    document.getElementById("loginSekce").style.display = "none";
+                    document.getElementById("tajnyObsah").style.display = "block";
+                    // Vymažeme políčka
+                    document.getElementById("emailInput").value = ""; 
+                    document.getElementById("hesloInput").value = ""; 
+                })
+                .catch((error) => {
+                    // Nepovedlo se (špatný e-mail nebo heslo)
+                    alert("Chyba: Zadal jsi špatný e-mail nebo heslo! Zkus to znovu.");
+                });
+        });
 
-    <script>
-        function zkontrolujHeslo() {
-            var zadaneHeslo = document.getElementById("hesloInput").value;
-            
-            if (zadaneHeslo === "tomasturecek") {
-                // Schová přihlašování a ukáže video
-                document.getElementById("loginSekce").style.display = "none";
-                document.getElementById("tajnyObsah").style.display = "block";
-            } else {
-                alert("Špatné heslo!");
-            }
-        }
+        // 5. Co se má stát po kliknutí na "Odhlásit se"
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                // Skryjeme tajnou zónu a ukážeme zase přihlašování
+                document.getElementById("tajnyObsah").style.display = "none";
+                document.getElementById("loginSekce").style.display = "block";
+                alert("Byl jsi úspěšně odhlášen.");
+            });
+        });
     </script>
 </body>
 </html>
