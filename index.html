@@ -170,12 +170,10 @@
             `;
         }
 
-        // Pomocná funkce pro výpočet trestu
         function ziskejAktualniOdmenu(ukol) {
             let dnes = new Date().toISOString().split('T')[0];
-            // Pokud je datum nastaveno, dnešek je po termínu a úkol ještě není splněn
             if (ukol.termin && ukol.termin < dnes && !ukol.splneno) {
-                return Math.floor(ukol.odmena / 2); // Odměna se půlí!
+                return Math.floor(ukol.odmena / 2); 
             }
             return ukol.odmena;
         }
@@ -198,7 +196,6 @@
                 if (ukol.splneno && ukol.splnilKdo === "tomas") odznak = `<span class="odznak-kdo">Splnil Tomáš</span>`;
                 if (ukol.splneno && ukol.splnilKdo === "martin") odznak = `<span class="odznak-kdo">Splnil Martin</span>`;
 
-                // Logika pro termín a zpoždění
                 let datumText = ukol.termin ? `<span class="datum-text">⏰ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
                 let stitekPozde = "";
                 let aktualniOdmena = ziskejAktualniOdmenu(ukol);
@@ -233,26 +230,35 @@
         }
 
         window.zmenStav = function(index, jeSplneno) {
-            if (roleUzivatele === "rodic") {
-                alert("Vy úkoly plnit nemůžete, nechte to na kluky! 😄");
-                vykresliUkoly(); 
-                return;
-            }
-
             let ukol = poleUkolu[index];
-            let castka = ziskejAktualniOdmenu(ukol); // Vypočítá, jestli nedostane jen půlku
 
+            // 1. Zkoušíš úkol SPLNIT (zaškrtnout)
             if (jeSplneno) {
-                // Přehrajeme zvuk mincí!
+                if (roleUzivatele === "rodic") {
+                    alert("Vy úkoly plnit nemůžete, nechte to na kluky! 😄");
+                    vykresliUkoly(); // Vrátí zaškrtávátko zpět do odškrtnutého stavu
+                    return;
+                }
+
+                let castka = ziskejAktualniOdmenu(ukol); 
                 document.getElementById('zvukCinknuti').play().catch(e => console.log("Zvuk blokován prohlížečem"));
                 
                 ukol.splneno = true;
                 ukol.splnilKdo = roleUzivatele; 
-                ukol.odmena = castka; // Uložíme finální částku, za kterou to reálně udělal
+                ukol.odmena = castka; 
                 
                 if (roleUzivatele === "tomas") kontoTomas += castka;
                 if (roleUzivatele === "martin") kontoMartin += castka;
+
+            // 2. Zkoušíš úkol ZRUŠIT (odškrtnout)
             } else {
+                // Kontrola: Nemůžeš rušit bráchův úkol (rodič ale rušit může všechno)
+                if (roleUzivatele !== "rodic" && roleUzivatele !== ukol.splnilKdo) {
+                    alert("Tento úkol už splnil brácha! Nemůžeš mu ho zrušit. 🛑");
+                    vykresliUkoly(); // Vrátí zaškrtávátko zpět do zaškrtnutého stavu
+                    return;
+                }
+
                 ukol.splneno = false;
                 if (ukol.splnilKdo === "tomas") kontoTomas -= ukol.odmena;
                 if (ukol.splnilKdo === "martin") kontoMartin -= ukol.odmena;
@@ -278,7 +284,7 @@
                 poleUkolu.push({
                     nazev: nazev,
                     odmena: odmena,
-                    termin: termin, // Uložíme datum
+                    termin: termin, 
                     splneno: false,
                     splnilKdo: null
                 });
@@ -294,9 +300,7 @@
         });
 
         window.vyplatit = function(jmeno) {
-            // Exploze konfet!
             confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-            // Odložení vyskakovacího okna, abyste si užili konfety
             setTimeout(() => {
                 alert(`🎉 Skvělá práce, ${jmeno}! Běž ukázat mobil rodičům, ať ti dají peníze a vynulují konto.`);
             }, 500);
