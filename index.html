@@ -40,12 +40,12 @@
         }
         .tlacitko-login { background: #2ecc71; }
         .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
-        .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
+        .tlacitko-logout { background: #e74c3c; margin-top: 10px; }
+        .tlacitko-refresh { background: #3498db; margin-top: 20px; }
         .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
         .tlacitko-pridat:hover { background: #e67e22; }
 
         #tajnyObsah { display: none; }
-        
         #bankaSekce { margin-bottom: 20px; }
         
         .pridavani-box {
@@ -74,7 +74,6 @@
         }
 
         .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; font-size: 0.8em; }
-
         .hotovo { opacity: 0.5; }
         .hotovo .text-ukolu { text-decoration: line-through; color: rgba(255,255,255,0.6); }
         
@@ -86,7 +85,6 @@
         
         .odznak-kdo { font-size: 0.7em; background: #3498db; padding: 3px 8px; border-radius: 10px; margin-left: 10px; color: white; text-decoration: none !important;}
         .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
-
     </style>
 </head>
 <body>
@@ -114,6 +112,7 @@
             
             <div id="seznamUkolu">Načítám data z trezoru...</div>
 
+            <button id="refreshBtn" class="tlacitko tlacitko-refresh">🔄 Obnovit data (Zkontrolovat novinky)</button>
             <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se</button>
         </div>
     </div>
@@ -122,7 +121,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        // Přidali jsme 'onAuthStateChanged', což je ta paměť!
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -147,7 +147,6 @@
 
         function vykresliBanku() {
             let limit = 1000;
-            
             let btnTomas = (kontoTomas >= limit && roleUzivatele === "tomas") ? `<button onclick="vyplatit('Tomáš')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em; box-shadow: 0 0 10px #f1c40f;">🎉 Vyžádat výplatu</button>` : "";
             let btnMartin = (kontoMartin >= limit && roleUzivatele === "martin") ? `<button onclick="vyplatit('Martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em; box-shadow: 0 0 10px #f1c40f;">🎉 Vyžádat výplatu</button>` : "";
             
@@ -170,7 +169,6 @@
             `;
         }
 
-        // POJISTKA 1: Matematika u odměn
         function ziskejAktualniOdmenu(ukol) {
             let dnes = new Date().toISOString().split('T')[0];
             let odmenaCislo = parseInt(ukol.odmena) || 0; 
@@ -191,10 +189,9 @@
             poleUkolu.forEach((ukol, index) => {
                 let checked = ukol.splneno ? "checked" : "";
                 let tridaHotovo = ukol.splneno ? "hotovo" : "";
-                
                 let tlacitkoSmazat = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
-                
                 let odznak = "";
+                
                 if (ukol.splneno && ukol.splnilKdo === "tomas") odznak = `<span class="odznak-kdo">Splnil Tomáš</span>`;
                 if (ukol.splneno && ukol.splnilKdo === "martin") odznak = `<span class="odznak-kdo">Splnil Martin</span>`;
 
@@ -227,10 +224,8 @@
         }
 
         function ulozDoDatabaze() {
-            // POJISTKA 2: Konta nepůjdou do mínusu
             if (kontoTomas < 0) kontoTomas = 0;
             if (kontoMartin < 0) kontoMartin = 0;
-            
             const tajneUkoly = doc(db, "ukoly", "seznam");
             setDoc(tajneUkoly, { dataUkolu: poleUkolu, bankaTomas: kontoTomas, bankaMartin: kontoMartin });
         }
@@ -269,7 +264,6 @@
                 if (ukol.splnilKdo === "martin") kontoMartin = (parseInt(kontoMartin) || 0) - castkaKOdecteni;
                 ukol.splnilKdo = null;
             }
-            
             ulozDoDatabaze();
             vykresliUkoly();
         };
@@ -295,7 +289,6 @@
                 });
                 ulozDoDatabaze();
                 vykresliUkoly();
-                
                 document.getElementById("novyUkol").value = "";
                 document.getElementById("novaOdmena").value = "";
                 document.getElementById("novyDatum").value = "";
@@ -306,9 +299,7 @@
 
         window.vyplatit = function(jmeno) {
             if(typeof confetti === "function") confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-            setTimeout(() => {
-                alert(`🎉 Skvělá práce, ${jmeno}! Běž ukázat mobil rodičům, ať ti dají peníze a vynulují konto.`);
-            }, 500);
+            setTimeout(() => { alert(`🎉 Skvělá práce, ${jmeno}! Běž ukázat mobil rodičům, ať ti dají peníze a vynulují konto.`); }, 500);
         }
         
         window.vynulovatKonto = function(koho) {
@@ -320,55 +311,78 @@
             }
         }
 
+        // Tuto funkci jsme oddělili, aby se dala volat ze 2 míst
+        function nastartujAplikaciPro(email) {
+            if (eMailyRodicu.includes(email)) {
+                roleUzivatele = "rodic";
+                document.getElementById("uvitaciText").innerText = "Administrace rodičů 👑";
+                document.getElementById("ridiciPanel").style.display = "flex";
+            } else if (email === "tomas@turecek.cz") {
+                roleUzivatele = "tomas";
+                document.getElementById("uvitaciText").innerText = "Pracovní režim 💪 (Tomáš)";
+                document.getElementById("ridiciPanel").style.display = "none";
+            } else if (email === "martin@turecek.cz") {
+                roleUzivatele = "martin";
+                document.getElementById("uvitaciText").innerText = "Pracovní režim 💪 (Martin)";
+                document.getElementById("ridiciPanel").style.display = "none";
+            }
+
+            document.getElementById("seznamUkolu").innerHTML = "Načítám data z trezoru...";
+
+            const tajneUkoly = doc(db, "ukoly", "seznam");
+            getDoc(tajneUkoly).then((dokument) => {
+                if (dokument.exists()) {
+                    let data = dokument.data();
+                    poleUkolu = data.dataUkolu || [];
+                    kontoTomas = parseInt(data.bankaTomas) || 0;
+                    kontoMartin = parseInt(data.bankaMartin) || 0;
+                } else {
+                    poleUkolu = []; kontoTomas = 0; kontoMartin = 0;
+                }
+                
+                vykresliUkoly();
+                document.getElementById("loginSekce").style.display = "none";
+                document.getElementById("tajnyObsah").style.display = "block";
+            }).catch((chyba) => { console.error(chyba); });
+        }
+
+        // 1. SLEDOVAČ PŘIHLÁŠENÍ (Pamatuje si tě po stisku F5)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Bingo! Známe tě z minula, rovnou startujeme
+                nastartujAplikaciPro(user.email);
+            } else {
+                // Nikdo není přihlášený, ukážeme formulář
+                document.getElementById("tajnyObsah").style.display = "none";
+                document.getElementById("loginSekce").style.display = "block";
+            }
+        });
+
+        // 2. TLAČÍTKO "Přihlásit se"
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
 
             signInWithEmailAndPassword(auth, email, heslo)
-                .then((userCredential) => {
-                    if (eMailyRodicu.includes(email)) {
-                        roleUzivatele = "rodic";
-                        document.getElementById("uvitaciText").innerText = "Administrace rodičů 👑";
-                        document.getElementById("ridiciPanel").style.display = "flex";
-                    } else if (email === "tomas@turecek.cz") {
-                        roleUzivatele = "tomas";
-                        document.getElementById("uvitaciText").innerText = "Pracovní režim 💪 (Tomáš)";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                    } else if (email === "martin@turecek.cz") {
-                        roleUzivatele = "martin";
-                        document.getElementById("uvitaciText").innerText = "Pracovní režim 💪 (Martin)";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                    } else {
-                        roleUzivatele = "neznamy";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                    }
-
-                    const tajneUkoly = doc(db, "ukoly", "seznam");
-                    getDoc(tajneUkoly).then((dokument) => {
-                        if (dokument.exists()) {
-                            let data = dokument.data();
-                            poleUkolu = data.dataUkolu || [];
-                            // POJISTKA 3: Vždy čisté číslo
-                            kontoTomas = parseInt(data.bankaTomas) || 0;
-                            kontoMartin = parseInt(data.bankaMartin) || 0;
-                        } else {
-                            poleUkolu = []; kontoTomas = 0; kontoMartin = 0;
-                        }
-                        
-                        vykresliUkoly();
-                        document.getElementById("loginSekce").style.display = "none";
-                        document.getElementById("tajnyObsah").style.display = "block";
-                    }).catch((chyba) => { console.error(chyba); });
+                .then(() => {
+                    // Jakmile se to povede, onAuthStateChanged nahoře si toho sám všimne a aplikaci spustí!
+                    document.getElementById("emailInput").value = ""; 
+                    document.getElementById("hesloInput").value = ""; 
                 })
                 .catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
+        // 3. NOVÉ TLAČÍTKO "Obnovit data"
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            // Jen znovu stáhne čerstvá data od Googlu bez odhlášení
+            if(auth.currentUser) {
+                nastartujAplikaciPro(auth.currentUser.email);
+            }
+        });
+
+        // 4. TLAČÍTKO "Odhlásit se"
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
-                document.getElementById("tajnyObsah").style.display = "none";
-                document.getElementById("loginSekce").style.display = "block";
-                document.getElementById("emailInput").value = ""; 
-                document.getElementById("hesloInput").value = ""; 
                 document.getElementById("uvitaciText").innerText = "Turečkovi";
                 poleUkolu = []; kontoTomas = 0; kontoMartin = 0; roleUzivatele = "";
             });
