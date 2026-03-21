@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rodinné úkoly | Turečkovi</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,16 +21,16 @@
             background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
             padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            text-align: center; width: 90%; max-width: 600px; margin: 20px 0;
+            text-align: center; width: 90%; max-width: 650px; margin: 20px 0;
         }
 
         h1 { margin-top: 0; font-size: 2.2em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         .podtitul { color: #f1c40f; font-weight: bold; margin-bottom: 25px; font-size: 1.1em; }
         
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"] {
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
             padding: 12px; border-radius: 10px; border: none; outline: none;
             font-size: 16px; margin-bottom: 15px; box-sizing: border-box; 
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.9); font-family: inherit;
         }
 
         .tlacitko {
@@ -45,27 +46,25 @@
 
         #tajnyObsah { display: none; }
         
-        /* Banka */
         #bankaSekce { margin-bottom: 20px; }
         
-        /* Box pro rodiče */
         .pridavani-box {
             display: none; gap: 10px; margin-bottom: 25px;
             background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;
-            border: 1px dashed #f1c40f; align-items: center;
+            border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center;
         }
-        .pridavani-box input { margin-bottom: 0; width: 100%; }
+        .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
         
         .ukol-karta {
             background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2);
             padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
             display: flex; align-items: center; justify-content: space-between; text-align: left;
-            transition: 0.3s;
+            transition: 0.3s; flex-wrap: wrap; gap: 10px;
         }
         .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
         
-        .ukol-leva-cast { display: flex; align-items: center; gap: 15px; }
-        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; }
+        .ukol-leva-cast { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
+        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
         .text-ukolu { font-size: 1.2em; font-weight: bold; transition: 0.3s; }
         
         .odmena-stitek {
@@ -73,6 +72,8 @@
             border-radius: 20px; font-weight: bold; font-size: 0.9em;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap;
         }
+
+        .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; font-size: 0.8em; }
 
         .hotovo { opacity: 0.5; }
         .hotovo .text-ukolu { text-decoration: line-through; color: rgba(255,255,255,0.6); }
@@ -84,6 +85,7 @@
         .smazat-btn:hover { color: #d63031; transform: scale(1.2); }
         
         .odznak-kdo { font-size: 0.7em; background: #3498db; padding: 3px 8px; border-radius: 10px; margin-left: 10px; color: white; text-decoration: none !important;}
+        .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
 
     </style>
 </head>
@@ -104,7 +106,8 @@
 
             <div class="pridavani-box" id="ridiciPanel">
                 <input type="text" id="novyUkol" placeholder="Název úkolu...">
-                <input type="number" id="novaOdmena" placeholder="Částka" style="width: 100px;">
+                <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
+                <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
                 <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
                 <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
             </div>
@@ -114,6 +117,8 @@
             <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se</button>
         </div>
     </div>
+
+    <audio id="zvukCinknuti" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -133,24 +138,19 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // DATA APLIKACE
         let poleUkolu = [];
         let kontoTomas = 0;
         let kontoMartin = 0;
         
-        // ROLE
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
-        let roleUzivatele = ""; // Může být: "rodic", "tomas", "martin"
+        let roleUzivatele = ""; 
 
-        // VYKRESLENÍ BANKY
         function vykresliBanku() {
             let limit = 1000;
             
-            // Tlačítka pro výplatu (ukážou se jen těm správným)
-            let btnTomas = (kontoTomas >= limit && roleUzivatele === "tomas") ? `<button onclick="vyplatit('Tomáš')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Vyžádat výplatu</button>` : "";
-            let btnMartin = (kontoMartin >= limit && roleUzivatele === "martin") ? `<button onclick="vyplatit('Martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Vyžádat výplatu</button>` : "";
+            let btnTomas = (kontoTomas >= limit && roleUzivatele === "tomas") ? `<button onclick="vyplatit('Tomáš')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em; box-shadow: 0 0 10px #f1c40f;">🎉 Vyžádat výplatu</button>` : "";
+            let btnMartin = (kontoMartin >= limit && roleUzivatele === "martin") ? `<button onclick="vyplatit('Martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em; box-shadow: 0 0 10px #f1c40f;">🎉 Vyžádat výplatu</button>` : "";
             
-            // Tlačítko pro rodiče na vynulování
             let btnResetTomas = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('tomas')" style="background:#e74c3c; color:white; border:none; border-radius:5px; margin-top:5px; cursor:pointer;">Vynulovat</button>` : "";
             let btnResetMartin = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('martin')" style="background:#e74c3c; color:white; border:none; border-radius:5px; margin-top:5px; cursor:pointer;">Vynulovat</button>` : "";
 
@@ -170,12 +170,23 @@
             `;
         }
 
-        // VYKRESLENÍ ÚKOLŮ
+        // Pomocná funkce pro výpočet trestu
+        function ziskejAktualniOdmenu(ukol) {
+            let dnes = new Date().toISOString().split('T')[0];
+            // Pokud je datum nastaveno, dnešek je po termínu a úkol ještě není splněn
+            if (ukol.termin && ukol.termin < dnes && !ukol.splneno) {
+                return Math.floor(ukol.odmena / 2); // Odměna se půlí!
+            }
+            return ukol.odmena;
+        }
+
         function vykresliUkoly() {
             let html = "";
             if (poleUkolu.length === 0) {
                 html = "<p style='color: rgba(255,255,255,0.7);'>Žádné úkoly k dispozici. Paráda! 🏖️</p>";
             }
+
+            let dnes = new Date().toISOString().split('T')[0];
 
             poleUkolu.forEach((ukol, index) => {
                 let checked = ukol.splneno ? "checked" : "";
@@ -183,57 +194,68 @@
                 
                 let tlacitkoSmazat = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
                 
-                // Ukáže, kdo úkol splnil
                 let odznak = "";
                 if (ukol.splneno && ukol.splnilKdo === "tomas") odznak = `<span class="odznak-kdo">Splnil Tomáš</span>`;
                 if (ukol.splneno && ukol.splnilKdo === "martin") odznak = `<span class="odznak-kdo">Splnil Martin</span>`;
+
+                // Logika pro termín a zpoždění
+                let datumText = ukol.termin ? `<span class="datum-text">⏰ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
+                let stitekPozde = "";
+                let aktualniOdmena = ziskejAktualniOdmenu(ukol);
+                
+                if (ukol.termin && ukol.termin < dnes && !ukol.splneno) {
+                    stitekPozde = `<span class="odmena-stitek stitek-pozde">PO TERMÍNU (-50 %)</span>`;
+                }
 
                 html += `
                 <div class="ukol-karta ${tridaHotovo}">
                     <div class="ukol-leva-cast">
                         <input type="checkbox" ${checked} onchange="zmenStav(${index}, this.checked)">
-                        <span class="text-ukolu">${ukol.nazev} ${odznak}</span>
+                        <div>
+                            <span class="text-ukolu">${ukol.nazev} ${odznak}</span>
+                            ${datumText}
+                        </div>
                     </div>
-                    <div>
-                        <span class="odmena-stitek">${ukol.odmena} Kč</span>
+                    <div style="display:flex; align-items:center;">
+                        ${stitekPozde}
+                        <span class="odmena-stitek">${aktualniOdmena} Kč</span>
                         ${tlacitkoSmazat}
                     </div>
                 </div>`;
             });
             document.getElementById("seznamUkolu").innerHTML = html;
-            vykresliBanku(); // Překreslí se i banka
+            vykresliBanku();
         }
 
         function ulozDoDatabaze() {
             const tajneUkoly = doc(db, "ukoly", "seznam");
-            // Ukládáme úkoly i stavy obou kont!
             setDoc(tajneUkoly, { dataUkolu: poleUkolu, bankaTomas: kontoTomas, bankaMartin: kontoMartin });
         }
 
-        // AKCE: ZMĚNA STAVU ÚKOLU (ODŠKRTNUTÍ)
         window.zmenStav = function(index, jeSplneno) {
             if (roleUzivatele === "rodic") {
                 alert("Vy úkoly plnit nemůžete, nechte to na kluky! 😄");
-                vykresliUkoly(); // Zruší zaškrtnutí na obrazovce
+                vykresliUkoly(); 
                 return;
             }
 
             let ukol = poleUkolu[index];
-            let castka = parseInt(ukol.odmena) || 0; // Převede text na číslo
+            let castka = ziskejAktualniOdmenu(ukol); // Vypočítá, jestli nedostane jen půlku
 
             if (jeSplneno) {
+                // Přehrajeme zvuk mincí!
+                document.getElementById('zvukCinknuti').play().catch(e => console.log("Zvuk blokován prohlížečem"));
+                
                 ukol.splneno = true;
-                ukol.splnilKdo = roleUzivatele; // Zapamatuje si, kdo to byl
+                ukol.splnilKdo = roleUzivatele; 
+                ukol.odmena = castka; // Uložíme finální částku, za kterou to reálně udělal
                 
                 if (roleUzivatele === "tomas") kontoTomas += castka;
                 if (roleUzivatele === "martin") kontoMartin += castka;
             } else {
                 ukol.splneno = false;
-                
-                // Pokud to odškrtnu, odeberu peníze tomu, kdo to předtím splnil
-                if (ukol.splnilKdo === "tomas") kontoTomas -= castka;
-                if (ukol.splnilKdo === "martin") kontoMartin -= castka;
-                
+                if (ukol.splnilKdo === "tomas") kontoTomas -= ukol.odmena;
+                if (ukol.splnilKdo === "martin") kontoMartin -= ukol.odmena;
                 ukol.splnilKdo = null;
             }
             
@@ -247,30 +269,37 @@
             vykresliUkoly();
         };
 
-        // AKCE: PŘIDÁNÍ ÚKOLU RODIČEM
         document.getElementById("pridatBtn").addEventListener("click", () => {
             let nazev = document.getElementById("novyUkol").value;
             let odmena = parseInt(document.getElementById("novaOdmena").value) || 0;
+            let termin = document.getElementById("novyDatum").value;
 
             if (nazev.trim() !== "" && odmena > 0) {
                 poleUkolu.push({
                     nazev: nazev,
                     odmena: odmena,
+                    termin: termin, // Uložíme datum
                     splneno: false,
                     splnilKdo: null
                 });
                 ulozDoDatabaze();
                 vykresliUkoly();
+                
                 document.getElementById("novyUkol").value = "";
                 document.getElementById("novaOdmena").value = "";
+                document.getElementById("novyDatum").value = "";
             } else {
-                alert("Musíš zadat název a částku musí být větší než 0!");
+                alert("Musíš zadat název a částku!");
             }
         });
 
-        // AKCE: VÝPLATA A VYNULOVÁNÍ
         window.vyplatit = function(jmeno) {
-            alert(`🎉 Skvělá práce, ${jmeno}! Běž říct rodičům, ať ti dají peníze a vynulují konto.`);
+            // Exploze konfet!
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            // Odložení vyskakovacího okna, abyste si užili konfety
+            setTimeout(() => {
+                alert(`🎉 Skvělá práce, ${jmeno}! Běž ukázat mobil rodičům, ať ti dají peníze a vynulují konto.`);
+            }, 500);
         }
         
         window.vynulovatKonto = function(koho) {
@@ -282,15 +311,12 @@
             }
         }
 
-        // PŘIHLÁŠENÍ A NAČTENÍ DAT
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
 
             signInWithEmailAndPassword(auth, email, heslo)
                 .then((userCredential) => {
-                    
-                    // Nastavení Role
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
                         document.getElementById("uvitaciText").innerText = "Administrace rodičů 👑";
@@ -308,7 +334,6 @@
                         document.getElementById("ridiciPanel").style.display = "none";
                     }
 
-                    // Načtení dat (Úkolů i Peněz)
                     const tajneUkoly = doc(db, "ukoly", "seznam");
                     getDoc(tajneUkoly).then((dokument) => {
                         if (dokument.exists()) {
@@ -328,7 +353,6 @@
                 .catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
-        // ODHLÁŠENÍ
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
                 document.getElementById("tajnyObsah").style.display = "none";
