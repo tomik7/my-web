@@ -9,6 +9,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; padding: 0;
+            /* SEM SI PAK DEJ TY SVOJE TMAVÉ BARVY: */
             background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
             background-size: 400% 400%;
             animation: pozadiAnimace 15s ease infinite;
@@ -62,7 +63,7 @@
         .bocni-sloupec { 
             flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); 
             padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
-            max-height: 600px; overflow-y: auto;
+            max-height: 600px; overflow-y: auto; position: relative;
         }
         
         .pridavani-box {
@@ -133,6 +134,8 @@
                 <div class="bocni-sloupec">
                     <h3 class="historie-nadpis">📋 Informační tabule</h3>
                     <div id="historieZaznamy">Zatím žádné novinky...</div>
+                    
+                    <button id="smazatHistoriiBtn" class="tlacitko" style="background: transparent; color: #e74c3c; border: 1px solid #e74c3c; padding: 5px; font-size: 0.8em; margin-top: 15px; display: none;">🗑️ Vyčistit tabuli</button>
                 </div>
             </div>
 
@@ -174,12 +177,10 @@
         };
         let roleUzivatele = ""; let jmenoAktualni = "";
 
-        // OPRAVA 1: Zabraňuje spamu - kontroluje, jestli zpráva není stejná jako poslední
         function zapisDoHistorie(zprava, barva = "#3498db") {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) {
-                return; // Zpráva je stejná, zahodíme ji
+                return;
             }
-
             let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
             poleHistorie.unshift({ text: zprava, cas: cas, barva: barva });
             if (poleHistorie.length > 15) poleHistorie.pop();
@@ -330,6 +331,10 @@
         window.zrusitZadost = function(index) {
             let ukol = poleUkolu[index];
             ukol.cekaNaPotvrzeni = false; ukol.splnilKdo = null;
+
+            // OPRAVA: Automaticky vymaže tu zprávu, že jsi zažádal o schválení, když to zrušíš!
+            poleHistorie = poleHistorie.filter(zaznam => !(zaznam.text.includes(ukol.nazev) && zaznam.text.includes("čeká na kontrolu")));
+
             ulozDoDatabaze(); vykresliUkoly();
         };
 
@@ -400,6 +405,15 @@
             }
         });
 
+        // AKCE PRO NOVÉ TLAČÍTKO SMAZÁNÍ HISTORIE
+        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => {
+            if (confirm("Opravdu chceš úplně vymazat informační tabuli? Tento krok nejde vrátit zpět.")) {
+                poleHistorie = [];
+                ulozDoDatabaze();
+                vykresliHistorii();
+            }
+        });
+
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
@@ -411,25 +425,26 @@
                         roleUzivatele = "rodic";
                         document.getElementById("ridiciPanel").style.display = "flex";
                         document.getElementById("odznacitVseBtn").style.display = "block";
+                        document.getElementById("smazatHistoriiBtn").style.display = "block"; // Zobrazit tlačítko mazání
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
                         document.getElementById("ridiciPanel").style.display = "none";
                         document.getElementById("odznacitVseBtn").style.display = "none";
+                        document.getElementById("smazatHistoriiBtn").style.display = "none";
                     } else if (email === "martin@turecek.cz") {
                         roleUzivatele = "martin";
                         document.getElementById("ridiciPanel").style.display = "none";
                         document.getElementById("odznacitVseBtn").style.display = "none";
+                        document.getElementById("smazatHistoriiBtn").style.display = "none";
                     } else {
                         roleUzivatele = "neznamy";
                         document.getElementById("ridiciPanel").style.display = "none";
                         document.getElementById("odznacitVseBtn").style.display = "none";
+                        document.getElementById("smazatHistoriiBtn").style.display = "none";
                     }
 
                     document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
-                    
-                    // OPRAVA 2: Skrytí uvítacího textu
                     document.getElementById("uvitaciText").style.display = "none";
-                    
                     document.getElementById("uzivatelPanel").style.display = "flex";
                     document.getElementById("loginSekce").style.display = "none";
                     document.getElementById("tajnyObsah").style.display = "block";
@@ -444,10 +459,7 @@
                 document.getElementById("tajnyObsah").style.display = "none";
                 document.getElementById("loginSekce").style.display = "block";
                 document.getElementById("uzivatelPanel").style.display = "none"; 
-                
-                // Zobrazení zpět po odhlášení
                 document.getElementById("uvitaciText").style.display = "block";
-                
                 document.getElementById("emailInput").value = ""; 
                 document.getElementById("hesloInput").value = ""; 
                 poleUkolu = []; poleHistorie = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; roleUzivatele = "";
