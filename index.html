@@ -1,4 +1,148 @@
-<script type="module">
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letní brigáda</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
+            background-size: 400% 400%;
+            animation: pozadiAnimace 15s ease infinite;
+            color: white; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        @keyframes pozadiAnimace { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .kontejner {
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
+            padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            text-align: center; width: 95%; max-width: 1000px; margin: 20px 0;
+        }
+
+        .top-panel {
+            display: none; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.3); padding: 10px 20px;
+            border-radius: 15px; margin-bottom: 20px; font-size: 1.1em;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .maly-refresh {
+            background: #3498db; border: none; color: white;
+            border-radius: 50%; width: 40px; height: 40px;
+            cursor: pointer; transition: 0.3s; display: flex;
+            align-items: center; justify-content: center; font-size: 1.2em;
+        }
+        .maly-refresh:hover { background: #2980b9; transform: rotate(180deg); }
+
+        h1 { margin-top: 10px; font-size: 2.2em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .podtitul { color: #f1c40f; font-weight: bold; margin-bottom: 25px; font-size: 1.1em; }
+        
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
+            padding: 12px; border-radius: 10px; border: none; outline: none;
+            font-size: 16px; margin-bottom: 15px; box-sizing: border-box; 
+            background: rgba(255,255,255,0.9); font-family: inherit;
+        }
+
+        .tlacitko { padding: 15px 20px; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; color: white; cursor: pointer; transition: 0.3s; width: 100%; }
+        .tlacitko-login { background: #2ecc71; }
+        .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
+        .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
+        .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
+        .tlacitko-pridat:hover { background: #e67e22; }
+
+        #tajnyObsah { display: none; }
+        #bankaSekce { margin-bottom: 20px; }
+
+        .aplikace-grid { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
+        .hlavni-sloupec { flex: 2; min-width: 300px; }
+        .bocni-sloupec { 
+            flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); 
+            padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
+            max-height: 600px; overflow-y: auto;
+        }
+        
+        .pridavani-box {
+            display: none; gap: 10px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center;
+        }
+        .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
+        
+        .ukol-karta {
+            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; transition: 0.3s;
+        }
+        .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
+        
+        .ukol-leva-cast { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
+        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
+        .text-ukolu { font-size: 1.1em; font-weight: bold; }
+        
+        .odmena-stitek { background: #ffdf00; color: #333; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em; white-space: nowrap; }
+        .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; }
+        
+        .smazat-btn { background: transparent; border: none; color: #ff7675; cursor: pointer; font-size: 1.2em; margin-left: 10px; }
+        
+        .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
+        .mince-text { font-size: 1.6em; margin: 10px 0; letter-spacing: 3px; }
+
+        .historie-nadpis { font-size: 1.2em; font-weight: bold; color: #f1c40f; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; text-align: center; }
+        .historie-polozka { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9em; border-left: 3px solid #3498db; }
+        .historie-cas { font-size: 0.8em; color: #bdc3c7; display: block; margin-bottom: 3px; }
+        .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .tlacitko-zamitnout { background: #e74c3c; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="kontejner">
+        <div class="top-panel" id="uzivatelPanel">
+            <span style="font-weight: bold; color: #f1c40f;">👤 <span id="jmenoPrihlaseneho"></span></span>
+            <button id="malyRefreshBtn" class="maly-refresh" title="Zkontrolovat nové úkoly">🔄</button>
+        </div>
+
+        <h1 style="text-align: center;">Letní brigáda 💰</h1>
+        <p class="podtitul" id="uvitaciText" style="text-align: center;">Přihlas se pro přístup k úkolům</p>
+        
+        <div id="loginSekce" style="max-width: 400px; margin: 0 auto;">
+            <input type="email" id="emailInput" placeholder="Tvůj e-mail..." style="width: 100%;">
+            <input type="password" id="hesloInput" placeholder="Tvé heslo..." style="width: 100%;">
+            <button id="loginBtn" class="tlacitko tlacitko-login">Vstoupit</button>
+        </div>
+
+        <div id="tajnyObsah">
+            <div id="bankaSekce"></div>
+
+            <div class="aplikace-grid">
+                <div class="hlavni-sloupec">
+                    <div class="pridavani-box" id="ridiciPanel">
+                        <input type="text" id="novyUkol" placeholder="Název úkolu...">
+                        <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
+                        <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
+                        <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
+                        <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
+                    </div>
+                    
+                    <div id="seznamUkolu">Načítám data...</div>
+                    <button id="odznacitVseBtn" class="tlacitko" style="background: #9b59b6; margin-top: 15px; display: none;">🧹 Odznačit všechny úkoly (Příprava na další den)</button>
+                </div>
+
+                <div class="bocni-sloupec">
+                    <h3 class="historie-nadpis">📋 Informační tabule</h3>
+                    <div id="historieZaznamy">Zatím žádné novinky...</div>
+                </div>
+            </div>
+
+            <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se a zamknout</button>
+        </div>
+    </div>
+
+    <audio id="zvukCinknuti" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, inMemoryPersistence } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -30,11 +174,10 @@
         };
         let roleUzivatele = ""; let jmenoAktualni = "";
 
-        // OPRAVA 1: FILTR NA SPAM V HISTORII
+        // OPRAVA 1: Zabraňuje spamu - kontroluje, jestli zpráva není stejná jako poslední
         function zapisDoHistorie(zprava, barva = "#3498db") {
-            // Pokud je nová zpráva ÚPLNĚ STEJNÁ jako ta poslední, zahoď ji a nezapisuj!
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) {
-                return;
+                return; // Zpráva je stejná, zahodíme ji
             }
 
             let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
@@ -284,7 +427,7 @@
 
                     document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
                     
-                    // OPRAVA 2: SCHOVÁNÍ UVÍTACÍHO TEXTU PO PŘIHLÁŠENÍ
+                    // OPRAVA 2: Skrytí uvítacího textu
                     document.getElementById("uvitaciText").style.display = "none";
                     
                     document.getElementById("uzivatelPanel").style.display = "flex";
@@ -302,7 +445,7 @@
                 document.getElementById("loginSekce").style.display = "block";
                 document.getElementById("uzivatelPanel").style.display = "none"; 
                 
-                // OPRAVA 2 (Zpátky): VRÁCENÍ TEXTU PŘI ODHLÁŠENÍ
+                // Zobrazení zpět po odhlášení
                 document.getElementById("uvitaciText").style.display = "block";
                 
                 document.getElementById("emailInput").value = ""; 
@@ -311,3 +454,5 @@
             });
         });
     </script>
+</body>
+</html>
