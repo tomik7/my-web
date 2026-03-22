@@ -6,10 +6,10 @@
     <title>Letní brigáda</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        /* TADY SI PAK VLOŽ SVOJE KRÁSNÉ TMAVÉ CSS! */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; padding: 0;
-            /* SEM SI PAK DEJ TY SVOJE TMAVÉ BARVY: */
             background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
             background-size: 400% 400%;
             animation: pozadiAnimace 15s ease infinite;
@@ -90,7 +90,7 @@
         .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
         .mince-text { font-size: 1.6em; margin: 10px 0; letter-spacing: 3px; }
 
-        .historie-nadpis { font-size: 1.2em; font-weight: bold; color: #f1c40f; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; text-align: center; }
+        .historie-nadpis { font-size: 1.2em; font-weight: bold; color: #f1c40f; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         .historie-polozka { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9em; border-left: 3px solid #3498db; }
         .historie-cas { font-size: 0.8em; color: #bdc3c7; display: block; margin-bottom: 3px; }
         .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
@@ -128,14 +128,18 @@
                     </div>
                     
                     <div id="seznamUkolu">Načítám data...</div>
-                    <button id="odznacitVseBtn" class="tlacitko" style="background: #9b59b6; margin-top: 15px; display: none;">🧹 Odznačit všechny úkoly (Příprava na další den)</button>
+                    
+                    <div style="text-align: right;">
+                        <button id="odznacitVseBtn" style="background: transparent; color: #bdc3c7; border: 1px solid #bdc3c7; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: none; margin-top: 10px; font-size: 0.85em; transition: 0.3s;">🧹 Odznačit vše</button>
+                    </div>
                 </div>
 
                 <div class="bocni-sloupec">
-                    <h3 class="historie-nadpis">📋 Informační tabule</h3>
+                    <h3 class="historie-nadpis">
+                        <span>📋 Informační tabule</span>
+                        <button id="smazatHistoriiBtn" style="background: none; border: none; cursor: pointer; font-size: 1em; display: none; padding: 0;" title="Vyčistit tabuli">🗑️</button>
+                    </h3>
                     <div id="historieZaznamy">Zatím žádné novinky...</div>
-                    
-                    <button id="smazatHistoriiBtn" class="tlacitko" style="background: transparent; color: #e74c3c; border: 1px solid #e74c3c; padding: 5px; font-size: 0.8em; margin-top: 15px; display: none;">🗑️ Vyčistit tabuli</button>
                 </div>
             </div>
 
@@ -332,7 +336,6 @@
             let ukol = poleUkolu[index];
             ukol.cekaNaPotvrzeni = false; ukol.splnilKdo = null;
 
-            // OPRAVA: Automaticky vymaže tu zprávu, že jsi zažádal o schválení, když to zrušíš!
             poleHistorie = poleHistorie.filter(zaznam => !(zaznam.text.includes(ukol.nazev) && zaznam.text.includes("čeká na kontrolu")));
 
             ulozDoDatabaze(); vykresliUkoly();
@@ -405,7 +408,6 @@
             }
         });
 
-        // AKCE PRO NOVÉ TLAČÍTKO SMAZÁNÍ HISTORIE
         document.getElementById("smazatHistoriiBtn").addEventListener("click", () => {
             if (confirm("Opravdu chceš úplně vymazat informační tabuli? Tento krok nejde vrátit zpět.")) {
                 poleHistorie = [];
@@ -424,8 +426,8 @@
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
                         document.getElementById("ridiciPanel").style.display = "flex";
-                        document.getElementById("odznacitVseBtn").style.display = "block";
-                        document.getElementById("smazatHistoriiBtn").style.display = "block"; // Zobrazit tlačítko mazání
+                        document.getElementById("odznacitVseBtn").style.display = "inline-block";
+                        document.getElementById("smazatHistoriiBtn").style.display = "inline-block"; 
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
                         document.getElementById("ridiciPanel").style.display = "none";
