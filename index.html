@@ -133,6 +133,8 @@
             
             <div id="seznamUkolu">Načítám data...</div>
 
+            <button id="odznacitVseBtn" class="tlacitko" style="background: #9b59b6; margin-top: 15px; display: none;">🧹 Odznačit všechny úkoly (Příprava na další den)</button>
+
             <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se a zamknout</button>
         </div>
     </div>
@@ -174,33 +176,34 @@
         
         let roleUzivatele = ""; 
 
-        // Pomocná funkce na vykreslení ikonek mincí (🪙🪙🪙)
+        // Vykreslení mincí - přidán šedý štítek pro 0 mincí
         function vykresliMince(pocet) {
-            if (pocet <= 0) return "<span style='font-size:0.6em; color:#bdc3c7;'>Zatím bez zlaťáku</span>";
+            if (pocet <= 0) return "<span class='odmena-stitek' style='background: #7f8c8d; color: white; font-size: 0.6em; padding: 5px 10px;'>Zatím bez zlaťáku</span>";
             return "🪙".repeat(pocet);
         }
 
         function vykresliBanku() {
             let limit = 1000;
             
-            // Tlačítka pro rodiče
-            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák (Dát 1000 Kč)</button>` : "";
-            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák (Dát 1000 Kč)</button>` : "";
+            // Tlačítka
+            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
+            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
             
-            let btnResetTomas = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('tomas')" style="background:transparent; color:#e74c3c; border:none; margin-top:10px; cursor:pointer; text-decoration:underline;">Vynulovat vše Tomášovi</button>` : "";
-            let btnResetMartin = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('martin')" style="background:transparent; color:#e74c3c; border:none; margin-top:10px; cursor:pointer; text-decoration:underline;">Vynulovat vše Martinovi</button>` : "";
+            // Nový vzhled pro Vynulovat
+            let btnResetTomas = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('tomas')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
+            let btnResetMartin = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('martin')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
 
             document.getElementById("bankaSekce").innerHTML = `
                 <div style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.4); padding:20px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); flex-wrap:wrap; gap:10px;">
                     <div style="min-width: 200px;">
                         <h3 style="margin:0 0 5px 0; color:#38ef7d;">Tomáš</h3>
-                        <div class="mince-text" title="Zlaťáky (Každý má hodnotu 1000 Kč)">${vykresliMince(minceTomas)}</div>
+                        <div class="mince-text" title="Zlaťáky">${vykresliMince(minceTomas)}</div>
                         <b style="font-size:1.1em;">Drobné: ${kontoTomas} / ${limit} Kč</b><br>
                         ${btnProplatitTomas} ${btnResetTomas}
                     </div>
                     <div style="min-width: 200px;">
                         <h3 style="margin:0 0 5px 0; color:#38ef7d;">Martin</h3>
-                        <div class="mince-text" title="Zlaťáky (Každý má hodnotu 1000 Kč)">${vykresliMince(minceMartin)}</div>
+                        <div class="mince-text" title="Zlaťáky">${vykresliMince(minceMartin)}</div>
                         <b style="font-size:1.1em;">Drobné: ${kontoMartin} / ${limit} Kč</b><br>
                         ${btnProplatitMartin} ${btnResetMartin}
                     </div>
@@ -208,33 +211,25 @@
             `;
         }
 
-        // TENTO MOZEK SE STARÁ O SMĚNU PENĚZ ZA MINCE A NAOPAK
         function zkontrolujMince() {
             let bouchatKonfety = false;
 
-            // Tomáš
             while (kontoTomas >= 1000) {
-                kontoTomas -= 1000;
-                minceTomas++;
+                kontoTomas -= 1000; minceTomas++;
                 if (roleUzivatele === "tomas") bouchatKonfety = true;
             }
             while (kontoTomas < 0 && minceTomas > 0) {
-                kontoTomas += 1000;
-                minceTomas--;
+                kontoTomas += 1000; minceTomas--;
             }
 
-            // Martin
             while (kontoMartin >= 1000) {
-                kontoMartin -= 1000;
-                minceMartin++;
+                kontoMartin -= 1000; minceMartin++;
                 if (roleUzivatele === "martin") bouchatKonfety = true;
             }
             while (kontoMartin < 0 && minceMartin > 0) {
-                kontoMartin += 1000;
-                minceMartin--;
+                kontoMartin += 1000; minceMartin--;
             }
 
-            // Ochrana před absolutním mínusem
             if (kontoTomas < 0) kontoTomas = 0;
             if (kontoMartin < 0) kontoMartin = 0;
 
@@ -296,8 +291,7 @@
         }
 
         function ulozDoDatabaze() {
-            zkontrolujMince(); // Vždy před uložením přepočítáme drobné na mince a naopak!
-            
+            zkontrolujMince(); 
             const tajneUkoly = doc(db, "ukoly", "seznam");
             setDoc(tajneUkoly, { 
                 dataUkolu: poleUkolu, 
@@ -320,7 +314,7 @@
                 } else {
                     poleUkolu = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
-                zkontrolujMince(); // Pro jistotu zkontrolujeme po stažení
+                zkontrolujMince(); 
                 vykresliUkoly();
             }).catch((chyba) => { console.error(chyba); });
         }
@@ -362,9 +356,8 @@
             vykresliUkoly();
         };
 
-        // --- AKCE RODIČŮ (PROPLÁCENÍ A MAZÁNÍ) ---
         window.proplatitMinci = function(koho) {
-            if (confirm("Opravdu jsi předal 1000 Kč v hotovosti? Mince se nevratně smaže.")) {
+            if (confirm("Opravdu jsi předal 1000 Kč v hotovosti? Zlaťák se trvale smaže z webu.")) {
                 if (koho === "tomas" && minceTomas > 0) minceTomas--;
                 if (koho === "martin" && minceMartin > 0) minceMartin--;
                 ulozDoDatabaze();
@@ -398,6 +391,18 @@
 
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { stahniDataZDatabaze(); });
 
+        // Tlačítko pro rodiče na HROMADNÉ ODZNAČENÍ
+        document.getElementById("odznacitVseBtn").addEventListener("click", () => {
+            if (confirm("Opravdu vyčistit všechny úkoly? (Peníze klukům zůstanou v bance nezměněny. Slouží k přípravě úkolů na další den.)")) {
+                poleUkolu.forEach(ukol => {
+                    ukol.splneno = false;
+                    ukol.splnilKdo = null;
+                });
+                ulozDoDatabaze();
+                vykresliUkoly();
+            }
+        });
+
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
@@ -407,15 +412,19 @@
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
                         document.getElementById("ridiciPanel").style.display = "flex";
+                        document.getElementById("odznacitVseBtn").style.display = "block"; // Zobrazit rodičům
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
                         document.getElementById("ridiciPanel").style.display = "none";
+                        document.getElementById("odznacitVseBtn").style.display = "none";
                     } else if (email === "martin@turecek.cz") {
                         roleUzivatele = "martin";
                         document.getElementById("ridiciPanel").style.display = "none";
+                        document.getElementById("odznacitVseBtn").style.display = "none";
                     } else {
                         roleUzivatele = "neznamy";
                         document.getElementById("ridiciPanel").style.display = "none";
+                        document.getElementById("odznacitVseBtn").style.display = "none";
                     }
 
                     let jmenoKZobrazeni = slovnikJmen[email] || "Neznámý uživatel";
