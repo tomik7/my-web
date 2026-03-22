@@ -140,7 +140,6 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        // Přidali jsme setPersistence a inMemoryPersistence pro bezpečné zapomenutí!
         import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, inMemoryPersistence } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
@@ -157,7 +156,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Řekneme Googlu: Nikdy si neukládej heslo po obnovení (F5) stránky!
+        // Zámek na F5 obnovení stránky
         setPersistence(auth, inMemoryPersistence);
 
         let poleUkolu = [];
@@ -166,7 +165,6 @@
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
         
-        // Slovník jmen pro ten nový horní panel
         const slovnikJmen = {
             "lenka@turecek.cz": "Lenka (Máma)",
             "radek@turecek.cz": "Radek (Táta)",
@@ -261,7 +259,6 @@
             setDoc(tajneUkoly, { dataUkolu: poleUkolu, bankaTomas: kontoTomas, bankaMartin: kontoMartin });
         }
 
-        // Tuto funkci jsme si vyčlenili zvlášť, aby šla volat z tlačítka Obnovit
         function stahniDataZDatabaze() {
             document.getElementById("seznamUkolu").innerHTML = "Načítám čerstvá data...";
             const tajneUkoly = doc(db, "ukoly", "seznam");
@@ -346,9 +343,6 @@
             }
         }
 
-        // --- AKCE TLAČÍTEK ---
-        
-        // Kliknutí na malé obnovovací tlačítko
         document.getElementById("malyRefreshBtn").addEventListener("click", () => {
             stahniDataZDatabaze();
         });
@@ -372,17 +366,20 @@
                         roleUzivatele = "martin";
                         document.getElementById("uvitaciText").innerText = "Pracovní režim 💪";
                         document.getElementById("ridiciPanel").style.display = "none";
+                    } else {
+                        roleUzivatele = "neznamy";
+                        document.getElementById("ridiciPanel").style.display = "none";
                     }
 
-                    // Nastavení jména v horním panelu
-                    let jmenoK Zobrazeni = slovnikJmen[email] || "Neznámý uživatel";
-                    document.getElementById("jmenoPrihlaseneho").innerText = jmenoK Zobrazeni;
+                    // TADY JE TA OPRAVA! Odstraněna mezera.
+                    let jmenoKZobrazeni = slovnikJmen[email] || "Neznámý uživatel";
+                    document.getElementById("jmenoPrihlaseneho").innerText = jmenoKZobrazeni;
                     document.getElementById("uzivatelPanel").style.display = "flex";
 
                     document.getElementById("loginSekce").style.display = "none";
                     document.getElementById("tajnyObsah").style.display = "block";
                     
-                    stahniDataZDatabaze(); // Zavolá naši vyčleněnou funkci pro stažení
+                    stahniDataZDatabaze(); 
                 })
                 .catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
@@ -391,7 +388,7 @@
             signOut(auth).then(() => {
                 document.getElementById("tajnyObsah").style.display = "none";
                 document.getElementById("loginSekce").style.display = "block";
-                document.getElementById("uzivatelPanel").style.display = "none"; // Schová horní panel
+                document.getElementById("uzivatelPanel").style.display = "none"; 
                 document.getElementById("emailInput").value = ""; 
                 document.getElementById("hesloInput").value = ""; 
                 document.getElementById("uvitaciText").innerText = "Přihlas se pro přístup k úkolům";
