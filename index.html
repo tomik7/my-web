@@ -77,8 +77,14 @@
         .menu-btn:hover { background: rgba(255,255,255,0.1); }
         .menu-btn.aktivni { border-bottom: 3px solid #38ef7d; color: #38ef7d; }
         
-        .netflix-nadpis { color: #E50914; text-align: left; margin-bottom: 20px; font-weight: bold; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; border-left: 5px solid #E50914; padding-left: 15px; }
+        .netflix-nadpis { color: #E50914; text-align: left; margin-bottom: 10px; font-weight: bold; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; border-left: 5px solid #E50914; padding-left: 15px; }
         
+        /* Nová filtrovací lišta */
+        .kino-filtr-lista { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .kino-filtr-btn { background: transparent; border: none; color: #bdc3c7; font-size: 1em; font-weight: bold; cursor: pointer; padding: 5px 10px; transition: 0.3s; text-transform: uppercase; }
+        .kino-filtr-btn:hover { color: white; }
+        .kino-filtr-btn.aktivni { color: white; border-bottom: 3px solid #E50914; }
+
         /* Grid videí jako na Netflixu */
         .netflix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; padding-bottom: 30px; }
         .kino-karta { position: relative; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.5); aspect-ratio: 16/9; background: #000; }
@@ -155,6 +161,13 @@
 
             <div id="obsahKino" style="display: none; background: rgba(0,0,0,0.6); border-radius: 15px; padding: 25px; border: 1px solid rgba(229, 9, 20, 0.3);">
                 <h2 class="netflix-nadpis">Původní tvorba</h2>
+                
+                <div class="kino-filtr-lista" id="kinoFiltrMenu">
+                    <button class="kino-filtr-btn aktivni" onclick="vykresliKino('vse')">Všechno</button>
+                    <button class="kino-filtr-btn" onclick="vykresliKino('0')">0. série</button>
+                    <button class="kino-filtr-btn" onclick="vykresliKino('1')">1. série</button>
+                </div>
+
                 <div class="netflix-grid" id="kinoGrid">
                     </div>
             </div>
@@ -190,18 +203,32 @@
         let roleUzivatele = ""; let jmenoAktualni = "";
 
         // ==========================================
-        // NAČÍTÁNÍ VIDEÍ PRO NETFLIX REŽIM
+        // NAČÍTÁNÍ VIDEÍ PRO NETFLIX REŽIM S FILTREM
         // ==========================================
-        const poleVidei = [
+        
+        // Rozdělení do sérií
+        const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
+        const videaSerie1 = [
             "HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", 
             "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", 
             "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"
         ];
 
-        function vykresliKino() {
+        window.vykresliKino = function(filtr = 'vse') {
+            let videaKVykresleni = [];
+            
+            // Logika filtru
+            if (filtr === 'vse') {
+                videaKVykresleni = [...videaSerie0, ...videaSerie1];
+            } else if (filtr === '0') {
+                videaKVykresleni = videaSerie0;
+            } else if (filtr === '1') {
+                videaKVykresleni = videaSerie1;
+            }
+
+            // Vykreslení karet
             let htmlKina = "";
-            poleVidei.forEach(idVidea => {
-                // Vykreslíme náhledovou fotku videa přímo z YouTube serverů
+            videaKVykresleni.forEach(idVidea => {
                 htmlKina += `
                     <div class="kino-karta" onclick="spustitVideo('${idVidea}')">
                         <img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/hqdefault.jpg" alt="Video náhled">
@@ -210,21 +237,27 @@
                 `;
             });
             document.getElementById("kinoGrid").innerHTML = htmlKina;
+
+            // Zvýraznění aktivního tlačítka v menu kina
+            const tlacitka = document.querySelectorAll(".kino-filtr-btn");
+            tlacitka.forEach(btn => btn.classList.remove("aktivni"));
+            
+            if (filtr === 'vse') tlacitka[0].classList.add("aktivni");
+            if (filtr === '0') tlacitka[1].classList.add("aktivni");
+            if (filtr === '1') tlacitka[2].classList.add("aktivni");
         }
 
         window.spustitVideo = function(idVidea) {
-            // Po kliknutí zapneme video v popup okně a rovnou ho přehrajeme
             document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${idVidea}?autoplay=1`;
             document.getElementById("videoModal").style.display = "flex";
         }
 
         document.getElementById("zavritVideoBtn").addEventListener("click", () => {
-            // Po zavření vypneme zvuk tím, že smažeme zdroj iframe
             document.getElementById("videoPlayer").src = "";
             document.getElementById("videoModal").style.display = "none";
         });
 
-        // PŘEPÍNÁNÍ ZÁLOŽEK MENU
+        // PŘEPÍNÁNÍ ZÁLOŽEK HLAVNÍHO MENU
         document.getElementById("btnBrigada").addEventListener("click", () => {
             document.getElementById("obsahBrigada").style.display = "block";
             document.getElementById("obsahKino").style.display = "none";
@@ -285,7 +318,6 @@
             while (kontoMartin >= 1000) { kontoMartin -= 1000; minceMartin++; if (roleUzivatele === "martin") b = true; }
             while (kontoMartin < 0 && minceMartin > 0) { kontoMartin += 1000; minceMartin--; }
             if (kontoTomas < 0) kontoTomas = 0; if (kontoMartin < 0) kontoMartin = 0;
-            // if (b && typeof confetti === "function") confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
         }
 
         function ziskejAktualniOdmenu(ukol) {
@@ -400,8 +432,8 @@
                 document.getElementById("loginSekce").style.display = "none";
                 document.getElementById("tajnyObsah").style.display = "block";
                 
-                // Připravíme kino a vynutíme Brigádu jako první
-                vykresliKino();
+                // Vynutíme vykreslení kina ("vse") a přepneme na Brigádu jako výchozí záložku
+                vykresliKino('vse');
                 document.getElementById("btnBrigada").click();
                 stahniDataZDatabaze(); 
             }).catch((error) => { alert("Špatný e-mail nebo heslo!"); });
