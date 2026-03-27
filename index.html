@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letní brigáda</title>
+    <title>Turečkovi | Portál</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        /* TADY SI PAK VLOŽ SVOJE KRÁSNÉ TMAVÉ CSS! */
+        /* ========================================== */
+        /* SEM VLOŽ VŠECHNO SVOJE KRÁSNÉ CSS Z MINULA */
+        /* ========================================== */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; padding: 0;
-            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d);
+            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d); /* PŘEPIŠ NA SVÉ BARVY */
             background-size: 400% 400%;
             animation: pozadiAnimace 15s ease infinite;
             color: white; min-height: 100vh;
@@ -25,68 +27,39 @@
             text-align: center; width: 95%; max-width: 1000px; margin: 20px 0;
         }
 
-        .top-panel {
-            display: none; justify-content: space-between; align-items: center;
-            background: rgba(0, 0, 0, 0.3); padding: 10px 20px;
-            border-radius: 15px; margin-bottom: 20px; font-size: 1.1em;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .maly-refresh {
-            background: #3498db; border: none; color: white;
-            border-radius: 50%; width: 40px; height: 40px;
-            cursor: pointer; transition: 0.3s; display: flex;
-            align-items: center; justify-content: center; font-size: 1.2em;
-        }
+        .top-panel { display: none; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.3); padding: 10px 20px; border-radius: 15px; margin-bottom: 20px; font-size: 1.1em; border: 1px solid rgba(255,255,255,0.1); }
+        .maly-refresh { background: #3498db; border: none; color: white; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-size: 1.2em; }
         .maly-refresh:hover { background: #2980b9; transform: rotate(180deg); }
 
         h1 { margin-top: 10px; font-size: 2.2em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         .podtitul { color: #f1c40f; font-weight: bold; margin-bottom: 25px; font-size: 1.1em; }
         
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
-            padding: 12px; border-radius: 10px; border: none; outline: none;
-            font-size: 16px; margin-bottom: 15px; box-sizing: border-box; 
-            background: rgba(255,255,255,0.9); font-family: inherit;
-        }
-
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] { padding: 12px; border-radius: 10px; border: none; outline: none; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; background: rgba(255,255,255,0.9); font-family: inherit; }
         .tlacitko { padding: 15px 20px; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; color: white; cursor: pointer; transition: 0.3s; width: 100%; }
         .tlacitko-login { background: #2ecc71; }
         .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
         .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
         .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
-        .tlacitko-pridat:hover { background: #e67e22; }
 
         #tajnyObsah { display: none; }
         #bankaSekce { margin-bottom: 20px; }
 
         .aplikace-grid { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
         .hlavni-sloupec { flex: 2; min-width: 300px; }
-        .bocni-sloupec { 
-            flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); 
-            padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
-            max-height: 600px; overflow-y: auto; position: relative;
-        }
+        .bocni-sloupec { flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); max-height: 600px; overflow-y: auto; position: relative; }
         
-        .pridavani-box {
-            display: none; gap: 10px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center;
-        }
+        .pridavani-box { display: none; gap: 10px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center; }
         .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
         
-        .ukol-karta {
-            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; transition: 0.3s;
-        }
+        .ukol-karta { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; transition: 0.3s; }
         .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
-        
         .ukol-leva-cast { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
         input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
         .text-ukolu { font-size: 1.1em; font-weight: bold; }
         
         .odmena-stitek { background: #ffdf00; color: #333; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em; white-space: nowrap; }
         .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; }
-        
         .smazat-btn { background: transparent; border: none; color: #ff7675; cursor: pointer; font-size: 1.2em; margin-left: 10px; }
-        
         .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
         .mince-text { font-size: 1.6em; margin: 10px 0; letter-spacing: 3px; }
 
@@ -95,6 +68,17 @@
         .historie-cas { font-size: 0.8em; color: #bdc3c7; display: block; margin-bottom: 3px; }
         .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .tlacitko-zamitnout { background: #e74c3c; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* ========================================== */
+        /* STYLY PRO NOVÉ MENU A LABORATOŘ            */
+        /* ========================================== */
+        .hlavni-menu { display: none; justify-content: center; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
+        .menu-btn { background: transparent; border: 2px solid transparent; color: white; font-size: 1.2em; font-weight: bold; cursor: pointer; padding: 10px 20px; border-radius: 10px; transition: 0.3s; }
+        .menu-btn:hover { background: rgba(255,255,255,0.1); }
+        .menu-btn.aktivni { border-bottom: 3px solid #38ef7d; color: #38ef7d; }
+        
+        .laborator-box { background: rgba(0,0,0,0.4); border-radius: 15px; padding: 25px; border: 1px solid rgba(155, 89, 182, 0.5); box-shadow: 0 0 20px rgba(155, 89, 182, 0.2); }
+        textarea.vizionar-blok { width: 100%; height: 300px; background: rgba(255,255,255,0.9); border-radius: 10px; padding: 15px; font-size: 1.1em; font-family: 'Courier New', Courier, monospace; border: none; outline: none; resize: vertical; margin-bottom: 15px; box-sizing: border-box;}
     </style>
 </head>
 <body>
@@ -102,11 +86,11 @@
     <div class="kontejner">
         <div class="top-panel" id="uzivatelPanel">
             <span style="font-weight: bold; color: #f1c40f;">👤 <span id="jmenoPrihlaseneho"></span></span>
-            <button id="malyRefreshBtn" class="maly-refresh" title="Zkontrolovat nové úkoly">🔄</button>
+            <button id="malyRefreshBtn" class="maly-refresh" title="Zkontrolovat novinky">🔄</button>
         </div>
 
-        <h1 style="text-align: center;">Letní brigáda 💰</h1>
-        <p class="podtitul" id="uvitaciText" style="text-align: center;">Přihlas se pro přístup k úkolům</p>
+        <h1 style="text-align: center;">Rodinný Portál</h1>
+        <p class="podtitul" id="uvitaciText" style="text-align: center;">Přihlas se pro vstup do systému</p>
         
         <div id="loginSekce" style="max-width: 400px; margin: 0 auto;">
             <input type="email" id="emailInput" placeholder="Tvůj e-mail..." style="width: 100%;">
@@ -115,31 +99,48 @@
         </div>
 
         <div id="tajnyObsah">
-            <div id="bankaSekce"></div>
+            
+            <div class="hlavni-menu" id="hlavniMenu">
+                <button class="menu-btn aktivni" id="btnBrigada">💰 Letní brigáda</button>
+                <button class="menu-btn" id="btnLaborator" style="color: #9b59b6; border-color: transparent;">🧪 Vývojářská laboratoř</button>
+            </div>
 
-            <div class="aplikace-grid">
-                <div class="hlavni-sloupec">
-                    <div class="pridavani-box" id="ridiciPanel">
-                        <input type="text" id="novyUkol" placeholder="Název úkolu...">
-                        <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
-                        <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
-                        <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
-                        <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
+            <div id="obsahBrigada">
+                <div id="bankaSekce"></div>
+
+                <div class="aplikace-grid">
+                    <div class="hlavni-sloupec">
+                        <div class="pridavani-box" id="ridiciPanel">
+                            <input type="text" id="novyUkol" placeholder="Název úkolu...">
+                            <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
+                            <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
+                            <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
+                            <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
+                        </div>
+                        
+                        <div id="seznamUkolu">Načítám data...</div>
+                        
+                        <div style="text-align: right;">
+                            <button id="odznacitVseBtn" style="background: transparent; color: #bdc3c7; border: 1px solid #bdc3c7; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: none; margin-top: 10px; font-size: 0.85em; transition: 0.3s;">🧹 Odznačit vše</button>
+                        </div>
                     </div>
-                    
-                    <div id="seznamUkolu">Načítám data...</div>
-                    
-                    <div style="text-align: right;">
-                        <button id="odznacitVseBtn" style="background: transparent; color: #bdc3c7; border: 1px solid #bdc3c7; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: none; margin-top: 10px; font-size: 0.85em; transition: 0.3s;">🧹 Odznačit vše</button>
+
+                    <div class="bocni-sloupec">
+                        <h3 class="historie-nadpis">
+                            <span>📋 Informační tabule</span>
+                            <button id="smazatHistoriiBtn" style="background: none; border: none; cursor: pointer; font-size: 1em; display: none; padding: 0;" title="Vyčistit tabuli">🗑️</button>
+                        </h3>
+                        <div id="historieZaznamy">Zatím žádné novinky...</div>
                     </div>
                 </div>
+            </div>
 
-                <div class="bocni-sloupec">
-                    <h3 class="historie-nadpis">
-                        <span>📋 Informační tabule</span>
-                        <button id="smazatHistoriiBtn" style="background: none; border: none; cursor: pointer; font-size: 1em; display: none; padding: 0;" title="Vyčistit tabuli">🗑️</button>
-                    </h3>
-                    <div id="historieZaznamy">Zatím žádné novinky...</div>
+            <div id="obsahLaborator" style="display: none;">
+                <div class="laborator-box">
+                    <h2 style="color: #9b59b6; margin-top: 0;">Přísně tajné: Vize a Nápady 💡</h2>
+                    <p style="color: #bdc3c7;">Tohle je tvůj soukromý prostor. Zde si můžeš psát nápady na další webové stránky, poznámky z kódování nebo vylepšení pro tuto aplikaci. Nikdo jiný to neuvidí.</p>
+                    <textarea id="labPoznamky" class="vizionar-blok" placeholder="Můj další geniální nápad je..."></textarea>
+                    <button id="ulozitLabBtn" class="tlacitko" style="background: #9b59b6;">💾 Uložit záznamy na bezpečný server</button>
                 </div>
             </div>
 
@@ -166,25 +167,51 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
         setPersistence(auth, inMemoryPersistence);
 
-        let poleUkolu = [];
-        let poleHistorie = []; 
-        let kontoTomas = 0; let minceTomas = 0;
-        let kontoMartin = 0; let minceMartin = 0;
+        let poleUkolu = []; let poleHistorie = []; 
+        let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
-        const slovnikJmen = {
-            "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta",
-            "tomas@turecek.cz": "Tomáš", "martin@turecek.cz": "Martin"
-        };
+        const slovnikJmen = { "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta", "tomas@turecek.cz": "Tomáš (Admin)", "martin@turecek.cz": "Martin" };
         let roleUzivatele = ""; let jmenoAktualni = "";
 
+        // PŘEPÍNÁNÍ ZÁLOŽEK
+        document.getElementById("btnBrigada").addEventListener("click", () => {
+            document.getElementById("obsahBrigada").style.display = "block";
+            document.getElementById("obsahLaborator").style.display = "none";
+            document.getElementById("btnBrigada").classList.add("aktivni");
+            document.getElementById("btnBrigada").style.borderBottomColor = "#38ef7d";
+            document.getElementById("btnLaborator").classList.remove("aktivni");
+            document.getElementById("btnLaborator").style.borderBottomColor = "transparent";
+        });
+
+        document.getElementById("btnLaborator").addEventListener("click", () => {
+            document.getElementById("obsahBrigada").style.display = "none";
+            document.getElementById("obsahLaborator").style.display = "block";
+            document.getElementById("btnLaborator").classList.add("aktivni");
+            document.getElementById("btnLaborator").style.borderBottomColor = "#9b59b6";
+            document.getElementById("btnBrigada").classList.remove("aktivni");
+            document.getElementById("btnBrigada").style.borderBottomColor = "transparent";
+            
+            // Stáhneme poznámky ze speciálního dokumentu
+            getDoc(doc(db, "ukoly", "tomas_tajne")).then((dokument) => {
+                if (dokument.exists()) {
+                    document.getElementById("labPoznamky").value = dokument.data().text || "";
+                }
+            });
+        });
+
+        // ULOŽENÍ POZNÁMEK
+        document.getElementById("ulozitLabBtn").addEventListener("click", () => {
+            const text = document.getElementById("labPoznamky").value;
+            setDoc(doc(db, "ukoly", "tomas_tajne"), { text: text }).then(() => {
+                alert("Úspěšně zašifrováno a uloženo v databázi! 🔒");
+            });
+        });
+
         function zapisDoHistorie(zprava, barva = "#3498db") {
-            if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) {
-                return;
-            }
+            if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
             let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
             poleHistorie.unshift({ text: zprava, cas: cas, barva: barva });
             if (poleHistorie.length > 15) poleHistorie.pop();
@@ -192,17 +219,8 @@
 
         function vykresliHistorii() {
             let html = "";
-            if (poleHistorie.length === 0) {
-                html = "<p style='color:#bdc3c7; font-size:0.9em;'>Zatím se nic nestalo.</p>";
-            } else {
-                poleHistorie.forEach(zaznam => {
-                    html += `
-                    <div class="historie-polozka" style="border-left-color: ${zaznam.barva};">
-                        <span class="historie-cas">${zaznam.cas}</span>
-                        ${zaznam.text}
-                    </div>`;
-                });
-            }
+            if (poleHistorie.length === 0) { html = "<p style='color:#bdc3c7; font-size:0.9em;'>Zatím se nic nestalo.</p>"; } 
+            else { poleHistorie.forEach(z => { html += `<div class="historie-polozka" style="border-left-color: ${z.barva};"><span class="historie-cas">${z.cas}</span>${z.text}</div>`; }); }
             document.getElementById("historieZaznamy").innerHTML = html;
         }
 
@@ -214,246 +232,143 @@
         function vykresliBanku() {
             let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
             let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
-            
             let btnResetTomas = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('tomas')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
             let btnResetMartin = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('martin')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
 
             document.getElementById("bankaSekce").innerHTML = `
                 <div style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.4); padding:20px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); flex-wrap:wrap; gap:10px;">
-                    <div style="min-width: 200px; text-align:center;">
-                        <h3 style="margin:0 0 5px 0; color:#38ef7d;">Tomáš</h3>
-                        <div class="mince-text" title="Zlaťáky">${vykresliMince(minceTomas)}</div>
-                        <b style="font-size:1.1em;">Drobné: ${kontoTomas} / 1000 Kč</b><br>
-                        ${btnProplatitTomas} ${btnResetTomas}
-                    </div>
-                    <div style="min-width: 200px; text-align:center;">
-                        <h3 style="margin:0 0 5px 0; color:#38ef7d;">Martin</h3>
-                        <div class="mince-text" title="Zlaťáky">${vykresliMince(minceMartin)}</div>
-                        <b style="font-size:1.1em;">Drobné: ${kontoMartin} / 1000 Kč</b><br>
-                        ${btnProplatitMartin} ${btnResetMartin}
-                    </div>
-                </div>
-            `;
+                    <div style="min-width: 200px; text-align:center;"><h3 style="margin:0 0 5px 0; color:#38ef7d;">Tomáš</h3><div class="mince-text">${vykresliMince(minceTomas)}</div><b style="font-size:1.1em;">Drobné: ${kontoTomas} / 1000 Kč</b><br>${btnProplatitTomas} ${btnResetTomas}</div>
+                    <div style="min-width: 200px; text-align:center;"><h3 style="margin:0 0 5px 0; color:#38ef7d;">Martin</h3><div class="mince-text">${vykresliMince(minceMartin)}</div><b style="font-size:1.1em;">Drobné: ${kontoMartin} / 1000 Kč</b><br>${btnProplatitMartin} ${btnResetMartin}</div>
+                </div>`;
         }
 
         function zkontrolujMince() {
-            let bouchatKonfety = false;
-            while (kontoTomas >= 1000) { kontoTomas -= 1000; minceTomas++; if (roleUzivatele === "tomas") bouchatKonfety = true; }
+            let b = false;
+            while (kontoTomas >= 1000) { kontoTomas -= 1000; minceTomas++; if (roleUzivatele === "tomas") b = true; }
             while (kontoTomas < 0 && minceTomas > 0) { kontoTomas += 1000; minceTomas--; }
-            while (kontoMartin >= 1000) { kontoMartin -= 1000; minceMartin++; if (roleUzivatele === "martin") bouchatKonfety = true; }
+            while (kontoMartin >= 1000) { kontoMartin -= 1000; minceMartin++; if (roleUzivatele === "martin") b = true; }
             while (kontoMartin < 0 && minceMartin > 0) { kontoMartin += 1000; minceMartin--; }
             if (kontoTomas < 0) kontoTomas = 0; if (kontoMartin < 0) kontoMartin = 0;
-            if (bouchatKonfety && typeof confetti === "function") confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            if (b && typeof confetti === "function") confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
         }
 
         function ziskejAktualniOdmenu(ukol) {
-            let dnes = new Date().toISOString().split('T')[0];
-            let odmenaCislo = parseInt(ukol.odmena) || 0; 
-            if (ukol.termin && ukol.termin < dnes && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(odmenaCislo / 2); 
-            return odmenaCislo;
+            let d = new Date().toISOString().split('T')[0]; let o = parseInt(ukol.odmena) || 0; 
+            if (ukol.termin && ukol.termin < d && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(o / 2); 
+            return o;
         }
 
         function vykresliUkoly() {
             let html = "";
-            if (poleUkolu.length === 0) { html = "<p style='color: rgba(255,255,255,0.7);'>Žádné úkoly k dispozici. Paráda! 🏖️</p>"; }
-
-            let dnes = new Date().toISOString().split('T')[0];
+            if (poleUkolu.length === 0) html = "<p style='color: rgba(255,255,255,0.7);'>Žádné úkoly k dispozici.</p>";
+            let d = new Date().toISOString().split('T')[0];
 
             poleUkolu.forEach((ukol, index) => {
-                let levaCastHTML = ""; let pravaCastHTML = "";
-                let tlacitkoSmazat = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
-                let aktualniOdmena = ziskejAktualniOdmenu(ukol);
-                let stitekPozde = (ukol.termin && ukol.termin < dnes && !ukol.splneno) ? `<span class="odmena-stitek stitek-pozde">PO TERMÍNU</span>` : "";
-                let datumText = ukol.termin ? `<span class="datum-text">⏰ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
+                let lH = ""; let pH = "";
+                let tS = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
+                let aO = ziskejAktualniOdmenu(ukol);
+                let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="odmena-stitek stitek-pozde">PO TERMÍNU</span>` : "";
+                let dT = ukol.termin ? `<span class="datum-text">⏰ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
 
                 if (ukol.splneno) {
-                    let jmenoSplnitele = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    levaCastHTML = `<input type="checkbox" checked disabled><div><span class="text-ukolu" style="text-decoration:line-through; opacity:0.6;">${ukol.nazev} <span style="font-size:0.8em; color:#2ecc71;">(Schváleno: ${jmenoSplnitele})</span></span>${datumText}</div>`;
-                    pravaCastHTML = `<span class="odmena-stitek" style="opacity:0.6;">${aktualniOdmena} Kč</span> ${tlacitkoSmazat}`;
-                } 
-                else if (ukol.cekaNaPotvrzeni) {
-                    let jmenoZadatele = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
+                    let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
+                    lH = `<input type="checkbox" checked disabled><div><span class="text-ukolu" style="text-decoration:line-through; opacity:0.6;">${ukol.nazev} <span style="font-size:0.8em; color:#2ecc71;">(Schváleno: ${jS})</span></span>${dT}</div>`;
+                    pH = `<span class="odmena-stitek" style="opacity:0.6;">${aO} Kč</span> ${tS}`;
+                } else if (ukol.cekaNaPotvrzeni) {
+                    let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
                     if (roleUzivatele === "rodic") {
-                        levaCastHTML = `<span style="font-size: 1.5em; margin-right:10px;">⏳</span><div><span class="text-ukolu" style="color:#f39c12;">${jmenoZadatele} žádá o schválení: <b>${ukol.nazev}</b></span>${datumText}</div>`;
-                        pravaCastHTML = `<button onclick="schvalitUkol(${index})" class="tlacitko-schvalit" title="Schválit a připsat peníze">✅ Schválit</button><button onclick="zamitnoutUkol(${index})" class="tlacitko-zamitnout" title="Odmítnout a vrátit k přepracování" style="margin-left:5px;">❌</button>${tlacitkoSmazat}`;
+                        lH = `<span style="font-size: 1.5em; margin-right:10px;">⏳</span><div><span class="text-ukolu" style="color:#f39c12;">${jZ} žádá o schválení: <b>${ukol.nazev}</b></span>${dT}</div>`;
+                        pH = `<button onclick="schvalitUkol(${index})" class="tlacitko-schvalit">✅</button><button onclick="zamitnoutUkol(${index})" class="tlacitko-zamitnout" style="margin-left:5px;">❌</button>${tS}`;
                     } else if (roleUzivatele === ukol.splnilKdo) {
-                        levaCastHTML = `<input type="checkbox" checked onchange="zrusitZadost(${index})"><div><span class="text-ukolu" style="color:#f39c12;">⏳ Čekáš na schválení: ${ukol.nazev}</span>${datumText}</div>`;
-                        pravaCastHTML = `<span class="odmena-stitek">${aktualniOdmena} Kč</span>`;
+                        lH = `<input type="checkbox" checked onchange="zrusitZadost(${index})"><div><span class="text-ukolu" style="color:#f39c12;">⏳ Čekáš na schválení: ${ukol.nazev}</span>${dT}</div>`;
+                        pH = `<span class="odmena-stitek">${aO} Kč</span>`;
                     } else {
-                        levaCastHTML = `<input type="checkbox" disabled checked><div><span class="text-ukolu" style="color:#7f8c8d;">🔒 ${jmenoZadatele} právě odevzdal: ${ukol.nazev}</span>${datumText}</div>`;
-                        pravaCastHTML = `<span class="odmena-stitek">${aktualniOdmena} Kč</span>`;
+                        lH = `<input type="checkbox" disabled checked><div><span class="text-ukolu" style="color:#7f8c8d;">🔒 ${jZ} odevzdal: ${ukol.nazev}</span>${dT}</div>`;
+                        pH = `<span class="odmena-stitek">${aO} Kč</span>`;
                     }
-                } 
-                else {
-                    let disabled = (roleUzivatele === "rodic") ? "disabled" : "";
-                    levaCastHTML = `<input type="checkbox" ${disabled} onchange="pozadatOSchvaleni(${index})"><div><span class="text-ukolu">${ukol.nazev}</span>${datumText}</div>`;
-                    pravaCastHTML = `${stitekPozde} <span class="odmena-stitek">${aktualniOdmena} Kč</span> ${tlacitkoSmazat}`;
+                } else {
+                    let dis = (roleUzivatele === "rodic") ? "disabled" : "";
+                    lH = `<input type="checkbox" ${dis} onchange="pozadatOSchvaleni(${index})"><div><span class="text-ukolu">${ukol.nazev}</span>${dT}</div>`;
+                    pH = `${sP} <span class="odmena-stitek">${aO} Kč</span> ${tS}`;
                 }
-
-                html += `<div class="ukol-karta" style="${ukol.splneno ? 'opacity:0.6;' : ''}"><div class="ukol-leva-cast">${levaCastHTML}</div><div style="display:flex; align-items:center;">${pravaCastHTML}</div></div>`;
+                html += `<div class="ukol-karta" style="${ukol.splneno ? 'opacity:0.6;' : ''}"><div class="ukol-leva-cast">${lH}</div><div style="display:flex; align-items:center;">${pH}</div></div>`;
             });
             document.getElementById("seznamUkolu").innerHTML = html;
-            vykresliBanku();
-            vykresliHistorii(); 
+            vykresliBanku(); vykresliHistorii(); 
         }
 
         function ulozDoDatabaze() {
             zkontrolujMince(); 
-            const tajneUkoly = doc(db, "ukoly", "seznam");
-            setDoc(tajneUkoly, { 
-                dataUkolu: poleUkolu, historieZaznamy: poleHistorie,
-                bankaTomas: kontoTomas, minceTomas: minceTomas,
-                bankaMartin: kontoMartin, minceMartin: minceMartin 
-            });
+            setDoc(doc(db, "ukoly", "seznam"), { dataUkolu: poleUkolu, historieZaznamy: poleHistorie, bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin });
         }
 
         function stahniDataZDatabaze() {
             document.getElementById("seznamUkolu").innerHTML = "Načítám čerstvá data...";
-            const tajneUkoly = doc(db, "ukoly", "seznam");
-            getDoc(tajneUkoly).then((dokument) => {
+            getDoc(doc(db, "ukoly", "seznam")).then((dokument) => {
                 if (dokument.exists()) {
                     let data = dokument.data();
-                    poleUkolu = data.dataUkolu || [];
-                    poleHistorie = data.historieZaznamy || [];
+                    poleUkolu = data.dataUkolu || []; poleHistorie = data.historieZaznamy || [];
                     kontoTomas = parseInt(data.bankaTomas) || 0; minceTomas = parseInt(data.minceTomas) || 0;
                     kontoMartin = parseInt(data.bankaMartin) || 0; minceMartin = parseInt(data.minceMartin) || 0;
                 } else {
                     poleUkolu = []; poleHistorie = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
-                zkontrolujMince(); 
-                vykresliUkoly();
+                zkontrolujMince(); vykresliUkoly();
             }).catch((chyba) => { console.error(chyba); });
         }
 
-        window.pozadatOSchvaleni = function(index) {
-            let ukol = poleUkolu[index];
-            ukol.cekaNaPotvrzeni = true; ukol.splneno = false; ukol.splnilKdo = roleUzivatele;
-            zapisDoHistorie(`⏳ <b>${jmenoAktualni}</b> dokončil úkol "${ukol.nazev}" a čeká na kontrolu.`, "#f39c12");
-            ulozDoDatabaze(); vykresliUkoly();
-        };
+        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`⏳ <b>${jmenoAktualni}</b> dokončil úkol "${u.nazev}".`, "#f39c12"); ulozDoDatabaze(); vykresliUkoly(); };
+        window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("dokončil úkol"))); ulozDoDatabaze(); vykresliUkoly(); };
+        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; document.getElementById('zvukCinknuti')?.play().catch(e=>e); zapisDoHistorie(`✅ Rodič schválil úkol "${u.nazev}".`, "#2ecc71"); ulozDoDatabaze(); vykresliUkoly(); };
+        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`❌ Rodič zamítl úkol "${u.nazev}". Musí se předělat!`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); }
+        window.smazUkol = function(index) { zapisDoHistorie(`🗑️ Úkol "${poleUkolu[index].nazev}" byl smazán.`, "#95a5a6"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
+        window.proplatitMinci = function(k) { if (confirm(`Proplatit 1000 Kč v hotovosti?`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`💰 Rodič proplatil 1 Zlaťák.`, "#9b59b6"); ulozDoDatabaze(); vykresliUkoly(); } }
+        window.vynulovatKonto = function(k) { if (confirm(`Smažeš všechny peníze i Zlaťáky. Jsi si jistý?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`⚠️ Bankovní konto bylo vynulováno.`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); } }
 
-        window.zrusitZadost = function(index) {
-            let ukol = poleUkolu[index];
-            ukol.cekaNaPotvrzeni = false; ukol.splnilKdo = null;
-
-            poleHistorie = poleHistorie.filter(zaznam => !(zaznam.text.includes(ukol.nazev) && zaznam.text.includes("čeká na kontrolu")));
-
-            ulozDoDatabaze(); vykresliUkoly();
-        };
-
-        window.schvalitUkol = function(index) {
-            let ukol = poleUkolu[index];
-            ukol.cekaNaPotvrzeni = false; ukol.splneno = true;
-            let castka = ziskejAktualniOdmenu(ukol);
-            ukol.odmena = castka; 
-            if (ukol.splnilKdo === "tomas") kontoTomas += castka;
-            if (ukol.splnilKdo === "martin") kontoMartin += castka;
-            document.getElementById('zvukCinknuti')?.play().catch(e => console.log("Zvuk blokován"));
-            zapisDoHistorie(`✅ Rodič schválil úkol "${ukol.nazev}". Peníze připsány!`, "#2ecc71");
-            ulozDoDatabaze(); vykresliUkoly();
-        };
-
-        window.zamitnoutUkol = function(index) {
-            let ukol = poleUkolu[index];
-            let puvodniResitel = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-            ukol.cekaNaPotvrzeni = false; ukol.splneno = false; ukol.splnilKdo = null;
-            zapisDoHistorie(`❌ Rodič zamítl úkol "${ukol.nazev}". ${puvodniResitel} to musí předělat!`, "#e74c3c");
-            ulozDoDatabaze(); vykresliUkoly();
-        }
-
-        window.smazUkol = function(index) {
-            zapisDoHistorie(`🗑️ Úkol "${poleUkolu[index].nazev}" byl smazán.`, "#95a5a6");
-            poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly();
-        };
-
-        window.proplatitMinci = function(koho) {
-            let jmeno = koho === "tomas" ? "Tomášovi" : "Martinovi";
-            if (confirm(`Opravdu jsi předal 1000 Kč v hotovosti ${jmeno}? Zlaťák se trvale smaže z webu.`)) {
-                if (koho === "tomas" && minceTomas > 0) minceTomas--;
-                if (koho === "martin" && minceMartin > 0) minceMartin--;
-                zapisDoHistorie(`💰 Rodič proplatil 1 Zlaťák v hotovosti (${jmeno}).`, "#9b59b6");
-                ulozDoDatabaze(); vykresliUkoly();
-            }
-        }
-
-        window.vynulovatKonto = function(koho) {
-            let jmeno = koho === "tomas" ? "Tomášovi" : "Martinovi";
-            if (confirm(`POZOR! Smažeš všechny peníze i Zlaťáky pro ${jmeno}. Jsi si jistý?`)) {
-                if (koho === "tomas") { kontoTomas = 0; minceTomas = 0; }
-                if (koho === "martin") { kontoMartin = 0; minceMartin = 0; }
-                zapisDoHistorie(`⚠️ Bankovní konto (${jmeno}) bylo vynulováno.`, "#e74c3c");
-                ulozDoDatabaze(); vykresliUkoly();
-            }
-        }
-
-        document.getElementById("pridatBtn").addEventListener("click", () => {
-            let nazev = document.getElementById("novyUkol").value;
-            let odmena = parseInt(document.getElementById("novaOdmena").value) || 0;
-            let termin = document.getElementById("novyDatum").value;
-            if (nazev.trim() !== "" && odmena > 0) {
-                poleUkolu.push({ nazev: nazev, odmena: odmena, termin: termin, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null });
-                zapisDoHistorie(`➕ Byl přidán nový úkol: "${nazev}" za ${odmena} Kč.`);
-                ulozDoDatabaze(); vykresliUkoly();
-                document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = "";
-            } else { alert("Musíš zadat název a částku!"); }
-        });
-
+        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`➕ Přidán úkol: "${n}" za ${o} Kč.`); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; } else { alert("Musíš zadat název a částku!"); } });
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { stahniDataZDatabaze(); });
-
-        document.getElementById("odznacitVseBtn").addEventListener("click", () => {
-            if (confirm("Opravdu vyčistit všechny úkoly? (Peníze klukům zůstanou v bance nezměněny. Slouží k přípravě úkolů na další den.)")) {
-                poleUkolu.forEach(ukol => { ukol.splneno = false; ukol.cekaNaPotvrzeni = false; ukol.splnilKdo = null; });
-                zapisDoHistorie(`🧹 Rodič připravil všechny úkoly na nový den.`, "#2ecc71");
-                ulozDoDatabaze(); vykresliUkoly();
-            }
-        });
-
-        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => {
-            if (confirm("Opravdu chceš úplně vymazat informační tabuli? Tento krok nejde vrátit zpět.")) {
-                poleHistorie = [];
-                ulozDoDatabaze();
-                vykresliHistorii();
-            }
-        });
+        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`🧹 Úkoly připraveny na nový den.`, "#2ecc71"); ulozDoDatabaze(); vykresliUkoly(); } });
+        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => { if (confirm("Vymazat tabuli?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
 
-            signInWithEmailAndPassword(auth, email, heslo)
-                .then(() => {
-                    jmenoAktualni = slovnikJmen[email] || "Neznámý uživatel";
-                    if (eMailyRodicu.includes(email)) {
-                        roleUzivatele = "rodic";
-                        document.getElementById("ridiciPanel").style.display = "flex";
-                        document.getElementById("odznacitVseBtn").style.display = "inline-block";
-                        document.getElementById("smazatHistoriiBtn").style.display = "inline-block"; 
-                    } else if (email === "tomas@turecek.cz") {
-                        roleUzivatele = "tomas";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                        document.getElementById("odznacitVseBtn").style.display = "none";
-                        document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    } else if (email === "martin@turecek.cz") {
-                        roleUzivatele = "martin";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                        document.getElementById("odznacitVseBtn").style.display = "none";
-                        document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    } else {
-                        roleUzivatele = "neznamy";
-                        document.getElementById("ridiciPanel").style.display = "none";
-                        document.getElementById("odznacitVseBtn").style.display = "none";
-                        document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    }
+            signInWithEmailAndPassword(auth, email, heslo).then(() => {
+                jmenoAktualni = slovnikJmen[email] || "Neznámý uživatel";
+                
+                // NASTAVENÍ VIDITELNOSTI PODLE ROLE
+                if (eMailyRodicu.includes(email)) {
+                    roleUzivatele = "rodic";
+                    document.getElementById("ridiciPanel").style.display = "flex";
+                    document.getElementById("odznacitVseBtn").style.display = "inline-block";
+                    document.getElementById("smazatHistoriiBtn").style.display = "inline-block"; 
+                    document.getElementById("hlavniMenu").style.display = "none"; // Rodič nemá laboratoř
+                } else if (email === "tomas@turecek.cz") {
+                    roleUzivatele = "tomas";
+                    document.getElementById("ridiciPanel").style.display = "none";
+                    document.getElementById("odznacitVseBtn").style.display = "none";
+                    document.getElementById("smazatHistoriiBtn").style.display = "none";
+                    document.getElementById("hlavniMenu").style.display = "flex"; // TOMÁŠ MÁ LABORATOŘ!
+                } else if (email === "martin@turecek.cz") {
+                    roleUzivatele = "martin";
+                    document.getElementById("ridiciPanel").style.display = "none";
+                    document.getElementById("odznacitVseBtn").style.display = "none";
+                    document.getElementById("smazatHistoriiBtn").style.display = "none";
+                    document.getElementById("hlavniMenu").style.display = "none"; // Martin nemá laboratoř
+                }
 
-                    document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
-                    document.getElementById("uvitaciText").style.display = "none";
-                    document.getElementById("uzivatelPanel").style.display = "flex";
-                    document.getElementById("loginSekce").style.display = "none";
-                    document.getElementById("tajnyObsah").style.display = "block";
-                    
-                    stahniDataZDatabaze(); 
-                })
-                .catch((error) => { alert("Špatný e-mail nebo heslo!"); });
+                document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
+                document.getElementById("uvitaciText").style.display = "none";
+                document.getElementById("uzivatelPanel").style.display = "flex";
+                document.getElementById("loginSekce").style.display = "none";
+                document.getElementById("tajnyObsah").style.display = "block";
+                
+                // Vždy resetujeme zobrazení na Brigádu
+                document.getElementById("btnBrigada").click();
+                
+                stahniDataZDatabaze(); 
+            }).catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
         document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -462,8 +377,7 @@
                 document.getElementById("loginSekce").style.display = "block";
                 document.getElementById("uzivatelPanel").style.display = "none"; 
                 document.getElementById("uvitaciText").style.display = "block";
-                document.getElementById("emailInput").value = ""; 
-                document.getElementById("hesloInput").value = ""; 
+                document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
                 poleUkolu = []; poleHistorie = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; roleUzivatele = "";
             });
         });
