@@ -41,39 +41,13 @@
         .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
         .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
 
-        /* ========================================== */
-        /* STYLY PRO NOVÝ ROZCESTNÍK (DASHBOARD)      */
-        /* ========================================== */
-        .rozcestnik-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px 0;
-        }
-        .dlazdice {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 30px 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            text-decoration: none;
-            color: white;
-        }
-        .dlazdice:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
+        /* ROZCESTNÍK (DASHBOARD) */
+        .rozcestnik-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px 0; }
+        .dlazdice { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 30px 20px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-decoration: none; color: white; }
+        .dlazdice:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .dlazdice-ikona { font-size: 3.5em; margin-bottom: 15px; }
         .dlazdice-nadpis { font-size: 1.4em; font-weight: bold; margin: 0 0 5px 0; }
         .dlazdice-popis { font-size: 0.9em; color: #bdc3c7; margin: 0; }
-        
         .dlazdice-zamceno { opacity: 0.5; cursor: not-allowed; }
         .dlazdice-zamceno:hover { transform: none; background: rgba(255, 255, 255, 0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
@@ -87,7 +61,6 @@
         .aplikace-grid { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
         .hlavni-sloupec { flex: 2; min-width: 300px; }
         .bocni-sloupec { flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); max-height: 600px; overflow-y: auto; position: relative; }
-        
         .pridavani-box { display: none; gap: 10px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center; }
         .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
         
@@ -109,23 +82,35 @@
         .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .tlacitko-zamitnout { background: #e74c3c; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        /* STYLY KINA */
-        .netflix-nadpis { color: #E50914; text-align: left; margin-bottom: 10px; font-weight: bold; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; border-left: 5px solid #E50914; padding-left: 15px; }
-        .kino-filtr-lista { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; flex-wrap: wrap; }
-        .kino-filtr-btn { background: transparent; border: none; color: #bdc3c7; font-size: 1em; font-weight: bold; cursor: pointer; padding: 5px 10px; transition: 0.3s; text-transform: uppercase; }
-        .kino-filtr-btn:hover { color: white; }
-        .kino-filtr-btn.aktivni { color: white; border-bottom: 3px solid #E50914; }
-        .netflix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; padding-bottom: 30px; }
-        .kino-karta { position: relative; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.5); aspect-ratio: 16/9; background: #000; }
-        .kino-karta:hover { transform: scale(1.08); z-index: 10; box-shadow: 0 10px 25px rgba(0,0,0,0.8); border: 2px solid white; }
-        .kino-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
-        .kino-karta:hover .kino-img { opacity: 0.5; }
-        .kino-play-ikona { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3em; color: rgba(255,255,255,0.9); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        /* ========================================== */
+        /* STYLY PRO KINO (YOUTUBE DESIGN)            */
+        /* ========================================== */
+        .youtube-nadpis { color: #f1f1f1; text-align: left; margin-bottom: 20px; font-weight: bold; font-size: 1.6em; display: flex; align-items: center; gap: 10px; }
+        .youtube-logo { color: #ff0000; font-size: 1.2em; }
+        
+        /* YouTube pilulkové menu */
+        .kino-filtr-lista { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .kino-filtr-btn { background: rgba(255,255,255,0.1); border: 1px solid transparent; color: #f1f1f1; font-size: 0.95em; font-weight: bold; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: 0.2s; }
+        .kino-filtr-btn:hover { background: rgba(255,255,255,0.2); }
+        .kino-filtr-btn.aktivni { background: #f1f1f1; color: #0f0f0f; }
+
+        /* YouTube Grid */
+        .youtube-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding-bottom: 30px; }
+        
+        /* Karta s videem - zaoblené rohy */
+        .kino-karta { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; aspect-ratio: 16/9; background: #202020; }
+        .kino-karta:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.4); z-index: 10; }
+        .kino-img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; transition: opacity 0.2s; }
+        .kino-karta:hover .kino-img { opacity: 0.8; }
+        
+        /* Červená Play ikona na hover */
+        .kino-play-ikona { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5em; color: #ff0000; opacity: 0; transition: opacity 0.2s; pointer-events: none; filter: drop-shadow(0 0 8px rgba(0,0,0,0.8)); }
         .kino-karta:hover .kino-play-ikona { opacity: 1; }
 
+        /* Vyskakovací přehrávač */
         #videoModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
         #zavritVideoBtn { position: absolute; top: 20px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        #zavritVideoBtn:hover { background: #E50914; transform: scale(1.1); }
+        #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -139,7 +124,8 @@
         
         <div class="top-panel" id="uzivatelPanel">
             <button id="btnZpetDomu" class="btn-domu" style="display: none;">🏠 Hlavní menu</button>
-            <div style="flex-grow: 1;"></div> <span style="font-weight: bold; color: #f1c40f; margin-right: 15px;">👤 <span id="jmenoPrihlaseneho"></span></span>
+            <div style="flex-grow: 1;"></div>
+            <span style="font-weight: bold; color: #f1c40f; margin-right: 15px;">👤 <span id="jmenoPrihlaseneho"></span></span>
             <button id="malyRefreshBtn" class="maly-refresh" title="Zkontrolovat novinky">🔄</button>
         </div>
 
@@ -159,18 +145,18 @@
                 <div class="dlazdice" onclick="zobrazModul('obsahBrigada', 'Letní Brigáda')">
                     <div class="dlazdice-ikona">💰</div>
                     <h3 class="dlazdice-nadpis">Letní brigáda</h3>
-                    <p class="dlazdice-popis">Správa úkolů, historie a banka.</p>
+                    <p class="dlazdice-popis">Správa úkolů a rodinná banka.</p>
                 </div>
 
                 <div class="dlazdice" id="kartaKino" style="display: none;" onclick="zobrazModul('obsahKino', 'Moje Kino')">
-                    <div class="dlazdice-ikona">🍿</div>
+                    <div class="dlazdice-ikona">▶️</div>
                     <h3 class="dlazdice-nadpis">Moje Kino</h3>
-                    <p class="dlazdice-popis">Soukromá videotéka. Pouze pro tebe.</p>
+                    <p class="dlazdice-popis">Soukromá YouTube videotéka.</p>
                 </div>
 
                 <div class="dlazdice dlazdice-zamceno" title="Tento modul ještě není naprogramován">
                     <div class="dlazdice-ikona">🚧</div>
-                    <h3 class="dlazdice-nadpis">Škola & Známky</h3>
+                    <h3 class="dlazdice-nadpis">Další aplikace</h3>
                     <p class="dlazdice-popis">Připravujeme v další aktualizaci...</p>
                 </div>
 
@@ -207,13 +193,19 @@
                 </div>
             </div>
 
-            <div id="obsahKino" style="display: none; background: rgba(0,0,0,0.6); border-radius: 15px; padding: 25px; border: 1px solid rgba(229, 9, 20, 0.3);">
+            <div id="obsahKino" style="display: none; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
+                <h2 class="youtube-nadpis"><span class="youtube-logo">▶</span> Moje oblíbená videa</h2>
+                
                 <div class="kino-filtr-lista" id="kinoFiltrMenu">
-                    <button class="kino-filtr-btn aktivni" onclick="vykresliKino('vse')">Všechno</button>
+                    <button class="kino-filtr-btn aktivni" onclick="vykresliKino('vse')">Vše</button>
                     <button class="kino-filtr-btn" onclick="vykresliKino('0')">0. série</button>
                     <button class="kino-filtr-btn" onclick="vykresliKino('1')">1. série</button>
+                    <button class="kino-filtr-btn" onclick="vykresliKino('2')">2. série</button>
+                    <button class="kino-filtr-btn" onclick="vykresliKino('3')">3. série</button>
                 </div>
-                <div class="netflix-grid" id="kinoGrid"></div>
+
+                <div class="youtube-grid" id="kinoGrid">
+                    </div>
             </div>
 
             <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se a zamknout</button>
@@ -250,44 +242,49 @@
         // SYSTÉM PŘEPÍNÁNÍ MODULŮ
         // ==========================================
         window.zobrazModul = function(idModulu, novyNadpis = "Osobní Portál") {
-            // Skryjeme všechny moduly a rozcestník
             document.getElementById("obsahRozcestnik").style.display = "none";
             document.getElementById("obsahBrigada").style.display = "none";
             document.getElementById("obsahKino").style.display = "none";
 
-            // Zobrazíme ten, na který se kliklo
             document.getElementById(idModulu).style.display = (idModulu === "obsahRozcestnik") ? "grid" : "block";
             
-            // Upravíme nadpis a tlačítko "Zpět"
             document.getElementById("hlavniNadpis").innerText = novyNadpis;
             if (idModulu === "obsahRozcestnik") {
-                document.getElementById("btnZpetDomu").style.display = "none"; // Jsme doma, schovat tlačítko Zpět
+                document.getElementById("btnZpetDomu").style.display = "none"; 
             } else {
-                document.getElementById("btnZpetDomu").style.display = "flex"; // Jsme v aplikaci, ukázat tlačítko Zpět
+                document.getElementById("btnZpetDomu").style.display = "flex"; 
             }
         }
 
-        // Kliknutí na tlačítko "Zpět na přehled / Domů"
         document.getElementById("btnZpetDomu").addEventListener("click", () => {
             zobrazModul('obsahRozcestnik', 'Osobní Portál');
         });
 
 
         // ==========================================
-        // KINO NETFLIX
+        // KINO YOUTUBE
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
         const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
+        const videaSerie2 = ["3oZqKwtUpcQ", "qIoFna9QSeo", "nKBc8W0tiCA", "KEPF8woA0QU", "smY-fJSPzno", "6TPPVVvihUc", "9265g-GNmvs", "DylC_jmN3CA", "cqVWhSjPfog", "kTNuzpPhvAU", "ElMzIZD8JYU", "2ZQRSRwevtE", "1VSkeosVr40"];
+        const videaSerie3 = ["8HZC79duYRQ", "LYIxZ9CdfsY", "NSGpiJCPEG0", "XlUeAMfAry8", "RaSkirrHmTk", "Jq0I57UP0Oc", "6xnKLw1Y_f8", "Zoe661tsFs8"];
 
         window.vykresliKino = function(filtr = 'vse') {
             let videaKVykresleni = [];
-            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1];
+            
+            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3];
             else if (filtr === '0') videaKVykresleni = videaSerie0;
             else if (filtr === '1') videaKVykresleni = videaSerie1;
+            else if (filtr === '2') videaKVykresleni = videaSerie2;
+            else if (filtr === '3') videaKVykresleni = videaSerie3;
 
             let htmlKina = "";
             videaKVykresleni.forEach(idVidea => {
-                htmlKina += `<div class="kino-karta" onclick="spustitVideo('${idVidea}')"><img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/hqdefault.jpg" alt="Video náhled"><div class="kino-play-ikona">▶</div></div>`;
+                htmlKina += `
+                <div class="kino-karta" onclick="spustitVideo('${idVidea}')">
+                    <img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/hqdefault.jpg" alt="Video náhled">
+                    <div class="kino-play-ikona">▶</div>
+                </div>`;
             });
             document.getElementById("kinoGrid").innerHTML = htmlKina;
 
@@ -296,6 +293,8 @@
             if (filtr === 'vse') tlacitka[0].classList.add("aktivni");
             if (filtr === '0') tlacitka[1].classList.add("aktivni");
             if (filtr === '1') tlacitka[2].classList.add("aktivni");
+            if (filtr === '2') tlacitka[3].classList.add("aktivni");
+            if (filtr === '3') tlacitka[4].classList.add("aktivni");
         }
 
         window.spustitVideo = function(idVidea) {
@@ -310,7 +309,7 @@
 
 
         // ==========================================
-        // PŮVODNÍ KÓD LETNÍ BRIGÁDY
+        // LETNÍ BRIGÁDA
         // ==========================================
         function zapisDoHistorie(zprava, barva = "#3498db") {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
@@ -437,25 +436,24 @@
             signInWithEmailAndPassword(auth, email, heslo).then(() => {
                 jmenoAktualni = slovnikJmen[email] || "Neznámý uživatel";
                 
-                // NASTAVENÍ OPRÁVNĚNÍ - KDO VIDÍ KINO?
                 if (eMailyRodicu.includes(email)) {
                     roleUzivatele = "rodic";
                     document.getElementById("ridiciPanel").style.display = "flex";
                     document.getElementById("odznacitVseBtn").style.display = "inline-block";
                     document.getElementById("smazatHistoriiBtn").style.display = "inline-block"; 
-                    document.getElementById("kartaKino").style.display = "none"; // Rodič nevidí kino
+                    document.getElementById("kartaKino").style.display = "none";
                 } else if (email === "tomas@turecek.cz") {
                     roleUzivatele = "tomas";
                     document.getElementById("ridiciPanel").style.display = "none";
                     document.getElementById("odznacitVseBtn").style.display = "none";
                     document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    document.getElementById("kartaKino").style.display = "flex"; // TOMÁŠ VIDÍ KINO
+                    document.getElementById("kartaKino").style.display = "flex"; // KINO
                 } else if (email === "martin@turecek.cz") {
                     roleUzivatele = "martin";
                     document.getElementById("ridiciPanel").style.display = "none";
                     document.getElementById("odznacitVseBtn").style.display = "none";
                     document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    document.getElementById("kartaKino").style.display = "none"; // Martin nevidí kino
+                    document.getElementById("kartaKino").style.display = "none";
                 }
 
                 document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
@@ -464,7 +462,6 @@
                 document.getElementById("loginSekce").style.display = "none";
                 document.getElementById("tajnyObsah").style.display = "block";
                 
-                // Připravíme kino a po přihlášení TĚ HODÍME NA ROZCESTNÍK
                 vykresliKino('vse');
                 zobrazModul('obsahRozcestnik', 'Osobní Portál');
                 stahniDataZDatabaze(); 
