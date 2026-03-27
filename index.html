@@ -7,117 +7,140 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         /* ========================================== */
-        /* SEM VLOŽ SVOJE KRÁSNÉ TMAVÉ CSS Z MINULA   */
+        /* CLEAN MODERNÍ DARK DESIGN                  */
         /* ========================================== */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0;
-            background: linear-gradient(-45deg, #1a2a6c, #11998e, #38ef7d); /* TADY SI DEJ TY SVOJE BARVY */
-            background-size: 400% 400%;
-            animation: pozadiAnimace 15s ease infinite;
-            color: white; min-height: 100vh;
+            margin: 0; padding: 20px;
+            background: linear-gradient(135deg, #1b737b, #13555c);
+            color: #ecf0f1; min-height: 100vh;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        @keyframes pozadiAnimace { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
         .kontejner {
-            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            text-align: center; width: 95%; max-width: 1000px; margin: 20px 0;
+            background: #142f34; /* Tmavý petrolejový kontejner */
+            padding: 25px; border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            text-align: center; width: 100%; max-width: 900px; box-sizing: border-box;
         }
 
-        .top-panel { display: none; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.3); padding: 10px 20px; border-radius: 15px; margin-bottom: 20px; font-size: 1.1em; border: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; gap: 10px; }
-        .maly-refresh { background: #3498db; border: none; color: white; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-size: 1.2em; }
+        /* ČISTÁ HORNÍ LIŠTA */
+        .top-panel { 
+            display: none; justify-content: space-between; align-items: center; 
+            background: #1a3c42; padding: 10px 15px; border-radius: 12px; 
+            margin-bottom: 25px; font-size: 1em;
+        }
+        .btn-domu { 
+            background: #2a4c52; border: none; color: white; padding: 8px 15px; 
+            border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; 
+            display: flex; align-items: center; gap: 8px; font-size: 0.9em;
+        }
+        .btn-domu:hover { background: #355d64; }
+        
+        .maly-refresh { 
+            background: #3498db; border: none; color: white; border-radius: 50%; 
+            width: 35px; height: 35px; cursor: pointer; transition: 0.2s; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.1em;
+            margin-left: 10px;
+        }
         .maly-refresh:hover { background: #2980b9; transform: rotate(180deg); }
 
-        h1 { margin-top: 10px; font-size: 2.2em; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .podtitul { color: #f1c40f; font-weight: bold; margin-bottom: 25px; font-size: 1.1em; }
+        h1 { margin: 0 0 10px 0; font-size: 2em; letter-spacing: 1px; }
+        .podtitul { color: #bdc3c7; font-weight: normal; margin-bottom: 25px; font-size: 1em; }
         
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] { padding: 12px; border-radius: 10px; border: none; outline: none; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; background: rgba(255,255,255,0.9); font-family: inherit; }
-        .tlacitko { padding: 15px 20px; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; color: white; cursor: pointer; transition: 0.3s; width: 100%; }
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] { 
+            padding: 12px; border-radius: 8px; border: none; outline: none; 
+            font-size: 15px; margin-bottom: 10px; box-sizing: border-box; 
+            background: #e0e6ed; color: #2c3e50; font-family: inherit;
+        }
+        .tlacitko { 
+            padding: 12px 20px; border: none; border-radius: 8px; font-size: 1em; 
+            font-weight: bold; color: white; cursor: pointer; transition: 0.2s; width: 100%; 
+        }
         .tlacitko-login { background: #2ecc71; }
-        .tlacitko-login:hover { background: #27ae60; transform: translateY(-3px); }
-        .tlacitko-logout { background: #e74c3c; margin-top: 20px; }
-        .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px; }
-
-        /* ROZCESTNÍK (DASHBOARD) */
-        .rozcestnik-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px 0; }
-        .dlazdice { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 30px 20px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-decoration: none; color: white; }
-        .dlazdice:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        .dlazdice-ikona { font-size: 3.5em; margin-bottom: 15px; }
-        .dlazdice-nadpis { font-size: 1.4em; font-weight: bold; margin: 0 0 5px 0; }
-        .dlazdice-popis { font-size: 0.9em; color: #bdc3c7; margin: 0; }
-        .dlazdice-zamceno { opacity: 0.5; cursor: not-allowed; }
-        .dlazdice-zamceno:hover { transform: none; background: rgba(255, 255, 255, 0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-
-        .btn-domu { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        .btn-domu:hover { background: rgba(255,255,255,0.25); }
+        .tlacitko-login:hover { background: #27ae60; }
+        
+        /* Velké červené tlačítko na odhlášení dole */
+        .tlacitko-logout { background: #e74c3c; margin-top: 20px; padding: 15px; font-size: 1.1em; }
+        .tlacitko-logout:hover { background: #c0392b; }
+        
+        .tlacitko-pridat { background: #f39c12; width: auto; margin-top: 0; padding: 12px 20px; }
 
         #tajnyObsah { display: none; }
-        #bankaSekce { margin-bottom: 20px; }
 
-        /* STYLY BRIGÁDY */
+        /* ROZCESTNÍK (DASHBOARD) */
+        .rozcestnik-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 10px 0; }
+        .dlazdice { background: #1e3f46; border-radius: 16px; padding: 30px 20px; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-decoration: none; border: 1px solid transparent; }
+        .dlazdice:hover { background: #264e56; transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+        .dlazdice-ikona { font-size: 3em; margin-bottom: 15px; }
+        .dlazdice-nadpis { font-size: 1.2em; font-weight: bold; margin: 0 0 5px 0; }
+        .dlazdice-popis { font-size: 0.85em; color: #95a5a6; margin: 0; }
+        .dlazdice-zamceno { opacity: 0.4; cursor: not-allowed; }
+        .dlazdice-zamceno:hover { transform: none; background: #1e3f46; border-color: transparent; }
+
+        /* BRIGÁDA ROZLOŽENÍ */
         .aplikace-grid { display: flex; gap: 20px; flex-wrap: wrap; text-align: left; }
         .hlavni-sloupec { flex: 2; min-width: 300px; }
-        .bocni-sloupec { flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); max-height: 600px; overflow-y: auto; position: relative; }
-        .pridavani-box { display: none; gap: 10px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; border: 1px dashed #f1c40f; align-items: center; flex-wrap: wrap; justify-content: center; }
+        .bocni-sloupec { flex: 1; min-width: 250px; background: #1a3c42; padding: 20px; border-radius: 12px; max-height: 600px; overflow-y: auto; }
+        
+        /* BANKA */
+        #bankaSekce { margin-bottom: 20px; }
+        .banka-box { display: flex; justify-content: space-around; background: #16363c; padding: 20px; border-radius: 12px; flex-wrap: wrap; gap: 15px; }
+        .banka-osoba { min-width: 180px; text-align: center; }
+        .banka-jmeno { margin: 0 0 10px 0; color: #2ecc71; font-size: 1.2em; font-weight: bold;}
+        .mince-stitek { background: #4a5f63; color: white; font-size: 0.75em; padding: 5px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+        .mince-zlato { font-size: 1.4em; letter-spacing: 3px; display: block; margin-bottom: 5px;}
+        .banka-drobne { font-size: 1.1em; font-weight: bold; }
+        
+        /* PŘIDÁVÁNÍ ÚKOLŮ */
+        .pridavani-box { display: none; gap: 10px; margin-bottom: 20px; background: #1a3c42; padding: 15px; border-radius: 12px; align-items: center; flex-wrap: wrap; border: 1px dashed #f1c40f;}
         .pridavani-box input { margin-bottom: 0; width: auto; flex-grow: 1; }
         
-        .ukol-karta { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; transition: 0.3s; }
-        .ukol-karta:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(5px); }
+        /* KARTY ÚKOLŮ */
+        .ukol-karta { background: #214147; padding: 15px 20px; margin-bottom: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; transition: 0.2s; border: 1px solid transparent; }
+        .ukol-karta:hover { background: #264b52; border-color: rgba(255,255,255,0.05); }
         .ukol-leva-cast { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
-        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
-        .text-ukolu { font-size: 1.1em; font-weight: bold; }
+        input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: #2ecc71; flex-shrink: 0; }
+        .text-ukolu { font-size: 1.05em; font-weight: 600; color: #ecf0f1;}
         
-        .odmena-stitek { background: #ffdf00; color: #333; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em; white-space: nowrap; }
+        .odmena-stitek { background: #f1c40f; color: #2c3e50; padding: 4px 10px; border-radius: 15px; font-weight: bold; font-size: 0.85em; white-space: nowrap; }
         .stitek-pozde { background: #e74c3c; color: white; margin-right: 10px; }
-        .smazat-btn { background: transparent; border: none; color: #ff7675; cursor: pointer; font-size: 1.2em; margin-left: 10px; }
-        .datum-text { font-size: 0.8em; color: #bdc3c7; display: block; margin-top: 5px; font-weight: normal; }
-        .mince-text { font-size: 1.6em; margin: 10px 0; letter-spacing: 3px; }
+        .smazat-btn { background: transparent; border: none; color: #e74c3c; cursor: pointer; font-size: 1.1em; margin-left: 10px; opacity: 0.7; transition: 0.2s;}
+        .smazat-btn:hover { opacity: 1; }
+        .datum-text { font-size: 0.8em; color: #95a5a6; display: flex; align-items: center; gap: 5px; margin-top: 4px; }
 
-        .historie-nadpis { font-size: 1.2em; font-weight: bold; color: #f1c40f; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .historie-polozka { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9em; border-left: 3px solid #3498db; }
-        .historie-cas { font-size: 0.8em; color: #bdc3c7; display: block; margin-bottom: 3px; }
-        .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .tlacitko-zamitnout { background: #e74c3c; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* HISTORIE */
+        .historie-nadpis { font-size: 1.1em; font-weight: bold; color: #f1c40f; margin: 0 0 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .historie-polozka { background: #1e3b40; padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85em; border-left: 3px solid #3498db; color: #ecf0f1;}
+        .historie-cas { font-size: 0.8em; color: #95a5a6; display: block; margin-bottom: 4px; }
+        
+        .tlacitko-schvalit { background: #2ecc71; border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;}
+        .tlacitko-zamitnout { background: #e74c3c; border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;}
 
-        /* ========================================== */
-        /* STYLY PRO KINO (YOUTUBE DESIGN)            */
-        /* ========================================== */
-        .youtube-nadpis { color: #f1f1f1; text-align: left; margin-bottom: 20px; font-weight: bold; font-size: 1.6em; display: flex; align-items: center; gap: 10px; }
-        .youtube-logo { color: #ff0000; font-size: 1.2em; }
-        
-        /* YouTube pilulkové menu */
-        .kino-filtr-lista { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
-        .kino-filtr-btn { background: rgba(255,255,255,0.1); border: 1px solid transparent; color: #f1f1f1; font-size: 0.95em; font-weight: bold; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: 0.2s; }
-        .kino-filtr-btn:hover { background: rgba(255,255,255,0.2); }
-        .kino-filtr-btn.aktivni { background: #f1f1f1; color: #0f0f0f; }
+        /* KINO CLEAN DESIGN */
+        .kino-filtr-lista { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .kino-filtr-btn { background: #1a3c42; border: none; color: #bdc3c7; font-size: 0.9em; font-weight: bold; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: 0.2s; }
+        .kino-filtr-btn:hover { background: #264b52; color: white; }
+        .kino-filtr-btn.aktivni { background: #ecf0f1; color: #142f34; }
 
-        /* YouTube Grid */
-        .youtube-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding-bottom: 30px; }
-        
-        /* Karta s videem - zaoblené rohy */
-        .kino-karta { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; aspect-ratio: 16/9; background: #202020; }
-        .kino-karta:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.4); z-index: 10; }
-        .kino-img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; transition: opacity 0.2s; }
-        .kino-karta:hover .kino-img { opacity: 0.8; }
-        
-        /* Červená Play ikona na hover */
-        .kino-play-ikona { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5em; color: #ff0000; opacity: 0; transition: opacity 0.2s; pointer-events: none; filter: drop-shadow(0 0 8px rgba(0,0,0,0.8)); }
+        .youtube-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; padding-bottom: 20px; }
+        .kino-karta { position: relative; border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; aspect-ratio: 16/9; background: #000; }
+        .kino-karta:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
+        .kino-img { width: 100%; height: 100%; object-fit: cover; transition: 0.2s; }
+        .kino-karta:hover .kino-img { opacity: 0.7; }
+        .kino-play-ikona { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3em; color: #ff0000; opacity: 0; transition: 0.2s; pointer-events: none; filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); }
         .kino-karta:hover .kino-play-ikona { opacity: 1; }
 
-        /* Vyskakovací přehrávač */
         #videoModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
-        #zavritVideoBtn { position: absolute; top: 20px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
+        #zavritVideoBtn { position: absolute; top: 20px; right: 30px; background: rgba(255,255,255,0.1); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        #zavritVideoBtn:hover { background: #e74c3c; }
     </style>
 </head>
 <body>
 
     <div id="videoModal">
         <button id="zavritVideoBtn" title="Zavřít kino">✖</button>
-        <iframe id="videoPlayer" width="80%" height="80%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);"></iframe>
+        <iframe id="videoPlayer" width="85%" height="85%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);"></iframe>
     </div>
 
     <div class="kontejner">
@@ -125,45 +148,43 @@
         <div class="top-panel" id="uzivatelPanel">
             <button id="btnZpetDomu" class="btn-domu" style="display: none;">🏠 Hlavní menu</button>
             <div style="flex-grow: 1;"></div>
-            <span style="font-weight: bold; color: #f1c40f; margin-right: 15px;">👤 <span id="jmenoPrihlaseneho"></span></span>
+            <span style="font-weight: 600; color: #f1c40f; display:flex; align-items:center;">
+                <span style="margin-right: 5px;">👤</span> <span id="jmenoPrihlaseneho"></span>
+            </span>
             <button id="malyRefreshBtn" class="maly-refresh" title="Zkontrolovat novinky">🔄</button>
         </div>
 
-        <h1 id="hlavniNadpis" style="text-align: center;">Osobní Portál</h1>
-        <p class="podtitul" id="uvitaciText" style="text-align: center;">Přihlas se pro vstup do systému</p>
+        <h1 id="hlavniNadpis">Osobní Portál</h1>
+        <p class="podtitul" id="uvitaciText">Přihlas se pro vstup do systému</p>
         
-        <div id="loginSekce" style="max-width: 400px; margin: 0 auto;">
-            <input type="email" id="emailInput" placeholder="Tvůj e-mail..." style="width: 100%;">
-            <input type="password" id="hesloInput" placeholder="Tvé heslo..." style="width: 100%;">
+        <div id="loginSekce" style="max-width: 350px; margin: 0 auto;">
+            <input type="email" id="emailInput" placeholder="E-mail" style="width: 100%;">
+            <input type="password" id="hesloInput" placeholder="Heslo" style="width: 100%;">
             <button id="loginBtn" class="tlacitko tlacitko-login">Vstoupit</button>
         </div>
 
         <div id="tajnyObsah">
             
             <div id="obsahRozcestnik" class="rozcestnik-grid">
-                
                 <div class="dlazdice" onclick="zobrazModul('obsahBrigada', 'Letní Brigáda')">
                     <div class="dlazdice-ikona">💰</div>
                     <h3 class="dlazdice-nadpis">Letní brigáda</h3>
                     <p class="dlazdice-popis">Správa úkolů a rodinná banka.</p>
                 </div>
-
                 <div class="dlazdice" id="kartaKino" style="display: none;" onclick="zobrazModul('obsahKino', 'Moje Kino')">
                     <div class="dlazdice-ikona">▶️</div>
                     <h3 class="dlazdice-nadpis">Moje Kino</h3>
-                    <p class="dlazdice-popis">Soukromá YouTube videotéka.</p>
+                    <p class="dlazdice-popis">Soukromá videotéka.</p>
                 </div>
-
                 <div class="dlazdice dlazdice-zamceno" title="Tento modul ještě není naprogramován">
                     <div class="dlazdice-ikona">🚧</div>
                     <h3 class="dlazdice-nadpis">Další aplikace</h3>
-                    <p class="dlazdice-popis">Připravujeme v další aktualizaci...</p>
+                    <p class="dlazdice-popis">Připravujeme...</p>
                 </div>
-
             </div>
 
-
             <div id="obsahBrigada" style="display: none;">
+                
                 <div id="bankaSekce"></div>
 
                 <div class="aplikace-grid">
@@ -171,31 +192,29 @@
                         <div class="pridavani-box" id="ridiciPanel">
                             <input type="text" id="novyUkol" placeholder="Název úkolu...">
                             <input type="date" id="novyDatum" title="Dokdy to musí být? (Nepovinné)">
-                            <input type="number" id="novaOdmena" placeholder="Částka" style="width: 90px;">
-                            <span style="font-weight: bold; font-size: 1.2em;">Kč</span>
+                            <input type="number" id="novaOdmena" placeholder="Částka" style="width: 80px;">
+                            <span style="font-weight: bold; font-size: 1.1em; margin-right:5px;">Kč</span>
                             <button id="pridatBtn" class="tlacitko tlacitko-pridat">➕</button>
                         </div>
                         
                         <div id="seznamUkolu">Načítám data...</div>
                         
-                        <div style="text-align: right;">
-                            <button id="odznacitVseBtn" style="background: transparent; color: #bdc3c7; border: 1px solid #bdc3c7; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: none; margin-top: 10px; font-size: 0.85em; transition: 0.3s;">🧹 Odznačit vše</button>
+                        <div style="text-align: left; margin-top: 15px;">
+                            <button id="odznacitVseBtn" style="background: rgba(155, 89, 182, 0.2); color: #c8d6e5; border: 1px solid rgba(155, 89, 182, 0.5); padding: 8px 12px; border-radius: 6px; cursor: pointer; display: none; font-size: 0.85em; transition: 0.2s;">🧹 Odznačit všechny úkoly</button>
                         </div>
                     </div>
 
                     <div class="bocni-sloupec">
                         <h3 class="historie-nadpis">
-                            <span>📋 Informační tabule</span>
-                            <button id="smazatHistoriiBtn" style="background: none; border: none; cursor: pointer; font-size: 1em; display: none; padding: 0;" title="Vyčistit tabuli">🗑️</button>
+                            <span style="display: flex; align-items: center; gap: 8px;">📋 Informační tabule</span>
+                            <button id="smazatHistoriiBtn" style="background: none; border: none; cursor: pointer; font-size: 1.1em; display: none; padding: 0; color: #e74c3c; opacity: 0.7;" title="Vyčistit tabuli">🗑️</button>
                         </h3>
                         <div id="historieZaznamy">Zatím žádné novinky...</div>
                     </div>
                 </div>
             </div>
 
-            <div id="obsahKino" style="display: none; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                <h2 class="youtube-nadpis"><span class="youtube-logo">▶</span> Moje oblíbená videa</h2>
-                
+            <div id="obsahKino" style="display: none;">
                 <div class="kino-filtr-lista" id="kinoFiltrMenu">
                     <button class="kino-filtr-btn aktivni" onclick="vykresliKino('vse')">Vše</button>
                     <button class="kino-filtr-btn" onclick="vykresliKino('0')">0. série</button>
@@ -203,9 +222,7 @@
                     <button class="kino-filtr-btn" onclick="vykresliKino('2')">2. série</button>
                     <button class="kino-filtr-btn" onclick="vykresliKino('3')">3. série</button>
                 </div>
-
-                <div class="youtube-grid" id="kinoGrid">
-                    </div>
+                <div class="youtube-grid" id="kinoGrid"></div>
             </div>
 
             <button id="logoutBtn" class="tlacitko tlacitko-logout">Odhlásit se a zamknout</button>
@@ -247,8 +264,8 @@
             document.getElementById("obsahKino").style.display = "none";
 
             document.getElementById(idModulu).style.display = (idModulu === "obsahRozcestnik") ? "grid" : "block";
-            
             document.getElementById("hlavniNadpis").innerText = novyNadpis;
+            
             if (idModulu === "obsahRozcestnik") {
                 document.getElementById("btnZpetDomu").style.display = "none"; 
             } else {
@@ -260,7 +277,6 @@
             zobrazModul('obsahRozcestnik', 'Osobní Portál');
         });
 
-
         // ==========================================
         // KINO YOUTUBE
         // ==========================================
@@ -271,7 +287,6 @@
 
         window.vykresliKino = function(filtr = 'vse') {
             let videaKVykresleni = [];
-            
             if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3];
             else if (filtr === '0') videaKVykresleni = videaSerie0;
             else if (filtr === '1') videaKVykresleni = videaSerie1;
@@ -307,7 +322,6 @@
             document.getElementById("videoModal").style.display = "none";
         });
 
-
         // ==========================================
         // LETNÍ BRIGÁDA
         // ==========================================
@@ -320,26 +334,37 @@
 
         function vykresliHistorii() {
             let html = "";
-            if (poleHistorie.length === 0) { html = "<p style='color:#bdc3c7; font-size:0.9em;'>Zatím se nic nestalo.</p>"; } 
+            if (poleHistorie.length === 0) { html = "<p style='color:#7f8c8d; font-size:0.9em;'>Zatím se nic nestalo.</p>"; } 
             else { poleHistorie.forEach(z => { html += `<div class="historie-polozka" style="border-left-color: ${z.barva};"><span class="historie-cas">${z.cas}</span>${z.text}</div>`; }); }
             document.getElementById("historieZaznamy").innerHTML = html;
         }
 
         function vykresliMince(pocet) {
-            if (pocet <= 0) return "<span class='odmena-stitek' style='background: #7f8c8d; color: white; font-size: 0.6em; padding: 5px 10px;'>Zatím bez zlaťáku</span>";
-            return "🪙".repeat(pocet);
+            if (pocet <= 0) return "<span class='mince-stitek'>Zatím bez zlaťáku</span>";
+            return `<span class="mince-zlato">${"🪙".repeat(pocet)}</span>`;
         }
 
         function vykresliBanku() {
-            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
-            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="tlacitko" style="background:#f39c12; padding:8px; margin-top:10px; font-size:0.9em;">💰 Proplatit Zlaťák</button>` : "";
-            let btnResetTomas = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('tomas')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
-            let btnResetMartin = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('martin')" class="odmena-stitek" style="background:#e74c3c; color:white; border:none; margin-top:15px; cursor:pointer; padding: 8px 15px; font-size: 0.8em;">✖ Vynulovat banku</button>` : "";
+            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<br><button onclick="proplatitMinci('tomas')" class="tlacitko" style="background:#f39c12; padding:6px 12px; margin-top:8px; font-size:0.85em; width:auto;">💰 Proplatit</button>` : "";
+            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<br><button onclick="proplatitMinci('martin')" class="tlacitko" style="background:#f39c12; padding:6px 12px; margin-top:8px; font-size:0.85em; width:auto;">💰 Proplatit</button>` : "";
+            
+            let btnResetTomas = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('tomas')" style="background:none; color:#e74c3c; border:none; margin-top:10px; cursor:pointer; font-size: 0.8em; text-decoration:underline;">Vynulovat vše Tomášovi</button>` : "";
+            let btnResetMartin = (roleUzivatele === "rodic") ? `<br><button onclick="vynulovatKonto('martin')" style="background:none; color:#e74c3c; border:none; margin-top:10px; cursor:pointer; font-size: 0.8em; text-decoration:underline;">Vynulovat vše Martinovi</button>` : "";
 
             document.getElementById("bankaSekce").innerHTML = `
-                <div style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.4); padding:20px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); flex-wrap:wrap; gap:10px;">
-                    <div style="min-width: 200px; text-align:center;"><h3 style="margin:0 0 5px 0; color:#38ef7d;">Tomáš</h3><div class="mince-text">${vykresliMince(minceTomas)}</div><b style="font-size:1.1em;">Drobné: ${kontoTomas} / 1000 Kč</b><br>${btnProplatitTomas} ${btnResetTomas}</div>
-                    <div style="min-width: 200px; text-align:center;"><h3 style="margin:0 0 5px 0; color:#38ef7d;">Martin</h3><div class="mince-text">${vykresliMince(minceMartin)}</div><b style="font-size:1.1em;">Drobné: ${kontoMartin} / 1000 Kč</b><br>${btnProplatitMartin} ${btnResetMartin}</div>
+                <div class="banka-box">
+                    <div class="banka-osoba">
+                        <h3 class="banka-jmeno">Tomáš</h3>
+                        ${vykresliMince(minceTomas)}
+                        <div class="banka-drobne">Drobné: ${kontoTomas} / 1000 Kč</div>
+                        ${btnProplatitTomas} ${btnResetTomas}
+                    </div>
+                    <div class="banka-osoba">
+                        <h3 class="banka-jmeno">Martin</h3>
+                        ${vykresliMince(minceMartin)}
+                        <div class="banka-drobne">Drobné: ${kontoMartin} / 1000 Kč</div>
+                        ${btnProplatitMartin} ${btnResetMartin}
+                    </div>
                 </div>`;
         }
 
@@ -359,31 +384,31 @@
 
         function vykresliUkoly() {
             let html = "";
-            if (poleUkolu.length === 0) html = "<p style='color: rgba(255,255,255,0.7);'>Žádné úkoly k dispozici.</p>";
+            if (poleUkolu.length === 0) html = "<p style='color: #7f8c8d; font-size:0.9em;'>Zatím tu nejsou žádné úkoly.</p>";
             let d = new Date().toISOString().split('T')[0];
 
             poleUkolu.forEach((ukol, index) => {
                 let lH = ""; let pH = "";
-                let tS = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})">✖</button>` : "";
+                let tS = (roleUzivatele === "rodic") ? `<button class="smazat-btn" onclick="smazUkol(${index})" title="Smazat úkol">✖</button>` : "";
                 let aO = ziskejAktualniOdmenu(ukol);
-                let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="odmena-stitek stitek-pozde">PO TERMÍNU</span>` : "";
+                let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="odmena-stitek stitek-pozde">Zpoždění</span>` : "";
                 let dT = ukol.termin ? `<span class="datum-text">⏰ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
 
                 if (ukol.splneno) {
                     let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    lH = `<input type="checkbox" checked disabled><div><span class="text-ukolu" style="text-decoration:line-through; opacity:0.6;">${ukol.nazev} <span style="font-size:0.8em; color:#2ecc71;">(Schváleno: ${jS})</span></span>${dT}</div>`;
-                    pH = `<span class="odmena-stitek" style="opacity:0.6;">${aO} Kč</span> ${tS}`;
+                    lH = `<input type="checkbox" checked disabled><div><span class="text-ukolu" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev} <span style="font-size:0.8em; color:#2ecc71; font-weight:normal;">(Schválil rodič pro: ${jS})</span></span>${dT}</div>`;
+                    pH = `<span class="odmena-stitek" style="opacity:0.5; background:#7f8c8d; color:white;">${aO} Kč</span> ${tS}`;
                 } else if (ukol.cekaNaPotvrzeni) {
                     let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
                     if (roleUzivatele === "rodic") {
-                        lH = `<span style="font-size: 1.5em; margin-right:10px;">⏳</span><div><span class="text-ukolu" style="color:#f39c12;">${jZ} žádá o schválení: <b>${ukol.nazev}</b></span>${dT}</div>`;
-                        pH = `<button onclick="schvalitUkol(${index})" class="tlacitko-schvalit">✅</button><button onclick="zamitnoutUkol(${index})" class="tlacitko-zamitnout" style="margin-left:5px;">❌</button>${tS}`;
+                        lH = `<span style="font-size: 1.2em; margin-right:12px;">⏳</span><div><span class="text-ukolu" style="color:#f39c12;">${jZ} žádá o schválení: <b>${ukol.nazev}</b></span>${dT}</div>`;
+                        pH = `<button onclick="schvalitUkol(${index})" class="tlacitko-schvalit">Schválit</button><button onclick="zamitnoutUkol(${index})" class="tlacitko-zamitnout" style="margin-left:5px;">Zamítnout</button>${tS}`;
                     } else if (roleUzivatele === ukol.splnilKdo) {
-                        lH = `<input type="checkbox" checked onchange="zrusitZadost(${index})"><div><span class="text-ukolu" style="color:#f39c12;">⏳ Čekáš na schválení: ${ukol.nazev}</span>${dT}</div>`;
+                        lH = `<input type="checkbox" checked onchange="zrusitZadost(${index})"><div><span class="text-ukolu" style="color:#f39c12;">⏳ Čekáš na kontrolu: ${ukol.nazev}</span>${dT}</div>`;
                         pH = `<span class="odmena-stitek">${aO} Kč</span>`;
                     } else {
-                        lH = `<input type="checkbox" disabled checked><div><span class="text-ukolu" style="color:#7f8c8d;">🔒 ${jZ} odevzdal: ${ukol.nazev}</span>${dT}</div>`;
-                        pH = `<span class="odmena-stitek">${aO} Kč</span>`;
+                        lH = `<input type="checkbox" disabled checked><div><span class="text-ukolu" style="color:#7f8c8d;">🔒 ${jZ} již odevzdal: ${ukol.nazev}</span>${dT}</div>`;
+                        pH = `<span class="odmena-stitek" style="background:#7f8c8d; color:white;">${aO} Kč</span>`;
                     }
                 } else {
                     let dis = (roleUzivatele === "rodic") ? "disabled" : "";
@@ -402,7 +427,7 @@
         }
 
         function stahniDataZDatabaze() {
-            document.getElementById("seznamUkolu").innerHTML = "Načítám čerstvá data...";
+            document.getElementById("seznamUkolu").innerHTML = "<p style='color:#95a5a6;'>Načítám data...</p>";
             getDoc(doc(db, "ukoly", "seznam")).then((dokument) => {
                 if (dokument.exists()) {
                     let data = dokument.data();
@@ -416,18 +441,22 @@
             }).catch((chyba) => { console.error(chyba); });
         }
 
-        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`⏳ <b>${jmenoAktualni}</b> dokončil úkol "${u.nazev}".`, "#f39c12"); ulozDoDatabaze(); vykresliUkoly(); };
+        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`⏳ ${jmenoAktualni} dokončil úkol "${u.nazev}".`, "#f39c12"); ulozDoDatabaze(); vykresliUkoly(); };
         window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("dokončil úkol"))); ulozDoDatabaze(); vykresliUkoly(); };
         window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; document.getElementById('zvukCinknuti')?.play().catch(e=>e); zapisDoHistorie(`✅ Rodič schválil úkol "${u.nazev}".`, "#2ecc71"); ulozDoDatabaze(); vykresliUkoly(); };
-        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`❌ Rodič zamítl úkol "${u.nazev}". Musí se předělat!`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); }
-        window.smazUkol = function(index) { zapisDoHistorie(`🗑️ Úkol "${poleUkolu[index].nazev}" byl smazán.`, "#95a5a6"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
-        window.proplatitMinci = function(k) { if (confirm(`Proplatit 1000 Kč v hotovosti?`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`💰 Rodič proplatil 1 Zlaťák.`, "#9b59b6"); ulozDoDatabaze(); vykresliUkoly(); } }
-        window.vynulovatKonto = function(k) { if (confirm(`Smažeš všechny peníze i Zlaťáky. Jsi si jistý?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`⚠️ Bankovní konto bylo vynulováno.`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); } }
+        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`❌ Rodič zamítl úkol "${u.nazev}".`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); }
+        window.smazUkol = function(index) { zapisDoHistorie(`🗑️ Úkol "${poleUkolu[index].nazev}" smazán.`, "#95a5a6"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
+        window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Znamená to, že jsi dal 1000 Kč v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`💰 Rodič proplatil 1 Zlaťák.`, "#9b59b6"); ulozDoDatabaze(); vykresliUkoly(); } }
+        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`⚠️ Konto vynulováno.`, "#e74c3c"); ulozDoDatabaze(); vykresliUkoly(); } }
 
-        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`➕ Přidán úkol: "${n}" za ${o} Kč.`); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; } else { alert("Musíš zadat název a částku!"); } });
+        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`➕ Přidán úkol: "${n}".`); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; } else { alert("Zadej název a částku!"); } });
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { stahniDataZDatabaze(); });
+        
+        // Změna designu tlačítka Odznačit vše
         document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`🧹 Úkoly připraveny na nový den.`, "#2ecc71"); ulozDoDatabaze(); vykresliUkoly(); } });
-        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => { if (confirm("Vymazat tabuli?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
+        
+        // Změna u mazání historie (teď je to ikonka u nadpisu)
+        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => { if (confirm("Opravdu vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
@@ -436,6 +465,7 @@
             signInWithEmailAndPassword(auth, email, heslo).then(() => {
                 jmenoAktualni = slovnikJmen[email] || "Neznámý uživatel";
                 
+                // NASTAVENÍ VIDITELNOSTI
                 if (eMailyRodicu.includes(email)) {
                     roleUzivatele = "rodic";
                     document.getElementById("ridiciPanel").style.display = "flex";
@@ -447,7 +477,7 @@
                     document.getElementById("ridiciPanel").style.display = "none";
                     document.getElementById("odznacitVseBtn").style.display = "none";
                     document.getElementById("smazatHistoriiBtn").style.display = "none";
-                    document.getElementById("kartaKino").style.display = "flex"; // KINO
+                    document.getElementById("kartaKino").style.display = "flex"; 
                 } else if (email === "martin@turecek.cz") {
                     roleUzivatele = "martin";
                     document.getElementById("ridiciPanel").style.display = "none";
