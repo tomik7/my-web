@@ -21,7 +21,7 @@
             --input-bg: #eef1f4;
             --danger: #ff4757;
             --success: #2ed573;
-            --warning: #ffa502;
+            --warning: #ff7979;       /* Duolingo oranžovo-červená pro ohně */
             --border-radius: 16px;
         }
 
@@ -40,7 +40,7 @@
             --input-bg: #1c454d;
             --danger: #e74c3c;
             --success: #2ecc71;
-            --warning: #f39c12;
+            --warning: #ff7979;
         }
 
         /* ========================================== */
@@ -57,59 +57,40 @@
             overflow-y: scroll;
         }
 
-        .app-shell {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        .app-shell { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* HORNÍ LIŠTA (Roztažená přes celý web) */
+        /* HORNÍ LIŠTA */
         .app-header {
-            background: var(--header-bg);
-            backdrop-filter: blur(10px);
+            background: var(--header-bg); backdrop-filter: blur(10px);
             position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid var(--border);
-            transition: background-color 0.3s;
-            width: 100%;
+            transition: background-color 0.3s; width: 100%;
         }
-        
         .header-container {
-            max-width: 1200px; margin: 0 auto;
-            padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-sizing: border-box;
+            max-width: 1200px; margin: 0 auto; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
         }
-        
         .header-left { display: flex; align-items: center; gap: 30px; }
         .header-title { font-size: 1.6em; font-weight: 900; margin: 0; letter-spacing: -0.5px; color: var(--primary); cursor: pointer;}
         
-        /* DESKTOP NAVIGACE (Schovaná na mobilu) */
         .desktop-nav { display: none; gap: 10px; }
-        .nav-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); cursor: pointer; font-size: 0.95em; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.2s;}
+        .nav-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); cursor: pointer; font-size: 0.95em; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.2s; text-decoration: none;}
         .nav-item:hover { background: var(--border); }
         .nav-item.active { background: var(--primary-light); color: var(--primary); }
         
         .header-right { display: flex; align-items: center; gap: 10px; }
         .header-profile { font-weight: 600; display: none; margin-right: 10px;}
+        
         .icon-btn { background: transparent; color: var(--text-main); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.1em;}
         .icon-btn:hover { background: var(--primary-light); color: var(--primary); border-color: transparent;}
-        .icon-btn:active { transform: scale(0.9); }
         .icon-danger { color: var(--danger); }
         .icon-danger:hover { background: rgba(255, 71, 87, 0.1); color: var(--danger); }
 
-        /* OBSAH APLIKACE (Omezená šířka pro čitelnost) */
-        .app-content {
-            width: 100%; max-width: 1200px; margin: 0 auto;
-            padding: 30px 20px; padding-bottom: 100px;
-            flex-grow: 1; box-sizing: border-box;
-        }
+        .app-content { width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px 20px; padding-bottom: 100px; flex-grow: 1; box-sizing: border-box; }
 
-        /* SPODNÍ NAVIGACE (MOBIL) */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: var(--header-bg); backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border);
+            background: var(--header-bg); backdrop-filter: blur(10px); border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center;
             padding: 10px 0; padding-bottom: calc(10px + env(safe-area-inset-bottom));
             z-index: 100; transition: background-color 0.3s;
@@ -118,30 +99,24 @@
         .bottom-nav .nav-item.active { background: transparent; color: var(--primary); }
         .bottom-nav .nav-icon { font-size: 1.8em; margin-bottom: 2px;}
 
-        /* ========================================== */
-        /* RESPONSIVNÍ MAGIE                          */
-        /* ========================================== */
         @media (min-width: 768px) {
             .bottom-nav { display: none !important; } 
             .desktop-nav { display: flex; }           
             .header-profile { display: block; }       
             .app-content { padding-bottom: 40px; }
             .brigada-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+            
+            /* Nový dvousloupcový layout pro domovskou obrazovku */
+            .home-grid { display: grid; grid-template-columns: 3fr 1fr; gap: 30px; align-items: start; }
         }
 
-        /* ========================================== */
-        /* KOMPONENTY APLIKACE                        */
-        /* ========================================== */
         .hidden { display: none !important; }
-        
         .view-section { display: none; animation: fadeIn 0.3s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
-            width: 100%; padding: 16px; border-radius: 12px; border: none;
-            background: var(--input-bg); font-size: 16px; margin-bottom: 12px;
-            box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s;
+            width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s;
         }
         input:focus { outline: 2px solid var(--primary); }
 
@@ -149,31 +124,33 @@
         .btn-primary { background: var(--primary); color: white; }
         .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
         .btn-danger { background: var(--primary-light); color: var(--danger); margin-top: 10px; }
-        .btn-danger:hover { background: rgba(255, 71, 87, 0.15); }
 
         .card { background: var(--card-bg); border-radius: var(--border-radius); padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: background-color 0.3s; }
         
-        /* ROZCESTNÍK */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .home-grid { display: flex; flex-direction: column; gap: 20px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
         .dash-item { background: var(--card-bg); border-radius: var(--border-radius); padding: 35px 20px; text-align: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.2s; display: flex; flex-direction: column; align-items: center; }
         .dash-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--primary-light); }
         .dash-icon { font-size: 3.5em; margin-bottom: 15px; }
         .dash-title { font-weight: 800; font-size: 1.2em; margin: 0 0 5px 0; color: var(--text-main); }
         .dash-locked { opacity: 0.5; filter: grayscale(1); cursor: not-allowed;}
-        .dash-locked:hover { transform: none; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border-color: var(--border); }
 
-        /* BANKA */
+        /* STREAKS (Duolingo Oheň) */
+        .streak-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .streak-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .streak-name { font-weight: 700; font-size: 1.05em; }
+        .streak-count { font-weight: 900; display: flex; align-items: center; gap: 6px; font-size: 1.2em;}
+
         .wallet-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .wallet-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); display: flex; flex-direction: column;}
         .wallet-name { font-size: 1em; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin: 0 0 10px 0;}
         .wallet-balance { font-size: 2em; font-weight: 900; color: var(--primary); margin: 0 0 10px 0;}
         .wallet-coins { font-size: 1.4em; letter-spacing: 2px; }
 
-        /* ÚKOLY */
         .task-item { background: var(--card-bg); border-radius: 14px; padding: 20px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: 0.3s;}
         .task-info { flex-grow: 1; }
         .task-title { font-weight: 700; font-size: 1.1em; margin-bottom: 6px; color: var(--text-main); }
-        .task-meta { font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 5px; font-weight: 500;}
+        .task-meta { font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 5px; font-weight: 500; flex-wrap: wrap;}
         
         .price-tag { background: var(--primary-light); color: var(--primary); font-weight: 800; padding: 8px 16px; border-radius: 20px; font-size: 0.95em; white-space: nowrap; }
         .price-tag-done { background: var(--input-bg); color: var(--text-muted); }
@@ -184,9 +161,8 @@
         .custom-checkbox:checked::after { content: "✔"; color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; font-weight: bold;}
         .custom-checkbox:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* HISTORIE */
         .history-item { display: flex; gap: 15px; margin-bottom: 25px; }
-        .history-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--primary-light); display: flex; justify-content: center; align-items: center; font-size: 1.4em; flex-shrink: 0;}
+        .history-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--primary-light); display: flex; justify-content: center; align-items: center; font-size: 1.4em; flex-shrink: 0; overflow: hidden;}
         .history-content { background: var(--card-bg); padding: 15px 20px; border-radius: 0 16px 16px 16px; border: 1px solid var(--border); flex-grow: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.02);}
         .history-time { font-size: 0.8em; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; display: block; text-transform: uppercase; }
         .history-text { font-size: 1em; line-height: 1.5; margin: 0; font-weight: 500;}
@@ -229,7 +205,6 @@
             <div class="header-container">
                 <div class="header-left">
                     <h1 class="header-title" onclick="zobrazView('view-home')">Matolera.</h1>
-                    
                     <nav class="desktop-nav">
                         <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">Domů</div>
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
@@ -263,30 +238,42 @@
             </div>
 
             <div id="view-home" class="view-section">
-                <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
-                </div>
-                <div class="dashboard-grid">
-                    <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
-                        <span class="dash-icon">💰</span>
-                        <h3 class="dash-title">Letní Brigáda</h3>
-                        <p class="dash-popis">Správa úkolů a peněz</p>
+                <div class="home-grid">
+                    
+                    <div>
+                        <div class="action-links">
+                            <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
+                        </div>
+                        <div class="dashboard-grid">
+                            <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
+                                <span class="dash-icon">💰</span>
+                                <h3 class="dash-title">Letní Brigáda</h3>
+                                <p class="dash-popis">Správa úkolů a peněz</p>
+                            </div>
+                            <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
+                                <span class="dash-icon">🍿</span>
+                                <h3 class="dash-title">Moje Kino</h3>
+                                <p class="dash-popis">YouTube sbírka</p>
+                            </div>
+                            <div class="dash-item dash-locked">
+                                <span class="dash-icon">🎒</span>
+                                <h3 class="dash-title">Škola</h3>
+                                <p class="dash-popis">Zatím uzamčeno</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
-                        <span class="dash-icon">🍿</span>
-                        <h3 class="dash-title">Moje Kino</h3>
-                        <p class="dash-popis">YouTube sbírka</p>
+
+                    <div>
+                        <div class="action-links">
+                            <h2 style="font-size: 1.4em; margin: 0;">Aktivita rodiny</h2>
+                        </div>
+                        <div class="card" style="padding: 15px 25px;">
+                            <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 0; margin-bottom: 15px; font-weight: 500;">Dny v řadě (Denní série)</p>
+                            <div id="streaksContainer">
+                                </div>
+                        </div>
                     </div>
-                    <div class="dash-item dash-locked">
-                        <span class="dash-icon">🎒</span>
-                        <h3 class="dash-title">Škola</h3>
-                        <p class="dash-popis">Zatím uzamčeno</p>
-                    </div>
-                    <div class="dash-item dash-locked">
-                        <span class="dash-icon">🎮</span>
-                        <h3 class="dash-title">Hry</h3>
-                        <p class="dash-popis">Připravujeme</p>
-                    </div>
+
                 </div>
             </div>
 
@@ -312,18 +299,14 @@
                             <h2 style="font-size: 1.4em; margin: 0;">Seznam úkolů</h2>
                             <button id="odznacitVseBtn" class="link-btn hidden">🧹 Resetovat den</button>
                         </div>
-
                         <div id="seznamUkolu"></div>
                     </div>
 
                     <div class="card hidden" id="desktopHistoryCard" style="background: transparent; border: none; box-shadow: none; padding: 0;">
                         <div class="action-links" style="margin-top:0;">
                             <h2 style="font-size: 1.2em; margin: 0;">Aktivity</h2>
-                            <button id="smazatHistoriiBtn" class="link-btn hidden" style="color: var(--danger);">🗑️ Vyčistit</button>
                         </div>
-                        <div id="historieZaznamyDesktop">
-                            <p style="color:var(--text-muted);">Zprávy se zobrazí zde.</p>
-                        </div>
+                        <div id="historieZaznamyDesktop"></div>
                     </div>
                 </div>
             </div>
@@ -394,15 +377,15 @@
         const db = getFirestore(app);
         setPersistence(auth, inMemoryPersistence);
 
-        let poleUkolu = []; let poleHistorie = []; 
+        let poleUkolu = []; let poleHistorie = []; let objStreaks = {};
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
         const slovnikJmen = { "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta", "tomas@turecek.cz": "Tomáš", "martin@turecek.cz": "Martin" };
-        let roleUzivatele = ""; let jmenoAktualni = "";
+        let roleUzivatele = ""; let jmenoAktualni = ""; let emailAktualni = "";
 
         // ==========================================
-        // DARK MODE TOGGLE
+        // DARK MODE
         // ==========================================
         const themeBtn = document.getElementById('themeToggleBtn');
         if (localStorage.getItem('theme') === 'dark') {
@@ -450,6 +433,59 @@
         zkontrolujZobrazeniHistorie();
 
         // ==========================================
+        // STREAKS LOGIKA (OHEŇ)
+        // ==========================================
+        function aktualizujStreak() {
+            if (!emailAktualni) return;
+
+            let dnes = new Date().toISOString().split('T')[0];
+            let vceraDate = new Date();
+            vceraDate.setDate(vceraDate.getDate() - 1);
+            let vcera = vceraDate.toISOString().split('T')[0];
+
+            let userS = objStreaks[emailAktualni] || { current: 0, lastLogin: "" };
+            let zmena = false;
+
+            if (userS.lastLogin === vcera) {
+                userS.current++;
+                userS.lastLogin = dnes;
+                zmena = true;
+            } else if (userS.lastLogin !== dnes) {
+                userS.current = 1;
+                userS.lastLogin = dnes;
+                zmena = true;
+            }
+
+            if (zmena) {
+                objStreaks[emailAktualni] = userS;
+                ulozDoDatabaze();
+            }
+        }
+
+        function vykresliStreaks() {
+            let html = "";
+            const seznamLidi = [
+                { email: "tomas@turecek.cz", jmeno: "Tomáš" },
+                { email: "martin@turecek.cz", jmeno: "Martin" },
+                { email: "lenka@turecek.cz", jmeno: "Máma" },
+                { email: "radek@turecek.cz", jmeno: "Táta" }
+            ];
+
+            seznamLidi.forEach(clovek => {
+                let s = objStreaks[clovek.email] ? objStreaks[clovek.email].current : 0;
+                let ikonka = s > 0 ? "🔥" : "❄️";
+                let barva = s > 0 ? "var(--warning)" : "var(--text-muted)";
+                html += `
+                    <div class="streak-row">
+                        <span class="streak-name">${clovek.jmeno}</span>
+                        <span class="streak-count" style="color: ${barva};">${s} ${ikonka}</span>
+                    </div>
+                `;
+            });
+            document.getElementById("streaksContainer").innerHTML = html;
+        }
+
+        // ==========================================
         // KINO LOGIKA (VŠE 1 - 10)
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
@@ -487,7 +523,6 @@
 
             const tlacitka = document.querySelectorAll(".kino-pill");
             tlacitka.forEach(btn => btn.classList.remove("active"));
-            
             const indexMap = {'vse':0, '0':1, '1':2, '2':3, '3':4, '4':5, '5':6, '6':7, '7':8, '8':9, '9':10, '10':11};
             if(tlacitka[indexMap[filtr]]) tlacitka[indexMap[filtr]].classList.add("active");
         }
@@ -502,7 +537,7 @@
         });
 
         // ==========================================
-        // BRIGÁDA LOGIKA
+        // BRIGÁDA A DATABÁZE
         // ==========================================
         function zapisDoHistorie(zprava, ikonka = "💬") {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
@@ -578,18 +613,18 @@
 
                 if (ukol.splneno) {
                     let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">✅ Schváleno pre: ${jS}</span></div>`;
+                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">✅ Schváleno pro: ${jS}</span></div>`;
                     pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
                 } else if (ukol.cekaNaPotvrzeni) {
                     let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
                     if (roleUzivatele === "rodic") {
-                        lH = `<span style="font-size: 1.5em;">⏳</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čaká na schválenie</span></div>`;
-                        pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Nie</button></div>${tS}`;
+                        lH = `<span style="font-size: 1.5em;">⏳</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
+                        pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ne</button></div>${tS}`;
                     } else if (roleUzivatele === ukol.splnilKdo) {
-                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">⏳ Čakáš na schválenie</span></div>`;
+                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">⏳ Čekáš na schválení</span></div>`;
                         pH = `<span class="price-tag">${aO} Kč</span>`;
                     } else {
-                        lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">🔒 Spracováva ${jZ}</span></div>`;
+                        lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">🔒 Zpracovává ${jZ}</span></div>`;
                         pH = `<span class="price-tag">${aO} Kč</span>`;
                     }
                 } else {
@@ -605,21 +640,28 @@
 
         function ulozDoDatabaze() {
             zkontrolujMince(); 
-            setDoc(doc(db, "ukoly", "seznam"), { dataUkolu: poleUkolu, historieZaznamy: poleHistorie, bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin });
+            setDoc(doc(db, "ukoly", "seznam"), { 
+                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks,
+                bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin 
+            });
         }
 
         function stahniDataZDatabaze() {
-            document.getElementById("seznamUkolu").innerHTML = "<p style='color:#95a5a6;'>Načítám data...</p>";
             getDoc(doc(db, "ukoly", "seznam")).then((dokument) => {
                 if (dokument.exists()) {
                     let data = dokument.data();
                     poleUkolu = data.dataUkolu || []; poleHistorie = data.historieZaznamy || [];
+                    objStreaks = data.streaks || {}; // Načtení ohnivek
                     kontoTomas = parseInt(data.bankaTomas) || 0; minceTomas = parseInt(data.minceTomas) || 0;
                     kontoMartin = parseInt(data.bankaMartin) || 0; minceMartin = parseInt(data.minceMartin) || 0;
                 } else {
-                    poleUkolu = []; poleHistorie = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
+                    poleUkolu = []; poleHistorie = []; objStreaks = {};
+                    kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
-                zkontrolujMince(); vykresliUkoly();
+                zkontrolujMince(); 
+                aktualizujStreak(); // Zkontroluje dnešní přihlášení
+                vykresliStreaks();  // Ukáže ohně v dashboardu
+                vykresliUkoly();
             }).catch((chyba) => { console.error(chyba); });
         }
 
@@ -634,15 +676,14 @@
         window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("odevzdal úkol"))); ulozDoDatabaze(); vykresliUkoly(); };
         window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; document.getElementById('zvukCinknuti')?.play().catch(e=>e); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, "✅"); ulozDoDatabaze(); vykresliUkoly(); };
         window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, "❌"); ulozDoDatabaze(); vykresliUkoly(); }
-        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" bol zmazaný.`, "🗑️"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
+        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, "🗑️"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
         window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, "💰"); ulozDoDatabaze(); vykresliUkoly(); } }
-        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bolo vynulované.`, "⚠️"); ulozDoDatabaze(); vykresliUkoly(); } }
+        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, "⚠️"); ulozDoDatabaze(); vykresliUkoly(); } }
 
         document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, "➕"); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; } else { alert("Zadej název a částku!"); } });
         
-        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly pripravené na nový deň.`, "🧹"); ulozDoDatabaze(); vykresliUkoly(); } });
+        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, "🧹"); ulozDoDatabaze(); vykresliUkoly(); } });
         
-        document.getElementById("smazatHistoriiBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
         document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         // ==========================================
@@ -655,22 +696,19 @@
             signInWithEmailAndPassword(auth, email, heslo).then(() => {
                 try {
                     jmenoAktualni = slovnikJmen[email] || "Uživatel";
+                    emailAktualni = email;
                     
-                    // 1. Nejprve vše zamkneme
                     document.getElementById("ridiciPanel")?.classList.add("hidden");
                     document.getElementById("odznacitVseBtn")?.classList.add("hidden");
-                    document.getElementById("smazatHistoriiBtn")?.classList.add("hidden");
                     document.getElementById("smazatHistoriiMobilBtn")?.classList.add("hidden");
                     document.getElementById("dlazdiceKino")?.classList.add("hidden");
                     document.getElementById("nav-kino-desktop")?.classList.add("hidden");
                     document.getElementById("nav-kino-mobil")?.classList.add("hidden");
                     
-                    // 2. Odemkneme podle role
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
                         document.getElementById("ridiciPanel")?.classList.remove("hidden");
                         document.getElementById("odznacitVseBtn")?.classList.remove("hidden");
-                        document.getElementById("smazatHistoriiBtn")?.classList.remove("hidden");
                         document.getElementById("smazatHistoriiMobilBtn")?.classList.remove("hidden");
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
@@ -692,15 +730,10 @@
                     vykresliKino('vse');
                     zobrazView('view-home');
                     stahniDataZDatabaze(); 
-                } catch (chybaPriVykreslovani) {
-                    console.error("Vnitřní chyba po přihlášení:", chybaPriVykreslovani);
-                }
-            }).catch((error) => { 
-                alert("Špatný e-mail nebo heslo!"); 
-            });
+                } catch (chyba) { console.error(chyba); }
+            }).catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
-        // ODHLÁŠENÍ 
         const logoutLogika = () => {
             signOut(auth).then(() => {
                 document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -710,8 +743,10 @@
                 document.getElementById("bottomNav")?.classList.add("hidden");
                 
                 document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
-                poleUkolu = []; poleHistorie = []; kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; roleUzivatele = "";
-            }).catch(e => console.error("Chyba pri odhlásení"));
+                poleUkolu = []; poleHistorie = []; objStreaks = {};
+                kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; 
+                roleUzivatele = ""; emailAktualni = "";
+            }).catch(e => console.error(e));
         };
 
         document.getElementById("logoutBtn")?.addEventListener("click", logoutLogika);
