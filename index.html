@@ -208,7 +208,7 @@
         .link-btn:hover { background: var(--border); color: var(--text-main); }
         
         #videoModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px);}
-        #zavritVideoBtn { position: absolute; top: 30px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        #zavritVideoBtn { position: absolute; top: 30px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.2em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
@@ -328,13 +328,18 @@
                 <div class="action-links" style="border:none;">
                     <h2 style="font-size: 1.4em; margin: 0;">Původní tvorba</h2>
                 </div>
+                
                 <div class="kino-nav" id="kinoFiltrMenu">
                     <button class="kino-pill active" onclick="vykresliKino('vse')">Všechno</button>
                     <button class="kino-pill" onclick="vykresliKino('0')">0. série</button>
                     <button class="kino-pill" onclick="vykresliKino('1')">1. série</button>
                     <button class="kino-pill" onclick="vykresliKino('2')">2. série</button>
                     <button class="kino-pill" onclick="vykresliKino('3')">3. série</button>
+                    <button class="kino-pill" onclick="vykresliKino('4')">4. série</button>
+                    <button class="kino-pill" onclick="vykresliKino('5')">5. série</button>
+                    <button class="kino-pill" onclick="vykresliKino('6')">6. série</button>
                 </div>
+                
                 <div class="youtube-grid" id="kinoGrid"></div>
             </div>
 
@@ -413,14 +418,17 @@
         // ==========================================
         // UI A NAVIGACE
         // ==========================================
-        window.zobrazView = function(viewId) {
+        window.zobrazView = function(viewId, navId) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId)?.classList.add('active');
             window.scrollTo(0, 0);
 
-            // Zvýrazni v obou menu (Mobil i Desktop)
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(`[data-target="${viewId}"]`).forEach(el => el.classList.add('active'));
+            if(navId) {
+                document.getElementById(navId).classList.add('active');
+            } else if (viewId === 'view-home') {
+                document.getElementById('nav-home').classList.add('active');
+            }
         }
 
         function zkontrolujZobrazeniHistorie() {
@@ -436,20 +444,26 @@
         zkontrolujZobrazeniHistorie();
 
         // ==========================================
-        // KINO LOGIKA
+        // KINO LOGIKA (PŘIDÁNY SÉRIE 4, 5, 6)
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
         const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
         const videaSerie2 = ["3oZqKwtUpcQ", "qIoFna9QSeo", "nKBc8W0tiCA", "KEPF8woA0QU", "smY-fJSPzno", "6TPPVVvihUc", "9265g-GNmvs", "DylC_jmN3CA", "cqVWhSjPfog", "kTNuzpPhvAU", "ElMzIZD8JYU", "2ZQRSRwevtE", "1VSkeosVr40"];
         const videaSerie3 = ["8HZC79duYRQ", "LYIxZ9CdfsY", "NSGpiJCPEG0", "XlUeAMfAry8", "RaSkirrHmTk", "Jq0I57UP0Oc", "6xnKLw1Y_f8", "Zoe661tsFs8"];
+        const videaSerie4 = ["htWm6tSNJrg", "f6ruMCXN_Gk", "FLR9H5vcUlw", "0iwnOAccV7Q", "KQFIP3q4mmQ", "CsfwM5_GwYI", "xsTL9rctNfY", "Q4hCCBKSr58", "vya2Z9S0knY", "Nil4TVog5io"];
+        const videaSerie5 = ["xMyPNLU8sss", "YbgrCayCJbY", "MtMKvk_UA8c", "eZ9zydZG2JE", "JrCYcTNyNpg", "HuGXFj_nnUo", "a0gML0Y5mTw", "CXe1UhJ4egU", "JPb3NRruzhs", "bEB1dvLnA8Q"];
+        const videaSerie6 = ["-jpoEGsgios", "EfqiugEn988", "qXd2fKPtcb8", "cxAoM2mefyM", "UdkXLeapaf0", "Jex0q5ItvCc", "ET0gGfc9_38", "F0oBMrtsYD0", "EnLltrSJ2ys", "b9PKA9M5RDg"];
 
         window.vykresliKino = function(filtr = 'vse') {
             let videaKVykresleni = [];
-            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3];
+            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3, ...videaSerie4, ...videaSerie5, ...videaSerie6];
             else if (filtr === '0') videaKVykresleni = videaSerie0;
             else if (filtr === '1') videaKVykresleni = videaSerie1;
             else if (filtr === '2') videaKVykresleni = videaSerie2;
             else if (filtr === '3') videaKVykresleni = videaSerie3;
+            else if (filtr === '4') videaKVykresleni = videaSerie4;
+            else if (filtr === '5') videaKVykresleni = videaSerie5;
+            else if (filtr === '6') videaKVykresleni = videaSerie6;
 
             let htmlKina = "";
             videaKVykresleni.forEach(idVidea => {
@@ -459,11 +473,15 @@
 
             const tlacitka = document.querySelectorAll(".kino-pill");
             tlacitka.forEach(btn => btn.classList.remove("active"));
+            
             if (filtr === 'vse') tlacitka[0].classList.add("active");
             if (filtr === '0') tlacitka[1].classList.add("active");
             if (filtr === '1') tlacitka[2].classList.add("active");
             if (filtr === '2') tlacitka[3].classList.add("active");
             if (filtr === '3') tlacitka[4].classList.add("active");
+            if (filtr === '4') tlacitka[5].classList.add("active");
+            if (filtr === '5') tlacitka[6].classList.add("active");
+            if (filtr === '6') tlacitka[7].classList.add("active");
         }
 
         window.spustitVideo = function(idVidea) {
@@ -504,8 +522,8 @@
         }
 
         function vykresliBanku() {
-            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="btn btn-primary" style="padding:8px; font-size:0.9em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
-            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="btn btn-primary" style="padding:8px; font-size:0.9em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
+            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:8px;">Proplatit Zlaťák</button>` : "";
+            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:8px;">Proplatit Zlaťák</button>` : "";
             let btnResetTomas = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('tomas')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
             let btnResetMartin = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('martin')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
 
@@ -583,7 +601,6 @@
         }
 
         function stahniDataZDatabaze() {
-            document.getElementById("seznamUkolu").innerHTML = "<p style='color:#95a5a6;'>Načítám data...</p>";
             getDoc(doc(db, "ukoly", "seznam")).then((dokument) => {
                 if (dokument.exists()) {
                     let data = dokument.data();
@@ -627,7 +644,7 @@
             signInWithEmailAndPassword(auth, email, heslo).then(() => {
                 jmenoAktualni = slovnikJmen[email] || "Uživatel";
                 
-                // NASTAVENÍ OPRÁVNĚNÍ - BEZPEČNĚ
+                // NASTAVENÍ OPRÁVNĚNÍ
                 if (eMailyRodicu.includes(email)) {
                     roleUzivatele = "rodic";
                     document.getElementById("ridiciPanel")?.classList.remove("hidden");
@@ -668,7 +685,7 @@
             }).catch((error) => { alert("Špatný e-mail nebo heslo!"); });
         });
 
-        // OPRAVA ODHLÁŠENÍ PRO OBĚ TLAČÍTKA
+        // ODHLÁŠENÍ PRO OBĚ TLAČÍTKA
         const logoutLogika = () => {
             signOut(auth).then(() => {
                 document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
