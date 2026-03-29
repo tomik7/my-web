@@ -83,6 +83,7 @@
         
         .icon-btn { background: transparent; color: var(--text-main); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.1em;}
         .icon-btn:hover { background: var(--primary-light); color: var(--primary); border-color: transparent;}
+        .icon-btn:active { transform: scale(0.9); }
         .icon-danger { color: var(--danger); }
         .icon-danger:hover { background: rgba(255, 71, 87, 0.1); color: var(--danger); }
 
@@ -94,14 +95,16 @@
             display: flex; justify-content: space-around; align-items: center;
             padding: 10px 0; padding-bottom: calc(10px + env(safe-area-inset-bottom));
             z-index: 100; transition: background-color 0.3s;
+            overflow-x: auto; /* Důležité pro více ikonek */
         }
-        .bottom-nav .nav-item { flex-direction: column; gap: 4px; font-size: 0.7em; padding: 5px; border-radius: 8px;}
+        .bottom-nav::-webkit-scrollbar { display: none; }
+        .bottom-nav .nav-item { flex-direction: column; gap: 4px; font-size: 0.7em; padding: 5px; border-radius: 8px; min-width: 60px;}
         .bottom-nav .nav-item.active { background: transparent; color: var(--primary); }
         .bottom-nav .nav-icon { font-size: 1.8em; margin-bottom: 2px;}
 
         @media (min-width: 768px) {
             .bottom-nav { display: none !important; } 
-            .desktop-nav { display: flex; }           
+            .desktop-nav { display: flex; flex-wrap: wrap;}           
             .header-profile { display: block; }       
             .app-content { padding-bottom: 40px; }
             .brigada-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
@@ -117,7 +120,6 @@
         }
         input:focus { outline: 2px solid var(--primary); }
 
-        /* Custom Select pro školu */
         .custom-select {
             width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent;
         }
@@ -130,7 +132,6 @@
 
         .card { background: var(--card-bg); border-radius: var(--border-radius); padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: background-color 0.3s; }
         
-        /* VYCENTROVANÝ ROZCESTNÍK A STREAKS */
         .home-view-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
         
         .streaks-horizontal { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; margin-bottom: 30px; }
@@ -157,7 +158,7 @@
         .task-title { font-weight: 700; font-size: 1.1em; margin-bottom: 6px; color: var(--text-main); transition: 0.3s;}
         .task-meta { font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 5px; font-weight: 500; flex-wrap: wrap;}
         
-        .price-tag { background: var(--primary-light); color: var(--primary); font-weight: 800; padding: 8px 16px; border-radius: 20px; font-size: 0.95em; white-space: nowrap; }
+        .price-tag { background: var(--primary-light); color: var(--primary); font-weight: 800; padding: 8px 16px; border-radius: 20px; font-size: 0.95em; white-space: nowrap; display: inline-block;}
         .price-tag-done { background: var(--input-bg); color: var(--text-muted); }
         .price-tag-late { background: rgba(255, 71, 87, 0.1); color: var(--danger); }
 
@@ -213,8 +214,9 @@
                     <nav class="desktop-nav">
                         <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">Domů</div>
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
-                        
                         <div class="nav-item hidden" id="nav-skola-desktop" data-target="view-skola" onclick="zobrazView('view-skola')">Škola</div>
+                        
+                        <div class="nav-item hidden" id="nav-rekonstrukce-desktop" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">Rekonstrukce</div>
                         
                         <div class="nav-item hidden" id="nav-kino-desktop" data-target="view-kino" onclick="zobrazView('view-kino')">Kino</div>
                         <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">Zprávy</div>
@@ -251,8 +253,7 @@
                     <div class="action-links" style="max-width: 1000px;">
                         <h2 style="font-size: 1.2em; margin: 0; color: var(--text-muted);">Aktivita rodiny (Ohnivé série)</h2>
                     </div>
-                    <div class="streaks-horizontal" id="streaksContainer">
-                        </div>
+                    <div class="streaks-horizontal" id="streaksContainer"></div>
 
                     <div class="action-links" style="max-width: 1000px; margin-top: 10px;">
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
@@ -262,6 +263,12 @@
                             <span class="dash-icon">💰</span>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis">Správa úkolů a peněz</p>
+                        </div>
+
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+                            <span class="dash-icon">🛠️</span>
+                            <h3 class="dash-title">Rekonstrukce</h3>
+                            <p class="dash-popis">Výběr nábytku a doplňků</p>
                         </div>
                         
                         <div class="dash-item dash-locked" id="dlazdiceSkola">
@@ -274,12 +281,6 @@
                             <span class="dash-icon">🍿</span>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
-                        </div>
-                        
-                        <div class="dash-item dash-locked">
-                            <span class="dash-icon">🎮</span>
-                            <h3 class="dash-title">Hry</h3>
-                            <p class="dash-popis">Připravujeme</p>
                         </div>
                     </div>
 
@@ -318,6 +319,33 @@
                         <div id="historieZaznamyDesktop"></div>
                     </div>
                 </div>
+            </div>
+
+            <div id="view-rekonstrukce" class="view-section">
+                <div class="action-links">
+                    <h2 style="font-size: 1.4em; margin: 0;">Plánování rekonstrukce 🛠️</h2>
+                </div>
+                
+                <div class="card" style="background: var(--primary-light); border-color: var(--primary);">
+                    <h3 style="margin: 0 0 15px 0; color: var(--primary);">Přidat do seznamu</h3>
+                    
+                    <select id="noveRekonstrukceMistnost" class="custom-select">
+                        <option value="Ložnice 🛏️">Ložnice 🛏️</option>
+                        <option value="Obývák 🛋️">Obývák 🛋️</option>
+                        <option value="Chodba 🚪">Chodba 🚪</option>
+                        <option value="Jídelna 🍽️">Jídelna 🍽️</option>
+                        <option value="Kuchyně 🍳">Kuchyně 🍳</option>
+                        <option value="Koupelna 🛁">Koupelna 🛁</option>
+                        <option value="Kumbál 📦">Kumbál 📦</option>
+                    </select>
+                    
+                    <input type="text" id="noveRekonstrukceNazev" placeholder="Název (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
+                    <input type="text" id="noveRekonstrukceOdkaz" placeholder="Odkaz na e-shop (nepovinné)" style="background: var(--card-bg);">
+                    
+                    <button id="pridatRekonstrukciBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat položku</button>
+                </div>
+
+                <div id="seznamRekonstrukce"></div>
             </div>
 
             <div id="view-skola" class="view-section">
@@ -376,6 +404,11 @@
             <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada', 'nav-brigada')">
                 <span class="nav-icon">💰</span><span>Brigáda</span>
             </div>
+            
+            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+                <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
+            </div>
+            
             <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola', 'nav-skola-mobil')">
                 <span class="nav-icon">🎒</span><span>Škola</span>
             </div>
@@ -407,7 +440,7 @@
         const db = getFirestore(app);
         setPersistence(auth, inMemoryPersistence);
 
-        let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = [];
+        let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = [];
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
@@ -565,22 +598,75 @@
             let u = poleSkola[index];
             u.splneno = !u.splneno;
             
-            // Pokud je splněno a uživatel zvolil "úplně smazat z nástěnky"
             if (u.splneno && u.akce === 'zmizet') {
                 setTimeout(() => {
                     poleSkola.splice(index, 1);
                     ulozDoDatabaze(); 
                     vykresliSkolu();
-                }, 300); // Kraťounká pauza 0.3s, aby uživatel viděl hezky zaškrtnutí, než to zmizí
+                }, 300);
             } else {
                 ulozDoDatabaze(); 
                 vykresliSkolu();
             }
         }
 
+        // ==========================================
+        // REKONSTRUKCE LOGIKA (NOVÁ SEKCE)
+        // ==========================================
+        function vykresliRekonstrukci() {
+            let html = "";
+            if (poleRekonstrukce.length === 0) {
+                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Seznam je prázdný. Přidejte něco, co se bude kupovat! 🛠️</p>";
+            } else {
+                poleRekonstrukce.forEach((polozka, index) => {
+                    let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Odstranit">✖</button>`;
+                    
+                    let odkazBtn = "";
+                    if (polozka.odkaz && polozka.odkaz.trim() !== "") {
+                        let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
+                        odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">🔗 Zobrazit v e-shopu</a>`;
+                    }
+
+                    html += `<div class="task-item">
+                                <div class="task-info">
+                                    <div class="task-meta" style="color:var(--primary); font-weight:bold; font-size:0.9em; margin-bottom:5px;">${polozka.mistnost}</div>
+                                    <div class="task-title" style="font-size:1.2em;">${polozka.nazev}</div>
+                                    ${odkazBtn}
+                                </div>
+                                ${smazBtn}
+                             </div>`;
+                });
+            }
+            document.getElementById("seznamRekonstrukce").innerHTML = html;
+        }
+
+        document.getElementById("pridatRekonstrukciBtn")?.addEventListener("click", () => {
+            let mistnost = document.getElementById("noveRekonstrukceMistnost").value;
+            let nazev = document.getElementById("noveRekonstrukceNazev").value;
+            let odkaz = document.getElementById("noveRekonstrukceOdkaz").value;
+
+            if (nazev.trim() !== "") {
+                poleRekonstrukce.push({ mistnost: mistnost, nazev: nazev, odkaz: odkaz });
+                ulozDoDatabaze();
+                vykresliRekonstrukci();
+                document.getElementById("noveRekonstrukceNazev").value = "";
+                document.getElementById("noveRekonstrukceOdkaz").value = "";
+            } else {
+                alert("Musíš zadat alespoň název věci, co se bude kupovat!");
+            }
+        });
+
+        window.smazRekonstrukci = function(index) {
+            if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) {
+                poleRekonstrukce.splice(index, 1);
+                ulozDoDatabaze();
+                vykresliRekonstrukci();
+            }
+        }
+
 
         // ==========================================
-        // KINO LOGIKA (VŠE 1 - 10)
+        // KINO LOGIKA
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
         const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
@@ -735,7 +821,7 @@
         function ulozDoDatabaze() {
             zkontrolujMince(); 
             setDoc(doc(db, "ukoly", "seznam"), { 
-                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola,
+                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola, dataRekonstrukce: poleRekonstrukce,
                 bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin 
             });
         }
@@ -745,11 +831,11 @@
                 if (dokument.exists()) {
                     let data = dokument.data();
                     poleUkolu = data.dataUkolu || []; poleHistorie = data.historieZaznamy || [];
-                    objStreaks = data.streaks || {}; poleSkola = data.dataSkola || [];
+                    objStreaks = data.streaks || {}; poleSkola = data.dataSkola || []; poleRekonstrukce = data.dataRekonstrukce || [];
                     kontoTomas = parseInt(data.bankaTomas) || 0; minceTomas = parseInt(data.minceTomas) || 0;
                     kontoMartin = parseInt(data.bankaMartin) || 0; minceMartin = parseInt(data.minceMartin) || 0;
                 } else {
-                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = [];
+                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = [];
                     kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
                 zkontrolujMince(); 
@@ -757,6 +843,7 @@
                 vykresliStreaks(); 
                 vykresliUkoly();
                 vykresliSkolu();
+                vykresliRekonstrukci();
             }).catch((chyba) => { console.error(chyba); });
         }
 
@@ -782,7 +869,7 @@
         document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         // ==========================================
-        // PŘIHLAŠOVÁNÍ (Bezpečné optional chaining)
+        // PŘIHLAŠOVÁNÍ S POJISTKOU
         // ==========================================
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
@@ -807,6 +894,11 @@
                     document.getElementById("nav-skola-desktop")?.classList.add("hidden");
                     document.getElementById("nav-skola-mobil")?.classList.add("hidden");
                     
+                    // Rekonstrukce viditelná pro všechny (Odemkneme teď plošně)
+                    document.getElementById("dlazdiceRekonstrukce")?.classList.remove("hidden");
+                    document.getElementById("nav-rekonstrukce-desktop")?.classList.remove("hidden");
+                    document.getElementById("nav-rekonstrukce-mobil")?.classList.remove("hidden");
+
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
                         document.getElementById("ridiciPanel")?.classList.remove("hidden");
@@ -866,7 +958,7 @@
                 document.getElementById("bottomNav")?.classList.add("hidden");
                 
                 document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
-                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = [];
+                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = [];
                 kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; 
                 roleUzivatele = ""; emailAktualni = "";
             }).catch(e => console.error("Chyba při odhlášení"));
