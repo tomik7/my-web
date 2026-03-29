@@ -108,8 +108,9 @@
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; }
-        input:focus { outline: 2px solid var(--primary); }
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"], textarea { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; }
+        input:focus, textarea:focus { outline: 2px solid var(--primary); }
+        textarea { resize: vertical; min-height: 120px; line-height: 1.5; } /* Textarea pro poznámky */
 
         .custom-select { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent; }
         .custom-select:focus { outline: 2px solid var(--primary); }
@@ -205,6 +206,9 @@
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
                         <div class="nav-item hidden" id="nav-skola-desktop" data-target="view-skola" onclick="zobrazView('view-skola')">Škola</div>
                         <div class="nav-item hidden" id="nav-rekonstrukce-desktop" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">Rekonstrukce</div>
+                        
+                        <div class="nav-item hidden" id="nav-poznamky-desktop" data-target="view-poznamky" onclick="zobrazView('view-poznamky')">Poznámky</div>
+                        
                         <div class="nav-item hidden" id="nav-kino-desktop" data-target="view-kino" onclick="zobrazView('view-kino')">Kino</div>
                         <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">Zprávy</div>
                     </nav>
@@ -246,7 +250,7 @@
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
                     </div>
                     <div class="dashboard-grid">
-                        <div class="dash-item" onclick="zobrazView('view-brigada')">
+                        <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
                             <span class="dash-icon">💰</span>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis">Správa úkolů a peněz</p>
@@ -258,13 +262,19 @@
                             <p class="dash-popis" id="popisSkola">Zatím uzamčeno</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce')">
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
                             <span class="dash-icon">🛠️</span>
                             <h3 class="dash-title">Rekonstrukce</h3>
                             <p class="dash-popis">Výběr nábytku a doplňků</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino')">
+                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+                            <span class="dash-icon">📝</span>
+                            <h3 class="dash-title">Poznámky</h3>
+                            <p class="dash-popis">Rodinné zápisky</p>
+                        </div>
+
+                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
                             <span class="dash-icon">🍿</span>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
@@ -369,6 +379,27 @@
                 <div id="seznamRekonstrukce"></div>
             </div>
 
+            <div id="view-poznamky" class="view-section">
+                <div class="action-links">
+                    <h2 style="font-size: 1.4em; margin: 0;">Rodinné poznámky 📝</h2>
+                </div>
+                
+                <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formPoznamky', 'ikonaPoznamky')">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat novou poznámku</h3>
+                        <span id="ikonaPoznamky" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                    </div>
+                    
+                    <div id="formPoznamky" class="hidden" style="margin-top: 15px;">
+                        <input type="text" id="novaPoznamkaNazev" placeholder="Název (např. Nákupní seznam)" style="background: var(--card-bg);">
+                        <textarea id="novaPoznamkaText" placeholder="Zde napište dlouhý text poznámky..."></textarea>
+                        <button id="pridatPoznamkuBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Uložit poznámku</button>
+                    </div>
+                </div>
+
+                <div id="seznamPoznamek"></div>
+            </div>
+
             <div id="view-kino" class="view-section">
                 <div class="action-links" style="border:none;">
                     <h2 style="font-size: 1.4em; margin: 0;">Původní tvorba</h2>
@@ -401,22 +432,27 @@
         </main>
 
         <nav class="bottom-nav hidden" id="bottomNav">
-            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">
+            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home', 'nav-home')">
                 <span class="nav-icon">🏠</span><span>Domů</span>
             </div>
-            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">
+            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada', 'nav-brigada')">
                 <span class="nav-icon">💰</span><span>Brigáda</span>
             </div>
-            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola')">
+            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola', 'nav-skola-mobil')">
                 <span class="nav-icon">🎒</span><span>Škola</span>
             </div>
-            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">
+            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
                 <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
             </div>
-            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino')">
+            
+            <div class="nav-item hidden" id="nav-poznamky-mobil" data-target="view-poznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+                <span class="nav-icon">📝</span><span>Poznámky</span>
+            </div>
+
+            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino', 'nav-kino-mobil')">
                 <span class="nav-icon">🍿</span><span>Kino</span>
             </div>
-            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">
+            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history', 'nav-history')">
                 <span class="nav-icon">🔔</span><span>Zprávy</span>
             </div>
         </nav>
@@ -441,7 +477,7 @@
         const db = getFirestore(app);
         setPersistence(auth, inMemoryPersistence);
 
-        let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = [];
+        let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = []; let polePoznamky = [];
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
@@ -469,35 +505,26 @@
         });
 
         // ==========================================
-        // UI A NAVIGACE (OPRAVA)
+        // UI A NAVIGACE
         // ==========================================
         window.zobrazView = function(viewId) {
-            // Skryj všechny sekce
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            // Zobraz vybranou sekci
             document.getElementById(viewId)?.classList.add('active');
             window.scrollTo(0, 0);
 
-            // Odstraň active class ze všech tlačítek menu
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            
-            // Najdi všechna tlačítka, která mají atribut data-target roven viewId a přidej jim active class
-            // Toto perfektně rozsvítí ikonku na mobilu i odkaz nahoře na počítači zároveň!
             document.querySelectorAll(`.nav-item[data-target="${viewId}"]`).forEach(el => el.classList.add('active'));
         }
 
-        // ==========================================
-        // ZASOUVACÍ FORMULÁŘE (ACCORDION)
-        // ==========================================
         window.toggleForm = function(formId, iconId) {
             const form = document.getElementById(formId);
             const icon = document.getElementById(iconId);
             if (form.classList.contains('hidden')) {
                 form.classList.remove('hidden');
-                if(icon) icon.style.transform = 'rotate(45deg)'; // Změní ➕ na ✖
+                if(icon) icon.style.transform = 'rotate(45deg)'; 
             } else {
                 form.classList.add('hidden');
-                if(icon) icon.style.transform = 'rotate(0deg)'; // Změní ✖ zpět na ➕
+                if(icon) icon.style.transform = 'rotate(0deg)'; 
             }
         }
 
@@ -580,7 +607,7 @@
                 poleSkola.push({ nazev: nazev, splneno: false, akce: akce });
                 ulozDoDatabaze(); vykresliSkolu();
                 document.getElementById("novySkolaUkol").value = "";
-                toggleForm('formSkola', 'ikonaSkola'); // Schováme formulář
+                toggleForm('formSkola', 'ikonaSkola'); 
             }
         });
 
@@ -604,7 +631,7 @@
         }
 
         // ==========================================
-        // REKONSTRUKCE LOGIKA (NOVÁ SEKCE)
+        // REKONSTRUKCE LOGIKA
         // ==========================================
         function vykresliRekonstrukci() {
             let html = "";
@@ -643,7 +670,7 @@
                 ulozDoDatabaze(); vykresliRekonstrukci();
                 document.getElementById("noveRekonstrukceNazev").value = "";
                 document.getElementById("noveRekonstrukceOdkaz").value = "";
-                toggleForm('formRekonstrukce', 'ikonaRekonstrukce'); // Schováme formulář
+                toggleForm('formRekonstrukce', 'ikonaRekonstrukce');
             } else {
                 alert("Musíš zadat alespoň název věci, co se bude kupovat!");
             }
@@ -657,6 +684,75 @@
         }
 
         // ==========================================
+        // POZNÁMKY LOGIKA (NOVÁ SEKCE)
+        // ==========================================
+        window.vykresliPoznamky = function() {
+            let html = "";
+            if (polePoznamky.length === 0) {
+                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky. 📝</p>";
+            } else {
+                polePoznamky.forEach((p, index) => {
+                    let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Smazat">✖</button>`;
+                    
+                    // Nahradí reálné odřádkování HTML značkou <br> aby text vypadal přesně tak, jak ho uživatel napsal
+                    let formatovanyText = p.text.replace(/\n/g, '<br>');
+
+                    html += `
+                        <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; cursor: pointer;" onclick="togglePoznamka(${index})">
+                            <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
+                                <h3 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${p.nazev}</h3>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    ${smazBtn}
+                                    <span id="sipkaPoznamka_${index}" style="transition: 0.3s; color: var(--text-muted); font-size:1.2em;">▼</span>
+                                </div>
+                            </div>
+                            <div id="obsahPoznamky_${index}" class="hidden" style="padding: 0 20px 20px 20px; color: var(--text-muted); font-size: 0.95em; line-height: 1.5; border-top: 1px solid var(--border); margin-top: -10px; padding-top: 15px;">
+                                ${formatovanyText}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById("seznamPoznamek").innerHTML = html;
+        }
+
+        window.togglePoznamka = function(index) {
+            const obsah = document.getElementById(`obsahPoznamky_${index}`);
+            const sipka = document.getElementById(`sipkaPoznamka_${index}`);
+            if (obsah.classList.contains('hidden')) {
+                obsah.classList.remove('hidden');
+                sipka.style.transform = 'rotate(180deg)';
+            } else {
+                obsah.classList.add('hidden');
+                sipka.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        document.getElementById("pridatPoznamkuBtn")?.addEventListener("click", () => {
+            let nazev = document.getElementById("novaPoznamkaNazev").value;
+            let text = document.getElementById("novaPoznamkaText").value;
+
+            if (nazev.trim() !== "" && text.trim() !== "") {
+                polePoznamky.push({ nazev: nazev, text: text });
+                ulozDoDatabaze();
+                vykresliPoznamky();
+                document.getElementById("novaPoznamkaNazev").value = "";
+                document.getElementById("novaPoznamkaText").value = "";
+                toggleForm('formPoznamky', 'ikonaPoznamky');
+            } else {
+                alert("Musíš zadat název i text poznámky!");
+            }
+        });
+
+        window.smazPoznamku = function(index) {
+            if (confirm("Opravdu chceš tuto poznámku smazat?")) {
+                polePoznamky.splice(index, 1);
+                ulozDoDatabaze();
+                vykresliPoznamky();
+            }
+        }
+
+        // ==========================================
         // KINO LOGIKA (VŠE 1 - 10)
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
@@ -666,7 +762,7 @@
         const videaSerie4 = ["htWm6tSNJrg", "f6ruMCXN_Gk", "FLR9H5vcUlw", "0iwnOAccV7Q", "KQFIP3q4mmQ", "CsfwM5_GwYI", "xsTL9rctNfY", "Q4hCCBKSr58", "vya2Z9S0knY", "Nil4TVog5io"];
         const videaSerie5 = ["xMyPNLU8sss", "YbgrCayCJbY", "MtMKvk_UA8c", "eZ9zydZG2JE", "JrCYcTNyNpg", "HuGXFj_nnUo", "a0gML0Y5mTw", "CXe1UhJ4egU", "JPb3NRruzhs", "bEB1dvLnA8Q"];
         const videaSerie6 = ["-jpoEGsgios", "EfqiugEn988", "qXd2fKPtcb8", "cxAoM2mefyM", "UdkXLeapaf0", "Jex0q5ItvCc", "ET0gGfc9_38", "F0oBMrtsYD0", "EnLltrSJ2ys", "b9PKA9M5RDg"];
-        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "xiaZomlF6Vw", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
+        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "V39U192LsIM", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
         const videaSerie8 = ["-tlItMQsKf0", "Ng9XheLz8Ig", "gpGZ-HL_GG4", "M1Jy5_NSiBQ", "hk-78bpabsU", "zBFelnztogI", "GrUki2jasuM", "nzrhOmcSkwE", "ER2wqWZ_OLU", "2-nm4zJXhY0"];
         const videaSerie9 = ["veQhhGu6LLM", "IJIK5Q8oYfY", "tyl5IWM5HKs", "6u9jIbJfAa0", "TwI7V__5pxk", "H6HLk4OEyvE", "Pelz1-jWhtA", "_nLz_iPKq60", "LqNHiPEiB5c", "oepJpydcqpc"];
         const videaSerie10 = ["QCMadZE3prY", "xEB4PH7i4Co", "nT7f6MH5qv8", "LJwzT49q4NU"];
@@ -708,7 +804,7 @@
         });
 
         // ==========================================
-        // BRIGÁDA LOGIKA
+        // BRIGÁDA A DATABÁZE
         // ==========================================
         function zapisDoHistorie(zprava, ikonka = "💬") {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
@@ -812,7 +908,7 @@
         function ulozDoDatabaze() {
             zkontrolujMince(); 
             setDoc(doc(db, "ukoly", "seznam"), { 
-                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola, dataRekonstrukce: poleRekonstrukce,
+                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola, dataRekonstrukce: poleRekonstrukce, dataPoznamky: polePoznamky,
                 bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin 
             });
         }
@@ -823,10 +919,11 @@
                     let data = dokument.data();
                     poleUkolu = data.dataUkolu || []; poleHistorie = data.historieZaznamy || [];
                     objStreaks = data.streaks || {}; poleSkola = data.dataSkola || []; poleRekonstrukce = data.dataRekonstrukce || [];
+                    polePoznamky = data.dataPoznamky || [];
                     kontoTomas = parseInt(data.bankaTomas) || 0; minceTomas = parseInt(data.minceTomas) || 0;
                     kontoMartin = parseInt(data.bankaMartin) || 0; minceMartin = parseInt(data.minceMartin) || 0;
                 } else {
-                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = [];
+                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = [];
                     kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
                 zkontrolujMince(); 
@@ -835,6 +932,7 @@
                 vykresliUkoly();
                 vykresliSkolu();
                 vykresliRekonstrukci();
+                vykresliPoznamky();
             }).catch((chyba) => { console.error(chyba); });
         }
 
@@ -885,10 +983,14 @@
                     document.getElementById("nav-skola-desktop")?.classList.add("hidden");
                     document.getElementById("nav-skola-mobil")?.classList.add("hidden");
                     
-                    // Rekonstrukce viditelná pro všechny
+                    // Rekonstrukce a Poznámky (vidí všichni)
                     document.getElementById("dlazdiceRekonstrukce")?.classList.remove("hidden");
                     document.getElementById("nav-rekonstrukce-desktop")?.classList.remove("hidden");
                     document.getElementById("nav-rekonstrukce-mobil")?.classList.remove("hidden");
+                    
+                    document.getElementById("dlazdicePoznamky")?.classList.remove("hidden");
+                    document.getElementById("nav-poznamky-desktop")?.classList.remove("hidden");
+                    document.getElementById("nav-poznamky-mobil")?.classList.remove("hidden");
 
                     if (eMailyRodicu.includes(email)) {
                         roleUzivatele = "rodic";
@@ -897,10 +999,11 @@
                         document.getElementById("smazatHistoriiMobilBtn")?.classList.remove("hidden");
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
+                        // Kino
                         document.getElementById("dlazdiceKino")?.classList.remove("hidden"); 
                         document.getElementById("nav-kino-desktop")?.classList.remove("hidden");
                         document.getElementById("nav-kino-mobil")?.classList.remove("hidden");
-                        
+                        // Škola VIP
                         let skolaDl = document.getElementById("dlazdiceSkola");
                         skolaDl?.classList.remove("dash-locked");
                         skolaDl?.setAttribute("onclick", "zobrazView('view-skola', 'nav-skola-mobil')");
@@ -947,7 +1050,7 @@
                 document.getElementById("bottomNav")?.classList.add("hidden");
                 
                 document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
-                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = [];
+                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = [];
                 kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; 
                 roleUzivatele = ""; emailAktualni = "";
             }).catch(e => console.error("Chyba při odhlášení"));
