@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Matolera.</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         /* ========================================== */
-        /* CSS PROMĚNNÉ (SVĚTLÝ REŽIM - WOLT STYLE)   */
+        /* CSS PROMĚNNÉ (SVĚTLÝ REŽIM)                */
         /* ========================================== */
         :root {
             --bg-app: #f4f5f7;        
@@ -26,7 +29,7 @@
         }
 
         /* ========================================== */
-        /* CSS PROMĚNNÉ (TMAVÝ REŽIM - MATOLERA)      */
+        /* CSS PROMĚNNÉ (TMAVÝ REŽIM)                 */
         /* ========================================== */
         [data-theme="dark"] {
             --bg-app: #0e2226;        
@@ -44,17 +47,13 @@
         }
 
         /* ========================================== */
-        /* ZÁKLADNÍ STRUKTURA (FULL WIDTH)            */
+        /* ZÁKLADNÍ STRUKTURA                         */
         /* ========================================== */
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--bg-app);
-            color: var(--text-main);
-            min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s, color 0.3s;
-            overflow-y: scroll;
+            margin: 0; padding: 0; background-color: var(--bg-app); color: var(--text-main);
+            min-height: 100vh; -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s, color 0.3s; overflow-y: scroll;
         }
 
         .app-shell { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
@@ -62,14 +61,10 @@
         /* HORNÍ LIŠTA */
         .app-header {
             background: var(--header-bg); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border);
             transition: background-color 0.3s; width: 100%;
         }
-        .header-container {
-            max-width: 1200px; margin: 0 auto; padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
-        }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
         .header-left { display: flex; align-items: center; gap: 30px; }
         .header-title { font-size: 1.6em; font-weight: 900; margin: 0; letter-spacing: -0.5px; color: var(--primary); cursor: pointer;}
         
@@ -93,9 +88,7 @@
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--header-bg); backdrop-filter: blur(10px); border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center;
-            padding: 10px 0; padding-bottom: calc(10px + env(safe-area-inset-bottom));
-            z-index: 100; transition: background-color 0.3s;
-            overflow-x: auto; /* Důležité pro více ikonek */
+            padding: 10px 0; padding-bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 100; transition: background-color 0.3s; overflow-x: auto;
         }
         .bottom-nav::-webkit-scrollbar { display: none; }
         .bottom-nav .nav-item { flex-direction: column; gap: 4px; font-size: 0.7em; padding: 5px; border-radius: 8px; min-width: 60px;}
@@ -115,14 +108,10 @@
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] {
-            width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s;
-        }
+        input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; }
         input:focus { outline: 2px solid var(--primary); }
 
-        .custom-select {
-            width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent;
-        }
+        .custom-select { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent; }
         .custom-select:focus { outline: 2px solid var(--primary); }
 
         .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
@@ -194,7 +183,7 @@
         .link-btn:hover { background: var(--border); color: var(--text-main); }
         
         #videoModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px);}
-        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.1); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
@@ -215,9 +204,7 @@
                         <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">Domů</div>
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
                         <div class="nav-item hidden" id="nav-skola-desktop" data-target="view-skola" onclick="zobrazView('view-skola')">Škola</div>
-                        
                         <div class="nav-item hidden" id="nav-rekonstrukce-desktop" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">Rekonstrukce</div>
-                        
                         <div class="nav-item hidden" id="nav-kino-desktop" data-target="view-kino" onclick="zobrazView('view-kino')">Kino</div>
                         <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">Zprávy</div>
                     </nav>
@@ -259,16 +246,10 @@
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
                     </div>
                     <div class="dashboard-grid">
-                        <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
+                        <div class="dash-item" onclick="zobrazView('view-brigada')">
                             <span class="dash-icon">💰</span>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis">Správa úkolů a peněz</p>
-                        </div>
-
-                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
-                            <span class="dash-icon">🛠️</span>
-                            <h3 class="dash-title">Rekonstrukce</h3>
-                            <p class="dash-popis">Výběr nábytku a doplňků</p>
                         </div>
                         
                         <div class="dash-item dash-locked" id="dlazdiceSkola">
@@ -277,7 +258,13 @@
                             <p class="dash-popis" id="popisSkola">Zatím uzamčeno</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce')">
+                            <span class="dash-icon">🛠️</span>
+                            <h3 class="dash-title">Rekonstrukce</h3>
+                            <p class="dash-popis">Výběr nábytku a doplňků</p>
+                        </div>
+
+                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino')">
                             <span class="dash-icon">🍿</span>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
@@ -295,14 +282,20 @@
 
                 <div class="brigada-grid">
                     <div>
-                        <div class="card hidden" id="ridiciPanel" style="background: var(--primary-light); border-color: var(--primary);">
-                            <h3 style="margin: 0 0 15px 0; color: var(--primary);">Přidat nový úkol</h3>
-                            <input type="text" id="novyUkol" placeholder="Co je potřeba udělat?" style="background: var(--card-bg);">
-                            <div style="display: flex; gap: 10px;">
-                                <input type="number" id="novaOdmena" placeholder="Kč" style="width: 100px; background: var(--card-bg);">
-                                <input type="date" id="novyDatum" style="flex-grow: 1; background: var(--card-bg);">
+                        <div class="card hidden" id="ridiciPanel" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formBrigada', 'ikonaBrigada')">
+                                <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat nový úkol do Brigády</h3>
+                                <span id="ikonaBrigada" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
                             </div>
-                            <button id="pridatBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat úkol</button>
+                            
+                            <div id="formBrigada" class="hidden" style="margin-top: 15px;">
+                                <input type="text" id="novyUkol" placeholder="Co je potřeba udělat?" style="background: var(--card-bg);">
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="number" id="novaOdmena" placeholder="Kč" style="width: 100px; background: var(--card-bg);">
+                                    <input type="date" id="novyDatum" style="flex-grow: 1; background: var(--card-bg);">
+                                </div>
+                                <button id="pridatBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat úkol</button>
+                            </div>
                         </div>
 
                         <div class="action-links">
@@ -321,49 +314,59 @@
                 </div>
             </div>
 
-            <div id="view-rekonstrukce" class="view-section">
-                <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Plánování rekonstrukce 🛠️</h2>
-                </div>
-                
-                <div class="card" style="background: var(--primary-light); border-color: var(--primary);">
-                    <h3 style="margin: 0 0 15px 0; color: var(--primary);">Přidat do seznamu</h3>
-                    
-                    <select id="noveRekonstrukceMistnost" class="custom-select">
-                        <option value="Ložnice 🛏️">Ložnice 🛏️</option>
-                        <option value="Obývák 🛋️">Obývák 🛋️</option>
-                        <option value="Chodba 🚪">Chodba 🚪</option>
-                        <option value="Jídelna 🍽️">Jídelna 🍽️</option>
-                        <option value="Kuchyně 🍳">Kuchyně 🍳</option>
-                        <option value="Koupelna 🛁">Koupelna 🛁</option>
-                        <option value="Kumbál 📦">Kumbál 📦</option>
-                    </select>
-                    
-                    <input type="text" id="noveRekonstrukceNazev" placeholder="Název (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
-                    <input type="text" id="noveRekonstrukceOdkaz" placeholder="Odkaz na e-shop (nepovinné)" style="background: var(--card-bg);">
-                    
-                    <button id="pridatRekonstrukciBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat položku</button>
-                </div>
-
-                <div id="seznamRekonstrukce"></div>
-            </div>
-
             <div id="view-skola" class="view-section">
                 <div class="action-links">
                     <h2 style="font-size: 1.4em; margin: 0;">Tvé školní povinnosti 🎒</h2>
                 </div>
                 
-                <div class="card" style="background: var(--primary-light); border-color: var(--primary);">
-                    <h3 style="margin: 0 0 15px 0; color: var(--primary);">Co tě čeká do školy?</h3>
-                    <input type="text" id="novySkolaUkol" placeholder="Např.: Naučit se na test z dějáku..." style="background: var(--card-bg);">
-                    <select id="novySkolaAkce" class="custom-select">
-                        <option value="zasednout">Po odškrtnutí: Pouze zašednout (nechat v seznamu)</option>
-                        <option value="zmizet">Po odškrtnutí: Úplně smazat z nástěnky</option>
-                    </select>
-                    <button id="pridatSkolaBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat úkol</button>
+                <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formSkola', 'ikonaSkola')">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat záznam do školy</h3>
+                        <span id="ikonaSkola" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                    </div>
+                    
+                    <div id="formSkola" class="hidden" style="margin-top: 15px;">
+                        <input type="text" id="novySkolaUkol" placeholder="Např.: Naučit se na test z dějáku..." style="background: var(--card-bg);">
+                        <select id="novySkolaAkce" class="custom-select">
+                            <option value="zasednout">Po odškrtnutí: Pouze zašednout (nechat v seznamu)</option>
+                            <option value="zmizet">Po odškrtnutí: Úplně smazat z nástěnky</option>
+                        </select>
+                        <button id="pridatSkolaBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat úkol</button>
+                    </div>
                 </div>
 
                 <div id="seznamSkola"></div>
+            </div>
+
+            <div id="view-rekonstrukce" class="view-section">
+                <div class="action-links">
+                    <h2 style="font-size: 1.4em; margin: 0;">Plánování rekonstrukce 🛠️</h2>
+                </div>
+                
+                <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formRekonstrukce', 'ikonaRekonstrukce')">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat do seznamu</h3>
+                        <span id="ikonaRekonstrukce" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                    </div>
+                    
+                    <div id="formRekonstrukce" class="hidden" style="margin-top: 15px;">
+                        <select id="noveRekonstrukceMistnost" class="custom-select">
+                            <option value="Ložnice 🛏️">Ložnice 🛏️</option>
+                            <option value="Obývák 🛋️">Obývák 🛋️</option>
+                            <option value="Chodba 🚪">Chodba 🚪</option>
+                            <option value="Jídelna 🍽️">Jídelna 🍽️</option>
+                            <option value="Kuchyně 🍳">Kuchyně 🍳</option>
+                            <option value="Koupelna 🛁">Koupelna 🛁</option>
+                            <option value="Kumbál 📦">Kumbál 📦</option>
+                        </select>
+                        
+                        <input type="text" id="noveRekonstrukceNazev" placeholder="Název (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
+                        <input type="text" id="noveRekonstrukceOdkaz" placeholder="Odkaz na e-shop (nepovinné)" style="background: var(--card-bg);">
+                        <button id="pridatRekonstrukciBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat položku</button>
+                    </div>
+                </div>
+
+                <div id="seznamRekonstrukce"></div>
             </div>
 
             <div id="view-kino" class="view-section">
@@ -398,24 +401,22 @@
         </main>
 
         <nav class="bottom-nav hidden" id="bottomNav">
-            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home', 'nav-home')">
+            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">
                 <span class="nav-icon">🏠</span><span>Domů</span>
             </div>
-            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada', 'nav-brigada')">
+            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">
                 <span class="nav-icon">💰</span><span>Brigáda</span>
             </div>
-            
-            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
-                <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
-            </div>
-            
-            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola', 'nav-skola-mobil')">
+            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola')">
                 <span class="nav-icon">🎒</span><span>Škola</span>
             </div>
-            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino', 'nav-kino-mobil')">
+            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">
+                <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
+            </div>
+            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino')">
                 <span class="nav-icon">🍿</span><span>Kino</span>
             </div>
-            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history', 'nav-history')">
+            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">
                 <span class="nav-icon">🔔</span><span>Zprávy</span>
             </div>
         </nav>
@@ -468,18 +469,35 @@
         });
 
         // ==========================================
-        // UI A NAVIGACE
+        // UI A NAVIGACE (OPRAVA)
         // ==========================================
-        window.zobrazView = function(viewId, navId) {
+        window.zobrazView = function(viewId) {
+            // Skryj všechny sekce
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            // Zobraz vybranou sekci
             document.getElementById(viewId)?.classList.add('active');
             window.scrollTo(0, 0);
 
+            // Odstraň active class ze všech tlačítek menu
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            if(navId) {
-                document.querySelectorAll(`[data-target="${viewId}"]`).forEach(el => el.classList.add('active'));
-            } else if (viewId === 'view-home') {
-                document.querySelectorAll('[data-target="view-home"]').forEach(el => el.classList.add('active'));
+            
+            // Najdi všechna tlačítka, která mají atribut data-target roven viewId a přidej jim active class
+            // Toto perfektně rozsvítí ikonku na mobilu i odkaz nahoře na počítači zároveň!
+            document.querySelectorAll(`.nav-item[data-target="${viewId}"]`).forEach(el => el.classList.add('active'));
+        }
+
+        // ==========================================
+        // ZASOUVACÍ FORMULÁŘE (ACCORDION)
+        // ==========================================
+        window.toggleForm = function(formId, iconId) {
+            const form = document.getElementById(formId);
+            const icon = document.getElementById(iconId);
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                if(icon) icon.style.transform = 'rotate(45deg)'; // Změní ➕ na ✖
+            } else {
+                form.classList.add('hidden');
+                if(icon) icon.style.transform = 'rotate(0deg)'; // Změní ✖ zpět na ➕
             }
         }
 
@@ -500,50 +518,28 @@
         // ==========================================
         function aktualizujStreak() {
             if (!emailAktualni) return;
-
             let dnes = new Date().toISOString().split('T')[0];
-            let vceraDate = new Date();
-            vceraDate.setDate(vceraDate.getDate() - 1);
+            let vceraDate = new Date(); vceraDate.setDate(vceraDate.getDate() - 1);
             let vcera = vceraDate.toISOString().split('T')[0];
 
             let userS = objStreaks[emailAktualni] || { current: 0, lastLogin: "" };
             let zmena = false;
 
-            if (userS.lastLogin === vcera) {
-                userS.current++;
-                userS.lastLogin = dnes;
-                zmena = true;
-            } else if (userS.lastLogin !== dnes) {
-                userS.current = 1;
-                userS.lastLogin = dnes;
-                zmena = true;
-            }
+            if (userS.lastLogin === vcera) { userS.current++; userS.lastLogin = dnes; zmena = true; } 
+            else if (userS.lastLogin !== dnes) { userS.current = 1; userS.lastLogin = dnes; zmena = true; }
 
-            if (zmena) {
-                objStreaks[emailAktualni] = userS;
-                ulozDoDatabaze();
-            }
+            if (zmena) { objStreaks[emailAktualni] = userS; ulozDoDatabaze(); }
         }
 
         function vykresliStreaks() {
             let html = "";
-            const seznamLidi = [
-                { email: "tomas@turecek.cz", jmeno: "Tomáš" },
-                { email: "martin@turecek.cz", jmeno: "Martin" },
-                { email: "lenka@turecek.cz", jmeno: "Máma" },
-                { email: "radek@turecek.cz", jmeno: "Táta" }
-            ];
+            const seznamLidi = [ { email: "tomas@turecek.cz", jmeno: "Tomáš" }, { email: "martin@turecek.cz", jmeno: "Martin" }, { email: "lenka@turecek.cz", jmeno: "Máma" }, { email: "radek@turecek.cz", jmeno: "Táta" } ];
 
             seznamLidi.forEach(clovek => {
                 let s = objStreaks[clovek.email] ? objStreaks[clovek.email].current : 0;
                 let ikonka = s > 0 ? "🔥" : "❄️";
                 let barva = s > 0 ? "var(--warning)" : "var(--text-muted)";
-                html += `
-                    <div class="streak-card">
-                        <span class="streak-name">${clovek.jmeno}</span>
-                        <span class="streak-count" style="color: ${barva};">${s} ${ikonka}</span>
-                    </div>
-                `;
+                html += `<div class="streak-card"><span class="streak-name">${clovek.jmeno}</span><span class="streak-count" style="color: ${barva};">${s} ${ikonka}</span></div>`;
             });
             document.getElementById("streaksContainer").innerHTML = html;
         }
@@ -582,16 +578,15 @@
             let akce = document.getElementById("novySkolaAkce").value;
             if (nazev.trim() !== "") {
                 poleSkola.push({ nazev: nazev, splneno: false, akce: akce });
-                ulozDoDatabaze(); 
-                vykresliSkolu();
+                ulozDoDatabaze(); vykresliSkolu();
                 document.getElementById("novySkolaUkol").value = "";
+                toggleForm('formSkola', 'ikonaSkola'); // Schováme formulář
             }
         });
 
         window.smazSkolaUkol = function(index) {
             poleSkola.splice(index, 1);
-            ulozDoDatabaze(); 
-            vykresliSkolu();
+            ulozDoDatabaze(); vykresliSkolu();
         }
 
         window.zmenStavSkola = function(index) {
@@ -601,12 +596,10 @@
             if (u.splneno && u.akce === 'zmizet') {
                 setTimeout(() => {
                     poleSkola.splice(index, 1);
-                    ulozDoDatabaze(); 
-                    vykresliSkolu();
+                    ulozDoDatabaze(); vykresliSkolu();
                 }, 300);
             } else {
-                ulozDoDatabaze(); 
-                vykresliSkolu();
+                ulozDoDatabaze(); vykresliSkolu();
             }
         }
 
@@ -647,10 +640,10 @@
 
             if (nazev.trim() !== "") {
                 poleRekonstrukce.push({ mistnost: mistnost, nazev: nazev, odkaz: odkaz });
-                ulozDoDatabaze();
-                vykresliRekonstrukci();
+                ulozDoDatabaze(); vykresliRekonstrukci();
                 document.getElementById("noveRekonstrukceNazev").value = "";
                 document.getElementById("noveRekonstrukceOdkaz").value = "";
+                toggleForm('formRekonstrukce', 'ikonaRekonstrukce'); // Schováme formulář
             } else {
                 alert("Musíš zadat alespoň název věci, co se bude kupovat!");
             }
@@ -659,14 +652,12 @@
         window.smazRekonstrukci = function(index) {
             if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) {
                 poleRekonstrukce.splice(index, 1);
-                ulozDoDatabaze();
-                vykresliRekonstrukci();
+                ulozDoDatabaze(); vykresliRekonstrukci();
             }
         }
 
-
         // ==========================================
-        // KINO LOGIKA
+        // KINO LOGIKA (VŠE 1 - 10)
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
         const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
@@ -717,7 +708,7 @@
         });
 
         // ==========================================
-        // BRIGÁDA A DATABÁZE
+        // BRIGÁDA LOGIKA
         // ==========================================
         function zapisDoHistorie(zprava, ikonka = "💬") {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
@@ -862,7 +853,7 @@
         window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, "💰"); ulozDoDatabaze(); vykresliUkoly(); } }
         window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, "⚠️"); ulozDoDatabaze(); vykresliUkoly(); } }
 
-        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, "➕"); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; } else { alert("Zadej název a částku!"); } });
+        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, "➕"); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); } else { alert("Zadej název a částku!"); } });
         
         document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, "🧹"); ulozDoDatabaze(); vykresliUkoly(); } });
         
@@ -894,7 +885,7 @@
                     document.getElementById("nav-skola-desktop")?.classList.add("hidden");
                     document.getElementById("nav-skola-mobil")?.classList.add("hidden");
                     
-                    // Rekonstrukce viditelná pro všechny (Odemkneme teď plošně)
+                    // Rekonstrukce viditelná pro všechny
                     document.getElementById("dlazdiceRekonstrukce")?.classList.remove("hidden");
                     document.getElementById("nav-rekonstrukce-desktop")?.classList.remove("hidden");
                     document.getElementById("nav-rekonstrukce-mobil")?.classList.remove("hidden");
@@ -906,11 +897,10 @@
                         document.getElementById("smazatHistoriiMobilBtn")?.classList.remove("hidden");
                     } else if (email === "tomas@turecek.cz") {
                         roleUzivatele = "tomas";
-                        // Kino
                         document.getElementById("dlazdiceKino")?.classList.remove("hidden"); 
                         document.getElementById("nav-kino-desktop")?.classList.remove("hidden");
                         document.getElementById("nav-kino-mobil")?.classList.remove("hidden");
-                        // Škola VIP
+                        
                         let skolaDl = document.getElementById("dlazdiceSkola");
                         skolaDl?.classList.remove("dash-locked");
                         skolaDl?.setAttribute("onclick", "zobrazView('view-skola', 'nav-skola-mobil')");
@@ -941,7 +931,6 @@
             });
         });
 
-        // Odeslání formuláře i klávesou Enter
         document.getElementById("hesloInput").addEventListener("keypress", function(event) {
           if (event.key === "Enter") { document.getElementById("loginBtn").click(); }
         });
