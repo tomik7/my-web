@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Matolera.</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+    <link rel="alternate icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -110,7 +112,7 @@
 
         input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="date"], textarea { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--input-bg); font-size: 16px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; }
         input:focus, textarea:focus { outline: 2px solid var(--primary); }
-        textarea { resize: vertical; min-height: 120px; line-height: 1.5; } /* Textarea pro poznámky */
+        textarea { resize: vertical; min-height: 120px; line-height: 1.5; } 
 
         .custom-select { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent; }
         .custom-select:focus { outline: 2px solid var(--primary); }
@@ -184,7 +186,7 @@
         .link-btn:hover { background: var(--border); color: var(--text-main); }
         
         #videoModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px);}
-        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.1); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
@@ -206,9 +208,7 @@
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
                         <div class="nav-item hidden" id="nav-skola-desktop" data-target="view-skola" onclick="zobrazView('view-skola')">Škola</div>
                         <div class="nav-item hidden" id="nav-rekonstrukce-desktop" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">Rekonstrukce</div>
-                        
                         <div class="nav-item hidden" id="nav-poznamky-desktop" data-target="view-poznamky" onclick="zobrazView('view-poznamky')">Poznámky</div>
-                        
                         <div class="nav-item hidden" id="nav-kino-desktop" data-target="view-kino" onclick="zobrazView('view-kino')">Kino</div>
                         <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">Zprávy</div>
                     </nav>
@@ -250,9 +250,9 @@
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
                     </div>
                     <div class="dashboard-grid">
-                        <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
+                        <div class="dash-item" onclick="zobrazView('view-brigada')">
                             <span class="dash-icon">💰</span>
-                            <h3 class="dash-title">Brigáda</h3>
+                            <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis">Správa úkolů a peněz</p>
                         </div>
                         
@@ -262,19 +262,19 @@
                             <p class="dash-popis" id="popisSkola">Zatím uzamčeno</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce')">
                             <span class="dash-icon">🛠️</span>
                             <h3 class="dash-title">Rekonstrukce</h3>
                             <p class="dash-popis">Výběr nábytku a doplňků</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky')">
                             <span class="dash-icon">📝</span>
                             <h3 class="dash-title">Poznámky</h3>
                             <p class="dash-popis">Rodinné zápisky</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
+                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino')">
                             <span class="dash-icon">🍿</span>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
@@ -432,27 +432,25 @@
         </main>
 
         <nav class="bottom-nav hidden" id="bottomNav">
-            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home', 'nav-home')">
+            <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">
                 <span class="nav-icon">🏠</span><span>Domů</span>
             </div>
-            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada', 'nav-brigada')">
+            <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">
                 <span class="nav-icon">💰</span><span>Brigáda</span>
             </div>
-            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola', 'nav-skola-mobil')">
+            <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola')">
                 <span class="nav-icon">🎒</span><span>Škola</span>
             </div>
-            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+            <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">
                 <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
             </div>
-            
-            <div class="nav-item hidden" id="nav-poznamky-mobil" data-target="view-poznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+            <div class="nav-item hidden" id="nav-poznamky-mobil" data-target="view-poznamky" onclick="zobrazView('view-poznamky')">
                 <span class="nav-icon">📝</span><span>Poznámky</span>
             </div>
-
-            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino', 'nav-kino-mobil')">
+            <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino')">
                 <span class="nav-icon">🍿</span><span>Kino</span>
             </div>
-            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history', 'nav-history')">
+            <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">
                 <span class="nav-icon">🔔</span><span>Zprávy</span>
             </div>
         </nav>
@@ -684,7 +682,7 @@
         }
 
         // ==========================================
-        // POZNÁMKY LOGIKA (NOVÁ SEKCE)
+        // POZNÁMKY LOGIKA
         // ==========================================
         window.vykresliPoznamky = function() {
             let html = "";
@@ -693,8 +691,6 @@
             } else {
                 polePoznamky.forEach((p, index) => {
                     let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Smazat">✖</button>`;
-                    
-                    // Nahradí reálné odřádkování HTML značkou <br> aby text vypadal přesně tak, jak ho uživatel napsal
                     let formatovanyText = p.text.replace(/\n/g, '<br>');
 
                     html += `
@@ -762,7 +758,7 @@
         const videaSerie4 = ["htWm6tSNJrg", "f6ruMCXN_Gk", "FLR9H5vcUlw", "0iwnOAccV7Q", "KQFIP3q4mmQ", "CsfwM5_GwYI", "xsTL9rctNfY", "Q4hCCBKSr58", "vya2Z9S0knY", "Nil4TVog5io"];
         const videaSerie5 = ["xMyPNLU8sss", "YbgrCayCJbY", "MtMKvk_UA8c", "eZ9zydZG2JE", "JrCYcTNyNpg", "HuGXFj_nnUo", "a0gML0Y5mTw", "CXe1UhJ4egU", "JPb3NRruzhs", "bEB1dvLnA8Q"];
         const videaSerie6 = ["-jpoEGsgios", "EfqiugEn988", "qXd2fKPtcb8", "cxAoM2mefyM", "UdkXLeapaf0", "Jex0q5ItvCc", "ET0gGfc9_38", "F0oBMrtsYD0", "EnLltrSJ2ys", "b9PKA9M5RDg"];
-        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "V39U192LsIM", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
+        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "xiaZomlF6Vw", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
         const videaSerie8 = ["-tlItMQsKf0", "Ng9XheLz8Ig", "gpGZ-HL_GG4", "M1Jy5_NSiBQ", "hk-78bpabsU", "zBFelnztogI", "GrUki2jasuM", "nzrhOmcSkwE", "ER2wqWZ_OLU", "2-nm4zJXhY0"];
         const videaSerie9 = ["veQhhGu6LLM", "IJIK5Q8oYfY", "tyl5IWM5HKs", "6u9jIbJfAa0", "TwI7V__5pxk", "H6HLk4OEyvE", "Pelz1-jWhtA", "_nLz_iPKq60", "LqNHiPEiB5c", "oepJpydcqpc"];
         const videaSerie10 = ["QCMadZE3prY", "xEB4PH7i4Co", "nT7f6MH5qv8", "LJwzT49q4NU"];
