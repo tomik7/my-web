@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Matolera.</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
-    <link rel="alternate icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23009de0'/%3E%3Cpath d='M25 70V30l25 20 25-20v40' fill='none' stroke='white' stroke-width='10' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="alternate icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23009de0'/%3E%3Cpath d='M25 70V30l25 20 25-20v40' fill='none' stroke='white' stroke-width='10' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23009de0'/%3E%3Cpath d='M25 70V30l25 20 25-20v40' fill='none' stroke='white' stroke-width='10' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -49,11 +49,14 @@
         }
 
         /* ========================================== */
-        /* ZÁKLADNÍ STRUKTURA                         */
+        /* ZÁKLADNÍ STRUKTURA A SVG TŘÍDY             */
         /* ========================================== */
         body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: var(--bg-app); color: var(--text-main); min-height: 100vh; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s, color 0.3s; overflow-y: scroll; }
         .app-shell { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 
+        .svg-icon { display: inline-block; width: 1.2em; height: 1.2em; vertical-align: middle; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .svg-icon-large { width: 1.5em; height: 1.5em; }
+        
         /* HORNÍ LIŠTA */
         .app-header { background: var(--header-bg); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); transition: background-color 0.3s; width: 100%; }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
@@ -69,7 +72,7 @@
         .header-profile { font-weight: 600; display: none; margin-right: 10px; cursor: pointer; padding: 5px 10px; border-radius: 10px; transition: 0.2s; }
         .header-profile:hover { background: var(--border); color: var(--primary); }
         
-        .icon-btn { background: transparent; color: var(--text-main); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.1em;}
+        .icon-btn { background: transparent; color: var(--text-main); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1em;}
         .icon-btn:hover { background: var(--primary-light); color: var(--primary); border-color: transparent;}
         .icon-btn:active { transform: scale(0.9); }
         .icon-danger { color: var(--danger); }
@@ -81,7 +84,7 @@
         .bottom-nav::-webkit-scrollbar { display: none; }
         .bottom-nav .nav-item { flex-direction: column; gap: 4px; font-size: 0.7em; padding: 5px; border-radius: 8px; min-width: 60px;}
         .bottom-nav .nav-item.active { background: transparent; color: var(--primary); }
-        .bottom-nav .nav-icon { font-size: 1.8em; margin-bottom: 2px;}
+        .bottom-nav .nav-icon { width: 24px; height: 24px; margin-bottom: 2px;}
 
         @media (min-width: 768px) {
             .bottom-nav { display: none !important; } 
@@ -100,7 +103,7 @@
         input:focus, textarea:focus { outline: 2px solid var(--primary); }
         textarea { resize: vertical; min-height: 120px; line-height: 1.5; } 
 
-        .custom-select { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent; }
+        .custom-select { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--card-bg); font-size: 15px; margin-bottom: 12px; box-sizing: border-box; color: var(--text-main); font-family: inherit; transition: 0.2s; cursor: pointer; outline: none; border: 1px solid transparent; appearance: none;}
         .custom-select:focus { outline: 2px solid var(--primary); }
 
         .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
@@ -129,7 +132,6 @@
         .wallet-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); display: flex; flex-direction: column;}
         .wallet-name { font-size: 1em; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin: 0 0 10px 0;}
         .wallet-balance { font-size: 2em; font-weight: 900; color: var(--primary); margin: 0 0 10px 0;}
-        .wallet-coins { font-size: 1.4em; letter-spacing: 2px; }
 
         .task-item { background: var(--card-bg); border-radius: 14px; padding: 20px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: 0.3s;}
         .task-info { flex-grow: 1; }
@@ -142,11 +144,11 @@
 
         .custom-checkbox { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--text-muted); appearance: none; outline: none; cursor: pointer; transition: 0.2s; position: relative; margin: 0; background: var(--card-bg); flex-shrink: 0;}
         .custom-checkbox:checked { background: var(--success); border-color: var(--success); }
-        .custom-checkbox:checked::after { content: "✔"; color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; font-weight: bold;}
+        .custom-checkbox:checked::after { content: ""; position: absolute; left: 8px; top: 4px; width: 6px; height: 12px; border: solid white; border-width: 0 3px 3px 0; transform: rotate(45deg); }
         .custom-checkbox:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .history-item { display: flex; gap: 15px; margin-bottom: 25px; }
-        .history-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--primary-light); display: flex; justify-content: center; align-items: center; font-size: 1.4em; flex-shrink: 0; overflow: hidden;}
+        .history-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--primary-light); display: flex; justify-content: center; align-items: center; flex-shrink: 0; overflow: hidden; color: var(--primary);}
         .history-content { background: var(--card-bg); padding: 15px 20px; border-radius: 0 16px 16px 16px; border: 1px solid var(--border); flex-grow: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.02);}
         .history-time { font-size: 0.8em; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; display: block; text-transform: uppercase; }
         .history-text { font-size: 1em; line-height: 1.5; margin: 0; font-weight: 500;}
@@ -174,18 +176,18 @@
         .kino-karta:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.2); z-index: 10; }
         .kino-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s;}
         .kino-karta:hover .kino-img { opacity: 0.5; }
-        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: #ff0000; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 1.5em; padding-left: 4px; box-sizing: border-box; opacity: 0; transition: 0.3s; box-shadow: 0 5px 15px rgba(255,0,0,0.4);}
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: #ff0000; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; padding-left: 4px; box-sizing: border-box; opacity: 0; transition: 0.3s; box-shadow: 0 5px 15px rgba(255,0,0,0.4);}
         .kino-karta:hover .play-icon { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 
         .action-links { display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 10px; width: 100%;}
-        .link-btn { background: none; border: none; color: var(--text-muted); font-size: 0.9em; font-weight: 700; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: 0.2s;}
+        .link-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 5px; border-radius: 8px; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
         .link-btn:hover { background: var(--border); color: var(--text-main); }
         
         /* MODÁLY */
         #videoModal, #profilModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(8px);}
         .profil-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 30px; width: 90%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid var(--border);}
         
-        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 1.5em; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        #zavritVideoBtn { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         #zavritVideoBtn:hover { background: #ff0000; transform: scale(1.1); }
 
         /* TOAST NOTIFIKACE */
@@ -202,17 +204,21 @@
     <div id="toast-container"></div>
 
     <div id="videoModal">
-        <button id="zavritVideoBtn">✖</button>
+        <button id="zavritVideoBtn">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
         <iframe id="videoPlayer" width="90%" height="80%" style="max-width: 1200px; max-height: 675px;" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <div id="profilModal">
         <div class="profil-card">
-            <button onclick="zavriProfil()" class="icon-btn" style="position:absolute; top:15px; right:15px; border:none; background:var(--input-bg);">✖</button>
+            <button onclick="zavriProfil()" class="icon-btn" style="position:absolute; top:15px; right:15px; border:none; background:var(--input-bg);">
+                <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
             <div id="profilViewZobrazeni"></div>
             <div id="profilViewEditace" class="hidden" style="margin-top: 20px; border-top: 2px solid var(--border); padding-top: 20px;">
                 <h4 style="margin: 0 0 10px 0; color: var(--primary);">Upravit můj profil</h4>
-                <input type="text" id="editProfilEmoji" placeholder="Moje Emoji (např. 🎸)" maxlength="2" style="font-size: 1.5em; text-align:center;">
+                <input type="text" id="editProfilInicialy" placeholder="Zadej své iniciály (např. TO)" maxlength="2" style="font-size: 1.5em; text-align:center; text-transform: uppercase;">
                 <input type="text" id="editProfilMotto" placeholder="Motto / Aktuální status">
                 <input type="text" id="editProfilHobby" placeholder="Záliby (např. Sport, Hry...)">
                 <button onclick="ulozProfil()" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Uložit změny</button>
@@ -225,7 +231,13 @@
         <header class="app-header hidden" id="appHeader">
             <div class="header-container">
                 <div class="header-left">
-                    <h1 class="header-title" onclick="zobrazView('view-home')">Matolera.</h1>
+                    <h1 class="header-title" onclick="zobrazView('view-home')" style="display: flex; align-items: center; gap: 8px;">
+                        <svg viewBox="0 0 100 100" width="30" height="30">
+                            <rect width="100" height="100" rx="20" fill="var(--primary)"/>
+                            <path d="M25 70V30l25 20 25-20v40" fill="none" stroke="white" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                        Matolera.
+                    </h1>
                     <nav class="desktop-nav">
                         <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">Domů</div>
                         <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">Brigáda</div>
@@ -240,9 +252,15 @@
 
                 <div class="header-right">
                     <span class="header-profile" id="jmenoPrihlaseneho" onclick="otevriProfil(emailAktualni)" title="Zobrazit můj profil">Uživatel</span>
-                    <button id="themeToggleBtn" class="icon-btn" title="Vzhled">🌙</button>
-                    <button id="malyRefreshBtn" class="icon-btn" title="Obnovit data">↻</button>
-                    <button id="logoutBtnHeader" class="icon-btn icon-danger" title="Odhlásit">🚪</button>
+                    <button id="themeToggleBtn" class="icon-btn" title="Vzhled">
+                        <svg class="svg-icon svg-icon-large sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                    <button id="malyRefreshBtn" class="icon-btn" title="Obnovit data">
+                        <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    </button>
+                    <button id="logoutBtnHeader" class="icon-btn icon-danger" title="Odhlásit">
+                        <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    </button>
                 </div>
             </div>
         </header>
@@ -251,7 +269,12 @@
             
             <div id="view-login" class="view-section active">
                 <div style="text-align: center; margin: 10vh auto 40px auto; max-width: 400px;">
-                    <div style="font-size: 5em; margin-bottom: 20px;">🚀</div>
+                    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                            <rect width="100" height="100" rx="20" fill="var(--primary)"/>
+                            <path d="M25 70V30l25 20 25-20v40" fill="none" stroke="white" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                    </div>
                     <h1 style="font-weight: 900; font-size: 3em; margin-bottom: 10px; color: var(--primary);">Matolera.</h1>
                     <p style="color: var(--text-muted); font-size: 1.1em;">Jedno místo pro celou rodinu.</p>
                 </div>
@@ -282,10 +305,7 @@
                                 <circle cx="32" cy="32" r="4" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M38 32H44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <defs>
-                                    <linearGradient id="grad_brigada" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#009de0"/>
-                                        <stop offset="1" stop-color="#005bb5"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_brigada" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#009de0"/><stop offset="1" stop-color="#005bb5"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Letní Brigáda</h3>
@@ -298,10 +318,7 @@
                                 <path d="M20 24C20 24 24 20 32 20C40 20 44 24 44 24V46C44 46 40 42 32 42C24 42 20 46 20 46V24Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M32 20V42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <defs>
-                                    <linearGradient id="grad_skola" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#9b59b6"/>
-                                        <stop offset="1" stop-color="#8e44ad"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_skola" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#9b59b6"/><stop offset="1" stop-color="#8e44ad"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Škola</h3>
@@ -313,10 +330,7 @@
                                 <rect width="64" height="64" rx="18" fill="url(#grad_reko)"/>
                                 <path d="M23.5 40.5L34 30C35.5 31.5 38 32 40.5 30.5C43 29 44 26 43 23.5L38.5 28.5L35.5 25.5L40.5 21C38 20 35 21 33.5 23.5C32 26 32.5 28.5 34 30L23.5 40.5C22.5 41.5 22.5 43 23.5 44C24.5 45 26 45 27 44L23.5 40.5Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <defs>
-                                    <linearGradient id="grad_reko" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#f39c12"/>
-                                        <stop offset="1" stop-color="#d35400"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_reko" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#f39c12"/><stop offset="1" stop-color="#d35400"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Rekonstrukce</h3>
@@ -331,10 +345,7 @@
                                 <path d="M26 36H36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M26 40H32" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <defs>
-                                    <linearGradient id="grad_notes" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#2ecc71"/>
-                                        <stop offset="1" stop-color="#27ae60"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_notes" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#2ecc71"/><stop offset="1" stop-color="#27ae60"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Poznámky</h3>
@@ -349,10 +360,7 @@
                                 <path d="M32 46V20" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M40 46V36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <defs>
-                                    <linearGradient id="grad_poll" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#ff7979"/>
-                                        <stop offset="1" stop-color="#eb4d4b"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_poll" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#ff7979"/><stop offset="1" stop-color="#eb4d4b"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Hlasování</h3>
@@ -369,10 +377,7 @@
                                 <circle cx="40" cy="37" r="1" fill="white" stroke="white" stroke-width="2"/>
                                 <path d="M29 28L36 32L29 36V28Z" fill="white"/>
                                 <defs>
-                                    <linearGradient id="grad_kino" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#e74c3c"/>
-                                        <stop offset="1" stop-color="#c0392b"/>
-                                    </linearGradient>
+                                    <linearGradient id="grad_kino" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#e74c3c"/><stop offset="1" stop-color="#c0392b"/></linearGradient>
                                 </defs>
                             </svg>
                             <h3 class="dash-title">Moje Kino</h3>
@@ -394,7 +399,9 @@
                         <div class="card hidden" id="ridiciPanel" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
                             <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formBrigada', 'ikonaBrigada')">
                                 <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat nový úkol do Brigády</h3>
-                                <span id="ikonaBrigada" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                                <span id="ikonaBrigada" style="color: var(--primary); transition: 0.3s; display:flex;">
+                                    <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                </span>
                             </div>
                             
                             <div id="formBrigada" class="hidden" style="margin-top: 15px;">
@@ -409,7 +416,9 @@
 
                         <div class="action-links">
                             <h2 style="font-size: 1.4em; margin: 0;">Seznam úkolů</h2>
-                            <button id="odznacitVseBtn" class="link-btn hidden">🧹 Resetovat den</button>
+                            <button id="odznacitVseBtn" class="link-btn hidden">
+                                <svg class="svg-icon" viewBox="0 0 24 24" style="margin-right:5px;"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><polyline points="21 3 21 8 16 8"/></svg> Resetovat
+                            </button>
                         </div>
                         <div id="seznamUkolu"></div>
                     </div>
@@ -425,13 +434,15 @@
 
             <div id="view-skola" class="view-section">
                 <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Tvé školní povinnosti 🎒</h2>
+                    <h2 style="font-size: 1.4em; margin: 0;">Tvé školní povinnosti</h2>
                 </div>
                 
                 <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formSkola', 'ikonaSkola')">
                         <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat záznam do školy</h3>
-                        <span id="ikonaSkola" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                        <span id="ikonaSkola" style="color: var(--primary); transition: 0.3s; display:flex;">
+                            <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
                     </div>
                     
                     <div id="formSkola" class="hidden" style="margin-top: 15px;">
@@ -449,24 +460,26 @@
 
             <div id="view-rekonstrukce" class="view-section">
                 <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Plánování rekonstrukce 🛠️</h2>
+                    <h2 style="font-size: 1.4em; margin: 0;">Plánování rekonstrukce</h2>
                 </div>
                 
                 <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formRekonstrukce', 'ikonaRekonstrukce')">
                         <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat do seznamu</h3>
-                        <span id="ikonaRekonstrukce" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                        <span id="ikonaRekonstrukce" style="color: var(--primary); transition: 0.3s; display:flex;">
+                            <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
                     </div>
                     
                     <div id="formRekonstrukce" class="hidden" style="margin-top: 15px;">
                         <select id="noveRekonstrukceMistnost" class="custom-select">
-                            <option value="Ložnice 🛏️">Ložnice 🛏️</option>
-                            <option value="Obývák 🛋️">Obývák 🛋️</option>
-                            <option value="Chodba 🚪">Chodba 🚪</option>
-                            <option value="Jídelna 🍽️">Jídelna 🍽️</option>
-                            <option value="Kuchyně 🍳">Kuchyně 🍳</option>
-                            <option value="Koupelna 🛁">Koupelna 🛁</option>
-                            <option value="Kumbál 📦">Kumbál 📦</option>
+                            <option value="Ložnice">Ložnice</option>
+                            <option value="Obývák">Obývák</option>
+                            <option value="Chodba">Chodba</option>
+                            <option value="Jídelna">Jídelna</option>
+                            <option value="Kuchyně">Kuchyně</option>
+                            <option value="Koupelna">Koupelna</option>
+                            <option value="Kumbál">Kumbál</option>
                         </select>
                         <input type="text" id="noveRekonstrukceKategorie" placeholder="Kategorie (např. Obrazy, Stoly, Koberce...)" style="background: var(--card-bg);">
                         <input type="text" id="noveRekonstrukceNazev" placeholder="Název produktu (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
@@ -480,13 +493,15 @@
 
             <div id="view-poznamky" class="view-section">
                 <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Rodinné poznámky 📝</h2>
+                    <h2 style="font-size: 1.4em; margin: 0;">Rodinné poznámky</h2>
                 </div>
                 
                 <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formPoznamky', 'ikonaPoznamky')">
                         <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat novou poznámku</h3>
-                        <span id="ikonaPoznamky" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                        <span id="ikonaPoznamky" style="color: var(--primary); transition: 0.3s; display:flex;">
+                            <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
                     </div>
                     
                     <div id="formPoznamky" class="hidden" style="margin-top: 15px;">
@@ -501,13 +516,15 @@
 
             <div id="view-hlasovani" class="view-section">
                 <div class="action-links">
-                    <h2 style="font-size: 1.4em; margin: 0;">Rodinné hlasování 🗳️</h2>
+                    <h2 style="font-size: 1.4em; margin: 0;">Rodinné hlasování</h2>
                 </div>
                 
                 <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formHlasovani', 'ikonaHlasovani')">
                         <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Vytvořit novou anketu</h3>
-                        <span id="ikonaHlasovani" style="color: var(--primary); font-size: 1.5em; font-weight: bold; transition: 0.3s;">➕</span>
+                        <span id="ikonaHlasovani" style="color: var(--primary); transition: 0.3s; display:flex;">
+                            <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
                     </div>
                     
                     <div id="formHlasovani" class="hidden" style="margin-top: 15px;">
@@ -544,7 +561,9 @@
             <div id="view-history" class="view-section">
                 <div class="action-links">
                     <h2 style="font-size: 1.4em; margin: 0;">Upozornění</h2>
-                    <button id="smazatHistoriiMobilBtn" class="link-btn hidden" style="color: var(--danger);">🗑️ Vyčistit</button>
+                    <button id="smazatHistoriiMobilBtn" class="link-btn hidden" style="color: var(--danger);">
+                        <svg class="svg-icon" viewBox="0 0 24 24" style="margin-right:5px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Vyčistit
+                    </button>
                 </div>
                 <div id="historieZaznamyMobil"></div>
             </div>
@@ -553,28 +572,36 @@
 
         <nav class="bottom-nav hidden" id="bottomNav">
             <div class="nav-item active" data-target="view-home" onclick="zobrazView('view-home')">
-                <span class="nav-icon">🏠</span><span>Domů</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Domů</span>
             </div>
             <div class="nav-item" data-target="view-brigada" onclick="zobrazView('view-brigada')">
-                <span class="nav-icon">💰</span><span>Brigáda</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+                <span>Brigáda</span>
             </div>
             <div class="nav-item hidden" id="nav-skola-mobil" data-target="view-skola" onclick="zobrazView('view-skola')">
-                <span class="nav-icon">🎒</span><span>Škola</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><path d="M4 10v9a2 2 0 002 2h12a2 2 0 002-2v-9"/><path d="M16 10V6a4 4 0 00-8 0v4"/><path d="M8 10h8v4H8z"/></svg>
+                <span>Škola</span>
             </div>
             <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">
-                <span class="nav-icon">🛠️</span><span>Nábytek</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <span>Nábytek</span>
             </div>
             <div class="nav-item hidden" id="nav-poznamky-mobil" data-target="view-poznamky" onclick="zobrazView('view-poznamky')">
-                <span class="nav-icon">📝</span><span>Poznámky</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Poznámky</span>
             </div>
             <div class="nav-item hidden" id="nav-hlasovani-mobil" data-target="view-hlasovani" onclick="zobrazView('view-hlasovani')">
-                <span class="nav-icon">🗳️</span><span>Ankety</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="8" y1="8" x2="10" y2="8"/></svg>
+                <span>Ankety</span>
             </div>
             <div class="nav-item hidden" id="nav-kino-mobil" data-target="view-kino" onclick="zobrazView('view-kino')">
-                <span class="nav-icon">🍿</span><span>Kino</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/></svg>
+                <span>Kino</span>
             </div>
             <div class="nav-item" data-target="view-history" onclick="zobrazView('view-history')">
-                <span class="nav-icon">🔔</span><span>Zprávy</span>
+                <svg class="nav-icon svg-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span>Zprávy</span>
             </div>
         </nav>
     </div>
@@ -606,6 +633,21 @@
         const slovnikJmen = { "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta", "tomas@turecek.cz": "Tomáš", "martin@turecek.cz": "Martin" };
         let roleUzivatele = ""; let jmenoAktualni = ""; let emailAktualni = "";
 
+        // Standardizované ikony pro vkládání z JS
+        const ICONS = {
+            cross: `<svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+            chevron: `<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`,
+            flame: `<svg class="svg-icon" fill="none" stroke="var(--warning)" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>`,
+            snowflake: `<svg class="svg-icon" fill="none" stroke="var(--text-muted)" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/></svg>`,
+            coin: `<svg class="svg-icon" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M10 9h4M10 15h4"/></svg>`,
+            wait: `<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+            check: `<svg class="svg-icon" stroke="var(--success)" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+            trash: `<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
+            warning: `<svg class="svg-icon" stroke="var(--warning)" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+            plus: `<svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+            msg: `<svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
+        };
+
         window.showToast = function(msg, typ = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -616,13 +658,10 @@
         }
 
         const themeBtn = document.getElementById('themeToggleBtn');
-        if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); themeBtn.innerText = '☀️'; }
+        if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); }
         themeBtn.addEventListener('click', () => {
-            if (document.body.getAttribute('data-theme') === 'dark') {
-                document.body.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); themeBtn.innerText = '🌙';
-            } else {
-                document.body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeBtn.innerText = '☀️';
-            }
+            if (document.body.getAttribute('data-theme') === 'dark') { document.body.removeAttribute('data-theme'); localStorage.setItem('theme', 'light');
+            } else { document.body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
         });
 
         window.toggleSipka = function(idObsahu, idSipky) {
@@ -669,22 +708,25 @@
         window.addEventListener('resize', zkontrolujZobrazeniHistorie);
         zkontrolujZobrazeniHistorie();
 
+        // Profil s iniciály místo emoji
         window.otevriProfil = function(email) {
             let jmeno = slovnikJmen[email] || "Neznámý";
-            let profil = objProfily[email] || { motto: "", hobby: "", emoji: "👤" };
+            let profil = objProfily[email] || { motto: "", hobby: "", inicialy: jmeno.substring(0,2).toUpperCase() };
             let streak = objStreaks[email] ? objStreaks[email].current : 0;
             
             let penize = "";
-            if (email === "tomas@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoTomas} Kč | ${minceTomas} 🪙</p>`;
-            if (email === "martin@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoMartin} Kč | ${minceMartin} 🪙</p>`;
+            if (email === "tomas@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoTomas} Kč | ${minceTomas} ${ICONS.coin}</p>`;
+            if (email === "martin@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoMartin} Kč | ${minceMartin} ${ICONS.coin}</p>`;
 
             let isMe = (email === emailAktualni);
 
+            let avatarHtml = `<svg width="80" height="80" style="margin-bottom: 10px;"><circle cx="40" cy="40" r="40" fill="var(--primary-light)"/><text x="50%" y="50%" text-anchor="middle" dy=".35em" font-size="32" font-weight="900" fill="var(--primary)">${profil.inicialy}</text></svg>`;
+
             let htmlObsah = `
                 <div style="text-align:center;">
-                    <div style="font-size: 5em; margin-bottom: 10px;">${profil.emoji || "👤"}</div>
+                    ${avatarHtml}
                     <h2 style="margin: 0; font-size: 1.8em; color: var(--text-main);">${jmeno}</h2>
-                    <p style="color:var(--warning); font-weight:900; font-size:1.2em; margin-top:5px;">🔥 Série: ${streak} dní</p>
+                    <p style="color:var(--warning); font-weight:900; font-size:1.2em; margin-top:5px; display:flex; align-items:center; justify-content:center; gap:5px;">Série: ${streak} dní ${ICONS.flame}</p>
                     ${penize}
                     <div style="background: var(--input-bg); border-radius: 12px; padding: 15px; text-align: left; margin-top: 20px;">
                         <p style="margin: 0 0 10px 0;"><b style="color:var(--primary);">Motto/Status:</b><br>${profil.motto || "<span style='color:var(--text-muted);'>Zatím nevyplněno...</span>"}</p>
@@ -696,7 +738,7 @@
 
             if (isMe) {
                 document.getElementById("profilViewEditace").classList.remove("hidden");
-                document.getElementById("editProfilEmoji").value = profil.emoji || "👤";
+                document.getElementById("editProfilInicialy").value = profil.inicialy || jmeno.substring(0,2).toUpperCase();
                 document.getElementById("editProfilMotto").value = profil.motto || "";
                 document.getElementById("editProfilHobby").value = profil.hobby || "";
             } else { document.getElementById("profilViewEditace").classList.add("hidden"); }
@@ -705,12 +747,13 @@
         }
 
         window.ulozProfil = function() {
-            let emoji = document.getElementById("editProfilEmoji").value;
+            let inicialy = document.getElementById("editProfilInicialy").value.toUpperCase();
             let motto = document.getElementById("editProfilMotto").value;
             let hobby = document.getElementById("editProfilHobby").value;
-            if(emoji.trim() === "") emoji = "👤";
-            objProfily[emailAktualni] = { emoji: emoji, motto: motto, hobby: hobby };
+            if(inicialy.trim() === "") inicialy = jmenoAktualni.substring(0,2).toUpperCase();
+            objProfily[emailAktualni] = { inicialy: inicialy, motto: motto, hobby: hobby };
             ulozDoDatabaze(); showToast("Tvůj profil byl úspěšně upraven!"); zavriProfil();
+            vykresliStreaks(); // Refreshne UI
         }
 
         window.zavriProfil = function() { document.getElementById("profilModal").style.display = "none"; }
@@ -718,14 +761,14 @@
         function aktualizujDashboard() {
             let infoB = document.getElementById("dash-brigada-info");
             if(infoB) {
-                if(roleUzivatele === "tomas") infoB.innerText = `${kontoTomas} Kč | ${minceTomas} 🪙`;
-                else if(roleUzivatele === "martin") infoB.innerText = `${kontoMartin} Kč | ${minceMartin} 🪙`;
+                if(roleUzivatele === "tomas") infoB.innerHTML = `${kontoTomas} Kč | ${minceTomas} ${ICONS.coin}`;
+                else if(roleUzivatele === "martin") infoB.innerHTML = `${kontoMartin} Kč | ${minceMartin} ${ICONS.coin}`;
                 else infoB.innerText = "Správa úkolů a peněz";
             }
             let infoS = document.getElementById("dash-skola-info");
             if(infoS && roleUzivatele === "tomas") {
                 let zbyva = poleSkola.filter(u => !u.splneno).length;
-                infoS.innerText = zbyva > 0 ? `Zbývá ti ${zbyva} úkolů` : "Vše splněno 🎉";
+                infoS.innerText = zbyva > 0 ? `Zbývá ti ${zbyva} úkolů` : "Vše splněno";
             }
             let infoR = document.getElementById("dash-rekonstrukce-info");
             if(infoR) infoR.innerText = `${poleRekonstrukce.length} položek v seznamu`;
@@ -756,7 +799,7 @@
             const seznamLidi = [ { email: "tomas@turecek.cz", jmeno: "Tomáš" }, { email: "martin@turecek.cz", jmeno: "Martin" }, { email: "lenka@turecek.cz", jmeno: "Máma" }, { email: "radek@turecek.cz", jmeno: "Táta" } ];
             seznamLidi.forEach(clovek => {
                 let s = objStreaks[clovek.email] ? objStreaks[clovek.email].current : 0;
-                let ikonka = s > 0 ? "🔥" : "❄️";
+                let ikonka = s > 0 ? ICONS.flame : ICONS.snowflake;
                 let barva = s > 0 ? "var(--warning)" : "var(--text-muted)";
                 html += `<div class="streak-card" onclick="otevriProfil('${clovek.email}')" title="Zobrazit profil"><span class="streak-name">${clovek.jmeno}</span><span class="streak-count" style="color: ${barva};">${s} ${ikonka}</span></div>`;
             });
@@ -766,10 +809,10 @@
         function vykresliSkolu() {
             let html = "";
             if (poleSkola.length === 0) {
-                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Máš hotovo! Žádné úkoly do školy. 🎉</p>";
+                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Máš hotovo! Žádné úkoly do školy.</p>";
             } else {
                 poleSkola.forEach((u, index) => {
-                    let smazBtn = `<button class="link-btn" onclick="smazSkolaUkol(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Smazat">✖</button>`;
+                    let smazBtn = `<button class="link-btn" onclick="smazSkolaUkol(${index})" style="color:var(--danger); padding:0;" title="Smazat">${ICONS.cross}</button>`;
                     if (u.splneno) {
                         html += `<div class="task-item" style="opacity:0.5; background:var(--input-bg);">
                                     <input type="checkbox" class="custom-checkbox" checked onchange="zmenStavSkola(${index})">
@@ -812,10 +855,10 @@
 
         window.vykresliHlasovani = function() {
             let html = "";
-            if (poleHlasovani.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Žádná aktivní anketa. Vytvoř novou! 🗳️</p>";
+            if (poleHlasovani.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Žádná aktivní anketa. Vytvoř novou!</p>";
             } else {
                 poleHlasovani.forEach((anketa, indexAnkety) => {
-                    let smazBtn = `<button class="link-btn" onclick="smazAnketu(${indexAnkety})" style="color:var(--danger); padding:0; font-size:1.2em;" title="Smazat anketu">✖</button>`;
+                    let smazBtn = `<button class="link-btn" onclick="smazAnketu(${indexAnkety})" style="color:var(--danger); padding:0;" title="Smazat anketu">${ICONS.cross}</button>`;
                     let celkemHlasu = 0; anketa.moznosti.forEach(m => celkemHlasu += m.hlasy.length);
                     let moznostiHtml = "";
                     anketa.moznosti.forEach((moznost, indexMoznosti) => {
@@ -855,12 +898,12 @@
         window.smazAnketu = function(index) { if (confirm("Opravdu smazat tuto anketu?")) { poleHlasovani.splice(index, 1); ulozDoDatabaze(); vykresliHlasovani(); } }
 
         // ==========================================
-        // VYLEPŠENÁ REKONSTRUKCE LOGIKA
+        // REKONSTRUKCE LOGIKA
         // ==========================================
         function vykresliRekonstrukci() {
             let html = "";
             if (poleRekonstrukce.length === 0) {
-                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Seznam je prázdný. Přidejte něco, co se bude kupovat! 🛠️</p>";
+                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Seznam je prázdný. Přidejte něco, co se bude kupovat!</p>";
             } else {
                 const seskupeno = {};
                 poleRekonstrukce.forEach((polozka, puvodniIndex) => {
@@ -880,7 +923,7 @@
                     <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; border-color: var(--primary);">
                         <div style="padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); cursor: pointer;" onclick="toggleSipka('${roomAccId}', '${roomIconId}')">
                             <h3 style="margin: 0; font-size: 1.2em; color: var(--primary);">${nazevMistnosti}</h3>
-                            <span id="${roomIconId}" style="transition: 0.3s; color: var(--primary); font-size:1.2em; transform: rotate(180deg);">▼</span>
+                            <span id="${roomIconId}" style="transition: 0.3s; color: var(--primary); transform: rotate(180deg); display:flex;">${ICONS.chevron}</span>
                         </div>
                         <div id="${roomAccId}" style="padding: 15px 20px; background: var(--card-bg);">
                     `;
@@ -894,17 +937,17 @@
                             <div style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
                                 <div style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); cursor: pointer;" onclick="toggleSipka('${catAccId}', '${catIconId}')">
                                     <h4 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${nazevKategorie} <span style="color:var(--text-muted); font-size:0.8em; font-weight:normal;">(${polozkyVKategorii.length})</span></h4>
-                                    <span id="${catIconId}" style="transition: 0.3s; color: var(--text-muted); font-size:1em; transform: rotate(180deg);">▼</span>
+                                    <span id="${catIconId}" style="transition: 0.3s; color: var(--text-muted); transform: rotate(180deg); display:flex;">${ICONS.chevron}</span>
                                 </div>
                                 <div id="${catAccId}" style="padding: 10px 15px; background: var(--card-bg);">
                         `;
 
                         polozkyVKategorii.forEach(polozka => {
-                            let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Odstranit">✖</button>`;
+                            let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); padding:0;" title="Odstranit">${ICONS.cross}</button>`;
                             let odkazBtn = "";
                             if (polozka.odkaz && polozka.odkaz.trim() !== "") {
                                 let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
-                                odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">🔗 Zobrazit v e-shopu</a>`;
+                                odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">Zobrazit v e-shopu</a>`;
                             }
                             html += `<div class="task-item" style="box-shadow: none; border-color: var(--border); margin-bottom: 8px; padding: 12px;"><div class="task-info"><div class="task-title" style="font-size:1.1em;">${polozka.nazev}</div>${odkazBtn}</div>${smazBtn}</div>`;
                         });
@@ -946,16 +989,16 @@
         // ==========================================
         window.vykresliPoznamky = function() {
             let html = "";
-            if (polePoznamky.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky. 📝</p>";
+            if (polePoznamky.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky.</p>";
             } else {
                 polePoznamky.forEach((p, index) => {
-                    let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Smazat">✖</button>`;
+                    let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); padding:0;" title="Smazat">${ICONS.cross}</button>`;
                     let formatovanyText = p.text.replace(/\n/g, '<br>');
                     html += `
                         <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; cursor: pointer;" onclick="toggleSipka('obsahPoznamky_${index}', 'sipkaPoznamka_${index}')">
                             <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
                                 <h3 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${p.nazev}</h3>
-                                <div style="display:flex; align-items:center; gap:10px;">${smazBtn}<span id="sipkaPoznamka_${index}" style="transition: 0.3s; color: var(--text-muted); font-size:1.2em;">▼</span></div>
+                                <div style="display:flex; align-items:center; gap:10px;">${smazBtn}<span id="sipkaPoznamka_${index}" style="transition: 0.3s; color: var(--text-muted); display:flex;">${ICONS.chevron}</span></div>
                             </div>
                             <div id="obsahPoznamky_${index}" class="hidden" style="padding: 0 20px 20px 20px; color: var(--text-muted); font-size: 0.95em; line-height: 1.5; border-top: 1px solid var(--border); margin-top: -10px; padding-top: 15px;">${formatovanyText}</div>
                         </div>`;
@@ -1012,7 +1055,7 @@
         // ==========================================
         // BRIGÁDA LOGIKA
         // ==========================================
-        function zapisDoHistorie(zprava, ikonka = "💬") {
+        function zapisDoHistorie(zprava, ikonka = ICONS.msg) {
             if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
             let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
             poleHistorie.unshift({ text: zprava, cas: cas, ikona: ikonka });
@@ -1022,13 +1065,15 @@
         function vykresliHistorii() {
             let html = "";
             if (poleHistorie.length === 0) { html = "<p style='color:var(--text-muted); text-align:center;'>Žádná upozornění.</p>"; } 
-            else { poleHistorie.forEach(z => { let ikonaHTML = `<div class="history-icon">${z.ikona || "🔔"}</div>`; html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; }); }
+            else { poleHistorie.forEach(z => { let ikonaHTML = `<div class="history-icon">${z.ikona || ICONS.msg}</div>`; html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; }); }
             document.getElementById("historieZaznamyMobil").innerHTML = html; document.getElementById("historieZaznamyDesktop").innerHTML = html;
         }
 
         function vykresliMince(pocet) {
             if (pocet <= 0) return "<div class='wallet-coins' style='opacity:0.3; font-size:1em;'>Zatím nic</div>";
-            return `<div class="wallet-coins">${"🪙".repeat(pocet)}</div>`;
+            let coinsHtml = "";
+            for(let i=0; i<pocet; i++) coinsHtml += ICONS.coin;
+            return `<div class="wallet-coins" style="display:flex; gap:4px; flex-wrap:wrap; color:var(--warning);">${coinsHtml}</div>`;
         }
 
         function vykresliBanku() {
@@ -1061,20 +1106,20 @@
 
             poleUkolu.forEach((ukol, index) => {
                 let lH = ""; let pH = "";
-                let tS = (roleUzivatele === "rodic") ? `<button class="link-btn" onclick="smazUkol(${index})" style="color:var(--danger); font-size:1.4em; padding:0;">✖</button>` : "";
-                let aO = ziskejAktualniOdmenu(ukol); let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : ""; let dT = ukol.termin ? `<span class="task-meta">⏱️ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
+                let tS = (roleUzivatele === "rodic") ? `<button class="link-btn" onclick="smazUkol(${index})" style="color:var(--danger); padding:0;">${ICONS.cross}</button>` : "";
+                let aO = ziskejAktualniOdmenu(ukol); let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : ""; let dT = ukol.termin ? `<span class="task-meta">Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
 
                 if (ukol.splneno) {
                     let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">✅ Schváleno pro: ${jS}</span></div>`; pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
+                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">Schváleno pro: ${jS}</span></div>`; pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
                 } else if (ukol.cekaNaPotvrzeni) {
                     let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
                     if (roleUzivatele === "rodic") {
-                        lH = `<span style="font-size: 1.5em;">⏳</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
+                        lH = `<span style="color:var(--warning); display:flex;">${ICONS.wait}</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
                         pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ne</button></div>${tS}`;
                     } else if (roleUzivatele === ukol.splnilKdo) {
-                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">⏳ Čekáš na schválení</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`;
-                    } else { lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">🔒 Zpracovává ${jZ}</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`; }
+                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">Čekáš na schválení</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`;
+                    } else { lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">Zpracovává ${jZ}</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`; }
                 } else {
                     let dis = (roleUzivatele === "rodic") ? "disabled" : "";
                     lH = `<input type="checkbox" class="custom-checkbox" ${dis} onchange="pozadatOSchvaleni(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div>${dT}</div>`;
@@ -1112,15 +1157,15 @@
         }
 
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { const btn = document.getElementById("malyRefreshBtn"); btn.style.transform = "rotate(360deg)"; setTimeout(() => btn.style.transform = "none", 400); stahniDataZDatabaze(); });
-        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`<b>${jmenoAktualni}</b> odevzdal úkol "${u.nazev}".`, "⏳"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol odeslán ke schválení"); };
+        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`<b>${jmenoAktualni}</b> odevzdal úkol "${u.nazev}".`, ICONS.wait); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol odeslán ke schválení"); };
         window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("odevzdal úkol"))); ulozDoDatabaze(); vykresliUkoly(); showToast("Žádost zrušena"); };
-        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, "✅"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); };
-        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, "❌"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol byl zamítnut", "error"); }
-        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, "🗑️"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
-        window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, "💰"); ulozDoDatabaze(); vykresliUkoly(); showToast("Zlaťák proplacen!"); } }
-        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, "⚠️"); ulozDoDatabaze(); vykresliUkoly(); } }
-        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, "➕"); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); showToast("Úkol úspěšně přidán!"); } else { showToast("Zadej název a částku!", "error"); } });
-        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, "🧹"); ulozDoDatabaze(); vykresliUkoly(); showToast("Seznam vyčištěn!"); } });
+        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); };
+        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, ICONS.cross); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol byl zamítnut", "error"); }
+        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, ICONS.trash); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
+        window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, ICONS.coin); ulozDoDatabaze(); vykresliUkoly(); showToast("Zlaťák proplacen!"); } }
+        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, ICONS.warning); ulozDoDatabaze(); vykresliUkoly(); } }
+        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, ICONS.plus); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); showToast("Úkol úspěšně přidán!"); } else { showToast("Zadej název a částku!", "error"); } });
+        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Seznam vyčištěn!"); } });
         document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         // ==========================================
