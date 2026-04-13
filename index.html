@@ -66,7 +66,6 @@
         .nav-item.active { background: var(--primary-light); color: var(--primary); }
         
         .header-right { display: flex; align-items: center; gap: 10px; }
-        /* Profil jméno nyní vypadá klikatelně */
         .header-profile { font-weight: 600; display: none; margin-right: 10px; cursor: pointer; padding: 5px 10px; border-radius: 10px; transition: 0.2s; }
         .header-profile:hover { background: var(--border); color: var(--primary); }
         
@@ -183,7 +182,7 @@
         .link-btn { background: none; border: none; color: var(--text-muted); font-size: 0.9em; font-weight: 700; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: 0.2s;}
         .link-btn:hover { background: var(--border); color: var(--text-main); }
         
-        /* MODÁLY (Video a Profil) */
+        /* MODÁLY */
         #videoModal, #profilModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(8px);}
         .profil-card { background: var(--card-bg); border-radius: var(--border-radius); padding: 30px; width: 90%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid var(--border);}
         
@@ -211,9 +210,7 @@
     <div id="profilModal">
         <div class="profil-card">
             <button onclick="zavriProfil()" class="icon-btn" style="position:absolute; top:15px; right:15px; border:none; background:var(--input-bg);">✖</button>
-            <div id="profilViewZobrazeni">
-                </div>
-            
+            <div id="profilViewZobrazeni"></div>
             <div id="profilViewEditace" class="hidden" style="margin-top: 20px; border-top: 2px solid var(--border); padding-top: 20px;">
                 <h4 style="margin: 0 0 10px 0; color: var(--primary);">Upravit můj profil</h4>
                 <input type="text" id="editProfilEmoji" placeholder="Moje Emoji (např. 🎸)" maxlength="2" style="font-size: 1.5em; text-align:center;">
@@ -278,7 +275,7 @@
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
                     </div>
                     <div class="dashboard-grid">
-                        <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
+                        <div class="dash-item" onclick="zobrazView('view-brigada')">
                             <span class="dash-icon">💰</span>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis" id="dash-brigada-info">Načítám data...</p>
@@ -290,25 +287,25 @@
                             <p class="dash-popis" id="dash-skola-info">Zatím uzamčeno</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce')">
                             <span class="dash-icon">🛠️</span>
                             <h3 class="dash-title">Rekonstrukce</h3>
                             <p class="dash-popis" id="dash-rekonstrukce-info">Načítám data...</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky')">
                             <span class="dash-icon">📝</span>
                             <h3 class="dash-title">Poznámky</h3>
                             <p class="dash-popis" id="dash-poznamky-info">Načítám data...</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceHlasovani" onclick="zobrazView('view-hlasovani', 'nav-hlasovani-mobil')">
+                        <div class="dash-item hidden" id="dlazdiceHlasovani" onclick="zobrazView('view-hlasovani')">
                             <span class="dash-icon">🗳️</span>
                             <h3 class="dash-title">Hlasování</h3>
                             <p class="dash-popis" id="dash-hlasovani-info">Rodinné ankety</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
+                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino')">
                             <span class="dash-icon">🍿</span>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
@@ -403,8 +400,8 @@
                             <option value="Koupelna 🛁">Koupelna 🛁</option>
                             <option value="Kumbál 📦">Kumbál 📦</option>
                         </select>
-                        
-                        <input type="text" id="noveRekonstrukceNazev" placeholder="Název (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
+                        <input type="text" id="noveRekonstrukceKategorie" placeholder="Kategorie (např. Obrazy, Stoly, Koberce...)" style="background: var(--card-bg);">
+                        <input type="text" id="noveRekonstrukceNazev" placeholder="Název produktu (např. Nový gauč z Ikey)" style="background: var(--card-bg);">
                         <input type="text" id="noveRekonstrukceOdkaz" placeholder="Odkaz na e-shop (nepovinné)" style="background: var(--card-bg);">
                         <button id="pridatRekonstrukciBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat položku</button>
                     </div>
@@ -497,7 +494,7 @@
                 <span class="nav-icon">🎒</span><span>Škola</span>
             </div>
             <div class="nav-item hidden" id="nav-rekonstrukce-mobil" data-target="view-rekonstrukce" onclick="zobrazView('view-rekonstrukce')">
-                <span class="nav-icon">🛠️</span><span>Rekonstrukce</span>
+                <span class="nav-icon">🛠️</span><span>Nábytek</span>
             </div>
             <div class="nav-item hidden" id="nav-poznamky-mobil" data-target="view-poznamky" onclick="zobrazView('view-poznamky')">
                 <span class="nav-icon">📝</span><span>Poznámky</span>
@@ -534,16 +531,13 @@
         setPersistence(auth, inMemoryPersistence);
 
         let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = []; let polePoznamky = []; let poleHlasovani = [];
-        let objProfily = {}; // Databáze profilů
+        let objProfily = {}; 
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
         const eMailyRodicu = ["lenka@turecek.cz", "radek@turecek.cz"];
         const slovnikJmen = { "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta", "tomas@turecek.cz": "Tomáš", "martin@turecek.cz": "Martin" };
         let roleUzivatele = ""; let jmenoAktualni = ""; let emailAktualni = "";
 
-        // ==========================================
-        // TOAST NOTIFIKACE 
-        // ==========================================
         window.showToast = function(msg, typ = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -553,9 +547,6 @@
             setTimeout(() => { if(toast.parentNode) toast.remove(); }, 3000);
         }
 
-        // ==========================================
-        // DARK MODE
-        // ==========================================
         const themeBtn = document.getElementById('themeToggleBtn');
         if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); themeBtn.innerText = '☀️'; }
         themeBtn.addEventListener('click', () => {
@@ -566,9 +557,19 @@
             }
         });
 
-        // ==========================================
-        // UI A NAVIGACE
-        // ==========================================
+        // Specifická funkce pro rotování šipeček v seznamech
+        window.toggleSipka = function(idObsahu, idSipky) {
+            const obsah = document.getElementById(idObsahu);
+            const sipka = document.getElementById(idSipky);
+            if (obsah.classList.contains('hidden')) { 
+                obsah.classList.remove('hidden'); 
+                if(sipka) sipka.style.transform = 'rotate(180deg)';
+            } else { 
+                obsah.classList.add('hidden'); 
+                if(sipka) sipka.style.transform = 'rotate(0deg)'; 
+            }
+        }
+
         window.zobrazView = function(viewId) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId)?.classList.add('active');
@@ -601,15 +602,11 @@
         window.addEventListener('resize', zkontrolujZobrazeniHistorie);
         zkontrolujZobrazeniHistorie();
 
-        // ==========================================
-        // PROFILY UŽIVATELŮ (NOVÉ)
-        // ==========================================
         window.otevriProfil = function(email) {
             let jmeno = slovnikJmen[email] || "Neznámý";
             let profil = objProfily[email] || { motto: "", hobby: "", emoji: "👤" };
             let streak = objStreaks[email] ? objStreaks[email].current : 0;
             
-            // Zobrazení peněz pouze pro děti
             let penize = "";
             if (email === "tomas@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoTomas} Kč | ${minceTomas} 🪙</p>`;
             if (email === "martin@turecek.cz") penize = `<p style="font-size:1.1em; color:var(--primary); font-weight:bold;">Zůstatek: ${kontoMartin} Kč | ${minceMartin} 🪙</p>`;
@@ -635,9 +632,7 @@
                 document.getElementById("editProfilEmoji").value = profil.emoji || "👤";
                 document.getElementById("editProfilMotto").value = profil.motto || "";
                 document.getElementById("editProfilHobby").value = profil.hobby || "";
-            } else {
-                document.getElementById("profilViewEditace").classList.add("hidden");
-            }
+            } else { document.getElementById("profilViewEditace").classList.add("hidden"); }
 
             document.getElementById("profilModal").style.display = "flex";
         }
@@ -646,22 +641,13 @@
             let emoji = document.getElementById("editProfilEmoji").value;
             let motto = document.getElementById("editProfilMotto").value;
             let hobby = document.getElementById("editProfilHobby").value;
-
             if(emoji.trim() === "") emoji = "👤";
-
             objProfily[emailAktualni] = { emoji: emoji, motto: motto, hobby: hobby };
-            ulozDoDatabaze();
-            showToast("Tvůj profil byl úspěšně upraven!");
-            zavriProfil();
+            ulozDoDatabaze(); showToast("Tvůj profil byl úspěšně upraven!"); zavriProfil();
         }
 
-        window.zavriProfil = function() {
-            document.getElementById("profilModal").style.display = "none";
-        }
+        window.zavriProfil = function() { document.getElementById("profilModal").style.display = "none"; }
 
-        // ==========================================
-        // SMART DASHBOARD
-        // ==========================================
         function aktualizujDashboard() {
             let infoB = document.getElementById("dash-brigada-info");
             if(infoB) {
@@ -684,9 +670,6 @@
             if(infoH) infoH.innerText = `${poleHlasovani.length} aktivních anket`;
         }
 
-        // ==========================================
-        // STREAKS LOGIKA (OHEŇ)
-        // ==========================================
         function aktualizujStreak() {
             if (!emailAktualni) return;
             let dnes = new Date().toISOString().split('T')[0];
@@ -698,27 +681,21 @@
 
             if (userS.lastLogin === vcera) { userS.current++; userS.lastLogin = dnes; zmena = true; } 
             else if (userS.lastLogin !== dnes) { userS.current = 1; userS.lastLogin = dnes; zmena = true; }
-
             if (zmena) { objStreaks[emailAktualni] = userS; ulozDoDatabaze(); }
         }
 
         function vykresliStreaks() {
             let html = "";
             const seznamLidi = [ { email: "tomas@turecek.cz", jmeno: "Tomáš" }, { email: "martin@turecek.cz", jmeno: "Martin" }, { email: "lenka@turecek.cz", jmeno: "Máma" }, { email: "radek@turecek.cz", jmeno: "Táta" } ];
-
             seznamLidi.forEach(clovek => {
                 let s = objStreaks[clovek.email] ? objStreaks[clovek.email].current : 0;
                 let ikonka = s > 0 ? "🔥" : "❄️";
                 let barva = s > 0 ? "var(--warning)" : "var(--text-muted)";
-                // Klikatelná kartička pro otevření profilu
                 html += `<div class="streak-card" onclick="otevriProfil('${clovek.email}')" title="Zobrazit profil"><span class="streak-name">${clovek.jmeno}</span><span class="streak-count" style="color: ${barva};">${s} ${ikonka}</span></div>`;
             });
             document.getElementById("streaksContainer").innerHTML = html;
         }
 
-        // ==========================================
-        // ŠKOLA LOGIKA 
-        // ==========================================
         function vykresliSkolu() {
             let html = "";
             if (poleSkola.length === 0) {
@@ -757,33 +734,22 @@
             } else { showToast("Musíš zadat název úkolu!", "error"); }
         });
 
-        window.smazSkolaUkol = function(index) {
-            poleSkola.splice(index, 1);
-            ulozDoDatabaze(); vykresliSkolu();
-        }
+        window.smazSkolaUkol = function(index) { poleSkola.splice(index, 1); ulozDoDatabaze(); vykresliSkolu(); }
 
         window.zmenStavSkola = function(index) {
-            let u = poleSkola[index];
-            u.splneno = !u.splneno;
+            let u = poleSkola[index]; u.splneno = !u.splneno;
             if(u.splneno) { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); }
-            if (u.splneno && u.akce === 'zmizet') {
-                setTimeout(() => { poleSkola.splice(index, 1); ulozDoDatabaze(); vykresliSkolu(); }, 400);
+            if (u.splneno && u.akce === 'zmizet') { setTimeout(() => { poleSkola.splice(index, 1); ulozDoDatabaze(); vykresliSkolu(); }, 400);
             } else { ulozDoDatabaze(); vykresliSkolu(); }
         }
 
-        // ==========================================
-        // HLASOVÁNÍ LOGIKA 
-        // ==========================================
         window.vykresliHlasovani = function() {
             let html = "";
-            if (poleHlasovani.length === 0) {
-                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Žádná aktivní anketa. Vytvoř novou! 🗳️</p>";
+            if (poleHlasovani.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Žádná aktivní anketa. Vytvoř novou! 🗳️</p>";
             } else {
                 poleHlasovani.forEach((anketa, indexAnkety) => {
                     let smazBtn = `<button class="link-btn" onclick="smazAnketu(${indexAnkety})" style="color:var(--danger); padding:0; font-size:1.2em;" title="Smazat anketu">✖</button>`;
-                    let celkemHlasu = 0;
-                    anketa.moznosti.forEach(m => celkemHlasu += m.hlasy.length);
-
+                    let celkemHlasu = 0; anketa.moznosti.forEach(m => celkemHlasu += m.hlasy.length);
                     let moznostiHtml = "";
                     anketa.moznosti.forEach((moznost, indexMoznosti) => {
                         let procenta = celkemHlasu === 0 ? 0 : Math.round((moznost.hlasy.length / celkemHlasu) * 100);
@@ -791,64 +757,116 @@
                         let classVoted = maMujHlas ? "voted" : "";
                         moznostiHtml += `<button class="poll-option ${classVoted}" onclick="hlasuj(${indexAnkety}, ${indexMoznosti})"><div class="poll-bar" style="width: ${procenta}%;"></div><div class="poll-text"><span>${moznost.text}</span><span>${procenta}% (${moznost.hlasy.length})</span></div></button>`;
                     });
-
                     html += `<div class="poll-card"><div style="display:flex; justify-content:space-between; align-items:start;"><h3 class="poll-question">${anketa.otazka}</h3>${smazBtn}</div><div>${moznostiHtml}</div><div class="poll-meta">Celkem hlasů: ${celkemHlasu}</div></div>`;
                 });
             }
-            document.getElementById("seznamHlasovani").innerHTML = html;
-            aktualizujDashboard();
+            document.getElementById("seznamHlasovani").innerHTML = html; aktualizujDashboard();
         }
 
         document.getElementById("pridatAnketuBtn")?.addEventListener("click", () => {
             let otazka = document.getElementById("novaAnketaOtazka").value;
             let moznostiStr = document.getElementById("novaAnketaMoznosti").value;
-
             if (otazka.trim() !== "" && moznostiStr.trim() !== "") {
                 let poleMoznosti = moznostiStr.split(',').map(s => s.trim()).filter(s => s !== "");
                 if(poleMoznosti.length < 2) { showToast("Anketa musí mít alespoň 2 možnosti!", "error"); return; }
-
                 let pripraveneMoznosti = poleMoznosti.map(m => { return { text: m, hlasy: [] }; });
                 poleHlasovani.unshift({ otazka: otazka, moznosti: pripraveneMoznosti, autor: emailAktualni });
                 ulozDoDatabaze(); vykresliHlasovani();
                 document.getElementById("novaAnketaOtazka").value = ""; document.getElementById("novaAnketaMoznosti").value = "";
-                toggleForm('formHlasovani', 'ikonaHlasovani');
-                showToast("Anketa vytvořena!");
+                toggleForm('formHlasovani', 'ikonaHlasovani'); showToast("Anketa vytvořena!");
             } else { showToast("Vyplň otázku i možnosti!", "error"); }
         });
 
         window.hlasuj = function(indexAnkety, indexMoznosti) {
-            let anketa = poleHlasovani[indexAnkety];
-            let uzHlasoval = false;
+            let anketa = poleHlasovani[indexAnkety]; let uzHlasoval = false;
             anketa.moznosti.forEach(m => { if(m.hlasy.includes(emailAktualni)) uzHlasoval = true; });
-
-            if (uzHlasoval) {
-                anketa.moznosti.forEach(m => { let i = m.hlasy.indexOf(emailAktualni); if (i > -1) m.hlasy.splice(i, 1); });
-            }
+            if (uzHlasoval) { anketa.moznosti.forEach(m => { let i = m.hlasy.indexOf(emailAktualni); if (i > -1) m.hlasy.splice(i, 1); }); }
             anketa.moznosti[indexMoznosti].hlasy.push(emailAktualni);
             ulozDoDatabaze(); vykresliHlasovani();
         }
 
-        window.smazAnketu = function(index) {
-            if (confirm("Opravdu smazat tuto anketu?")) { poleHlasovani.splice(index, 1); ulozDoDatabaze(); vykresliHlasovani(); }
-        }
+        window.smazAnketu = function(index) { if (confirm("Opravdu smazat tuto anketu?")) { poleHlasovani.splice(index, 1); ulozDoDatabaze(); vykresliHlasovani(); } }
 
         // ==========================================
-        // REKONSTRUKCE LOGIKA
+        // VYLEPŠENÁ REKONSTRUKCE LOGIKA (KATEGORIE A ŠUPLÍKY)
         // ==========================================
         function vykresliRekonstrukci() {
             let html = "";
             if (poleRekonstrukce.length === 0) {
                 html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Seznam je prázdný. Přidejte něco, co se bude kupovat! 🛠️</p>";
             } else {
-                poleRekonstrukce.forEach((polozka, index) => {
-                    let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Odstranit">✖</button>`;
-                    let odkazBtn = "";
-                    if (polozka.odkaz && polozka.odkaz.trim() !== "") {
-                        let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
-                        odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">🔗 Zobrazit v e-shopu</a>`;
-                    }
-                    html += `<div class="task-item"><div class="task-info"><div class="task-meta" style="color:var(--primary); font-weight:bold; font-size:0.9em; margin-bottom:5px;">${polozka.mistnost}</div><div class="task-title" style="font-size:1.2em;">${polozka.nazev}</div>${odkazBtn}</div>${smazBtn}</div>`;
+                // 1. Krok: Roztřídíme data do skupin (Místnost -> Kategorie -> Položky)
+                const seskupeno = {};
+                poleRekonstrukce.forEach((polozka, puvodniIndex) => {
+                    const mistnost = polozka.mistnost || "Ostatní";
+                    const kategorie = polozka.kategorie || "Nezařazeno";
+                    
+                    if (!seskupeno[mistnost]) seskupeno[mistnost] = {};
+                    if (!seskupeno[mistnost][kategorie]) seskupeno[mistnost][kategorie] = [];
+                    
+                    // Uložíme i původní index, abychom to pak mohli správně mazat z hlavní databáze
+                    seskupeno[mistnost][kategorie].push({ ...polozka, originalIndex: puvodniIndex });
                 });
+
+                // 2. Krok: Vykreslíme Akordeony (Zasouvací menu)
+                let mistnostIndex = 0;
+                for (const [nazevMistnosti, kategorieObj] of Object.entries(seskupeno)) {
+                    const roomAccId = `rekRoom_${mistnostIndex}`;
+                    const roomIconId = `rekRoomIcon_${mistnostIndex}`;
+                    
+                    // Karta MÍSTNOST
+                    html += `
+                    <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; border-color: var(--primary);">
+                        <div style="padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); cursor: pointer;" onclick="toggleSipka('${roomAccId}', '${roomIconId}')">
+                            <h3 style="margin: 0; font-size: 1.2em; color: var(--primary);">${nazevMistnosti}</h3>
+                            <span id="${roomIconId}" style="transition: 0.3s; color: var(--primary); font-size:1.2em; transform: rotate(180deg);">▼</span>
+                        </div>
+                        
+                        <div id="${roomAccId}" style="padding: 15px 20px; background: var(--card-bg);">
+                    `;
+
+                    let katIndex = 0;
+                    for (const [nazevKategorie, polozkyVKategorii] of Object.entries(kategorieObj)) {
+                        const catAccId = `rekCat_${mistnostIndex}_${katIndex}`;
+                        const catIconId = `rekCatIcon_${mistnostIndex}_${katIndex}`;
+                        
+                        // Karta KATEGORIE (Vnořená)
+                        html += `
+                            <div style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+                                <div style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); cursor: pointer;" onclick="toggleSipka('${catAccId}', '${catIconId}')">
+                                    <h4 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${nazevKategorie} <span style="color:var(--text-muted); font-size:0.8em; font-weight:normal;">(${polozkyVKategorii.length})</span></h4>
+                                    <span id="${catIconId}" style="transition: 0.3s; color: var(--text-muted); font-size:1em; transform: rotate(180deg);">▼</span>
+                                </div>
+                                
+                                <div id="${catAccId}" style="padding: 10px 15px; background: var(--card-bg);">
+                        `;
+
+                        // Samotné POLOŽKY (Produkty)
+                        polozkyVKategorii.forEach(polozka => {
+                            let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Odstranit">✖</button>`;
+                            let odkazBtn = "";
+                            if (polozka.odkaz && polozka.odkaz.trim() !== "") {
+                                let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
+                                odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">🔗 Zobrazit v e-shopu</a>`;
+                            }
+
+                            html += `
+                                    <div class="task-item" style="box-shadow: none; border-color: var(--border); margin-bottom: 8px; padding: 12px;">
+                                        <div class="task-info">
+                                            <div class="task-title" style="font-size:1.1em;">${polozka.nazev}</div>
+                                            ${odkazBtn}
+                                        </div>
+                                        ${smazBtn}
+                                    </div>
+                            `;
+                        });
+
+                        html += `</div></div>`; // Konec kategorie
+                        katIndex++;
+                    }
+                    html += `</div></div>`; // Konec místnosti
+                    mistnostIndex++;
+                }
             }
             document.getElementById("seznamRekonstrukce").innerHTML = html;
             aktualizujDashboard();
@@ -856,21 +874,28 @@
 
         document.getElementById("pridatRekonstrukciBtn")?.addEventListener("click", () => {
             let mistnost = document.getElementById("noveRekonstrukceMistnost").value;
+            let kategorie = document.getElementById("noveRekonstrukceKategorie").value.trim();
             let nazev = document.getElementById("noveRekonstrukceNazev").value;
             let odkaz = document.getElementById("noveRekonstrukceOdkaz").value;
 
+            if (kategorie === "") kategorie = "Nezařazeno";
+
             if (nazev.trim() !== "") {
-                poleRekonstrukce.push({ mistnost: mistnost, nazev: nazev, odkaz: odkaz });
+                poleRekonstrukce.push({ mistnost: mistnost, kategorie: kategorie, nazev: nazev, odkaz: odkaz });
                 ulozDoDatabaze(); vykresliRekonstrukci();
                 document.getElementById("noveRekonstrukceNazev").value = "";
                 document.getElementById("noveRekonstrukceOdkaz").value = "";
+                document.getElementById("noveRekonstrukceKategorie").value = "";
                 toggleForm('formRekonstrukce', 'ikonaRekonstrukce');
                 showToast("Přidáno do seznamu!");
-            } else { showToast("Zadej název věci k nákupu!", "error"); }
+            } else { showToast("Zadej alespoň název věci k nákupu!", "error"); }
         });
 
         window.smazRekonstrukci = function(index) {
-            if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) { poleRekonstrukce.splice(index, 1); ulozDoDatabaze(); vykresliRekonstrukci(); }
+            if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) {
+                poleRekonstrukce.splice(index, 1);
+                ulozDoDatabaze(); vykresliRekonstrukci();
+            }
         }
 
         // ==========================================
@@ -878,14 +903,13 @@
         // ==========================================
         window.vykresliPoznamky = function() {
             let html = "";
-            if (polePoznamky.length === 0) {
-                html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky. 📝</p>";
+            if (polePoznamky.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky. 📝</p>";
             } else {
                 polePoznamky.forEach((p, index) => {
                     let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Smazat">✖</button>`;
                     let formatovanyText = p.text.replace(/\n/g, '<br>');
                     html += `
-                        <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; cursor: pointer;" onclick="togglePoznamka(${index})">
+                        <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; cursor: pointer;" onclick="toggleSipka('obsahPoznamky_${index}', 'sipkaPoznamka_${index}')">
                             <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
                                 <h3 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${p.nazev}</h3>
                                 <div style="display:flex; align-items:center; gap:10px;">${smazBtn}<span id="sipkaPoznamka_${index}" style="transition: 0.3s; color: var(--text-muted); font-size:1.2em;">▼</span></div>
@@ -894,31 +918,19 @@
                         </div>`;
                 });
             }
-            document.getElementById("seznamPoznamek").innerHTML = html;
-            aktualizujDashboard();
-        }
-
-        window.togglePoznamka = function(index) {
-            const obsah = document.getElementById(`obsahPoznamky_${index}`);
-            const sipka = document.getElementById(`sipkaPoznamka_${index}`);
-            if (obsah.classList.contains('hidden')) { obsah.classList.remove('hidden'); sipka.style.transform = 'rotate(180deg)';
-            } else { obsah.classList.add('hidden'); sipka.style.transform = 'rotate(0deg)'; }
+            document.getElementById("seznamPoznamek").innerHTML = html; aktualizujDashboard();
         }
 
         document.getElementById("pridatPoznamkuBtn")?.addEventListener("click", () => {
-            let nazev = document.getElementById("novaPoznamkaNazev").value;
-            let text = document.getElementById("novaPoznamkaText").value;
+            let nazev = document.getElementById("novaPoznamkaNazev").value; let text = document.getElementById("novaPoznamkaText").value;
             if (nazev.trim() !== "" && text.trim() !== "") {
-                polePoznamky.push({ nazev: nazev, text: text });
-                ulozDoDatabaze(); vykresliPoznamky();
+                polePoznamky.push({ nazev: nazev, text: text }); ulozDoDatabaze(); vykresliPoznamky();
                 document.getElementById("novaPoznamkaNazev").value = ""; document.getElementById("novaPoznamkaText").value = "";
                 toggleForm('formPoznamky', 'ikonaPoznamky'); showToast("Poznámka uložena!");
             } else { showToast("Musíš zadat název i text poznámky!", "error"); }
         });
 
-        window.smazPoznamku = function(index) {
-            if (confirm("Opravdu chceš tuto poznámku smazat?")) { polePoznamky.splice(index, 1); ulozDoDatabaze(); vykresliPoznamky(); }
-        }
+        window.smazPoznamku = function(index) { if (confirm("Opravdu chceš tuto poznámku smazat?")) { polePoznamky.splice(index, 1); ulozDoDatabaze(); vykresliPoznamky(); } }
 
         // ==========================================
         // KINO LOGIKA
@@ -938,35 +950,21 @@
         window.vykresliKino = function(filtr = 'vse') {
             let videaKVykresleni = [];
             if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3, ...videaSerie4, ...videaSerie5, ...videaSerie6, ...videaSerie7, ...videaSerie8, ...videaSerie9, ...videaSerie10];
-            else if (filtr === '0') videaKVykresleni = videaSerie0;
-            else if (filtr === '1') videaKVykresleni = videaSerie1;
-            else if (filtr === '2') videaKVykresleni = videaSerie2;
-            else if (filtr === '3') videaKVykresleni = videaSerie3;
-            else if (filtr === '4') videaKVykresleni = videaSerie4;
-            else if (filtr === '5') videaKVykresleni = videaSerie5;
-            else if (filtr === '6') videaKVykresleni = videaSerie6;
-            else if (filtr === '7') videaKVykresleni = videaSerie7;
-            else if (filtr === '8') videaKVykresleni = videaSerie8;
-            else if (filtr === '9') videaKVykresleni = videaSerie9;
-            else if (filtr === '10') videaKVykresleni = videaSerie10;
+            else if (filtr === '0') videaKVykresleni = videaSerie0; else if (filtr === '1') videaKVykresleni = videaSerie1; else if (filtr === '2') videaKVykresleni = videaSerie2;
+            else if (filtr === '3') videaKVykresleni = videaSerie3; else if (filtr === '4') videaKVykresleni = videaSerie4; else if (filtr === '5') videaKVykresleni = videaSerie5;
+            else if (filtr === '6') videaKVykresleni = videaSerie6; else if (filtr === '7') videaKVykresleni = videaSerie7; else if (filtr === '8') videaKVykresleni = videaSerie8;
+            else if (filtr === '9') videaKVykresleni = videaSerie9; else if (filtr === '10') videaKVykresleni = videaSerie10;
 
-            let htmlKina = "";
-            videaKVykresleni.forEach(idVidea => { htmlKina += `<div class="kino-karta" onclick="spustitVideo('${idVidea}')"><img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/mqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${idVidea}/hqdefault.jpg'"><div class="play-icon">▶</div></div>`; });
+            let htmlKina = ""; videaKVykresleni.forEach(idVidea => { htmlKina += `<div class="kino-karta" onclick="spustitVideo('${idVidea}')"><img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/mqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${idVidea}/hqdefault.jpg'"><div class="play-icon">▶</div></div>`; });
             document.getElementById("kinoGrid").innerHTML = htmlKina;
 
-            const tlacitka = document.querySelectorAll(".kino-pill");
-            tlacitka.forEach(btn => btn.classList.remove("active"));
+            const tlacitka = document.querySelectorAll(".kino-pill"); tlacitka.forEach(btn => btn.classList.remove("active"));
             const indexMap = {'vse':0, '0':1, '1':2, '2':3, '3':4, '4':5, '5':6, '6':7, '7':8, '8':9, '9':10, '10':11};
             if(tlacitka[indexMap[filtr]]) tlacitka[indexMap[filtr]].classList.add("active");
         }
 
-        window.spustitVideo = function(idVidea) {
-            document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${idVidea}?autoplay=1`;
-            document.getElementById("videoModal").style.display = "flex";
-        }
-        document.getElementById("zavritVideoBtn").addEventListener("click", () => {
-            document.getElementById("videoPlayer").src = ""; document.getElementById("videoModal").style.display = "none";
-        });
+        window.spustitVideo = function(idVidea) { document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${idVidea}?autoplay=1`; document.getElementById("videoModal").style.display = "flex"; }
+        document.getElementById("zavritVideoBtn").addEventListener("click", () => { document.getElementById("videoPlayer").src = ""; document.getElementById("videoModal").style.display = "none"; });
 
         // ==========================================
         // BRIGÁDA LOGIKA
@@ -981,14 +979,8 @@
         function vykresliHistorii() {
             let html = "";
             if (poleHistorie.length === 0) { html = "<p style='color:var(--text-muted); text-align:center;'>Žádná upozornění.</p>"; } 
-            else { 
-                poleHistorie.forEach(z => { 
-                    let ikonaHTML = `<div class="history-icon">${z.ikona || "🔔"}</div>`;
-                    html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; 
-                }); 
-            }
-            document.getElementById("historieZaznamyMobil").innerHTML = html;
-            document.getElementById("historieZaznamyDesktop").innerHTML = html;
+            else { poleHistorie.forEach(z => { let ikonaHTML = `<div class="history-icon">${z.ikona || "🔔"}</div>`; html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; }); }
+            document.getElementById("historieZaznamyMobil").innerHTML = html; document.getElementById("historieZaznamyDesktop").innerHTML = html;
         }
 
         function vykresliMince(pocet) {
@@ -1017,38 +1009,29 @@
 
         function ziskejAktualniOdmenu(ukol) {
             let d = new Date().toISOString().split('T')[0]; let o = parseInt(ukol.odmena) || 0; 
-            if (ukol.termin && ukol.termin < d && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(o / 2); 
-            return o;
+            if (ukol.termin && ukol.termin < d && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(o / 2); return o;
         }
 
         function vykresliUkoly() {
-            let html = "";
-            if (poleUkolu.length === 0) html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné úkoly.</p>";
+            let html = ""; if (poleUkolu.length === 0) html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné úkoly.</p>";
             let d = new Date().toISOString().split('T')[0];
 
             poleUkolu.forEach((ukol, index) => {
                 let lH = ""; let pH = "";
                 let tS = (roleUzivatele === "rodic") ? `<button class="link-btn" onclick="smazUkol(${index})" style="color:var(--danger); font-size:1.4em; padding:0;">✖</button>` : "";
-                let aO = ziskejAktualniOdmenu(ukol);
-                let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : "";
-                let dT = ukol.termin ? `<span class="task-meta">⏱️ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
+                let aO = ziskejAktualniOdmenu(ukol); let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : ""; let dT = ukol.termin ? `<span class="task-meta">⏱️ Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
 
                 if (ukol.splneno) {
                     let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">✅ Schváleno pro: ${jS}</span></div>`;
-                    pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
+                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">✅ Schváleno pro: ${jS}</span></div>`; pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
                 } else if (ukol.cekaNaPotvrzeni) {
                     let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
                     if (roleUzivatele === "rodic") {
                         lH = `<span style="font-size: 1.5em;">⏳</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
                         pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ne</button></div>${tS}`;
                     } else if (roleUzivatele === ukol.splnilKdo) {
-                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">⏳ Čekáš na schválení</span></div>`;
-                        pH = `<span class="price-tag">${aO} Kč</span>`;
-                    } else {
-                        lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">🔒 Zpracovává ${jZ}</span></div>`;
-                        pH = `<span class="price-tag">${aO} Kč</span>`;
-                    }
+                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">⏳ Čekáš na schválení</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`;
+                    } else { lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">🔒 Zpracovává ${jZ}</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`; }
                 } else {
                     let dis = (roleUzivatele === "rodic") ? "disabled" : "";
                     lH = `<input type="checkbox" class="custom-checkbox" ${dis} onchange="pozadatOSchvaleni(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div>${dT}</div>`;
@@ -1056,8 +1039,7 @@
                 }
                 html += `<div class="task-item" style="${ukol.splneno ? 'opacity:0.7;' : ''}">${lH}${pH}</div>`;
             });
-            document.getElementById("seznamUkolu").innerHTML = html;
-            vykresliBanku(); vykresliHistorii(); aktualizujDashboard();
+            document.getElementById("seznamUkolu").innerHTML = html; vykresliBanku(); vykresliHistorii(); aktualizujDashboard();
         }
 
         function ulozDoDatabaze() {
@@ -1086,32 +1068,20 @@
             }).catch((chyba) => { console.error(chyba); });
         }
 
-        document.getElementById("malyRefreshBtn").addEventListener("click", () => { 
-            const btn = document.getElementById("malyRefreshBtn");
-            btn.style.transform = "rotate(360deg)"; setTimeout(() => btn.style.transform = "none", 400); stahniDataZDatabaze(); 
-        });
-
+        document.getElementById("malyRefreshBtn").addEventListener("click", () => { const btn = document.getElementById("malyRefreshBtn"); btn.style.transform = "rotate(360deg)"; setTimeout(() => btn.style.transform = "none", 400); stahniDataZDatabaze(); });
         window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`<b>${jmenoAktualni}</b> odevzdal úkol "${u.nazev}".`, "⏳"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol odeslán ke schválení"); };
         window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("odevzdal úkol"))); ulozDoDatabaze(); vykresliUkoly(); showToast("Žádost zrušena"); };
-        window.schvalitUkol = function(index) { 
-            let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; 
-            if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; 
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, "✅"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); 
-        };
+        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, "✅"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); };
         window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, "❌"); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol byl zamítnut", "error"); }
         window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, "🗑️"); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
         window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, "💰"); ulozDoDatabaze(); vykresliUkoly(); showToast("Zlaťák proplacen!"); } }
         window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, "⚠️"); ulozDoDatabaze(); vykresliUkoly(); } }
-
         document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, "➕"); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); showToast("Úkol úspěšně přidán!"); } else { showToast("Zadej název a částku!", "error"); } });
-        
         document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, "🧹"); ulozDoDatabaze(); vykresliUkoly(); showToast("Seznam vyčištěn!"); } });
-        
         document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
 
         // ==========================================
-        // PŘIHLAŠOVÁNÍ S POJISTKOU
+        // PŘIHLAŠOVÁNÍ 
         // ==========================================
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
@@ -1122,64 +1092,23 @@
                     jmenoAktualni = slovnikJmen[email] || "Uživatel";
                     emailAktualni = email;
                     
-                    document.getElementById("ridiciPanel")?.classList.add("hidden");
-                    document.getElementById("odznacitVseBtn")?.classList.add("hidden");
-                    document.getElementById("smazatHistoriiMobilBtn")?.classList.add("hidden");
+                    document.getElementById("ridiciPanel")?.classList.add("hidden"); document.getElementById("odznacitVseBtn")?.classList.add("hidden"); document.getElementById("smazatHistoriiMobilBtn")?.classList.add("hidden"); document.getElementById("dlazdiceKino")?.classList.add("hidden"); document.getElementById("nav-kino-desktop")?.classList.add("hidden"); document.getElementById("nav-kino-mobil")?.classList.add("hidden"); document.getElementById("dlazdiceSkola")?.classList.add("dash-locked"); document.getElementById("dlazdiceSkola")?.removeAttribute("onclick"); if(document.getElementById("dash-skola-info")) document.getElementById("dash-skola-info").innerText = "Zatím uzamčeno"; document.getElementById("nav-skola-desktop")?.classList.add("hidden"); document.getElementById("nav-skola-mobil")?.classList.add("hidden");
                     
-                    document.getElementById("dlazdiceKino")?.classList.add("hidden");
-                    document.getElementById("nav-kino-desktop")?.classList.add("hidden");
-                    document.getElementById("nav-kino-mobil")?.classList.add("hidden");
-                    
-                    document.getElementById("dlazdiceSkola")?.classList.add("dash-locked");
-                    document.getElementById("dlazdiceSkola")?.removeAttribute("onclick");
-                    if(document.getElementById("dash-skola-info")) document.getElementById("dash-skola-info").innerText = "Zatím uzamčeno";
-                    document.getElementById("nav-skola-desktop")?.classList.add("hidden");
-                    document.getElementById("nav-skola-mobil")?.classList.add("hidden");
-                    
-                    document.getElementById("dlazdiceRekonstrukce")?.classList.remove("hidden");
-                    document.getElementById("nav-rekonstrukce-desktop")?.classList.remove("hidden");
-                    document.getElementById("nav-rekonstrukce-mobil")?.classList.remove("hidden");
-                    
-                    document.getElementById("dlazdicePoznamky")?.classList.remove("hidden");
-                    document.getElementById("nav-poznamky-desktop")?.classList.remove("hidden");
-                    document.getElementById("nav-poznamky-mobil")?.classList.remove("hidden");
-
-                    document.getElementById("dlazdiceHlasovani")?.classList.remove("hidden");
-                    document.getElementById("nav-hlasovani-desktop")?.classList.remove("hidden");
-                    document.getElementById("nav-hlasovani-mobil")?.classList.remove("hidden");
+                    document.getElementById("dlazdiceRekonstrukce")?.classList.remove("hidden"); document.getElementById("nav-rekonstrukce-desktop")?.classList.remove("hidden"); document.getElementById("nav-rekonstrukce-mobil")?.classList.remove("hidden");
+                    document.getElementById("dlazdicePoznamky")?.classList.remove("hidden"); document.getElementById("nav-poznamky-desktop")?.classList.remove("hidden"); document.getElementById("nav-poznamky-mobil")?.classList.remove("hidden");
+                    document.getElementById("dlazdiceHlasovani")?.classList.remove("hidden"); document.getElementById("nav-hlasovani-desktop")?.classList.remove("hidden"); document.getElementById("nav-hlasovani-mobil")?.classList.remove("hidden");
 
                     if (eMailyRodicu.includes(email)) {
-                        roleUzivatele = "rodic";
-                        document.getElementById("ridiciPanel")?.classList.remove("hidden");
-                        document.getElementById("odznacitVseBtn")?.classList.remove("hidden");
-                        document.getElementById("smazatHistoriiMobilBtn")?.classList.remove("hidden");
+                        roleUzivatele = "rodic"; document.getElementById("ridiciPanel")?.classList.remove("hidden"); document.getElementById("odznacitVseBtn")?.classList.remove("hidden"); document.getElementById("smazatHistoriiMobilBtn")?.classList.remove("hidden");
                     } else if (email === "tomas@turecek.cz") {
-                        roleUzivatele = "tomas";
-                        document.getElementById("dlazdiceKino")?.classList.remove("hidden"); 
-                        document.getElementById("nav-kino-desktop")?.classList.remove("hidden");
-                        document.getElementById("nav-kino-mobil")?.classList.remove("hidden");
-                        
-                        let skolaDl = document.getElementById("dlazdiceSkola");
-                        skolaDl?.classList.remove("dash-locked");
-                        skolaDl?.setAttribute("onclick", "zobrazView('view-skola')");
-                        document.getElementById("nav-skola-desktop")?.classList.remove("hidden");
-                        document.getElementById("nav-skola-mobil")?.classList.remove("hidden");
-                        
-                    } else if (email === "martin@turecek.cz") {
-                        roleUzivatele = "martin";
-                    }
+                        roleUzivatele = "tomas"; document.getElementById("dlazdiceKino")?.classList.remove("hidden"); document.getElementById("nav-kino-desktop")?.classList.remove("hidden"); document.getElementById("nav-kino-mobil")?.classList.remove("hidden");
+                        let skolaDl = document.getElementById("dlazdiceSkola"); skolaDl?.classList.remove("dash-locked"); skolaDl?.setAttribute("onclick", "zobrazView('view-skola')"); document.getElementById("nav-skola-desktop")?.classList.remove("hidden"); document.getElementById("nav-skola-mobil")?.classList.remove("hidden");
+                    } else if (email === "martin@turecek.cz") { roleUzivatele = "martin"; }
 
-                    if(document.getElementById("jmenoPrihlaseneho")) {
-                        document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni;
-                    }
+                    if(document.getElementById("jmenoPrihlaseneho")) { document.getElementById("jmenoPrihlaseneho").innerText = jmenoAktualni; }
+                    document.getElementById("view-login")?.classList.remove("active"); document.getElementById("appHeader")?.classList.remove("hidden"); document.getElementById("bottomNav")?.classList.remove("hidden");
                     
-                    document.getElementById("view-login")?.classList.remove("active");
-                    document.getElementById("appHeader")?.classList.remove("hidden");
-                    document.getElementById("bottomNav")?.classList.remove("hidden");
-                    
-                    vykresliKino('vse');
-                    zobrazView('view-home');
-                    stahniDataZDatabaze(); 
+                    vykresliKino('vse'); zobrazView('view-home'); stahniDataZDatabaze(); 
                 } catch (chybaPriVykreslovani) { console.error("Vnitřní chyba:", chybaPriVykreslovani); }
             }).catch((error) => { showToast("Špatný e-mail nebo heslo!", "error"); });
         });
@@ -1190,13 +1119,10 @@
         const logoutLogika = () => {
             signOut(auth).then(() => {
                 document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-                document.getElementById("view-login")?.classList.add("active");
-                document.getElementById("appHeader")?.classList.add("hidden");
-                document.getElementById("bottomNav")?.classList.add("hidden");
+                document.getElementById("view-login")?.classList.add("active"); document.getElementById("appHeader")?.classList.add("hidden"); document.getElementById("bottomNav")?.classList.add("hidden");
                 document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
                 poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = []; poleHlasovani = [];
-                kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; 
-                roleUzivatele = ""; emailAktualni = "";
+                kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; roleUzivatele = ""; emailAktualni = "";
             }).catch(e => console.error("Chyba při odhlášení"));
         };
 
