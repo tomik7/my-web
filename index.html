@@ -121,7 +121,6 @@
         .dashboard-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; max-width: 1000px; }
         .dash-item { background: var(--card-bg); border-radius: var(--border-radius); padding: 35px 20px; text-align: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.2s; display: flex; flex-direction: column; align-items: center; width: 220px; flex-shrink: 0; }
         .dash-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--primary-light); }
-        .dash-icon { font-size: 3.5em; margin-bottom: 15px; }
         .dash-title { font-weight: 800; font-size: 1.2em; margin: 0 0 5px 0; color: var(--text-main); }
         .dash-popis { color: var(--text-muted); font-size: 0.9em; font-weight: 600; margin:0; } 
         .dash-locked { opacity: 0.5; filter: grayscale(1); cursor: not-allowed;}
@@ -275,43 +274,107 @@
                         <h2 style="font-size: 1.4em; margin: 0;">Tvoje aplikace</h2>
                     </div>
                     <div class="dashboard-grid">
-                        <div class="dash-item" onclick="zobrazView('view-brigada')">
-                            <span class="dash-icon"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">
-  <path d="M19.5 10.3435H19.324L17.501 5.01046L1.854 10.3435L1.5 10.3405M1 10.3445H1.5L12.646 1.44046L15.463 5.39046" stroke="black" stroke-width="2" stroke-linecap="square"/>
-  <path d="M13 15.3405C13 16.0035 12.7366 16.6394 12.2678 17.1082C11.7989 17.5771 11.163 17.8405 10.5 17.8405C9.83696 17.8405 9.20107 17.5771 8.73223 17.1082C8.26339 16.6394 8 16.0035 8 15.3405C8 14.6774 8.26339 14.0415 8.73223 13.5727C9.20107 13.1038 9.83696 12.8405 10.5 12.8405C11.163 12.8405 11.7989 13.1038 12.2678 13.5727C12.7366 14.0415 13 14.6774 13 15.3405Z" stroke="black" stroke-width="2" stroke-linecap="square"/>
-  <path d="M20 10.3405V20.3405H1V10.3405H20Z" stroke="black" stroke-width="2" stroke-linecap="square"/>
-  <path d="M1 10.3405H3C3 10.8709 2.78929 11.3796 2.41421 11.7547C2.03914 12.1297 1.53043 12.3405 1 12.3405V10.3405ZM20 10.3405H18C18 10.8709 18.2107 11.3796 18.5858 11.7547C18.9609 12.1297 19.4696 12.3405 20 12.3405V10.3405ZM1 20.3405H3.002C3.00226 20.0775 2.95066 19.817 2.85014 19.574C2.74963 19.331 2.60217 19.1102 2.41621 18.9242C2.23026 18.7383 2.00946 18.5908 1.76644 18.4903C1.52343 18.3898 1.26298 18.3382 1 18.3385V20.3405ZM20 20.3405H18C18 19.81 18.2107 19.3013 18.5858 18.9262C18.9609 18.5512 19.4696 18.3405 20 18.3405V20.3405Z" stroke="black" stroke-width="2" stroke-linecap="square"/>
-</svg></span>
+                        
+                        <div class="dash-item" onclick="zobrazView('view-brigada', 'nav-brigada')">
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_brigada)"/>
+                                <path d="M44 26C44 23.7909 42.2091 22 40 22H24C21.7909 22 20 23.7909 20 26V38C20 40.2091 21.7909 42 24 42H40C42.2091 42 44 40.2091 44 38V26Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="32" cy="32" r="4" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M38 32H44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="grad_brigada" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#009de0"/>
+                                        <stop offset="1" stop-color="#005bb5"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis" id="dash-brigada-info">Načítám data...</p>
                         </div>
                         
                         <div class="dash-item dash-locked" id="dlazdiceSkola">
-                            <span class="dash-icon">🎒</span>
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_skola)"/>
+                                <path d="M20 24C20 24 24 20 32 20C40 20 44 24 44 24V46C44 46 40 42 32 42C24 42 20 46 20 46V24Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M32 20V42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="grad_skola" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#9b59b6"/>
+                                        <stop offset="1" stop-color="#8e44ad"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Škola</h3>
                             <p class="dash-popis" id="dash-skola-info">Zatím uzamčeno</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce')">
-                            <span class="dash-icon">🛠️</span>
+                        <div class="dash-item hidden" id="dlazdiceRekonstrukce" onclick="zobrazView('view-rekonstrukce', 'nav-rekonstrukce-mobil')">
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_reko)"/>
+                                <path d="M23.5 40.5L34 30C35.5 31.5 38 32 40.5 30.5C43 29 44 26 43 23.5L38.5 28.5L35.5 25.5L40.5 21C38 20 35 21 33.5 23.5C32 26 32.5 28.5 34 30L23.5 40.5C22.5 41.5 22.5 43 23.5 44C24.5 45 26 45 27 44L23.5 40.5Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="grad_reko" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#f39c12"/>
+                                        <stop offset="1" stop-color="#d35400"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Rekonstrukce</h3>
                             <p class="dash-popis" id="dash-rekonstrukce-info">Načítám data...</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky')">
-                            <span class="dash-icon">📝</span>
+                        <div class="dash-item hidden" id="dlazdicePoznamky" onclick="zobrazView('view-poznamky', 'nav-poznamky-mobil')">
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_notes)"/>
+                                <path d="M24 20H32L42 30V42C42 44.2091 40.2091 46 38 46H24C21.7909 46 20 44.2091 20 42V24C20 21.7909 21.7909 20 24 20Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M32 20V30H42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M26 36H36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M26 40H32" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="grad_notes" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#2ecc71"/>
+                                        <stop offset="1" stop-color="#27ae60"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Poznámky</h3>
                             <p class="dash-popis" id="dash-poznamky-info">Načítám data...</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceHlasovani" onclick="zobrazView('view-hlasovani')">
-                            <span class="dash-icon">🗳️</span>
+                        <div class="dash-item hidden" id="dlazdiceHlasovani" onclick="zobrazView('view-hlasovani', 'nav-hlasovani-mobil')">
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_poll)"/>
+                                <path d="M20 46H44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 46V30" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M32 46V20" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M40 46V36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="grad_poll" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#ff7979"/>
+                                        <stop offset="1" stop-color="#eb4d4b"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Hlasování</h3>
                             <p class="dash-popis" id="dash-hlasovani-info">Rodinné ankety</p>
                         </div>
 
-                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino')">
-                            <span class="dash-icon">🍿</span>
+                        <div class="dash-item hidden" id="dlazdiceKino" onclick="zobrazView('view-kino', 'nav-kino')">
+                            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
+                                <rect width="64" height="64" rx="18" fill="url(#grad_kino)"/>
+                                <rect x="20" y="24" width="24" height="16" rx="2" stroke="white" stroke-width="3.5" stroke-linejoin="round"/>
+                                <circle cx="24" cy="27" r="1" fill="white" stroke="white" stroke-width="2"/>
+                                <circle cx="24" cy="37" r="1" fill="white" stroke="white" stroke-width="2"/>
+                                <circle cx="40" cy="27" r="1" fill="white" stroke="white" stroke-width="2"/>
+                                <circle cx="40" cy="37" r="1" fill="white" stroke="white" stroke-width="2"/>
+                                <path d="M29 28L36 32L29 36V28Z" fill="white"/>
+                                <defs>
+                                    <linearGradient id="grad_kino" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#e74c3c"/>
+                                        <stop offset="1" stop-color="#c0392b"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
                         </div>
@@ -562,7 +625,6 @@
             }
         });
 
-        // Specifická funkce pro rotování šipeček v seznamech
         window.toggleSipka = function(idObsahu, idSipky) {
             const obsah = document.getElementById(idObsahu);
             const sipka = document.getElementById(idSipky);
@@ -793,40 +855,33 @@
         window.smazAnketu = function(index) { if (confirm("Opravdu smazat tuto anketu?")) { poleHlasovani.splice(index, 1); ulozDoDatabaze(); vykresliHlasovani(); } }
 
         // ==========================================
-        // VYLEPŠENÁ REKONSTRUKCE LOGIKA (KATEGORIE A ŠUPLÍKY)
+        // VYLEPŠENÁ REKONSTRUKCE LOGIKA
         // ==========================================
         function vykresliRekonstrukci() {
             let html = "";
             if (poleRekonstrukce.length === 0) {
                 html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Seznam je prázdný. Přidejte něco, co se bude kupovat! 🛠️</p>";
             } else {
-                // 1. Krok: Roztřídíme data do skupin (Místnost -> Kategorie -> Položky)
                 const seskupeno = {};
                 poleRekonstrukce.forEach((polozka, puvodniIndex) => {
                     const mistnost = polozka.mistnost || "Ostatní";
                     const kategorie = polozka.kategorie || "Nezařazeno";
-                    
                     if (!seskupeno[mistnost]) seskupeno[mistnost] = {};
                     if (!seskupeno[mistnost][kategorie]) seskupeno[mistnost][kategorie] = [];
-                    
-                    // Uložíme i původní index, abychom to pak mohli správně mazat z hlavní databáze
                     seskupeno[mistnost][kategorie].push({ ...polozka, originalIndex: puvodniIndex });
                 });
 
-                // 2. Krok: Vykreslíme Akordeony (Zasouvací menu)
                 let mistnostIndex = 0;
                 for (const [nazevMistnosti, kategorieObj] of Object.entries(seskupeno)) {
                     const roomAccId = `rekRoom_${mistnostIndex}`;
                     const roomIconId = `rekRoomIcon_${mistnostIndex}`;
                     
-                    // Karta MÍSTNOST
                     html += `
                     <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; border-color: var(--primary);">
                         <div style="padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); cursor: pointer;" onclick="toggleSipka('${roomAccId}', '${roomIconId}')">
                             <h3 style="margin: 0; font-size: 1.2em; color: var(--primary);">${nazevMistnosti}</h3>
                             <span id="${roomIconId}" style="transition: 0.3s; color: var(--primary); font-size:1.2em; transform: rotate(180deg);">▼</span>
                         </div>
-                        
                         <div id="${roomAccId}" style="padding: 15px 20px; background: var(--card-bg);">
                     `;
 
@@ -835,18 +890,15 @@
                         const catAccId = `rekCat_${mistnostIndex}_${katIndex}`;
                         const catIconId = `rekCatIcon_${mistnostIndex}_${katIndex}`;
                         
-                        // Karta KATEGORIE (Vnořená)
                         html += `
                             <div style="margin-bottom: 12px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
                                 <div style="padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); cursor: pointer;" onclick="toggleSipka('${catAccId}', '${catIconId}')">
                                     <h4 style="margin: 0; font-size: 1.1em; color: var(--text-main);">${nazevKategorie} <span style="color:var(--text-muted); font-size:0.8em; font-weight:normal;">(${polozkyVKategorii.length})</span></h4>
                                     <span id="${catIconId}" style="transition: 0.3s; color: var(--text-muted); font-size:1em; transform: rotate(180deg);">▼</span>
                                 </div>
-                                
                                 <div id="${catAccId}" style="padding: 10px 15px; background: var(--card-bg);">
                         `;
 
-                        // Samotné POLOŽKY (Produkty)
                         polozkyVKategorii.forEach(polozka => {
                             let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); font-size:1.4em; padding:0;" title="Odstranit">✖</button>`;
                             let odkazBtn = "";
@@ -854,23 +906,12 @@
                                 let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
                                 odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">🔗 Zobrazit v e-shopu</a>`;
                             }
-
-                            html += `
-                                    <div class="task-item" style="box-shadow: none; border-color: var(--border); margin-bottom: 8px; padding: 12px;">
-                                        <div class="task-info">
-                                            <div class="task-title" style="font-size:1.1em;">${polozka.nazev}</div>
-                                            ${odkazBtn}
-                                        </div>
-                                        ${smazBtn}
-                                    </div>
-                            `;
+                            html += `<div class="task-item" style="box-shadow: none; border-color: var(--border); margin-bottom: 8px; padding: 12px;"><div class="task-info"><div class="task-title" style="font-size:1.1em;">${polozka.nazev}</div>${odkazBtn}</div>${smazBtn}</div>`;
                         });
 
-                        html += `</div></div>`; // Konec kategorie
-                        katIndex++;
+                        html += `</div></div>`; katIndex++;
                     }
-                    html += `</div></div>`; // Konec místnosti
-                    mistnostIndex++;
+                    html += `</div></div>`; mistnostIndex++;
                 }
             }
             document.getElementById("seznamRekonstrukce").innerHTML = html;
@@ -897,10 +938,7 @@
         });
 
         window.smazRekonstrukci = function(index) {
-            if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) {
-                poleRekonstrukce.splice(index, 1);
-                ulozDoDatabaze(); vykresliRekonstrukci();
-            }
+            if (confirm("Opravdu chceš tuto položku smazat ze seznamu?")) { poleRekonstrukce.splice(index, 1); ulozDoDatabaze(); vykresliRekonstrukci(); }
         }
 
         // ==========================================
