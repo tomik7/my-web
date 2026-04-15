@@ -527,7 +527,6 @@
             </div>
 
             <div id="view-kino" class="view-section">
-                
                 <div class="action-links">
                     <h2 style="font-size: 1.4em; margin: 0;">Rodinná videotéka</h2>
                 </div>
@@ -638,7 +637,7 @@
         setPersistence(auth, inMemoryPersistence);
 
         let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = []; let polePoznamky = []; let poleHlasovani = [];
-        let poleVidea = []; // NOVÉ: Pole pro rodinná videa
+        let poleVidea = []; // RODINNÁ VIDEA
         let objProfily = {}; 
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
@@ -721,6 +720,7 @@
         window.addEventListener('resize', zkontrolujZobrazeniHistorie);
         zkontrolujZobrazeniHistorie();
 
+        // Profil s iniciály místo emoji
         window.otevriProfil = function(email) {
             let jmeno = slovnikJmen[email] || "Neznámý";
             let profil = objProfily[email] || { motto: "", hobby: "", inicialy: jmeno.substring(0,2).toUpperCase() };
@@ -765,7 +765,7 @@
             if(inicialy.trim() === "") inicialy = jmenoAktualni.substring(0,2).toUpperCase();
             objProfily[emailAktualni] = { inicialy: inicialy, motto: motto, hobby: hobby };
             ulozDoDatabaze(); showToast("Tvůj profil byl úspěšně upraven!"); zavriProfil();
-            vykresliStreaks();
+            vykresliStreaks(); 
         }
 
         window.zavriProfil = function() { document.getElementById("profilModal").style.display = "none"; }
@@ -1033,42 +1033,13 @@
         // ==========================================
         // KINO LOGIKA (VČETNĚ RODINNÉ VIDEOTÉKY)
         // ==========================================
-        const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
-        const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
-        const videaSerie2 = ["3oZqKwtUpcQ", "qIoFna9QSeo", "nKBc8W0tiCA", "KEPF8woA0QU", "smY-fJSPzno", "6TPPVVvihUc", "9265g-GNmvs", "DylC_jmN3CA", "cqVWhSjPfog", "kTNuzpPhvAU", "ElMzIZD8JYU", "2ZQRSRwevtE", "1VSkeosVr40"];
-        const videaSerie3 = ["8HZC79duYRQ", "LYIxZ9CdfsY", "NSGpiJCPEG0", "XlUeAMfAry8", "RaSkirrHmTk", "Jq0I57UP0Oc", "6xnKLw1Y_f8", "Zoe661tsFs8"];
-        const videaSerie4 = ["htWm6tSNJrg", "f6ruMCXN_Gk", "FLR9H5vcUlw", "0iwnOAccV7Q", "KQFIP3q4mmQ", "CsfwM5_GwYI", "xsTL9rctNfY", "Q4hCCBKSr58", "vya2Z9S0knY", "Nil4TVog5io"];
-        const videaSerie5 = ["xMyPNLU8sss", "YbgrCayCJbY", "MtMKvk_UA8c", "eZ9zydZG2JE", "JrCYcTNyNpg", "HuGXFj_nnUo", "a0gML0Y5mTw", "CXe1UhJ4egU", "JPb3NRruzhs", "bEB1dvLnA8Q"];
-        const videaSerie6 = ["-jpoEGsgios", "EfqiugEn988", "qXd2fKPtcb8", "cxAoM2mefyM", "UdkXLeapaf0", "Jex0q5ItvCc", "ET0gGfc9_38", "F0oBMrtsYD0", "EnLltrSJ2ys", "b9PKA9M5RDg"];
-        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "xiaZomlF6Vw", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
-        const videaSerie8 = ["-tlItMQsKf0", "Ng9XheLz8Ig", "gpGZ-HL_GG4", "M1Jy5_NSiBQ", "hk-78bpabsU", "zBFelnztogI", "GrUki2jasuM", "nzrhOmcSkwE", "ER2wqWZ_OLU", "2-nm4zJXhY0"];
-        const videaSerie9 = ["veQhhGu6LLM", "IJIK5Q8oYfY", "tyl5IWM5HKs", "6u9jIbJfAa0", "TwI7V__5pxk", "H6HLk4OEyvE", "Pelz1-jWhtA", "_nLz_iPKq60", "LqNHiPEiB5c", "oepJpydcqpc"];
-        const videaSerie10 = ["QCMadZE3prY", "xEB4PH7i4Co", "nT7f6MH5qv8", "LJwzT49q4NU"];
-
-        window.vykresliKino = function(filtr = 'vse') {
-            let videaKVykresleni = [];
-            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3, ...videaSerie4, ...videaSerie5, ...videaSerie6, ...videaSerie7, ...videaSerie8, ...videaSerie9, ...videaSerie10];
-            else if (filtr === '0') videaKVykresleni = videaSerie0; else if (filtr === '1') videaKVykresleni = videaSerie1; else if (filtr === '2') videaKVykresleni = videaSerie2;
-            else if (filtr === '3') videaKVykresleni = videaSerie3; else if (filtr === '4') videaKVykresleni = videaSerie4; else if (filtr === '5') videaKVykresleni = videaSerie5;
-            else if (filtr === '6') videaKVykresleni = videaSerie6; else if (filtr === '7') videaKVykresleni = videaSerie7; else if (filtr === '8') videaKVykresleni = videaSerie8;
-            else if (filtr === '9') videaKVykresleni = videaSerie9; else if (filtr === '10') videaKVykresleni = videaSerie10;
-
-            let htmlKina = ""; videaKVykresleni.forEach(idVidea => { htmlKina += `<div class="kino-karta" onclick="spustitVideo('${idVidea}')"><img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/mqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${idVidea}/hqdefault.jpg'"><div class="play-icon">▶</div></div>`; });
-            document.getElementById("kinoGrid").innerHTML = htmlKina;
-
-            const tlacitka = document.querySelectorAll(".kino-pill"); tlacitka.forEach(btn => btn.classList.remove("active"));
-            const indexMap = {'vse':0, '0':1, '1':2, '2':3, '3':4, '4':5, '5':6, '6':7, '7':8, '8':9, '9':10, '10':11};
-            if(tlacitka[indexMap[filtr]]) tlacitka[indexMap[filtr]].classList.add("active");
-        }
-
-        // --- RODINNÁ VIDEOTÉKA (NOVÉ) ---
         function ziskejYouTubeId(url) {
             let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             let match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function vykresliRodinnouVideoteku() {
+        window.vykresliRodinnouVideoteku = function() {
             let html = "";
             if (poleVidea.length === 0) {
                 html = "<p style='color: var(--text-muted); text-align:center; padding:20px; grid-column: 1 / -1;'>Zatím tu nejsou žádná rodinná videa.</p>";
@@ -1107,34 +1078,130 @@
                     document.getElementById("noveVideoOdkaz").value = "";
                     toggleForm('formKino', 'ikonaKinoForm');
                     showToast("Video přidáno do sbírky!");
-                } else {
-                    showToast("Tohle nevypadá jako platný odkaz na YouTube!", "error");
-                }
+                } else { showToast("Tohle nevypadá jako platný odkaz na YouTube!", "error"); }
             } else { showToast("Musíš zadat název i odkaz!", "error"); }
         });
 
         window.smazRodinneVideo = function(index) {
-            if (confirm("Opravdu smazat toto video ze sbírky?")) {
-                poleVidea.splice(index, 1);
-                ulozDoDatabaze(); vykresliRodinnouVideoteku();
-            }
+            if (confirm("Opravdu smazat toto video ze sbírky?")) { poleVidea.splice(index, 1); ulozDoDatabaze(); vykresliRodinnouVideoteku(); }
         }
 
         window.zkopirujOdkaz = function(idVidea) {
             let url = `https://www.youtube.com/watch?v=${idVidea}`;
             navigator.clipboard.writeText(url).then(() => {
                 showToast("Odkaz zkopírován! Vlož ho do svého stahovače videí.");
-            }).catch(err => {
-                showToast("Nepodařilo se zkopírovat odkaz.", "error");
-            });
+            }).catch(err => { showToast("Nepodařilo se zkopírovat odkaz.", "error"); });
+        }
+
+        const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
+        const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
+        const videaSerie2 = ["3oZqKwtUpcQ", "qIoFna9QSeo", "nKBc8W0tiCA", "KEPF8woA0QU", "smY-fJSPzno", "6TPPVVvihUc", "9265g-GNmvs", "DylC_jmN3CA", "cqVWhSjPfog", "kTNuzpPhvAU", "ElMzIZD8JYU", "2ZQRSRwevtE", "1VSkeosVr40"];
+        const videaSerie3 = ["8HZC79duYRQ", "LYIxZ9CdfsY", "NSGpiJCPEG0", "XlUeAMfAry8", "RaSkirrHmTk", "Jq0I57UP0Oc", "6xnKLw1Y_f8", "Zoe661tsFs8"];
+        const videaSerie4 = ["htWm6tSNJrg", "f6ruMCXN_Gk", "FLR9H5vcUlw", "0iwnOAccV7Q", "KQFIP3q4mmQ", "CsfwM5_GwYI", "xsTL9rctNfY", "Q4hCCBKSr58", "vya2Z9S0knY", "Nil4TVog5io"];
+        const videaSerie5 = ["xMyPNLU8sss", "YbgrCayCJbY", "MtMKvk_UA8c", "eZ9zydZG2JE", "JrCYcTNyNpg", "HuGXFj_nnUo", "a0gML0Y5mTw", "CXe1UhJ4egU", "JPb3NRruzhs", "bEB1dvLnA8Q"];
+        const videaSerie6 = ["-jpoEGsgios", "EfqiugEn988", "qXd2fKPtcb8", "cxAoM2mefyM", "UdkXLeapaf0", "Jex0q5ItvCc", "ET0gGfc9_38", "F0oBMrtsYD0", "EnLltrSJ2ys", "b9PKA9M5RDg"];
+        const videaSerie7 = ["h4SMcYFYwtM", "zZogz6Ql3fc", "xiaZomlF6Vw", "xiaZomlF6Vw", "dnUHwB3gfUA", "syQeNu9H2KU", "EiqqSR7_D60", "1xaH6lVllVE", "oypmqj7mj7c", "o-kUsYXtfVU"];
+        const videaSerie8 = ["-tlItMQsKf0", "Ng9XheLz8Ig", "gpGZ-HL_GG4", "M1Jy5_NSiBQ", "hk-78bpabsU", "zBFelnztogI", "GrUki2jasuM", "nzrhOmcSkwE", "ER2wqWZ_OLU", "2-nm4zJXhY0"];
+        const videaSerie9 = ["veQhhGu6LLM", "IJIK5Q8oYfY", "tyl5IWM5HKs", "6u9jIbJfAa0", "TwI7V__5pxk", "H6HLk4OEyvE", "Pelz1-jWhtA", "_nLz_iPKq60", "LqNHiPEiB5c", "oepJpydcqpc"];
+        const videaSerie10 = ["QCMadZE3prY", "xEB4PH7i4Co", "nT7f6MH5qv8", "LJwzT49q4NU"];
+
+        window.vykresliKino = function(filtr = 'vse') {
+            let videaKVykresleni = [];
+            if (filtr === 'vse') videaKVykresleni = [...videaSerie0, ...videaSerie1, ...videaSerie2, ...videaSerie3, ...videaSerie4, ...videaSerie5, ...videaSerie6, ...videaSerie7, ...videaSerie8, ...videaSerie9, ...videaSerie10];
+            else if (filtr === '0') videaKVykresleni = videaSerie0; else if (filtr === '1') videaKVykresleni = videaSerie1; else if (filtr === '2') videaKVykresleni = videaSerie2;
+            else if (filtr === '3') videaKVykresleni = videaSerie3; else if (filtr === '4') videaKVykresleni = videaSerie4; else if (filtr === '5') videaKVykresleni = videaSerie5;
+            else if (filtr === '6') videaKVykresleni = videaSerie6; else if (filtr === '7') videaKVykresleni = videaSerie7; else if (filtr === '8') videaKVykresleni = videaSerie8;
+            else if (filtr === '9') videaKVykresleni = videaSerie9; else if (filtr === '10') videaKVykresleni = videaSerie10;
+
+            let htmlKina = ""; videaKVykresleni.forEach(idVidea => { htmlKina += `<div class="kino-karta" onclick="spustitVideo('${idVidea}')"><img class="kino-img" src="https://img.youtube.com/vi/${idVidea}/mqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${idVidea}/hqdefault.jpg'"><div class="play-icon">▶</div></div>`; });
+            document.getElementById("kinoGrid").innerHTML = htmlKina;
+
+            const tlacitka = document.querySelectorAll(".kino-pill"); tlacitka.forEach(btn => btn.classList.remove("active"));
+            const indexMap = {'vse':0, '0':1, '1':2, '2':3, '3':4, '4':5, '5':6, '6':7, '7':8, '8':9, '9':10, '10':11};
+            if(tlacitka[indexMap[filtr]]) tlacitka[indexMap[filtr]].classList.add("active");
         }
 
         window.spustitVideo = function(idVidea) { document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${idVidea}?autoplay=1`; document.getElementById("videoModal").style.display = "flex"; }
         document.getElementById("zavritVideoBtn").addEventListener("click", () => { document.getElementById("videoPlayer").src = ""; document.getElementById("videoModal").style.display = "none"; });
 
         // ==========================================
-        // DATABÁZE A PŘIHLAŠOVÁNÍ
+        // BRIGÁDA LOGIKA
         // ==========================================
+        function zapisDoHistorie(zprava, ikonka = ICONS.msg) {
+            if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
+            let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+            poleHistorie.unshift({ text: zprava, cas: cas, ikona: ikonka });
+            if (poleHistorie.length > 15) poleHistorie.pop();
+        }
+
+        function vykresliHistorii() {
+            let html = "";
+            if (poleHistorie.length === 0) { html = "<p style='color:var(--text-muted); text-align:center;'>Žádná upozornění.</p>"; } 
+            else { poleHistorie.forEach(z => { let ikonaHTML = `<div class="history-icon">${z.ikona || ICONS.msg}</div>`; html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; }); }
+            document.getElementById("historieZaznamyMobil").innerHTML = html; document.getElementById("historieZaznamyDesktop").innerHTML = html;
+        }
+
+        function vykresliMince(pocet) {
+            if (pocet <= 0) return "<div class='wallet-coins' style='opacity:0.3; font-size:1em;'>Zatím nic</div>";
+            let coinsHtml = "";
+            for(let i=0; i<pocet; i++) coinsHtml += ICONS.coin;
+            return `<div class="wallet-coins" style="display:flex; gap:4px; flex-wrap:wrap; color:var(--warning);">${coinsHtml}</div>`;
+        }
+
+        function vykresliBanku() {
+            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
+            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
+            let btnResetTomas = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('tomas')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
+            let btnResetMartin = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('martin')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
+
+            document.getElementById("bankaSekce").innerHTML = `
+                <div class="wallet-card"><p class="wallet-name">Tomáš</p><h3 class="wallet-balance">${kontoTomas} Kč</h3>${vykresliMince(minceTomas)}${btnProplatitTomas} ${btnResetTomas}</div>
+                <div class="wallet-card"><p class="wallet-name">Martin</p><h3 class="wallet-balance">${kontoMartin} Kč</h3>${vykresliMince(minceMartin)}${btnProplatitMartin} ${btnResetMartin}</div>`;
+        }
+
+        function zkontrolujMince() {
+            while (kontoTomas >= 1000) { kontoTomas -= 1000; minceTomas++; }
+            while (kontoTomas < 0 && minceTomas > 0) { kontoTomas += 1000; minceTomas--; }
+            while (kontoMartin >= 1000) { kontoMartin -= 1000; minceMartin++; }
+            while (kontoMartin < 0 && minceMartin > 0) { kontoMartin += 1000; minceMartin--; }
+            if (kontoTomas < 0) kontoTomas = 0; if (kontoMartin < 0) kontoMartin = 0;
+        }
+
+        function ziskejAktualniOdmenu(ukol) {
+            let d = new Date().toISOString().split('T')[0]; let o = parseInt(ukol.odmena) || 0; 
+            if (ukol.termin && ukol.termin < d && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(o / 2); return o;
+        }
+
+        function vykresliUkoly() {
+            let html = ""; if (poleUkolu.length === 0) html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné úkoly.</p>";
+            let d = new Date().toISOString().split('T')[0];
+
+            poleUkolu.forEach((ukol, index) => {
+                let lH = ""; let pH = "";
+                let tS = (roleUzivatele === "rodic") ? `<button class="link-btn" onclick="smazUkol(${index})" style="color:var(--danger); padding:0;">${ICONS.cross}</button>` : "";
+                let aO = ziskejAktualniOdmenu(ukol); let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : ""; let dT = ukol.termin ? `<span class="task-meta">Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
+
+                if (ukol.splneno) {
+                    let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
+                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">Schváleno pro: ${jS}</span></div>`; pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
+                } else if (ukol.cekaNaPotvrzeni) {
+                    let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
+                    if (roleUzivatele === "rodic") {
+                        lH = `<span style="color:var(--warning); display:flex;">${ICONS.wait}</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
+                        pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ne</button></div>${tS}`;
+                    } else if (roleUzivatele === ukol.splnilKdo) {
+                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">Čekáš na schválení</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`;
+                    } else { lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">Zpracovává ${jZ}</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`; }
+                } else {
+                    let dis = (roleUzivatele === "rodic") ? "disabled" : "";
+                    lH = `<input type="checkbox" class="custom-checkbox" ${dis} onchange="pozadatOSchvaleni(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div>${dT}</div>`;
+                    pH = `<div style="display:flex; align-items:center; gap:10px;">${sP}<span class="price-tag">${aO} Kč</span>${tS}</div>`;
+                }
+                html += `<div class="task-item" style="${ukol.splneno ? 'opacity:0.7;' : ''}">${lH}${pH}</div>`;
+            });
+            document.getElementById("seznamUkolu").innerHTML = html; vykresliBanku(); vykresliHistorii(); aktualizujDashboard();
+        }
+
         function ulozDoDatabaze() {
             zkontrolujMince(); 
             setDoc(doc(db, "ukoly", "seznam"), { 
@@ -1162,7 +1229,20 @@
         }
 
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { const btn = document.getElementById("malyRefreshBtn"); btn.style.transform = "rotate(360deg)"; setTimeout(() => btn.style.transform = "none", 400); stahniDataZDatabaze(); });
-        
+        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`<b>${jmenoAktualni}</b> odevzdal úkol "${u.nazev}".`, ICONS.wait); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol odeslán ke schválení"); };
+        window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("odevzdal úkol"))); ulozDoDatabaze(); vykresliUkoly(); showToast("Žádost zrušena"); };
+        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); };
+        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, ICONS.cross); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol byl zamítnut", "error"); }
+        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, ICONS.trash); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
+        window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, ICONS.coin); ulozDoDatabaze(); vykresliUkoly(); showToast("Zlaťák proplacen!"); } }
+        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, ICONS.warning); ulozDoDatabaze(); vykresliUkoly(); } }
+        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, ICONS.plus); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); showToast("Úkol úspěšně přidán!"); } else { showToast("Zadej název a částku!", "error"); } });
+        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Seznam vyčištěn!"); } });
+        document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
+
+        // ==========================================
+        // PŘIHLAŠOVÁNÍ
+        // ==========================================
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
