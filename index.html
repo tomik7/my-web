@@ -134,13 +134,14 @@
         .wallet-balance { font-size: 2em; font-weight: 900; color: var(--primary); margin: 0 0 10px 0;}
 
         .task-item { background: var(--card-bg); border-radius: 14px; padding: 20px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: 0.3s;}
-        .task-info { flex-grow: 1; }
+        .task-info { flex-grow: 1; width: 100%;}
         .task-title { font-weight: 700; font-size: 1.1em; margin-bottom: 6px; color: var(--text-main); transition: 0.3s;}
         .task-meta { font-size: 0.85em; color: var(--text-muted); display: flex; align-items: center; gap: 5px; font-weight: 500; flex-wrap: wrap;}
         
-        .price-tag { background: var(--primary-light); color: var(--primary); font-weight: 800; padding: 8px 16px; border-radius: 20px; font-size: 0.95em; white-space: nowrap; display: inline-block;}
-        .price-tag-done { background: var(--input-bg); color: var(--text-muted); }
-        .price-tag-late { background: rgba(255, 71, 87, 0.1); color: var(--danger); }
+        .price-tag { background: var(--primary-light); color: var(--primary); font-weight: 800; padding: 8px 16px; border-radius: 20px; font-size: 0.95em; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; border:none; transition:0.2s;}
+        .price-tag:hover { background: var(--primary); color: white;}
+        .price-tag-done { background: var(--input-bg); color: var(--text-muted); pointer-events: none;}
+        .price-tag-late { background: rgba(255, 71, 87, 0.1); color: var(--danger); pointer-events: none;}
 
         .custom-checkbox { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--text-muted); appearance: none; outline: none; cursor: pointer; transition: 0.2s; position: relative; margin: 0; background: var(--card-bg); flex-shrink: 0;}
         .custom-checkbox:checked { background: var(--success); border-color: var(--success); }
@@ -304,9 +305,7 @@
                                 <path d="M44 26C44 23.7909 42.2091 22 40 22H24C21.7909 22 20 23.7909 20 26V38C20 40.2091 21.7909 42 24 42H40C42.2091 42 44 40.2091 44 38V26Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <circle cx="32" cy="32" r="4" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M38 32H44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs>
-                                    <linearGradient id="grad_brigada" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#009de0"/><stop offset="1" stop-color="#005bb5"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_brigada" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#009de0"/><stop offset="1" stop-color="#005bb5"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Letní Brigáda</h3>
                             <p class="dash-popis" id="dash-brigada-info">Načítám data...</p>
@@ -317,9 +316,7 @@
                                 <rect width="64" height="64" rx="18" fill="url(#grad_skola)"/>
                                 <path d="M20 24C20 24 24 20 32 20C40 20 44 24 44 24V46C44 46 40 42 32 42C24 42 20 46 20 46V24Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M32 20V42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs>
-                                    <linearGradient id="grad_skola" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#9b59b6"/><stop offset="1" stop-color="#8e44ad"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_skola" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#9b59b6"/><stop offset="1" stop-color="#8e44ad"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Škola</h3>
                             <p class="dash-popis" id="dash-skola-info">Zatím uzamčeno</p>
@@ -329,9 +326,7 @@
                             <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px;">
                                 <rect width="64" height="64" rx="18" fill="url(#grad_reko)"/>
                                 <path d="M23.5 40.5L34 30C35.5 31.5 38 32 40.5 30.5C43 29 44 26 43 23.5L38.5 28.5L35.5 25.5L40.5 21C38 20 35 21 33.5 23.5C32 26 32.5 28.5 34 30L23.5 40.5C22.5 41.5 22.5 43 23.5 44C24.5 45 26 45 27 44L23.5 40.5Z" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs>
-                                    <linearGradient id="grad_reko" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#f39c12"/><stop offset="1" stop-color="#d35400"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_reko" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#f39c12"/><stop offset="1" stop-color="#d35400"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Rekonstrukce</h3>
                             <p class="dash-popis" id="dash-rekonstrukce-info">Načítám data...</p>
@@ -344,9 +339,7 @@
                                 <path d="M32 20V30H42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M26 36H36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M26 40H32" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs>
-                                    <linearGradient id="grad_notes" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#2ecc71"/><stop offset="1" stop-color="#27ae60"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_notes" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#2ecc71"/><stop offset="1" stop-color="#27ae60"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Poznámky</h3>
                             <p class="dash-popis" id="dash-poznamky-info">Načítám data...</p>
@@ -359,9 +352,7 @@
                                 <path d="M24 46V30" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M32 46V20" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M40 46V36" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs>
-                                    <linearGradient id="grad_poll" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#ff7979"/><stop offset="1" stop-color="#eb4d4b"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_poll" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#ff7979"/><stop offset="1" stop-color="#eb4d4b"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Hlasování</h3>
                             <p class="dash-popis" id="dash-hlasovani-info">Rodinné ankety</p>
@@ -376,9 +367,7 @@
                                 <circle cx="40" cy="27" r="1" fill="white" stroke="white" stroke-width="2"/>
                                 <circle cx="40" cy="37" r="1" fill="white" stroke="white" stroke-width="2"/>
                                 <path d="M29 28L36 32L29 36V28Z" fill="white"/>
-                                <defs>
-                                    <linearGradient id="grad_kino" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#e74c3c"/><stop offset="1" stop-color="#c0392b"/></linearGradient>
-                                </defs>
+                                <defs><linearGradient id="grad_kino" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#e74c3c"/><stop offset="1" stop-color="#c0392b"/></linearGradient></defs>
                             </svg>
                             <h3 class="dash-title">Moje Kino</h3>
                             <p class="dash-popis">YouTube sbírka</p>
@@ -538,8 +527,31 @@
             </div>
 
             <div id="view-kino" class="view-section">
+                
+                <div class="action-links">
+                    <h2 style="font-size: 1.4em; margin: 0;">Rodinná videotéka</h2>
+                </div>
+                
+                <div class="card" style="background: var(--primary-light); border-color: var(--primary); padding: 15px 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleForm('formKino', 'ikonaKinoForm')">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 1.1em;">Přidat nové video</h3>
+                        <span id="ikonaKinoForm" style="color: var(--primary); transition: 0.3s; display:flex;">
+                            <svg class="svg-icon svg-icon-large" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </div>
+                    
+                    <div id="formKino" class="hidden" style="margin-top: 15px;">
+                        <input type="text" id="noveVideoNazev" placeholder="Název videa" style="background: var(--card-bg);">
+                        <input type="text" id="noveVideoOdkaz" placeholder="Odkaz na YouTube (např. youtube.com/watch?v=...)" style="background: var(--card-bg);">
+                        <button id="pridatVideoBtn" class="btn btn-primary" style="padding: 12px; margin-top: 5px;">Přidat do sbírky</button>
+                    </div>
+                </div>
+
+                <div class="youtube-grid" id="rodinnaVideaGrid" style="margin-bottom: 40px;"></div>
+
+
                 <div class="action-links" style="border:none;">
-                    <h2 style="font-size: 1.4em; margin: 0;">Původní tvorba</h2>
+                    <h2 style="font-size: 1.4em; margin: 0;">Původní tvorba (Ninjago)</h2>
                 </div>
                 <div class="kino-nav" id="kinoFiltrMenu">
                     <button class="kino-pill active" onclick="vykresliKino('vse')">Všechno</button>
@@ -626,6 +638,7 @@
         setPersistence(auth, inMemoryPersistence);
 
         let poleUkolu = []; let poleHistorie = []; let objStreaks = {}; let poleSkola = []; let poleRekonstrukce = []; let polePoznamky = []; let poleHlasovani = [];
+        let poleVidea = []; // NOVÉ: Pole pro rodinná videa
         let objProfily = {}; 
         let kontoTomas = 0; let minceTomas = 0; let kontoMartin = 0; let minceMartin = 0;
         
@@ -633,7 +646,6 @@
         const slovnikJmen = { "lenka@turecek.cz": "Máma", "radek@turecek.cz": "Táta", "tomas@turecek.cz": "Tomáš", "martin@turecek.cz": "Martin" };
         let roleUzivatele = ""; let jmenoAktualni = ""; let emailAktualni = "";
 
-        // Standardizované ikony pro vkládání z JS
         const ICONS = {
             cross: `<svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
             chevron: `<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`,
@@ -645,7 +657,8 @@
             trash: `<svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
             warning: `<svg class="svg-icon" stroke="var(--warning)" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
             plus: `<svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
-            msg: `<svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
+            msg: `<svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+            link: `<svg class="svg-icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`
         };
 
         window.showToast = function(msg, typ = 'success') {
@@ -708,7 +721,6 @@
         window.addEventListener('resize', zkontrolujZobrazeniHistorie);
         zkontrolujZobrazeniHistorie();
 
-        // Profil s iniciály místo emoji
         window.otevriProfil = function(email) {
             let jmeno = slovnikJmen[email] || "Neznámý";
             let profil = objProfily[email] || { motto: "", hobby: "", inicialy: jmeno.substring(0,2).toUpperCase() };
@@ -753,7 +765,7 @@
             if(inicialy.trim() === "") inicialy = jmenoAktualni.substring(0,2).toUpperCase();
             objProfily[emailAktualni] = { inicialy: inicialy, motto: motto, hobby: hobby };
             ulozDoDatabaze(); showToast("Tvůj profil byl úspěšně upraven!"); zavriProfil();
-            vykresliStreaks(); // Refreshne UI
+            vykresliStreaks();
         }
 
         window.zavriProfil = function() { document.getElementById("profilModal").style.display = "none"; }
@@ -876,7 +888,7 @@
         document.getElementById("pridatAnketuBtn")?.addEventListener("click", () => {
             let otazka = document.getElementById("novaAnketaOtazka").value;
             let moznostiStr = document.getElementById("novaAnketaMoznosti").value;
-            if (otazka.trim() !== "" && moznostiStr.trim() !== "") {
+            if (otazka.trim() !== "") {
                 let poleMoznosti = moznostiStr.split(',').map(s => s.trim()).filter(s => s !== "");
                 if(poleMoznosti.length < 2) { showToast("Anketa musí mít alespoň 2 možnosti!", "error"); return; }
                 let pripraveneMoznosti = poleMoznosti.map(m => { return { text: m, hlasy: [] }; });
@@ -943,11 +955,11 @@
                         `;
 
                         polozkyVKategorii.forEach(polozka => {
-                            let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); padding:0;" title="Odstranit">${ICONS.cross}</button>`;
+                            let smazBtn = `<button class="link-btn" onclick="smazRekonstrukci(${polozka.originalIndex})" style="color:var(--danger); padding:0;" title="Odstranit">${ICONS.trash}</button>`;
                             let odkazBtn = "";
                             if (polozka.odkaz && polozka.odkaz.trim() !== "") {
                                 let url = polozka.odkaz.startsWith('http') ? polozka.odkaz : 'https://' + polozka.odkaz;
-                                odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-block; margin-top:8px;">Zobrazit v e-shopu</a>`;
+                                odkazBtn = `<a href="${url}" target="_blank" class="price-tag" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px; margin-top:8px;">${ICONS.link} Zobrazit v e-shopu</a>`;
                             }
                             html += `<div class="task-item" style="box-shadow: none; border-color: var(--border); margin-bottom: 8px; padding: 12px;"><div class="task-info"><div class="task-title" style="font-size:1.1em;">${polozka.nazev}</div>${odkazBtn}</div>${smazBtn}</div>`;
                         });
@@ -992,7 +1004,7 @@
             if (polePoznamky.length === 0) { html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné poznámky.</p>";
             } else {
                 polePoznamky.forEach((p, index) => {
-                    let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); padding:0;" title="Smazat">${ICONS.cross}</button>`;
+                    let smazBtn = `<button class="link-btn" onclick="event.stopPropagation(); smazPoznamku(${index})" style="color:var(--danger); padding:0;" title="Smazat">${ICONS.trash}</button>`;
                     let formatovanyText = p.text.replace(/\n/g, '<br>');
                     html += `
                         <div class="card" style="margin-bottom: 15px; padding: 0; overflow: hidden; cursor: pointer;" onclick="toggleSipka('obsahPoznamky_${index}', 'sipkaPoznamka_${index}')">
@@ -1019,7 +1031,7 @@
         window.smazPoznamku = function(index) { if (confirm("Opravdu chceš tuto poznámku smazat?")) { polePoznamky.splice(index, 1); ulozDoDatabaze(); vykresliPoznamky(); } }
 
         // ==========================================
-        // KINO LOGIKA
+        // KINO LOGIKA (VČETNĚ RODINNÉ VIDEOTÉKY)
         // ==========================================
         const videaSerie0 = ["eLDXu4SgsV0", "LYwLerXP8IU", "pPAKMf3fSOY", "v20CVJoF7o0"];
         const videaSerie1 = ["HmPFKQ4Psio", "jp6HJcdiV2w", "_hp1FaOBvdw", "H6BoF7gM94k", "bl0kO0Bn-wQ", "eUM9BI1HVzQ", "VulSiC7UDpo", "yCyShKOgH3s", "p7MPC_TPYc4", "hs-Lf2Ua4gs", "OlEJqaGsJiQ", "8PrlEtzD59A", "9NbWt3uOeqI"];
@@ -1049,91 +1061,84 @@
             if(tlacitka[indexMap[filtr]]) tlacitka[indexMap[filtr]].classList.add("active");
         }
 
+        // --- RODINNÁ VIDEOTÉKA (NOVÉ) ---
+        function ziskejYouTubeId(url) {
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function vykresliRodinnouVideoteku() {
+            let html = "";
+            if (poleVidea.length === 0) {
+                html = "<p style='color: var(--text-muted); text-align:center; padding:20px; grid-column: 1 / -1;'>Zatím tu nejsou žádná rodinná videa.</p>";
+            } else {
+                poleVidea.forEach((video, index) => {
+                    html += `
+                        <div class="task-item" style="flex-direction: column; align-items: stretch; padding: 12px; gap:10px;">
+                            <div class="kino-karta" onclick="spustitVideo('${video.id}')" style="width: 100%; border-radius: 8px;">
+                                <img class="kino-img" src="https://img.youtube.com/vi/${video.id}/mqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-weight:700; font-size:1.05em; line-height:1.2; word-break: break-word;">${video.nazev}</span>
+                                <div style="display:flex; gap:5px;">
+                                    <button class="link-btn" onclick="zkopirujOdkaz('${video.id}')" style="padding:5px; color:var(--primary);" title="Zkopírovat odkaz pro stažení">${ICONS.link}</button>
+                                    <button class="link-btn" onclick="smazRodinneVideo(${index})" style="padding:5px; color:var(--danger);" title="Smazat">${ICONS.trash}</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById("rodinnaVideaGrid").innerHTML = html;
+        }
+
+        document.getElementById("pridatVideoBtn")?.addEventListener("click", () => {
+            let nazev = document.getElementById("noveVideoNazev").value;
+            let odkaz = document.getElementById("noveVideoOdkaz").value;
+            
+            if (nazev.trim() !== "" && odkaz.trim() !== "") {
+                let ytId = ziskejYouTubeId(odkaz);
+                if (ytId) {
+                    poleVidea.push({ nazev: nazev, id: ytId });
+                    ulozDoDatabaze(); vykresliRodinnouVideoteku();
+                    document.getElementById("noveVideoNazev").value = "";
+                    document.getElementById("noveVideoOdkaz").value = "";
+                    toggleForm('formKino', 'ikonaKinoForm');
+                    showToast("Video přidáno do sbírky!");
+                } else {
+                    showToast("Tohle nevypadá jako platný odkaz na YouTube!", "error");
+                }
+            } else { showToast("Musíš zadat název i odkaz!", "error"); }
+        });
+
+        window.smazRodinneVideo = function(index) {
+            if (confirm("Opravdu smazat toto video ze sbírky?")) {
+                poleVidea.splice(index, 1);
+                ulozDoDatabaze(); vykresliRodinnouVideoteku();
+            }
+        }
+
+        window.zkopirujOdkaz = function(idVidea) {
+            let url = `https://www.youtube.com/watch?v=${idVidea}`;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast("Odkaz zkopírován! Vlož ho do svého stahovače videí.");
+            }).catch(err => {
+                showToast("Nepodařilo se zkopírovat odkaz.", "error");
+            });
+        }
+
         window.spustitVideo = function(idVidea) { document.getElementById("videoPlayer").src = `https://www.youtube.com/embed/${idVidea}?autoplay=1`; document.getElementById("videoModal").style.display = "flex"; }
         document.getElementById("zavritVideoBtn").addEventListener("click", () => { document.getElementById("videoPlayer").src = ""; document.getElementById("videoModal").style.display = "none"; });
 
         // ==========================================
-        // BRIGÁDA LOGIKA
+        // DATABÁZE A PŘIHLAŠOVÁNÍ
         // ==========================================
-        function zapisDoHistorie(zprava, ikonka = ICONS.msg) {
-            if (poleHistorie.length > 0 && poleHistorie[0].text === zprava) return;
-            let cas = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
-            poleHistorie.unshift({ text: zprava, cas: cas, ikona: ikonka });
-            if (poleHistorie.length > 15) poleHistorie.pop();
-        }
-
-        function vykresliHistorii() {
-            let html = "";
-            if (poleHistorie.length === 0) { html = "<p style='color:var(--text-muted); text-align:center;'>Žádná upozornění.</p>"; } 
-            else { poleHistorie.forEach(z => { let ikonaHTML = `<div class="history-icon">${z.ikona || ICONS.msg}</div>`; html += `<div class="history-item">${ikonaHTML}<div class="history-content"><span class="history-time">${z.cas}</span><p class="history-text">${z.text}</p></div></div>`; }); }
-            document.getElementById("historieZaznamyMobil").innerHTML = html; document.getElementById("historieZaznamyDesktop").innerHTML = html;
-        }
-
-        function vykresliMince(pocet) {
-            if (pocet <= 0) return "<div class='wallet-coins' style='opacity:0.3; font-size:1em;'>Zatím nic</div>";
-            let coinsHtml = "";
-            for(let i=0; i<pocet; i++) coinsHtml += ICONS.coin;
-            return `<div class="wallet-coins" style="display:flex; gap:4px; flex-wrap:wrap; color:var(--warning);">${coinsHtml}</div>`;
-        }
-
-        function vykresliBanku() {
-            let btnProplatitTomas = (roleUzivatele === "rodic" && minceTomas > 0) ? `<button onclick="proplatitMinci('tomas')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
-            let btnProplatitMartin = (roleUzivatele === "rodic" && minceMartin > 0) ? `<button onclick="proplatitMinci('martin')" class="btn btn-primary" style="padding:6px; font-size:0.85em; margin-top:10px;">Proplatit Zlaťák</button>` : "";
-            let btnResetTomas = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('tomas')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
-            let btnResetMartin = (roleUzivatele === "rodic") ? `<button onclick="vynulovatKonto('martin')" class="link-btn" style="color:var(--danger); width:100%; margin-top:5px;">Reset banky</button>` : "";
-
-            document.getElementById("bankaSekce").innerHTML = `
-                <div class="wallet-card"><p class="wallet-name">Tomáš</p><h3 class="wallet-balance">${kontoTomas} Kč</h3>${vykresliMince(minceTomas)}${btnProplatitTomas} ${btnResetTomas}</div>
-                <div class="wallet-card"><p class="wallet-name">Martin</p><h3 class="wallet-balance">${kontoMartin} Kč</h3>${vykresliMince(minceMartin)}${btnProplatitMartin} ${btnResetMartin}</div>`;
-        }
-
-        function zkontrolujMince() {
-            while (kontoTomas >= 1000) { kontoTomas -= 1000; minceTomas++; }
-            while (kontoTomas < 0 && minceTomas > 0) { kontoTomas += 1000; minceTomas--; }
-            while (kontoMartin >= 1000) { kontoMartin -= 1000; minceMartin++; }
-            while (kontoMartin < 0 && minceMartin > 0) { kontoMartin += 1000; minceMartin--; }
-            if (kontoTomas < 0) kontoTomas = 0; if (kontoMartin < 0) kontoMartin = 0;
-        }
-
-        function ziskejAktualniOdmenu(ukol) {
-            let d = new Date().toISOString().split('T')[0]; let o = parseInt(ukol.odmena) || 0; 
-            if (ukol.termin && ukol.termin < d && !ukol.splneno && !ukol.cekaNaPotvrzeni) return Math.floor(o / 2); return o;
-        }
-
-        function vykresliUkoly() {
-            let html = ""; if (poleUkolu.length === 0) html = "<p style='color: var(--text-muted); text-align:center; padding:20px;'>Zatím tu nejsou žádné úkoly.</p>";
-            let d = new Date().toISOString().split('T')[0];
-
-            poleUkolu.forEach((ukol, index) => {
-                let lH = ""; let pH = "";
-                let tS = (roleUzivatele === "rodic") ? `<button class="link-btn" onclick="smazUkol(${index})" style="color:var(--danger); padding:0;">${ICONS.cross}</button>` : "";
-                let aO = ziskejAktualniOdmenu(ukol); let sP = (ukol.termin && ukol.termin < d && !ukol.splneno) ? `<span class="price-tag price-tag-late">ZPOŽDĚNÍ</span>` : ""; let dT = ukol.termin ? `<span class="task-meta">Do: ${ukol.termin.split('-').reverse().join('.')}</span>` : "";
-
-                if (ukol.splneno) {
-                    let jS = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    lH = `<input type="checkbox" class="custom-checkbox" checked disabled><div class="task-info"><div class="task-title" style="text-decoration:line-through; opacity:0.5;">${ukol.nazev}</div><span class="task-meta">Schváleno pro: ${jS}</span></div>`; pH = `<span class="price-tag price-tag-done">${aO} Kč</span> ${tS}`;
-                } else if (ukol.cekaNaPotvrzeni) {
-                    let jZ = slovnikJmen[`${ukol.splnilKdo}@turecek.cz`] || ukol.splnilKdo;
-                    if (roleUzivatele === "rodic") {
-                        lH = `<span style="color:var(--warning); display:flex;">${ICONS.wait}</span><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning); font-weight:bold;">${jZ} čeká na schválení</span></div>`;
-                        pH = `<div style="display:flex; flex-direction:column; gap:5px;"><button onclick="schvalitUkol(${index})" class="btn btn-primary" style="padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ano</button><button onclick="zamitnoutUkol(${index})" class="btn btn-danger" style="margin:0; padding:6px 12px; font-size:0.85em; border-radius:8px; min-height:0;">Ne</button></div>${tS}`;
-                    } else if (roleUzivatele === ukol.splnilKdo) {
-                        lH = `<input type="checkbox" class="custom-checkbox" checked onchange="zrusitZadost(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta" style="color:var(--warning);">Čekáš na schválení</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`;
-                    } else { lH = `<input type="checkbox" class="custom-checkbox" disabled checked><div class="task-info"><div class="task-title">${ukol.nazev}</div><span class="task-meta">Zpracovává ${jZ}</span></div>`; pH = `<span class="price-tag">${aO} Kč</span>`; }
-                } else {
-                    let dis = (roleUzivatele === "rodic") ? "disabled" : "";
-                    lH = `<input type="checkbox" class="custom-checkbox" ${dis} onchange="pozadatOSchvaleni(${index})"><div class="task-info"><div class="task-title">${ukol.nazev}</div>${dT}</div>`;
-                    pH = `<div style="display:flex; align-items:center; gap:10px;">${sP}<span class="price-tag">${aO} Kč</span>${tS}</div>`;
-                }
-                html += `<div class="task-item" style="${ukol.splneno ? 'opacity:0.7;' : ''}">${lH}${pH}</div>`;
-            });
-            document.getElementById("seznamUkolu").innerHTML = html; vykresliBanku(); vykresliHistorii(); aktualizujDashboard();
-        }
-
         function ulozDoDatabaze() {
             zkontrolujMince(); 
             setDoc(doc(db, "ukoly", "seznam"), { 
-                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola, dataRekonstrukce: poleRekonstrukce, dataPoznamky: polePoznamky, dataHlasovani: poleHlasovani, profilyDB: objProfily,
+                dataUkolu: poleUkolu, historieZaznamy: poleHistorie, streaks: objStreaks, dataSkola: poleSkola, dataRekonstrukce: poleRekonstrukce, dataPoznamky: polePoznamky, dataHlasovani: poleHlasovani, profilyDB: objProfily, dataVidea: poleVidea,
                 bankaTomas: kontoTomas, minceTomas: minceTomas, bankaMartin: kontoMartin, minceMartin: minceMartin 
             });
         }
@@ -1145,32 +1150,19 @@
                     poleUkolu = data.dataUkolu || []; poleHistorie = data.historieZaznamy || [];
                     objStreaks = data.streaks || {}; poleSkola = data.dataSkola || []; poleRekonstrukce = data.dataRekonstrukce || [];
                     polePoznamky = data.dataPoznamky || []; poleHlasovani = data.dataHlasovani || [];
-                    objProfily = data.profilyDB || {};
+                    objProfily = data.profilyDB || {}; poleVidea = data.dataVidea || [];
                     kontoTomas = parseInt(data.bankaTomas) || 0; minceTomas = parseInt(data.minceTomas) || 0;
                     kontoMartin = parseInt(data.bankaMartin) || 0; minceMartin = parseInt(data.minceMartin) || 0;
                 } else {
-                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = []; poleHlasovani = []; objProfily = {};
+                    poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = []; poleHlasovani = []; objProfily = {}; poleVidea = [];
                     kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0;
                 }
-                zkontrolujMince(); aktualizujStreak(); vykresliStreaks(); vykresliUkoly(); vykresliSkolu(); vykresliRekonstrukci(); vykresliPoznamky(); vykresliHlasovani();
+                zkontrolujMince(); aktualizujStreak(); vykresliStreaks(); vykresliUkoly(); vykresliSkolu(); vykresliRekonstrukci(); vykresliPoznamky(); vykresliHlasovani(); vykresliRodinnouVideoteku();
             }).catch((chyba) => { console.error(chyba); });
         }
 
         document.getElementById("malyRefreshBtn").addEventListener("click", () => { const btn = document.getElementById("malyRefreshBtn"); btn.style.transform = "rotate(360deg)"; setTimeout(() => btn.style.transform = "none", 400); stahniDataZDatabaze(); });
-        window.pozadatOSchvaleni = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = true; u.splneno = false; u.splnilKdo = roleUzivatele; zapisDoHistorie(`<b>${jmenoAktualni}</b> odevzdal úkol "${u.nazev}".`, ICONS.wait); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol odeslán ke schválení"); };
-        window.zrusitZadost = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splnilKdo = null; poleHistorie = poleHistorie.filter(z => !(z.text.includes(u.nazev) && z.text.includes("odevzdal úkol"))); ulozDoDatabaze(); vykresliUkoly(); showToast("Žádost zrušena"); };
-        window.schvalitUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = true; let c = ziskejAktualniOdmenu(u); u.odmena = c; if (u.splnilKdo === "tomas") kontoTomas += c; if (u.splnilKdo === "martin") kontoMartin += c; confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); zapisDoHistorie(`Rodič schválil úkol "${u.nazev}".`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol úspěšně schválen!"); };
-        window.zamitnoutUkol = function(index) { let u = poleUkolu[index]; u.cekaNaPotvrzeni = false; u.splneno = false; u.splnilKdo = null; zapisDoHistorie(`Rodič zamítl úkol "${u.nazev}".`, ICONS.cross); ulozDoDatabaze(); vykresliUkoly(); showToast("Úkol byl zamítnut", "error"); }
-        window.smazUkol = function(index) { zapisDoHistorie(`Úkol "${poleUkolu[index].nazev}" byl smazán.`, ICONS.trash); poleUkolu.splice(index, 1); ulozDoDatabaze(); vykresliUkoly(); };
-        window.proplatitMinci = function(k) { if (confirm(`Odečíst 1 Zlaťák? (Vyplatit v hotovosti)`)) { if (k === "tomas" && minceTomas > 0) minceTomas--; if (k === "martin" && minceMartin > 0) minceMartin--; zapisDoHistorie(`Rodič proplatil 1 Zlaťák.`, ICONS.coin); ulozDoDatabaze(); vykresliUkoly(); showToast("Zlaťák proplacen!"); } }
-        window.vynulovatKonto = function(k) { if (confirm(`Opravdu vynulovat konto?`)) { if (k === "tomas") { kontoTomas = 0; minceTomas = 0; } if (k === "martin") { kontoMartin = 0; minceMartin = 0; } zapisDoHistorie(`Konto bylo vynulováno.`, ICONS.warning); ulozDoDatabaze(); vykresliUkoly(); } }
-        document.getElementById("pridatBtn").addEventListener("click", () => { let n = document.getElementById("novyUkol").value; let o = parseInt(document.getElementById("novaOdmena").value) || 0; let t = document.getElementById("novyDatum").value; if (n.trim() !== "" && o > 0) { poleUkolu.push({ nazev: n, odmena: o, termin: t, splneno: false, cekaNaPotvrzeni: false, splnilKdo: null }); zapisDoHistorie(`Přidán úkol: "${n}".`, ICONS.plus); ulozDoDatabaze(); vykresliUkoly(); document.getElementById("novyUkol").value = ""; document.getElementById("novaOdmena").value = ""; document.getElementById("novyDatum").value = ""; toggleForm('formBrigada', 'ikonaBrigada'); showToast("Úkol úspěšně přidán!"); } else { showToast("Zadej název a částku!", "error"); } });
-        document.getElementById("odznacitVseBtn").addEventListener("click", () => { if (confirm("Vyčistit všechny úkoly na další den?")) { poleUkolu.forEach(u => { u.splneno = false; u.cekaNaPotvrzeni = false; u.splnilKdo = null; }); zapisDoHistorie(`Úkoly připraveny na nový den.`, ICONS.check); ulozDoDatabaze(); vykresliUkoly(); showToast("Seznam vyčištěn!"); } });
-        document.getElementById("smazatHistoriiMobilBtn").addEventListener("click", () => { if (confirm("Vymazat historii?")) { poleHistorie = []; ulozDoDatabaze(); vykresliHistorii(); } });
-
-        // ==========================================
-        // PŘIHLAŠOVÁNÍ 
-        // ==========================================
+        
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("emailInput").value.toLowerCase().trim();
             const heslo = document.getElementById("hesloInput").value;
@@ -1209,7 +1201,7 @@
                 document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
                 document.getElementById("view-login")?.classList.add("active"); document.getElementById("appHeader")?.classList.add("hidden"); document.getElementById("bottomNav")?.classList.add("hidden");
                 document.getElementById("emailInput").value = ""; document.getElementById("hesloInput").value = ""; 
-                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = []; poleHlasovani = [];
+                poleUkolu = []; poleHistorie = []; objStreaks = {}; poleSkola = []; poleRekonstrukce = []; polePoznamky = []; poleHlasovani = []; poleVidea = [];
                 kontoTomas = 0; kontoMartin = 0; minceTomas = 0; minceMartin = 0; roleUzivatele = ""; emailAktualni = "";
             }).catch(e => console.error("Chyba při odhlášení"));
         };
