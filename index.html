@@ -1,1284 +1,638 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZVEDÁM.cz – Vázací a manipulační prostředky po ruce</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Vázací a manipulační prostředky - výroba, servis a revize</title>
+  <meta name="description" content="Nabízíme značkové a atestované produkty. Poskytujeme servis a revize. Vyrábíme atypické zboží podle požadavků. Jsme 20 let na trhu.">
+  
+  <!-- Favicon a fonty z originálu -->
+  <link rel="icon" type="image/png" href="https://www.zvedam.cz/fotky27324/design_setup/template/v4.0/x-od-zvedam/prod/faviconImage.png?0_158647457">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Originální stylopis eShop-rychle / zvedam.cz -->
+  <link rel="stylesheet" type="text/css" media="screen" href="https://static.golemos.com/theme/default/v2.273.1/x-od-zvedam/css/386416724.s1.eshop-rychle.cz.prod.158647457.css">
+
+  <!-- Doplňkové pojistné styly pro načtení obrázků na pozadí mimo doménu zvedam.cz -->
   <style>
-    :root {
-      --navy: #124e78;
-      --navy-dark: #0d3b5c;
-      --teal: #1796a4;
-      --teal-hover: #127a86;
-      --amber: #e59819;
-      --amber-hover: #cc8410;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --bg-light: #f4f6f8;
-      --border-color: #e2e8f0;
-      --red-part: #d9261c;
+    .homepage-big-banner__wrapper {
+      background-image: url('https://www.zvedam.cz/fotky27324/zvedam-homepage-banner.jpg') !important;
+      background-size: cover !important;
+      background-position: center right !important;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .not-for-html5 {
+      display: none !important;
     }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-main);
-      background-color: #ffffff;
-      line-height: 1.45;
+    /* Plynulé přepínání záložek produktů a rozbalovacích menu */
+    .c1205[data-hidden="true"] {
+      display: none !important;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* --- HEADER --- */
-    header {
-      border-bottom: 1px solid var(--border-color);
-      padding-top: 14px;
-      background: #fff;
-    }
-
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .logo-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: var(--teal);
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .logo-hook {
-      display: inline-flex;
-      width: 18px;
-      height: 22px;
-    }
-
-    .logo-cz {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--teal);
-      align-self: flex-end;
-      margin-bottom: 4px;
-    }
-
-    .logo-sub {
-      font-size: 9.5px;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-top: -2px;
-    }
-
-    .header-center {
-      flex: 1;
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .helpline {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
-
-    .helpline strong {
-      display: block;
-      color: var(--text-main);
-      font-size: 13.5px;
-    }
-
-    .search-bar {
-      display: flex;
-      width: 100%;
-      max-width: 390px;
-    }
-
-    .search-bar input {
-      flex: 1;
-      padding: 8px 14px;
-      border: 1px solid #cbd5e1;
-      border-right: none;
-      border-radius: 4px 0 0 4px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .search-bar input:focus {
-      border-color: var(--teal);
-    }
-
-    .search-bar button {
-      background: var(--amber);
-      color: #fff;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
-      padding: 0 22px;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .search-bar button:hover {
-      background: var(--amber-hover);
-    }
-
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 14px;
-    }
-
-    .login-link {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    #id-home-product-box__order-list .c1202 {
       cursor: pointer;
     }
-
-    .login-link:hover {
-      color: var(--text-main);
-    }
-
-    .cart-currency-row {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .currency-switch {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .cart-widget {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .cart-icon-box {
-      width: 34px;
-      height: 34px;
-      background: var(--teal);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-
-    .cart-info {
-      font-size: 12px;
-      line-height: 1.25;
-    }
-
-    .cart-info strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    /* --- NAVIGATION --- */
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      padding: 16px 0 14px;
-      font-size: 13.5px;
-      font-weight: 700;
-      flex-wrap: wrap;
-    }
-
-    .main-nav a {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--text-main);
-      transition: color 0.15s;
-    }
-
-    .main-nav a:hover {
-      color: var(--teal);
-    }
-
-    /* --- HERO BANNER --- */
-    .hero-wrapper {
-      padding: 24px 0 18px;
-    }
-
-    .hero {
+    .c266.article-menu-6.has-submenu {
       position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--navy);
-      min-height: 330px;
-      display: flex;
-      align-items: center;
-      color: #fff;
     }
-
-    .hero-left {
-      position: relative;
-      z-index: 3;
-      width: 58%;
-      padding: 48px 40px 48px 64px;
-      text-align: center;
-    }
-
-    .hero-left h1 {
-      font-size: 31px;
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 16px;
-    }
-
-    .hero-left p {
-      font-size: 14.5px;
-      color: #cbd5e1;
-      max-width: 440px;
-      margin: 0 auto 28px;
-    }
-
-    .hero-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--amber);
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 13px 26px;
-      border-radius: 6px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .hero-btn:hover {
-      background: var(--amber-hover);
-      transform: translateY(-1px);
-    }
-
-    .hero-right {
+    .c266.article-menu-6.has-submenu:hover > ul.c483 {
+      display: block !important;
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 46%;
-      background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 50%, #e2e8f0 100%);
-      clip-path: polygon(16% 0, 100% 0, 100% 100%, 0% 100%);
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-diagonal-stripe {
-      position: absolute;
-      top: 0;
-      right: 44.5%;
-      bottom: 0;
-      width: 24px;
-      background: #f59e0b;
-      transform: skewX(-12.5deg);
-      z-index: 2;
-    }
-
-    /* --- USP ICONS --- */
-    .usp-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      padding: 26px 0 32px;
-      border-bottom: 1px solid var(--border-color);
-      text-align: center;
-    }
-
-    .usp-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      padding: 0 10px;
-    }
-
-    .usp-icon {
-      color: var(--navy);
-      width: 28px;
-      height: 28px;
-    }
-
-    .usp-text {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-main);
-      max-width: 230px;
-    }
-
-    /* --- CATEGORIES GRID --- */
-    .categories-section {
-      padding: 36px 0 40px;
-    }
-
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-    }
-
-    .category-card {
-      background: var(--bg-light);
-      border: 1px solid #e5e7eb;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      min-width: 280px;
+      padding: 10px 0;
       border-radius: 6px;
-      padding: 20px 14px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 175px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
     }
-
-    .category-card:hover,
-    .category-card.active {
-      background: #fff;
-      border-color: var(--teal);
-      box-shadow: 0 4px 12px rgba(23, 150, 164, 0.1);
-    }
-
-    .category-card.active .category-title,
-    .category-card:hover .category-title {
-      color: var(--teal);
-    }
-
-    .category-img {
-      height: 92px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-
-    .category-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.3;
-    }
-
-    /* --- PRODUCTS SECTION --- */
-    .products-section {
-      padding: 10px 0 60px;
-    }
-
-    .section-heading {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .tabs-bar {
-      display: flex;
-      gap: 28px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 24px;
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      padding: 8px 0 10px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-    }
-
-    .tab-btn.active {
-      color: var(--amber);
-      border-bottom-color: var(--amber);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .product-card {
-      border: 1px solid #f1f5f9;
-      border-radius: 6px;
-      padding: 20px 18px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-      transition: box-shadow 0.2s, border-color 0.2s;
-    }
-
-    .product-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-    }
-
-    .product-thumb {
-      height: 155px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .product-title {
-      font-size: 12.5px;
-      color: var(--text-main);
-      text-decoration: underline;
-      margin-bottom: 12px;
-      line-height: 1.35;
-      display: block;
-    }
-
-    .product-title:hover {
-      color: var(--teal);
-    }
-
-    .product-prices {
-      margin-bottom: 16px;
-    }
-
-    .price-main {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .price-sub {
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
-
-    .product-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .btn-teal {
-      background: var(--teal);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 9px 18px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-teal:hover {
-      background: var(--teal-hover);
-    }
-
-    .qty-stepper {
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      height: 34px;
-      padding: 0 4px;
-    }
-
-    .qty-btn {
-      background: none;
-      border: none;
-      color: var(--teal);
-      font-size: 16px;
-      font-weight: 800;
-      width: 22px;
-      height: 100%;
+    #header-currency {
       cursor: pointer;
     }
-
-    .qty-val {
-      width: 20px;
-      text-align: center;
-      font-size: 12.5px;
-      font-weight: 600;
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      background: var(--navy);
-      color: #fff;
-      padding: 54px 0 28px;
-      font-size: 13px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.35fr 1.1fr 1.1fr;
-      gap: 32px;
-      margin-bottom: 44px;
-    }
-
-    .footer-col h4 {
-      font-size: 14.5px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      margin-bottom: 22px;
-    }
-
-    .footer-links a {
-      text-decoration: underline;
-      color: #e2e8f0;
-      font-size: 12.5px;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    .logitech-badge {
-      background: #fff;
-      color: #111;
-      padding: 8px 12px;
-      border-radius: 3px;
-      display: inline-block;
-      font-weight: 800;
-      font-size: 12px;
-      line-height: 1.1;
-      border-left: 4px solid var(--amber);
-    }
-
-    .logitech-badge span {
-      display: block;
-      font-size: 8px;
-      color: var(--amber);
-      font-weight: 700;
-      margin-top: 3px;
-    }
-
-    .footer-bullets {
-      list-style: disc;
-      padding-left: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      color: #e2e8f0;
-      font-size: 12.5px;
-    }
-
-    .advice-card {
-      background: #fff;
-      padding: 6px;
-      border-radius: 3px;
-      width: 195px;
-      margin-bottom: 18px;
-    }
-
-    .firmy-badge {
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
-      background: #091e3a;
-      border: 3px solid #1e3a5f;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 10px;
-      font-size: 9px;
-      font-weight: 800;
-    }
-
-    .service-person {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 14px;
-      margin-bottom: 16px;
-    }
-
-    .avatar-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 4px;
-      background: #cbd5e1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--navy);
-      font-weight: 800;
-    }
-
-    .service-phone {
-      color: var(--amber);
-      font-weight: 800;
-      font-size: 14.5px;
-      display: block;
-      margin: 2px 0;
-    }
-
-    .service-mail {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--amber);
-      text-decoration: underline;
-      font-size: 12.5px;
-      margin-bottom: 18px;
-    }
-
-    .fb-icon {
-      width: 20px;
-      height: 20px;
-      background: #fff;
-      color: var(--navy);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      border-radius: 2px;
-      font-size: 14px;
-    }
-
-    .copyright {
-      text-align: center;
-      font-size: 12px;
-      color: #cbd5e1;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 992px) {
-      .categories-grid { grid-template-columns: repeat(3, 1fr); }
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
-      .usp-bar { grid-template-columns: repeat(2, 1fr); }
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
-      .hero-left { width: 100%; padding: 36px 24px; }
-      .hero-right, .hero-diagonal-stripe { display: none; }
-    }
-
-    @media (max-width: 576px) {
-      .categories-grid, .products-grid, .usp-bar, .footer-grid {
-        grid-template-columns: 1fr;
-      }
+    #header-currency:hover #id-header-currency-list {
+      display: block !important;
     }
   </style>
+
+  <!-- Originální skript přesouvající levé menu kategorií do horní lišty na desktopu -->
+  <script>
+    if (window.matchMedia("(min-width: 1000px)").matches) {
+      document.addEventListener("DOMContentLoaded", function() {
+        var predmet = document.querySelector('.page-route-homepage .c1191 > .c483');
+        var destinace = document.querySelector('.c516 > .c264 > .c266.article-menu-6');
+        if (predmet && destinace) {
+          destinace.appendChild(predmet);
+        }
+      });
+    }
+  </script>
 </head>
-<body>
 
-  <!-- HLAVIČKA -->
-  <header>
-    <div class="container">
-      <div class="header-top">
-        <!-- Logo -->
-        <a href="#" class="logo">
-          <div class="logo-title">
-            ZVEDÁM
-            <svg class="logo-hook" viewBox="0 0 24 24" fill="none" stroke="#e59819" stroke-width="2.5" stroke-linecap="round">
-              <path d="M12 3v7a5 5 0 1 0 5 5"/>
-              <circle cx="12" cy="3" r="1.5" fill="#e59819"/>
-            </svg>
-            <span class="logo-cz">cz</span>
-          </div>
-          <span class="logo-sub">Vázací a manipulační prostředky po ruce</span>
-        </a>
+<body data-route="homepage" class="page-route-homepage c1427 c2561">
+  <a href="#id-content-center" class="skip-link">Přeskočit na obsah</a>
+  
+  <div class="container layout-type-homepage">
+    <!-- HORNÍ LIŠTA A HLAVIČKA -->
+    <div class="content-wrapper-top" id="id-content-wrapper-top">
+      <div class="content-top" id="id-content-top">
+        <div class="menu-icon" id="menu-icon">
+          <button class="c1488 btn c39" data-selector="menu-button" type="button" aria-expanded="false" aria-label="Otevřít menu">Menu</button>
+        </div>
 
-        <!-- Střed: Telefon + Vyhledávání -->
-        <div class="header-center">
-          <div class="helpline">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#e59819">
-              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
-            </svg>
-            <div>
-              Nevíte si rady? Zavolejte.
-              <strong>+420 607 849 530</strong>
+        <!-- Hlavní navigace -->
+        <div class="c516" id="article-menu">
+          <ul class="c264">
+            <li data-selector="menu-item" class="c266 article-menu-6 has-submenu">
+              <a href="#homepage-category" class="c267">Kategorie e-shopu</a>
+              <button data-selector="menu-arrow" type="button" aria-expanded="false" aria-label="Rozbalit podmenu" class="c268 c2562"></button>
+            </li>
+            <li data-selector="menu-item" class="c266 article-menu-1">
+              <a href="https://www.zvedam.cz/O-NAS-a1_0.htm" target="_blank" class="c267">O nás</a>
+            </li>
+            <li data-selector="menu-item" class="c266 article-menu-3">
+              <a href="https://www.zvedam.cz/OBCHODNI-PODMINKY-a3_0.htm" target="_blank" class="c267">Obchodní podmínky</a>
+            </li>
+            <li data-selector="menu-item" class="c266 article-menu-4">
+              <a href="https://www.zvedam.cz/JAK-NAKUPOVAT-a4_0.htm" target="_blank" class="c267">Jak nakupovat</a>
+            </li>
+            <li data-selector="menu-item" class="c266 article-menu-5">
+              <a href="https://www.zvedam.cz/DOPRAVA-A-PLATBA-a5_0.htm" target="_blank" class="c267">Doprava a platba</a>
+            </li>
+            <li data-selector="menu-item" class="c266 article-menu-2">
+              <a href="https://www.zvedam.cz/KONTAKTY-a2_0.htm" target="_blank" class="c267">Kontakty</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Přepínač měny -->
+        <div class="c1363" id="header-currency">
+          <ul class="c1364">
+            <li class="c1365" id="id-header-currency__item">
+              <button class="c1486 c2562" id="current-currency-btn" data-selector="header-currency-selected" type="button" aria-expanded="false">
+                CZK
+              </button>
+              <ul class="c1431" id="id-header-currency-list" data-selector="currency-wrapper">
+                <li class="c1432"><a href="#" onclick="setCurrency('CZK'); return false;" class="c1433">CZK</a></li>
+                <li class="c1432"><a href="#" onclick="setCurrency('EUR'); return false;" class="c1433">EUR</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Přihlášení -->
+        <div class="c474" id="header-account">
+          <ul class="c475">
+            <li data-selector="account-item" class="c476 login" id="id-header-account__item-login">
+              <a href="https://www.zvedam.cz/anerex/e-login" target="_blank" class="c477" id="id-header-account__link" aria-label="Přihlášení">
+                <span class="c478">Přihlášení</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Logo ZVEDÁM.cz -->
+        <div class="c338">
+          <a href="#" class="c339" title="Úvod">
+            <img src="https://www.zvedam.cz/fotky27324/design_setup/template/v4.0/x-od-zvedam/prod/logoImage.png?0_158647457" class="c340 img-fluid" alt="Logo" width="200" height="64">
+          </a>
+        </div>
+
+        <!-- Vyhledávání -->
+        <div class="c341">
+          <form method="get" id="id-header-search__form" action="https://www.zvedam.cz/anerex/e-search" target="_blank" autocomplete="off">
+            <div class="c342">
+              <input type="text" name="q" autocomplete="off" class="c343 c36" id="id-header-search__input" placeholder="zadejte hledaný text..." aria-label="zadejte hledaný text...">
+              <button type="submit" class="btn c39 c344">Hledat</button>
             </div>
-          </div>
-          <form class="search-bar" onsubmit="event.preventDefault();">
-            <input type="text" placeholder="zadejte hledaný text...">
-            <button type="submit">Hledat</button>
           </form>
         </div>
 
-        <!-- Pravá část: Přihlášení, Měna, Košík -->
-        <div class="header-right">
-          <div class="login-link">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-            </svg>
-            Přihlášení
-          </div>
-          <div class="cart-currency-row">
-            <div class="currency-switch">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="#64748b">
-                <ellipse cx="12" cy="6" rx="8" ry="3"/>
-                <path d="M4 10c0 1.66 3.58 3 8 3s8-1.34 8-3V6c0 1.66-3.58 3-8 3S4 7.66 4 6v4zm0 5c0 1.66 3.58 3 8 3s8-1.34 8-3v-4c0 1.66-3.58 3-8 3s-8-1.34-8-3v4z"/>
-              </svg>
-              EUR ▾
-            </div>
-            <div class="cart-widget">
-              <div class="cart-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-              </div>
-              <div class="cart-info">
-                <span id="cart-count">0 ks</span>
-                <strong id="cart-total">0 €</strong>
+        <!-- Telefon v hlavičce -->
+        <div class="c458">
+          <div class="c460"></div>
+          <div class="c1288">
+            <div class="c462 c1339">Nevíte si rady? Zavolejte.</div>
+            <div class="c463">
+              <div class="c464">
+                <a href="tel:+420607849530" class="c465">+420 607 849 530</a>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Menu -->
-      <nav class="main-nav">
-        <a href="#kategorie">Kategorie e-shopu <span style="color:var(--teal)">⌄</span></a>
-        <a href="#o-nas">O nás</a>
-        <a href="#podminky">Obchodní podmínky</a>
-        <a href="#jak-nakupovat">Jak nakupovat</a>
-        <a href="#doprava">Doprava a platba</a>
-        <a href="#kontakty">Kontakty</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <!-- HERO BANNER -->
-    <section class="hero-wrapper">
-      <div class="hero">
-        <div class="hero-left">
-          <h1>Vázací a manipulační prostředky<br>po ruce.</h1>
-          <p>Prodejna a e-shop pro firmy a profesionály. Vlastní výroba, servis a revize.</p>
-          <a href="#kategorie" class="hero-btn">Prohlédnout si kategorie →</a>
-        </div>
-        <div class="hero-diagonal-stripe"></div>
-        <div class="hero-right">
-          <!-- Ilustrace jeřábových háků a řetězů -->
-          <svg width="320" height="280" viewBox="0 0 320 280" fill="none">
-            <rect x="0" y="18" width="320" height="26" fill="#f59e0b" opacity="0.85"/>
-            <line x1="150" y1="44" x2="115" y2="165" stroke="#475569" stroke-width="8" stroke-dasharray="10 6"/>
-            <line x1="170" y1="44" x2="215" y2="165" stroke="#475569" stroke-width="8" stroke-dasharray="10 6"/>
-            <circle cx="160" cy="48" r="16" stroke="#334155" stroke-width="7" fill="none"/>
-            <!-- Levý hák -->
-            <path d="M115 165 C95 195, 75 225, 98 242 C118 255, 140 230, 132 208" stroke="#64748b" stroke-width="16" stroke-linecap="round" fill="none"/>
-            <!-- Pravý hák -->
-            <path d="M215 165 C235 195, 255 225, 232 242 C212 255, 190 230, 198 208" stroke="#64748b" stroke-width="16" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4 VÝHODY -->
-    <section class="usp-bar">
-      <div class="usp-item">
-        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-        </svg>
-        <div class="usp-text">Máme 20 let zkušeností na trhu</div>
-      </div>
-      <div class="usp-item">
-        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
-        </svg>
-        <div class="usp-text">Vlastní výroba, servis a revize včetně vedení evidence</div>
-      </div>
-      <div class="usp-item">
-        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-        </svg>
-        <div class="usp-text">Vyrobíme a dodáme dle požadavku atypické provedení</div>
-      </div>
-      <div class="usp-item">
-        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
-        </svg>
-        <div class="usp-text">Poskytujeme slevy pro naše stálé zákazníky</div>
-      </div>
-    </section>
-
-    <!-- KATEGORIE -->
-    <section id="kategorie" class="categories-section">
-      <div class="categories-grid">
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <ellipse cx="32" cy="14" rx="7" ry="10" stroke="#d9261c" stroke-width="3.5"/>
-              <line x1="29" y1="24" x2="20" y2="68" stroke="#334155" stroke-width="3.5" stroke-dasharray="5 3"/>
-              <line x1="35" y1="24" x2="44" y2="68" stroke="#334155" stroke-width="3.5" stroke-dasharray="5 3"/>
-              <circle cx="19" cy="73" r="4.5" stroke="#d9261c" stroke-width="3"/>
-              <circle cx="45" cy="73" r="4.5" stroke="#d9261c" stroke-width="3"/>
-            </svg>
-          </div>
-          <div class="category-title">Řetězové vázací prostředky</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="80" height="64" viewBox="0 0 80 64" fill="none">
-              <rect x="14" y="36" width="52" height="12" rx="6" fill="#eab308"/>
-              <rect x="18" y="24" width="46" height="11" rx="5.5" fill="#16a34a"/>
-              <rect x="22" y="13" width="40" height="10" rx="5" fill="#7e22ce"/>
-            </svg>
-          </div>
-          <div class="category-title">Textilní vázací prostředky</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <ellipse cx="32" cy="14" rx="6" ry="9" stroke="#d9261c" stroke-width="3"/>
-              <line x1="30" y1="23" x2="21" y2="68" stroke="#94a3b8" stroke-width="2.5"/>
-              <line x1="34" y1="23" x2="43" y2="68" stroke="#94a3b8" stroke-width="2.5"/>
-              <circle cx="20" cy="73" r="4" stroke="#d9261c" stroke-width="2.5"/>
-              <circle cx="44" cy="73" r="4" stroke="#d9261c" stroke-width="2.5"/>
-            </svg>
-          </div>
-          <div class="category-title">Lana ocelová vázací</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
-              <path d="M22 36 V22 a10 10 0 0 1 20 0 v14" stroke="#ea580c" stroke-width="6"/>
-              <rect x="18" y="36" width="28" height="14" rx="2" fill="#64748b"/>
-              <rect x="27" y="50" width="10" height="18" fill="#475569"/>
-            </svg>
-          </div>
-          <div class="category-title">Vázací body, háky a třmeny</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
-              <circle cx="32" cy="18" r="8" stroke="#1e293b" stroke-width="4.5"/>
-              <circle cx="32" cy="48" r="16" fill="#dc2626"/>
-              <circle cx="36" cy="50" r="5" fill="#fff"/>
-            </svg>
-          </div>
-          <div class="category-title">Manipulační zařízení</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <circle cx="32" cy="22" r="9" fill="#334155"/>
-              <line x1="29" y1="31" x2="29" y2="70" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
-              <line x1="35" y1="31" x2="35" y2="70" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
-              <circle cx="32" cy="74" r="4" stroke="#1e293b" stroke-width="3"/>
-            </svg>
-          </div>
-          <div class="category-title">Zvedací zařízení</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <circle cx="32" cy="16" r="5" stroke="#64748b" stroke-width="3"/>
-              <ellipse cx="32" cy="48" rx="12" ry="20" fill="#dc2626"/>
-              <circle cx="32" cy="48" r="5" fill="#cbd5e1"/>
-            </svg>
-          </div>
-          <div class="category-title">Lesnické řetězy, kladky</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <path d="M22 14 L42 14 L46 48 L18 48 Z" stroke="#dc2626" stroke-width="4" fill="none"/>
-              <line x1="18" y1="32" x2="46" y2="32" stroke="#1e293b" stroke-width="4"/>
-              <circle cx="24" cy="62" r="7" stroke="#1e293b" stroke-width="3.5"/>
-              <circle cx="40" cy="62" r="7" stroke="#1e293b" stroke-width="3.5"/>
-            </svg>
-          </div>
-          <div class="category-title">Ochranné prostředky/OOPP</div>
-        </div>
-
-        <div class="category-card active">
-          <div class="category-img">
-            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
-              <path d="M28 12 v14 h8 V12" stroke="#dc2626" stroke-width="4"/>
-              <line x1="32" y1="26" x2="32" y2="52" stroke="#dc2626" stroke-width="4"/>
-              <rect x="29" y="52" width="6" height="22" stroke="#94a3b8" stroke-width="2.5"/>
-            </svg>
-          </div>
-          <div class="category-title">Spotřební materiál</div>
-        </div>
-
-        <div class="category-card">
-          <div class="category-img">
-            <svg width="80" height="64" viewBox="0 0 80 64" fill="none">
-              <polygon points="24,24 66,20 58,48 18,48" fill="#d97706"/>
-              <polygon points="18,28 32,24 32,48 14,44" fill="#15803d" opacity="0.8"/>
-            </svg>
-          </div>
-          <div class="category-title">Ostatní</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Z NAŠÍ NABÍDKY -->
-    <section class="products-section">
-      <h2 class="section-heading">Z naší nabídky</h2>
-      <div class="tabs-bar">
-        <button class="tab-btn active">Vybrali jsme pro vás</button>
-        <button class="tab-btn">Akce</button>
-        <button class="tab-btn">Novinky</button>
-      </div>
-
-      <div class="products-grid">
-        <!-- Produkt 1 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="160" height="70" viewBox="0 0 160 70" fill="none">
-                <rect x="14" y="24" width="132" height="22" rx="11" stroke="#64748b" stroke-width="7"/>
-                <rect x="42" y="20" width="14" height="8" fill="#2563eb"/>
-              </svg>
+        <!-- Košík -->
+        <div class="c171 empty" id="header-basket">
+          <a href="#header-basket" class="c172" onclick="return false;">
+            <div class="c1286"></div>
+            <div class="c1287">
+              <div class="c174"><span id="basket-count">0</span> <span class="c1878">ks</span></div>
+              <div class="c175"><span class="c1879">za</span> <span id="basket-total">0,00 Kč</span></div>
             </div>
-            <a href="#" class="product-title">Smyčka kruhová RS 4000kg/délka L1 dle výběru</a>
-            <div class="product-prices">
-              <div class="price-main">10,37 € / ks</div>
-              <div class="price-sub">8,57 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <button class="btn-teal">Zvolit variantu</button>
-          </div>
+          </a>
         </div>
-
-        <!-- Produkt 2 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="160" height="70" viewBox="0 0 160 70" fill="none">
-                <line x1="28" y1="35" x2="132" y2="35" stroke="#16a34a" stroke-width="8"/>
-                <ellipse cx="20" cy="35" rx="10" ry="5" stroke="#1e3a8a" stroke-width="3.5"/>
-                <ellipse cx="140" cy="35" rx="10" ry="5" stroke="#1e3a8a" stroke-width="3.5"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Pás s oky plochý B-2 2000kg/šíře 60mm/délka L dle výběru</a>
-            <div class="product-prices">
-              <div class="price-main">6,54 € / ks</div>
-              <div class="price-sub">5,41 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <button class="btn-teal">Zvolit variantu</button>
-          </div>
-        </div>
-
-        <!-- Produkt 3 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="160" height="90" viewBox="0 0 160 90" fill="none">
-                <polygon points="35,45 115,32 122,62 32,68" fill="#64748b"/>
-                <line x1="15" y1="74" x2="148" y2="62" stroke="#1e293b" stroke-width="4"/>
-                <line x1="65" y1="38" x2="108" y2="14" stroke="#334155" stroke-width="5"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Zvedák lanový CSZ8 nosnost 800 kg a délkou lana dle výběru</a>
-            <div class="product-prices">
-              <div class="price-main">264,87 € / ks</div>
-              <div class="price-sub">218,90 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <button class="btn-teal">Zvolit variantu</button>
-          </div>
-        </div>
-
-        <!-- Produkt 4 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-                <circle cx="56" cy="36" r="12" fill="#dc2626"/>
-                <line x1="58" y1="36" x2="84" y2="78" stroke="#dc2626" stroke-width="7"/>
-                <line x1="52" y1="48" x2="52" y2="105" stroke="#94a3b8" stroke-width="3.5" stroke-dasharray="4 2"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Zvedák řehtačkový LRZ750 nosnost 750 kg zdvih 1,5 m</a>
-            <div class="product-prices">
-              <div class="price-main">205,02 € / ks</div>
-              <div class="price-sub">169,44 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <div class="qty-stepper">
-              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
-              <span class="qty-val">1</span>
-              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-            <button class="btn-teal" onclick="addToCart(205.02, this)">Přidat do košíku</button>
-          </div>
-        </div>
-
-        <!-- Produkt 5 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="100" height="120" viewBox="0 0 100 120" fill="none">
-                <line x1="50" y1="15" x2="50" y2="95" stroke="#dc2626" stroke-width="5" stroke-dasharray="6 3"/>
-                <circle cx="50" cy="102" r="7" stroke="#dc2626" stroke-width="4"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Řetěz lesnický s C-hákem FOCKSR78 d 7/2 m s jehlou G8 + další délky dle výběru</a>
-            <div class="product-prices">
-              <div class="price-main">31,51 € / ks</div>
-              <div class="price-sub">26,04 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <button class="btn-teal">Zvolit variantu</button>
-          </div>
-        </div>
-
-        <!-- Produkt 6 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="100" height="120" viewBox="0 0 100 120" fill="none">
-                <circle cx="50" cy="34" r="14" stroke="#334155" stroke-width="4" fill="#e2e8f0"/>
-                <line x1="45" y1="48" x2="45" y2="104" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
-                <line x1="55" y1="48" x2="55" y2="104" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Kladkostroj řetězový FSTOPHZ500 nosnost 500 kg zdvih 3 m</a>
-            <div class="product-prices">
-              <div class="price-main">175,37 € / ks</div>
-              <div class="price-sub">144,93 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <div class="qty-stepper">
-              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
-              <span class="qty-val">1</span>
-              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-            <button class="btn-teal" onclick="addToCart(175.37, this)">Přidat do košíku</button>
-          </div>
-        </div>
-
-        <!-- Produkt 7 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="140" height="120" viewBox="0 0 140 120" fill="none">
-                <rect x="26" y="55" width="18" height="45" fill="#ea580c"/>
-                <rect x="60" y="45" width="20" height="55" fill="#ea580c"/>
-                <rect x="96" y="35" width="22" height="65" fill="#ea580c"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Zvedák patkový hydraulický CHH5000 nosnost 5000 kg zdvih patky 25-230 mm</a>
-            <div class="product-prices">
-              <div class="price-main">546,95 € / ks</div>
-              <div class="price-sub">452,03 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <div class="qty-stepper">
-              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
-              <span class="qty-val">1</span>
-              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-            <button class="btn-teal" onclick="addToCart(546.95, this)">Přidat do košíku</button>
-          </div>
-        </div>
-
-        <!-- Produkt 8 -->
-        <div class="product-card">
-          <div>
-            <div class="product-thumb">
-              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-                <circle cx="60" cy="54" r="36" stroke="#64748b" stroke-width="9"/>
-                <circle cx="62" cy="96" r="8" stroke="#dc2626" stroke-width="4"/>
-              </svg>
-            </div>
-            <a href="#" class="product-title">Ocelové lano s hákem s pojistkou pr. 10 mm/délka lana dle výběru</a>
-            <div class="product-prices">
-              <div class="price-main">22 € / ks</div>
-              <div class="price-sub">18,18 € bez DPH</div>
-            </div>
-          </div>
-          <div class="product-actions">
-            <button class="btn-teal">Zvolit variantu</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- PATIČKA -->
-  <footer id="kontakty">
-    <div class="container">
-      <div class="footer-grid">
-        <!-- Sloupec 1 -->
-        <div class="footer-col">
-          <h4>Informace o nás</h4>
-          <ul class="footer-links">
-            <li><a href="#">O nás</a></li>
-            <li><a href="#">Obchodní podmínky</a></li>
-            <li><a href="#">Jak nakupovat</a></li>
-            <li><a href="#">Doprava a platba</a></li>
-            <li><a href="#">Kde nás najdete</a></li>
-            <li><a href="#">GDPR</a></li>
-            <li><a href="#">Mapa webu</a></li>
-          </ul>
-          <div class="logitech-badge">
-            LOGITECH<br>servis s.r.o.
-            <span>VŠE PRO VÁŠ JEŘÁB A MANIPULACI</span>
-          </div>
-        </div>
-
-        <!-- Sloupec 2 -->
-        <div class="footer-col">
-          <h4>Proč s námi spolupracovat?</h4>
-          <ul class="footer-bullets">
-            <li>Máme více jak 20 let zkušeností na trhu</li>
-            <li>Provozujeme kamennou prodejnu</li>
-            <li>Vlastní výroba vázacích a manipulačních prostředků</li>
-            <li>Nabízíme zákaznický servis, revize a prohlídky</li>
-            <li>Zpracujeme Vaší evidenci vázacích prostředků</li>
-            <li>Poradíme Vám a pomůžeme s výběrem</li>
-            <li>Poskytujeme slevy pro registrované a stálé zákazníky</li>
-          </ul>
-        </div>
-
-        <!-- Sloupec 3 -->
-        <div class="footer-col">
-          <h4>Potřebujete poradit?</h4>
-          <div class="advice-card">
-            <svg width="100%" height="95" viewBox="0 0 180 95" fill="none">
-              <rect width="180" height="95" fill="#e2e8f0"/>
-              <rect x="16" y="14" width="90" height="65" fill="#fff" stroke="#94a3b8"/>
-              <path d="M135 28 C122 28, 122 52, 138 52 C150 52, 148 70, 130 70" stroke="#dc2626" stroke-width="6" stroke-linecap="round" fill="none"/>
-            </svg>
-          </div>
-          <div class="firmy-badge">
-            <span style="color:#f43f5e;font-size:8px;">živéfirmy.cz</span>
-            <span style="font-size:16px;margin:4px 0;color:#fbbf24;">👍 2026</span>
-            <span>SPOLEHLIVÁ FIRMA</span>
-          </div>
-        </div>
-
-        <!-- Sloupec 4 -->
-        <div class="footer-col">
-          <h4>Zákaznický servis</h4>
-          <div class="logo">
-            <div class="logo-title" style="font-size:24px;">
-              ZVEDÁM
-              <span class="logo-cz" style="font-size:13px;">cz</span>
-            </div>
-            <span class="logo-sub" style="color:#cbd5e1;">Vázací a manipulační prostředky po ruce</span>
-          </div>
-
-          <div class="service-person">
-            <div class="avatar-box">VK</div>
-            <div>
-              <div style="font-size:12.5px;">Vlastimil Korčák</div>
-              <a href="tel:+420607849530" class="service-phone">+420 607 849 530</a>
-              <div style="font-size:12px;color:#cbd5e1;">7:00 - 15:30</div>
-            </div>
-          </div>
-
-          <div>
-            <a href="mailto:info@zvedam.cz" class="service-mail">
-              ✉ info@zvedam.cz
-            </a>
-          </div>
-          <a href="#" class="fb-icon">f</a>
-        </div>
-      </div>
-
-      <div class="copyright">
-        Copyright © 2026 zvedam.cz LOGITECH servis s.r.o.
       </div>
     </div>
-  </footer>
 
+    <div class="content-wrapper-header" id="id-content-wrapper-header">
+      <div class="content-header" id="id-content-header"></div>
+    </div>
+
+    <!-- HLAVNÍ OBSAH -->
+    <div class="main-grid">
+      <!-- Levý sloupec (Menu kategorií, které se na PC přesouvá do horní lišty) -->
+      <div class="content-wrapper-left" id="id-content-wrapper-left">
+        <div class="content-left" id="id-content-left">
+          <div class="c1191" id="eshop-menu">
+            <ul class="c483">
+              <li class="c485 has-submenu first">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/retezove-vazaci-prostredky" class="c486">
+                    <img alt="Řetězové vázací prostředky" src="https://www.zvedam.cz/fotky27324/category/menu/menu_18_0_1_H2---SL.jpg" class="c1284" width="30" height="30">
+                    Řetězové vázací prostředky
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Textilni-vazaci-prostredky-c19_0_1.htm" class="c486">
+                    <img alt="Textilní vázací prostředky" src="https://www.zvedam.cz/fotky27324/category/menu/menu_19_0_1_Beznazwy-1.jpg" class="c1284" width="30" height="30">
+                    Textilní vázací prostředky
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Lana-ocelova-vazaci-c3_0_1.htm" class="c486">
+                    <img alt="Ocelová lana" src="https://www.zvedam.cz/fotky27324/category/menu/menu_3_0_1_zawiesie-linowe-2-cięgnowe.jpg" class="c1284" width="30" height="30">
+                    Ocelová lana
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Vazaci-body-haky-a-trmeny-c6_0_1.htm" class="c486">
+                    <img alt="Vázací body, háky a třmeny" src="https://www.zvedam.cz/fotky27324/category/menu/menu_6_0_1_ASWHGX.jpg" class="c1284" width="30" height="30">
+                    Vázací body, háky a třmeny
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Manipulacni-zarizeni-c16_0_1.htm" class="c486">
+                    <img alt="Manipulační zařízení" src="https://www.zvedam.cz/fotky27324/category/menu/menu_16_0_1_CBG----rot.jpg" class="c1284" width="30" height="30">
+                    Manipulační zařízení
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Kladkostroje-zvedaky-pojezdy-c11_0_1.htm" class="c486">
+                    <img alt="Zvedací zařízení" src="https://www.zvedam.cz/fotky27324/category/menu/menu_11_0_1_FSTOPHZ1.png" class="c1284" width="30" height="30">
+                    Zvedací zařízení
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Lesnicke-retezy-kladky-c15_0_1.htm" class="c486">
+                    <img alt="Lesnické řetězy, kladky" src="https://www.zvedam.cz/fotky27324/category/menu/menu_15_0_1__vyr_254_FSSRK1.png" class="c1284" width="30" height="30">
+                    Lesnické řetězy, kladky
+                  </a>
+                </div>
+              </li>
+              <li class="c485">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Ochranne-prostredky-OOPP-c8_0_1.htm" class="c486">
+                    <img alt="Ochranné prostředky/OOPP" src="https://www.zvedam.cz/fotky27324/category/menu/menu_8_0_1_1586271583LX5.jpg" class="c1284" width="30" height="30">
+                    Ochranné prostředky/OOPP
+                  </a>
+                </div>
+              </li>
+              <li class="c485 has-submenu last">
+                <div class="c1549">
+                  <a href="https://www.zvedam.cz/Ostatni-c14_0_1.htm" class="c486">
+                    <img alt="Ostatní" src="https://www.zvedam.cz/fotky27324/category/menu/menu_14_0_1_CCN.jpg" class="c1284" width="30" height="30">
+                    Ostatní
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Středový hlavní sloupec -->
+      <div class="content-wrapper-center" id="id-content-wrapper-center">
+        <div class="content-center" id="id-content-center" tabindex="-1">
+          
+          <!-- 4 USP ikony výhod (v šabloně přesunuté pod banner přes CSS order/flex) -->
+          <div class="c1942">
+            <div class="usp-block">
+              <a href="#" onclick="return false;" class="c1943 disabled">
+                <span class="c1944"><img class="c1945" src="https://www.zvedam.cz/fotky27324/usp-images/uspImage11692476086.svg" alt="" width="55" height="55"></span>
+                <span class="c1946"><span class="c1947">Máme 20 let zkušeností na trhu</span></span>
+              </a>
+              <a href="#" onclick="return false;" class="c1943 disabled">
+                <span class="c1944"><img class="c1945" src="https://www.zvedam.cz/fotky27324/usp-images/uspImage21692476086.svg" alt="" width="55" height="55"></span>
+                <span class="c1946"><span class="c1947">Vlastní výroba, servis a revize včetně vedení evidence</span></span>
+              </a>
+              <a href="#" onclick="return false;" class="c1943 disabled">
+                <span class="c1944"><img class="c1945" src="https://www.zvedam.cz/fotky27324/usp-images/uspImage31692476086.svg" alt="" width="55" height="55"></span>
+                <span class="c1946"><span class="c1947">Vyrobíme a dodáme dle požadavku atypické provedení</span></span>
+              </a>
+              <a href="#" onclick="return false;" class="c1943 disabled">
+                <span class="c1944"><img class="c1945" src="https://www.zvedam.cz/fotky27324/usp-images/uspImage41692475963.svg" alt="" width="55" height="55"></span>
+                <span class="c1946"><span class="c1947">Poskytujeme slevy pro naše stálé zákazníky</span></span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hlavní Hero Banner -->
+          <div class="c1195">
+            <div class="c1196 c1335"></div>
+            <div class="c1197">
+              <p class="not-for-html5"><img src="https://www.zvedam.cz/fotky27324/zvedam-homepage-banner.jpg" width="910" height="375" alt="banner na hlavni strane"></p>
+              <div class="homepage-big-banner__wrapper">
+                <h1 class="homepage-big-banner__headline">Vázací a manipulační prostředky po ruce.</h1>
+                <p class="homepage-big-banner__text">Prodejna a e-shop pro firmy a profesionály. Vlastní výroba, servis a revize.</p>
+                <div class="homepage-big-banner__button-wrapper">
+                  <a class="btn c39 homepage-big-banner__button" href="#homepage-category">Prohlédnout si kategorie</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10 Kategorií s reálnými fotkami -->
+          <div class="c1195">
+            <div class="c1196 c1335"></div>
+            <div class="c1197">
+              <div class="homepage-category__wrapper" id="homepage-category">
+                <div class="homepage-category__bottom-content">
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/retezove-vazaci-prostredky">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--retezove.jpg" alt="Řetězové vázací prostředky">
+                    <h3 class="homepage-category__headline">Řetězové vázací prostředky</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Textilni-vazaci-prostredky-c19_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--textilni.jpg" alt="Textilní vázací prostředky">
+                    <h3 class="homepage-category__headline">Textilní vázací prostředky</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Lana-ocelova-vazaci-c3_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--lana.jpg" alt="Lana ocelová vázací">
+                    <h3 class="homepage-category__headline">Lana ocelová vázací</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Vazaci-body-haky-a-trmeny-c6_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--vazaci.jpg" alt="Vázací body, háky a třmeny">
+                    <h3 class="homepage-category__headline">Vázací body, háky a třmeny</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Manipulacni-zarizeni-c16_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--manipulacni.jpg" alt="Manipulační zařízení">
+                    <h3 class="homepage-category__headline">Manipulační zařízení</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Kladkostroje-zvedaky-pojezdy-c11_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--zvedaci.jpg" alt="Zvedací zařížení">
+                    <h3 class="homepage-category__headline">Zvedací zařížení</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Lesnicke-retezy-kladky-c15_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--lesnicke.jpg" alt="Lesnické řetězy, kladky">
+                    <h3 class="homepage-category__headline">Lesnické řetězy, kladky</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Ochranne-prostredky-OOPP-c8_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--ochranne.jpg" alt="Ochranné prostředky/OOPP">
+                    <h3 class="homepage-category__headline">Ochranné prostředky/OOPP</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/spotrebni-material">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--spotrebni.jpg" alt="Spotřební materiál">
+                    <h3 class="homepage-category__headline">Spotřební materiál</h3>
+                  </a>
+                  <a class="homepage-category__box" href="https://www.zvedam.cz/Ostatni-c14_0_1.htm">
+                    <img class="homepage-category__image" src="https://www.zvedam.cz/fotky27324/custom-design/category--ostatni.jpg" alt="Ostatní">
+                    <h3 class="homepage-category__headline">Ostatní</h3>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEKCE PRODUKTŮ: Z NAŠÍ NABÍDKY -->
+          <div class="c1198">
+            <div class="c1199">Z naší nabídky</div>
+            <div class="c1200">
+              <ul id="id-home-product-box__order-list" class="c1201">
+                <li data-tag="" onclick="filterTab('', this)" class="c1202 active visible">
+                  <span class="c1203">Vybrali jsme pro vás</span>
+                </li>
+                <li data-tag="ico_act" onclick="filterTab('ico_act', this)" class="c1202 visible">
+                  <span class="c1203">Akce</span>
+                </li>
+                <li data-tag="ico_new" onclick="filterTab('ico_new', this)" class="c1202 visible">
+                  <span class="c1203">Novinky</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mřížka produktů (generovaná z originálních dat) -->
+            <div id="id-home-product-box__content" class="c1204" data-tag=""></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="content-wrapper-right" id="id-content-wrapper-right">
+        <div class="content-right" id="id-content-right"></div>
+      </div>
+    </div>
+
+    <!-- PATIČKA WEBU -->
+    <div class="content-wrapper-bottom" id="id-content-wrapper-bottom">
+      <div class="content-bottom" id="id-content-bottom">
+        <div class="c1490">
+          <div class="c1491">
+            <!-- Sloupec 1 -->
+            <div class="c1436 c1492">
+              <div class="c1336 c1437">Informace o nás</div>
+              <p><a class="link" href="https://www.zvedam.cz/O-NAS-a1_0.htm">O nás</a></p>
+              <p><a class="link" href="https://www.zvedam.cz/OBCHODNI-PODMINKY-a3_0.htm">Obchodní podmínky</a></p>
+              <p><a href="https://www.zvedam.cz/JAK-NAKUPOVAT-a4_0.htm">Jak nakupovat</a></p>
+              <p><a class="link" href="https://www.zvedam.cz/DOPRAVA-A-PLATBA-a5_0.htm">Doprava a platba</a></p>
+              <p><a class="link" href="https://www.zvedam.cz/KONTAKTY-a2_0.htm">Kde nás najdete</a></p>
+              <p><a href="https://www.zvedam.cz/gdpr">GDPR</a></p>
+              <p><a href="https://www.zvedam.cz/mapa-webu">Mapa webu</a></p>
+              <p><img src="https://www.zvedam.cz/fotky27324/LS_logo.jpg" alt="LOGITECH servis s.r.o." width="162" height="60"></p>
+            </div>
+
+            <!-- Sloupec 2 -->
+            <div class="c1436 c1493">
+              <div class="c1336 c1437">Proč s námi spolupracovat?</div>
+              <ul>
+                <li><strong>Máme více jak 20 let zkušeností na trhu</strong></li>
+                <li><strong>Provozujeme kamennou prodejnu</strong></li>
+                <li><strong>Vlastní výroba vázacích a manipulačních prostředků</strong></li>
+                <li><strong>Nabízíme zákaznický servis, revize a prohlídky</strong></li>
+                <li><strong>Zpracujeme Vaší evidenci vázacích prostředků</strong></li>
+                <li><strong>Poradíme Vám a pomůžeme s výběrem</strong></li>
+                <li><strong>Poskytujeme slevy pro registrované a stálé zákazníky</strong></li>
+              </ul>
+            </div>
+
+            <!-- Sloupec 3 -->
+            <div class="c1436 c1494">
+              <div class="c1336 c1437">Potřebujete poradit?</div>
+              <p>
+                <img src="https://www.zvedam.cz/fotky27324/img_foot.jpg" alt="" width="299" height="203">
+              </p>
+              <p>
+                <img src="https://www.zvedam.cz/fotky27324/Spolehliv%C3%A1%20firma%20(5).png" width="185" height="185" alt="Spolehlivá firma">
+              </p>
+            </div>
+
+            <!-- Sloupec 4 -->
+            <div class="c1436 c1495">
+              <div class="c1336 c1437">Zákaznický servis</div>
+              <div class="c1438">
+                <img class="c1496" src="https://www.zvedam.cz/fotky27324/fotos/contact_foto.png" alt="Logo" width="280" height="70">
+              </div>
+              <div class="c1497">
+                <div class="c1440">
+                  <img class="c1498" src="https://www.zvedam.cz/fotky27324/fotos/contact_person_foto.png" alt="Vlastimil Korčák" width="55" height="55">
+                </div>
+                <div class="c1499">
+                  <div class="c1509">Vlastimil Korčák</div>
+                  <div class="c1441"><a class="c1966" href="tel:+420607849530">+420 607 849 530</a></div>
+                  <div class="c1442">7:00 - 15:30</div>
+                </div>
+              </div>
+              <div class="c1443"><a class="c1967" href="mailto:info@zvedam.cz">info@zvedam.cz</a></div>
+              <div class="c1510">
+                <div class="c1511">
+                  <a href="https://www.facebook.com/zvedam.cz" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <span class="c1512"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c1502">
+          <div class="c24">
+            <div class="c25">
+              <div class="c26">Copyright © 2026 zvedam.cz LOGITECH servis s.r.o.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kompletní databáze všech 45 produktů z původního HTML a obslužný skript -->
   <script>
-    let cartItems = 0;
-    let cartSum = 0;
+    const PRODUCTS = [
+      // Vybrali jsme pro vás (24 produktů)
+      { id: 85, group: "", title: "Smyčka kruhová RS 4000kg/délka L1 dle výběru", url: "/Smycka-kruhova-BRS4000-4-t-L1-0-5-m-dalsi-delky-dle-vyberu-d85.htm", img: "/fotky27324/fotos/gen320/gen__vyr_85BRS---grey.jpg", czkVat: 249, czkNoVat: 206, unit: "ks", mode: "variant" },
+      { id: 101, group: "", title: "Pás s oky plochý B-2 2000kg/šíře 60mm/délka L dle výběru", url: "/Pas-s-oky-plochy-BSB2000-2-t-1-m-sire-60-mm-dalsi-delky-dle-vyberu-d101.htm", img: "/fotky27324/fotos/gen320/gen__vyr_101Screenshot_2016-03-30-19-21-23-1.png", czkVat: 157, czkNoVat: 130, unit: "ks", mode: "variant" },
+      { id: 162, group: "", title: "Zvedák lanový CSZ8 nosnost 800 kg a délkou lana dle výběru", url: "/Zvedak-lanovy-CSZ8-nosnost-800-kg-a-delkou-lana-dle-vyberu-d162.htm", img: "/fotky27324/fotos/gen320/gen__vyr_162_CSZBODY.png", czkVat: 6367, czkNoVat: 5262, unit: "ks", mode: "variant" },
+      { id: 390, group: "", title: "Zvedák řehtačkový LRZ750 nosnost 750 kg zdvih 1,5 m", url: "/Rehtackovy-zvedak-LRZ750-nosnost-750-kg-zdvih-1-5-m-d390.htm", img: "/fotky27324/fotos/gen320/gen__vyr_390_LRZ.png", czkVat: 4928, czkNoVat: 4073, unit: "ks", mode: "buy" },
+      { id: 312, group: "", title: "Řetěz lesnický s C-hákem FOCKSR78 d 7/2 m s jehlou G8 + další délky dle výběru", url: "/Retez-lesnicky-s-C-hakem-FOCKSR78-d-7-2-m-s-jehlou-G8-dalsi-delky-dle-vyberu-d312.htm", img: "/fotky27324/fotos/gen320/gen__vyr_312_image--1.webp", czkVat: 757, czkNoVat: 626, unit: "ks", mode: "variant" },
+      { id: 398, group: "", title: "Kladkostroj řetězový FSTOPHZ500 nosnost 500 kg zdvih 3 m", url: "/Kladkostroj-retezovy-FSTOPHZ500-nosnost-500-kg-zdvih-3-m-d398.htm", img: "/fotky27324/fotos/gen320/gen__vyr_398_FSTOPHZ.png", czkVat: 4216, czkNoVat: 3484, unit: "ks", mode: "buy" },
+      { id: 413, group: "", title: "Zvedák patkový hydraulický CHH5000 nosnost 5000 kg zdvih patky 25-230 mm", url: "/Zvedak-patkovy-hydraulicky-CHH5000-nosnost-5000-kg-zdvih-patky-25-230-mm-d413.htm", img: "/fotky27324/fotos/gen320/gen__vyr_413CHH.jpg", czkVat: 13148, czkNoVat: 10866, unit: "ks", mode: "buy" },
+      { id: 434, group: "", title: "Ocelové lano s hákem s pojistkou pr. 10 mm/délka lana dle výběru", url: "/Ocelove-lano-s-hakem-s-pojistkou-pr-10-mm-5-m-dalsi-delky-dle-vyberu-d434.htm", img: "/fotky27324/fotos/gen320/gen__vyr_434_27324_438__vyr_432p_2140_1.png", czkVat: 529, czkNoVat: 437, unit: "ks", mode: "variant" },
+      { id: 520, group: "", title: "Lano tažné s oky typ AS350006 35000 daN/6 m", url: "/Lano-tazne-s-oky-typ-AS350006-35000-daN-6-m-d520.htm", img: "/fotky27324/fotos/gen320/gen_27324_520__vyr_519AS.jpg", czkVat: 3536, czkNoVat: 2922, unit: "ks", mode: "buy" },
+      { id: 539, group: "", title: "Lanový 2-závěs s háky s pojistkou pr. 10 mm/délka L dle výběru - 1500/1050 kg", url: "/Lanovy-2-zaves-s-haky-pr-10-mm-1-m-dalsi-delky-dle-vyberu-d539.htm", img: "/fotky27324/fotos/gen320/gen__vyr_539_zawiesie-linowe-2-cięgnowe.jpg", czkVat: 713, czkNoVat: 589, unit: "ks", mode: "variant" },
+      { id: 706, group: "", title: "Textilní 4-závěs s háky s pojistkou/délka smyčky L1 dle výběru - 2100/1500 kg", url: "/Textilni-4-zaves-s-haky-2100-1500-kg-delka-L1-1-m-dalsi-delky-dle-vyberu-d706.htm", img: "/fotky27324/fotos/gen320/gen__vyr_706__vyr_707_4-zaves-RS.png", czkVat: 4621, czkNoVat: 3819, unit: "ks", mode: "variant" },
+      { id: 817, group: "", title: "Paletové vidle EZS-15.12 nosnost 1500 kg samovyvažovací", url: "/Paletove-vidle-EZS-15-12-nosnost-1500-kg-samovyvazovaci-d817.htm", img: "/fotky27324/fotos/gen320/gen__vyr_817_ProductDetail--2.jpg", czkVat: 28798, czkNoVat: 23800, unit: "ks", mode: "buy" },
+      { id: 921, group: "", title: "Svěrky na skruže SET s řetězem MBSRG1501302SL - 1500kg/0-130mm/1,7m", url: "/Sverky-na-skruze-SET-s-retezem-1500kg-0-130mm-1-7m-d921.htm", img: "/fotky27324/fotos/gen320/gen__vyr_921_MBSRG_SL.jpg", czkVat: 12729, czkNoVat: 10520, unit: "ks", mode: "buy" },
+      { id: 1532, group: "", title: "Oko navařovací otočné ASWHAX (nosnost dle výběru) G10", url: "/oko-navarovaci-otocne-aswhax-nosnost-dle-vyberu-g10", img: "/fotky27324/fotos/gen320/gen__vyr_982_ASWHAX.png", czkVat: 2477, czkNoVat: 2047, unit: "ks", mode: "variant" },
+      { id: 993, group: "", title: "Naviják lanový ruční RRZ nosnost 545kg délka lana 10m", url: "/navijak-lanovy-rucni-rrz-nosnost-545kg-delka-lana-10m", img: "/fotky27324/fotos/gen320/gen__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 2055, czkNoVat: 1698, unit: "ks", mode: "buy" },
+      { id: 1054, group: "", title: "Napínák ráčnový RN 2500N", url: "/racnovy-napinak-rn-2500n", img: "/fotky27324/fotos/gen320/gen__vyr_1054_IMG_0925.jpeg", czkVat: 3591, czkNoVat: 2968, unit: "ks", mode: "buy" },
+      { id: 1069, group: "", title: "Zvedák lanový elektrický HXS-800YT-32M nosnost 400/800kg", url: "/kladkostroj-lanovy-elektricky-hxs-800yt-nosnost-400/800kg", img: "/fotky27324/fotos/gen320/gen__vyr_1069_HXS-800YT.jpg", czkVat: 18604, czkNoVat: 15375, unit: "ks", mode: "buy" },
+      { id: 1080, group: "", title: "Lano ocelové 6x37-FC 1770/N/mm2 pozink/průměr lana dle výběru", url: "/lano-ocelove-6x37-fc-1770/n/mm2-pozink/prumer-lana-dle-vyberu", img: "/fotky27324/fotos/gen320/gen__vyr_1080_Lina-6-x-37-FC.jpg", czkVat: 65, czkNoVat: 54, unit: "m", mode: "variant" },
+      { id: 1090, group: "", title: "Žabka napínací pro průměr 4-14mm do 7500N", url: "/zabka-napinaci-pro-prumer-4-14mm-do-7500n", img: "/fotky27324/fotos/gen320/gen_27324_1090__vyr_1089_zabka.png", czkVat: 3582, czkNoVat: 2960, unit: "ks", mode: "buy" },
+      { id: 1091, group: "", title: "Závěsné zařízení s okem ZZ-CHO 010 s nosností 1000 kg a rozsahem 75-230 mm", url: "/zavesne-zarizeni-zzcho-010-s-nosnosti-1000-kg-a-rozsahem-75-230-mm", img: "/fotky27324/fotos/gen320/gen__vyr_1091_ZZ-CHO.jpg", czkVat: 1882, czkNoVat: 1555, unit: "ks", mode: "buy" },
+      { id: 1106, group: "", title: "Svěrka na plech výkyvná IPU10 500kg 0-16mm", url: "/sverka-na-plech-vykyvna-ipu10-500kg-0-16mm", img: "/fotky27324/fotos/gen320/gen__vyr_1106_Sverka-IPU10.webp", czkVat: 11925, czkNoVat: 9855, unit: "ks", mode: "buy" },
+      { id: 1119, group: "", title: "Magnet permanentní břemenový REVO150 nosnost 150/65 kg", url: "/magnet-permanentni-bremenovy-revo150-nosnost-150/65-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1119_magnet_perma_fotka.webp", czkVat: 13263, czkNoVat: 10961, unit: "ks", mode: "buy" },
+      { id: 1154, group: "", title: "Redukce řetěz oko + hák otočný d 6/0,35 m - 1 120 kg", url: "/redukce-retez-oko-hak-otocny-d6/0-35m-1120-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1154_H1_SLTyp10R.webp", czkVat: 1016, czkNoVat: 840, unit: "ks", mode: "buy" },
+      { id: 1523, group: "", title: "Nosič sudů vertikální NSV 500/600 nosnost 500kg", url: "/nosic-sudu-vertikalni-nsv-500/600", img: "/fotky27324/fotos/gen320/gen__vyr_1523_NSV-1.webp", czkVat: 9255, czkNoVat: 7649, unit: "ks", mode: "buy" },
 
-    function changeQty(btn, delta) {
-      const span = btn.parentElement.querySelector('.qty-val');
-      let current = parseInt(span.textContent, 10) || 1;
-      current = Math.max(1, current + delta);
-      span.textContent = current;
+      // Akce (3 produkty)
+      { id: 154, group: "ico_act", badge: "Akce", badgeClass: "tag--sale", title: "Pás upínací s ráčnou a háky TP2-50 - 5000 daN š. 50 mm/délka L dle výběru", url: "/Pas-s-racnou-a-haky-SP-5000-daN-s-50-mm-delka-4-m-dalsi-delky-dle-vyberu-d154.htm", img: "/fotky27324/fotos/gen320/gen__vyr_154B250---SP5-1.jpg", czkVat: 350, czkNoVat: 289, unit: "ks", mode: "variant" },
+      { id: 994, group: "ico_act", badge: "Akce", badgeClass: "tag--sale", title: "Naviják lanový ruční RRZ nosnost 825kg délka lana 10m", url: "/navijak-lanovy-rucni-rrz-nosnost-825kg-delka-lana-10m", img: "/fotky27324/fotos/gen320/gen_27324_994__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 2946, czkNoVat: 2435, unit: "ks", mode: "buy" },
+      { id: 995, group: "ico_act", badge: "Akce", badgeClass: "tag--sale", title: "Naviják lanový ruční RRZ nosnost 1200kg délka lana 10m", url: "/navijak-lanovy-rucni-rrz-nosnost-1200kg-delka-lana-10m", img: "/fotky27324/fotos/gen320/gen_27324_995_27324_994__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 3842, czkNoVat: 3175, unit: "ks", mode: "buy" },
+
+      // Novinky (18 produktů)
+      { id: 1074, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Kladkostroj řetězový elektrický GPM2501N1Ph nosnost 125kg/3M", url: "/kladkostroj-retezovy-elektricky-gpm2501n1ph-nosnost-125kg", img: "/fotky27324/fotos/gen320/gen__vyr_1074_GP_.jpg", czkVat: 47755, czkNoVat: 39467, unit: "ks", mode: "variant" },
+      { id: 1082, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Mazivo na ocelová lana ELASKON 30 spray 600 ml", url: "/mazivo-na-ocelova-lana-elaskon-30-spray-600-ml", img: "/fotky27324/fotos/gen320/gen__vyr_1082_ELASKON-30-Spray-_Bild-16.webp", czkVat: 422, czkNoVat: 349, unit: "ks", mode: "buy" },
+      { id: 1085, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový 30-10/0,8T nosnost 800 kg a délkou lana dle výběru", url: "/zvedak-lanovy-30-10/0-8t-nosnost-800-kg-a-delkou-lana-dle-vyberu", img: "/fotky27324/fotos/gen320/gen__vyr_1085_lanovy-zvedak.jpg", czkVat: 7053, czkNoVat: 5829, unit: "ks", mode: "variant" },
+      { id: 1101, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Řetěz nekonečný d 6/délka L1 dle výběru - 1800 kg", url: "/retez-nekonecny-d-6/delka-l1-dle-vyberu-1800kg", img: "/fotky27324/fotos/gen320/gen__vyr_1101_zawiesie-łańcuchowe-obwód-zamknięty-kl-8.png", czkVat: 530, czkNoVat: 438, unit: "ks", mode: "variant" },
+      { id: 1140, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Kladkostroj řetězový elektrický TEZ2501DG nosnost 250kg/3M/2-rychlostní zdvih", url: "/kladkostroj-retezovy-elektricky-gpm2501n1ph-nosnost-125kg/3m3", img: "/fotky27324/fotos/gen320/gen__vyr_1140_TEZ_.webp", czkVat: 40890, czkNoVat: 33793, unit: "ks", mode: "variant" },
+      { id: 1166, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Magnet permanentní břemenový PML-100 nosnost 100/30 kg", url: "/magnet-permanentni-bremenovy-pml-100-nosnost-100/50-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1166_15574_0.webp", czkVat: 2990, czkNoVat: 2471, unit: "ks", mode: "buy" },
+      { id: 1274, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Řetězový 2-závěs s háky slévárenskými CYF08 d 8/délka L dle výběru - 2800/2000 kg", url: "/retezovy-2-zaves-s-haky-slevarenskymi-cyf08-d-8/delka-l-dle-vyberu-2800/2000-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1230_2-zaves_sleva_vidlice.webp", czkVat: 3261, czkNoVat: 2695, unit: "ks", mode: "variant" },
+      { id: 1275, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Řetězový 2-závěs s háky bezpečnostními CSC8 d 8/délka L dle výběru - 2800/2000 kg", url: "/retezovy-2-zaves-s-haky-bezpecnostnimi-csc8s-d-8/delka-l-dle-vyberu-2800/2000-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1231_2zaves_vidlice_bezpecnostni_pojistka.webp", czkVat: 3907, czkNoVat: 3229, unit: "ks", mode: "variant" },
+      { id: 1276, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Řetězový 2-závěs s oky A16 d 8/délka L dle výběru - 2800/2000 kg", url: "/retezovy-2-zaves-s-oky-a16/d181of-d-8/delka-l-dle-vyberu-2800/2000-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1232_2-zaves_oka.webp", czkVat: 2309, czkNoVat: 1908, unit: "ks", mode: "variant" },
+      { id: 1539, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Kladkostroj řetězový AKU 18V DC DBH.250 nosnost 250 kg zdvih 10 m", url: "/kladkostroj-retezovy-dbh-250-aku-nosnost-250-kg-zdvih-10-m", img: "/fotky27324/fotos/gen320/gen__vyr_1539_CZ-0-DBH-250-10--DELTA-Battery-chain-hoist---18V-DC---0-25-ton---10-meter-hoisting-height.webp", czkVat: 43705, czkNoVat: 36120, unit: "ks", mode: "buy" },
+      { id: 1541, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Kladkostroj řetězový SG AL provedení nosnost 250 kg (výška zdvihu dle výběru)", url: "/kladkostroj-retezovy-sg-al-provedeni-nosnost-250-kg", img: "/fotky27324/fotos/gen320/gen__vyr_1541_SG-0-3600253--DELTA-ALUM-Manual-chain-hoist-360-0-25-ton-with-3-meter-hoisting-height.webp", czkVat: 5372, czkNoVat: 4440, unit: "ks", mode: "variant" },
+      { id: 1543, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Kladkostroj řetězový DSS NEREZ provedení nosnost 500 kg (výška zdvihu dle výběru)", url: "/kladkostroj-retezovy-dss-nerez-provedeni-nosnost-500-kg-vyska-zdvihu-dle-vyberu", img: "/fotky27324/fotos/gen320/gen__vyr_1543_DSS-0-06600503--DELTA-INOX-Stainless-steel-manual-chain-hoist-with-stainless-loadchain-and-handchain-0-5-ton-with-3-meter-hoisting-height.webp", czkVat: 57324, czkNoVat: 47375, unit: "ks", mode: "variant" },
+      { id: 1556, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák řehtačkový DC AL provedení nosnost 250 kg (výška zdvihu dle výběru)", url: "/zvedak-rehtackovy-dc-al-provedeni-nosnost-250-kg-vyska-zdvihu-dle-vyberu", img: "/fotky27324/fotos/gen320/gen__vyr_1556_DC-0-0780251-5--DELTA-ALUM-Lever-hoist-0-25-ton-with-1-5-meter-hoisting-height.webp", czkVat: 3499, czkNoVat: 2892, unit: "ks", mode: "variant" },
+      { id: 1627, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový DELTAFOR AL 0,8T/délka lana 20 m", url: "/zvedak-lanovy-hlinikovy-0-8t/delka-lana-20-m", img: "/fotky27324/fotos/gen320/gen__vyr_1627_SG-0-0250000802--DELTAFOR-Steelwire-pulling-hoist-aluminum-casting-with-20-meter-steelwire---0-8-ton.webp", czkVat: 4326, czkNoVat: 3575, unit: "ks", mode: "buy" },
+      { id: 1628, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový DELTAFOR AL 1,6T/délka lana 20 m", url: "/zvedak-lanovy-hlinikovy-1-6t/delka-lana-20-m", img: "/fotky27324/fotos/gen320/gen__vyr_1627_SG-0-0250000802--DELTAFOR-Steelwire-pulling-hoist-aluminum-casting-with-20-meter-steelwire---0-8-ton.webp", czkVat: 6716, czkNoVat: 5550, unit: "ks", mode: "buy" },
+      { id: 1629, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový DELTAFOR AL 3,2T/délka lana 20 m", url: "/zvedak-lanovy-hlinikovy-3-2t/delka-lana-20-m", img: "/fotky27324/fotos/gen320/gen__vyr_1627_SG-0-0250000802--DELTAFOR-Steelwire-pulling-hoist-aluminum-casting-with-20-meter-steelwire---0-8-ton.webp", czkVat: 11497, czkNoVat: 9502, unit: "ks", mode: "buy" },
+      { id: 1630, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový DELTAFOR AL 5,4T/délka lana 20 m", url: "/zvedak-lanovy-hlinikovy-5-4t/delka-lana-20-m", img: "/fotky27324/fotos/gen320/gen__vyr_1627_SG-0-0250000802--DELTAFOR-Steelwire-pulling-hoist-aluminum-casting-with-20-meter-steelwire---0-8-ton.webp", czkVat: 34778, czkNoVat: 28742, unit: "ks", mode: "buy" },
+      { id: 1631, group: "ico_new", badge: "Novinka", badgeClass: "tag--new", title: "Zvedák lanový ocelový 0,8T/délka lana 20 m", url: "/zvedak-lanovy-ocelovy-0-8t/delka-lana-20-m", img: "/fotky27324/fotos/gen320/gen__vyr_1631_DC-0-0240000802--DELTAFOR-Steelwire-pulling-hoist-steel-casting-with-20-meter-steelwire---0-8-ton.webp", czkVat: 4107, czkNoVat: 3394, unit: "ks", mode: "buy" }
+    ];
+
+    const EUR_RATE = 24.036;
+    let activeCurrency = 'CZK';
+    let activeTab = '';
+    let cartQty = 0;
+    let cartTotalCzk = 0;
+
+    function formatPrice(czkVal) {
+      if (activeCurrency === 'CZK') {
+        return czkVal.toLocaleString('cs-CZ') + '\u00a0Kč';
+      } else {
+        const eurVal = (czkVal / EUR_RATE).toFixed(2).replace('.', ',');
+        return eurVal + '\u00a0€';
+      }
     }
 
-    function addToCart(price, btn) {
-      const card = btn.closest('.product-card');
-      const qtySpan = card.querySelector('.qty-val');
-      const qty = qtySpan ? parseInt(qtySpan.textContent, 10) : 1;
+    function renderProducts() {
+      const container = document.getElementById('id-home-product-box__content');
+      container.innerHTML = PRODUCTS.map(p => {
+        const isHidden = p.group !== activeTab;
+        const badgeHtml = p.badge
+          ? `<li class="c1292 c719"><span class="c1293 c1430 ${p.badgeClass}">${p.badge}</span></li>`
+          : '';
+        const actionHtml = p.mode === 'variant'
+          ? `<div class="c322">
+               <a href="https://www.zvedam.cz${p.url}" target="_blank" class="c323 btn c212">Zvolit variantu</a>
+             </div>`
+          : `<form class="c325" onsubmit="handleBuy(event, ${p.czkVat})">
+               <div class="c326">
+                 <div class="c327">
+                   <button type="button" onclick="stepQty(this, -1)" class="c328 c2562" aria-label="Snížit množství"></button>
+                   <input type="number" step="1" min="1" value="1" class="c329" aria-label="Množství">
+                   <button type="button" onclick="stepQty(this, 1)" class="c330 c2562" aria-label="Zvýšit množství"></button>
+                 </div>
+                 <div class="c331">
+                   <button type="submit" class="c332 btn c212">Přidat do košíku</button>
+                 </div>
+               </div>
+             </form>`;
 
-      cartItems += qty;
-      cartSum += price * qty;
-
-      document.getElementById('cart-count').textContent = cartItems + ' ks';
-      document.getElementById('cart-total').textContent = cartSum.toFixed(2).replace('.', ',') + ' €';
+        return `
+          <div class="c1205" data-group="${p.group}" data-hidden="${isHidden}">
+            <div class="product" data-selector="product" data-id="${p.id}">
+              <div class="c1290"><ul class="c1291 c718">${badgeHtml}</ul></div>
+              <div class="c309">
+                <a href="https://www.zvedam.cz${p.url}" target="_blank" class="c310" title="${p.title}">
+                  <img src="https://www.zvedam.cz${p.img}" class="c311 img-fluid" alt="${p.title}" width="300" height="300">
+                </a>
+              </div>
+              <div class="c312">
+                <div class="c313">
+                  <div class="c314">
+                    <a href="https://www.zvedam.cz${p.url}" target="_blank" class="c315">${p.title}</a>
+                  </div>
+                  <div class="c316">
+                    <div class="c317">
+                      ${formatPrice(p.czkVat)}
+                      <div class="c1541"><span class="c2203">/</span> ${p.unit}</div>
+                    </div>
+                    <div class="c1550">
+                      ${formatPrice(p.czkNoVat)} <span class="c319">bez DPH</span>
+                    </div>
+                  </div>
+                  <div class="c320"></div>
+                </div>
+                <div class="c321">${actionHtml}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
+
+    function filterTab(tag, liEl) {
+      activeTab = tag;
+      document.querySelectorAll('#id-home-product-box__order-list .c1202').forEach(el => el.classList.remove('active'));
+      liEl.classList.add('active');
+      renderProducts();
+    }
+
+    function stepQty(btn, delta) {
+      const input = btn.parentElement.querySelector('input.c329');
+      let val = parseInt(input.value, 10) || 1;
+      input.value = Math.max(1, val + delta);
+    }
+
+    function handleBuy(e, czkPrice) {
+      e.preventDefault();
+      const input = e.target.querySelector('input.c329');
+      const qty = parseInt(input.value, 10) || 1;
+      cartQty += qty;
+      cartTotalCzk += qty * czkPrice;
+      updateBasketDisplay();
+    }
+
+    function updateBasketDisplay() {
+      document.getElementById('basket-count').textContent = cartQty;
+      if (activeCurrency === 'CZK') {
+        document.getElementById('basket-total').textContent = cartTotalCzk.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kč';
+      } else {
+        const eurTotal = (cartTotalCzk / EUR_RATE).toFixed(2).replace('.', ',');
+        document.getElementById('basket-total').textContent = eurTotal + ' €';
+      }
+    }
+
+    function setCurrency(curr) {
+      activeCurrency = curr;
+      document.getElementById('current-currency-btn').textContent = curr;
+      renderProducts();
+      updateBasketDisplay();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      updateBasketDisplay();
+    });
   </script>
 </body>
 </html>
