@@ -1,384 +1,1284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow | CS101 Project</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --surface-color: #1e293b;
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --danger: #ef4444;
-            --success: #10b981;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZVEDÁM.cz – Vázací a manipulační prostředky po ruce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #124e78;
+      --navy-dark: #0d3b5c;
+      --teal: #1796a4;
+      --teal-hover: #127a86;
+      --amber: #e59819;
+      --amber-hover: #cc8410;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-light: #f4f6f8;
+      --border-color: #e2e8f0;
+      --red-part: #d9261c;
+    }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background-color: var(--surface-color);
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background-color: #ffffff;
+      line-height: 1.45;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        header p {
-            margin: 5px 0 0 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            max-width: 1000px;
-            width: 90%;
-            margin: 40px auto;
-            justify-content: center;
-        }
+    /* --- HEADER --- */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      padding-top: 14px;
+      background: #fff;
+    }
 
-        .card {
-            background-color: var(--surface-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            flex: 1;
-            min-width: 300px;
-        }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-        /* TIMER SECTION */
-        .timer-container {
-            text-align: center;
-        }
+    .logo {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .timer-display {
-            font-size: 6rem;
-            font-weight: 700;
-            margin: 20px 0;
-            font-variant-numeric: tabular-nums;
-            color: var(--text-main);
-        }
+    .logo-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
 
-        .timer-controls button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            margin: 5px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+    .logo-hook {
+      display: inline-flex;
+      width: 18px;
+      height: 22px;
+    }
 
-        .timer-controls button:hover {
-            background-color: var(--primary-hover);
-        }
+    .logo-cz {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--teal);
+      align-self: flex-end;
+      margin-bottom: 4px;
+    }
 
-        .timer-controls button.reset {
-            background-color: transparent;
-            border: 2px solid var(--text-muted);
-            color: var(--text-muted);
-        }
+    .logo-sub {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: -2px;
+    }
 
-        .timer-controls button.reset:hover {
-            background-color: rgba(255,255,255,0.05);
-        }
+    .header-center {
+      flex: 1;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .timer-modes {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    .helpline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
 
-        .timer-modes button {
-            background: none;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
+    .helpline strong {
+      display: block;
+      color: var(--text-main);
+      font-size: 13.5px;
+    }
 
-        .timer-modes button.active {
-            background: var(--primary-color);
-            color: white;
-        }
+    .search-bar {
+      display: flex;
+      width: 100%;
+      max-width: 390px;
+    }
 
-        /* TASKS SECTION */
-        .tasks-container h2 {
-            margin-top: 0;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-        }
+    .search-bar input {
+      flex: 1;
+      padding: 8px 14px;
+      border: 1px solid #cbd5e1;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      font-size: 13px;
+      outline: none;
+    }
 
-        .task-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    .search-bar input:focus {
+      border-color: var(--teal);
+    }
 
-        .task-input-group input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.2);
-            color: white;
-            font-size: 1rem;
-        }
+    .search-bar button {
+      background: var(--amber);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      padding: 0 22px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-        .task-input-group button {
-            background-color: var(--success);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+    .search-bar button:hover {
+      background: var(--amber-hover);
+    }
 
-        .task-input-group button:hover {
-            background-color: #059669;
-        }
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
+    }
 
-        .task-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 300px;
-            overflow-y: auto;
-        }
+    .login-link {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
 
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
+    .login-link:hover {
+      color: var(--text-main);
+    }
 
-        .task-item:hover {
-            background: rgba(255,255,255,0.1);
-        }
+    .cart-currency-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
 
-        .task-text {
-            font-size: 1rem;
-        }
+    .currency-switch {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
 
-        .task-text.completed {
-            text-decoration: line-through;
-            color: var(--text-muted);
-        }
+    .cart-widget {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
 
-        .task-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin-left: 10px;
-            color: var(--text-muted);
-        }
+    .cart-icon-box {
+      width: 34px;
+      height: 34px;
+      background: var(--teal);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
 
-        .task-actions button:hover {
-            color: white;
-        }
+    .cart-info {
+      font-size: 12px;
+      line-height: 1.25;
+    }
 
-        .task-actions .delete:hover {
-            color: var(--danger);
-        }
+    .cart-info strong {
+      display: block;
+      font-size: 13px;
+    }
 
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-    </style>
+    /* --- NAVIGATION --- */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      padding: 16px 0 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--text-main);
+      transition: color 0.15s;
+    }
+
+    .main-nav a:hover {
+      color: var(--teal);
+    }
+
+    /* --- HERO BANNER --- */
+    .hero-wrapper {
+      padding: 24px 0 18px;
+    }
+
+    .hero {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--navy);
+      min-height: 330px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 3;
+      width: 58%;
+      padding: 48px 40px 48px 64px;
+      text-align: center;
+    }
+
+    .hero-left h1 {
+      font-size: 31px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .hero-left p {
+      font-size: 14.5px;
+      color: #cbd5e1;
+      max-width: 440px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amber);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 26px;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-btn:hover {
+      background: var(--amber-hover);
+      transform: translateY(-1px);
+    }
+
+    .hero-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 46%;
+      background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 50%, #e2e8f0 100%);
+      clip-path: polygon(16% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-diagonal-stripe {
+      position: absolute;
+      top: 0;
+      right: 44.5%;
+      bottom: 0;
+      width: 24px;
+      background: #f59e0b;
+      transform: skewX(-12.5deg);
+      z-index: 2;
+    }
+
+    /* --- USP ICONS --- */
+    .usp-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 26px 0 32px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .usp-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 0 10px;
+    }
+
+    .usp-icon {
+      color: var(--navy);
+      width: 28px;
+      height: 28px;
+    }
+
+    .usp-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      max-width: 230px;
+    }
+
+    /* --- CATEGORIES GRID --- */
+    .categories-section {
+      padding: 36px 0 40px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .category-card {
+      background: var(--bg-light);
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 20px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 175px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-card:hover,
+    .category-card.active {
+      background: #fff;
+      border-color: var(--teal);
+      box-shadow: 0 4px 12px rgba(23, 150, 164, 0.1);
+    }
+
+    .category-card.active .category-title,
+    .category-card:hover .category-title {
+      color: var(--teal);
+    }
+
+    .category-img {
+      height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .category-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    /* --- PRODUCTS SECTION --- */
+    .products-section {
+      padding: 10px 0 60px;
+    }
+
+    .section-heading {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .tabs-bar {
+      display: flex;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 8px 0 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn.active {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .product-card {
+      border: 1px solid #f1f5f9;
+      border-radius: 6px;
+      padding: 20px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .product-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+
+    .product-thumb {
+      height: 155px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .product-title {
+      font-size: 12.5px;
+      color: var(--text-main);
+      text-decoration: underline;
+      margin-bottom: 12px;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .product-title:hover {
+      color: var(--teal);
+    }
+
+    .product-prices {
+      margin-bottom: 16px;
+    }
+
+    .price-main {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .price-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .product-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .btn-teal {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 9px 18px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-teal:hover {
+      background: var(--teal-hover);
+    }
+
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      height: 34px;
+      padding: 0 4px;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      color: var(--teal);
+      font-size: 16px;
+      font-weight: 800;
+      width: 22px;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .qty-val {
+      width: 20px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: var(--navy);
+      color: #fff;
+      padding: 54px 0 28px;
+      font-size: 13px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr 1.1fr 1.1fr;
+      gap: 32px;
+      margin-bottom: 44px;
+    }
+
+    .footer-col h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 22px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      color: #e2e8f0;
+      font-size: 12.5px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .logitech-badge {
+      background: #fff;
+      color: #111;
+      padding: 8px 12px;
+      border-radius: 3px;
+      display: inline-block;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1.1;
+      border-left: 4px solid var(--amber);
+    }
+
+    .logitech-badge span {
+      display: block;
+      font-size: 8px;
+      color: var(--amber);
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .footer-bullets {
+      list-style: disc;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      color: #e2e8f0;
+      font-size: 12.5px;
+    }
+
+    .advice-card {
+      background: #fff;
+      padding: 6px;
+      border-radius: 3px;
+      width: 195px;
+      margin-bottom: 18px;
+    }
+
+    .firmy-badge {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: #091e3a;
+      border: 3px solid #1e3a5f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .service-person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      margin-bottom: 16px;
+    }
+
+    .avatar-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 4px;
+      background: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .service-phone {
+      color: var(--amber);
+      font-weight: 800;
+      font-size: 14.5px;
+      display: block;
+      margin: 2px 0;
+    }
+
+    .service-mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+      text-decoration: underline;
+      font-size: 12.5px;
+      margin-bottom: 18px;
+    }
+
+    .fb-icon {
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      color: var(--navy);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      border-radius: 2px;
+      font-size: 14px;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 12px;
+      color: #cbd5e1;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 992px) {
+      .categories-grid { grid-template-columns: repeat(3, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .usp-bar { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-left { width: 100%; padding: 36px 24px; }
+      .hero-right, .hero-diagonal-stripe { display: none; }
+    }
+
+    @media (max-width: 576px) {
+      .categories-grid, .products-grid, .usp-bar, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>FocusFlow</h1>
-        <p>Web Development Final Project - Productivity Tracker</p>
-    </header>
+  <!-- HLAVIČKA -->
+  <header>
+    <div class="container">
+      <div class="header-top">
+        <!-- Logo -->
+        <a href="#" class="logo">
+          <div class="logo-title">
+            ZVEDÁM
+            <svg class="logo-hook" viewBox="0 0 24 24" fill="none" stroke="#e59819" stroke-width="2.5" stroke-linecap="round">
+              <path d="M12 3v7a5 5 0 1 0 5 5"/>
+              <circle cx="12" cy="3" r="1.5" fill="#e59819"/>
+            </svg>
+            <span class="logo-cz">cz</span>
+          </div>
+          <span class="logo-sub">Vázací a manipulační prostředky po ruce</span>
+        </a>
 
-    <main>
-        <section class="card timer-container">
-            <div class="timer-modes">
-                <button class="active" onclick="setMode('pomodoro', 25)" id="btn-pomodoro">Pomodoro</button>
-                <button onclick="setMode('short', 5)" id="btn-short">Short Break</button>
-                <button onclick="setMode('long', 15)" id="btn-long">Long Break</button>
+        <!-- Střed: Telefon + Vyhledávání -->
+        <div class="header-center">
+          <div class="helpline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#e59819">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+            </svg>
+            <div>
+              Nevíte si rady? Zavolejte.
+              <strong>+420 607 849 530</strong>
             </div>
-            
-            <div class="timer-display" id="time-display">25:00</div>
-            
-            <div class="timer-controls">
-                <button onclick="toggleTimer()" id="start-btn">START</button>
-                <button onclick="resetTimer()" class="reset">RESET</button>
+          </div>
+          <form class="search-bar" onsubmit="event.preventDefault();">
+            <input type="text" placeholder="zadejte hledaný text...">
+            <button type="submit">Hledat</button>
+          </form>
+        </div>
+
+        <!-- Pravá část: Přihlášení, Měna, Košík -->
+        <div class="header-right">
+          <div class="login-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+            </svg>
+            Přihlášení
+          </div>
+          <div class="cart-currency-row">
+            <div class="currency-switch">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#64748b">
+                <ellipse cx="12" cy="6" rx="8" ry="3"/>
+                <path d="M4 10c0 1.66 3.58 3 8 3s8-1.34 8-3V6c0 1.66-3.58 3-8 3S4 7.66 4 6v4zm0 5c0 1.66 3.58 3 8 3s8-1.34 8-3v-4c0 1.66-3.58 3-8 3s-8-1.34-8-3v4z"/>
+              </svg>
+              EUR ▾
             </div>
-        </section>
-
-        <section class="card tasks-container">
-            <h2>Current Tasks</h2>
-            <div class="task-input-group">
-                <input type="text" id="task-input" placeholder="What are you working on?">
-                <button onclick="addTask()">Add</button>
+            <div class="cart-widget">
+              <div class="cart-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+              </div>
+              <div class="cart-info">
+                <span id="cart-count">0 ks</span>
+                <strong id="cart-total">0 €</strong>
+              </div>
             </div>
-            <ul class="task-list" id="task-list">
-                </ul>
-        </section>
-    </main>
+          </div>
+        </div>
+      </div>
 
-    <footer>
-        &copy; 2024 CS101 Web Programming Assignment. All rights reserved.
-    </footer>
+      <!-- Menu -->
+      <nav class="main-nav">
+        <a href="#kategorie">Kategorie e-shopu <span style="color:var(--teal)">⌄</span></a>
+        <a href="#o-nas">O nás</a>
+        <a href="#podminky">Obchodní podmínky</a>
+        <a href="#jak-nakupovat">Jak nakupovat</a>
+        <a href="#doprava">Doprava a platba</a>
+        <a href="#kontakty">Kontakty</a>
+      </nav>
+    </div>
+  </header>
 
-    <script>
-        // --- TIMER LOGIC ---
-        let timer;
-        let isRunning = false;
-        let timeLeft = 25 * 60; // 25 minutes in seconds
-        let currentMode = 'pomodoro';
+  <main class="container">
+    <!-- HERO BANNER -->
+    <section class="hero-wrapper">
+      <div class="hero">
+        <div class="hero-left">
+          <h1>Vázací a manipulační prostředky<br>po ruce.</h1>
+          <p>Prodejna a e-shop pro firmy a profesionály. Vlastní výroba, servis a revize.</p>
+          <a href="#kategorie" class="hero-btn">Prohlédnout si kategorie →</a>
+        </div>
+        <div class="hero-diagonal-stripe"></div>
+        <div class="hero-right">
+          <!-- Ilustrace jeřábových háků a řetězů -->
+          <svg width="320" height="280" viewBox="0 0 320 280" fill="none">
+            <rect x="0" y="18" width="320" height="26" fill="#f59e0b" opacity="0.85"/>
+            <line x1="150" y1="44" x2="115" y2="165" stroke="#475569" stroke-width="8" stroke-dasharray="10 6"/>
+            <line x1="170" y1="44" x2="215" y2="165" stroke="#475569" stroke-width="8" stroke-dasharray="10 6"/>
+            <circle cx="160" cy="48" r="16" stroke="#334155" stroke-width="7" fill="none"/>
+            <!-- Levý hák -->
+            <path d="M115 165 C95 195, 75 225, 98 242 C118 255, 140 230, 132 208" stroke="#64748b" stroke-width="16" stroke-linecap="round" fill="none"/>
+            <!-- Pravý hák -->
+            <path d="M215 165 C235 195, 255 225, 232 242 C212 255, 190 230, 198 208" stroke="#64748b" stroke-width="16" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </section>
 
-        const display = document.getElementById('time-display');
-        const startBtn = document.getElementById('start-btn');
+    <!-- 4 VÝHODY -->
+    <section class="usp-bar">
+      <div class="usp-item">
+        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+        </svg>
+        <div class="usp-text">Máme 20 let zkušeností na trhu</div>
+      </div>
+      <div class="usp-item">
+        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+        </svg>
+        <div class="usp-text">Vlastní výroba, servis a revize včetně vedení evidence</div>
+      </div>
+      <div class="usp-item">
+        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+        </svg>
+        <div class="usp-text">Vyrobíme a dodáme dle požadavku atypické provedení</div>
+      </div>
+      <div class="usp-item">
+        <svg class="usp-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
+        </svg>
+        <div class="usp-text">Poskytujeme slevy pro naše stálé zákazníky</div>
+      </div>
+    </section>
 
-        function updateDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
+    <!-- KATEGORIE -->
+    <section id="kategorie" class="categories-section">
+      <div class="categories-grid">
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <ellipse cx="32" cy="14" rx="7" ry="10" stroke="#d9261c" stroke-width="3.5"/>
+              <line x1="29" y1="24" x2="20" y2="68" stroke="#334155" stroke-width="3.5" stroke-dasharray="5 3"/>
+              <line x1="35" y1="24" x2="44" y2="68" stroke="#334155" stroke-width="3.5" stroke-dasharray="5 3"/>
+              <circle cx="19" cy="73" r="4.5" stroke="#d9261c" stroke-width="3"/>
+              <circle cx="45" cy="73" r="4.5" stroke="#d9261c" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="category-title">Řetězové vázací prostředky</div>
+        </div>
 
-        function toggleTimer() {
-            if (isRunning) {
-                clearInterval(timer);
-                startBtn.textContent = 'START';
-                isRunning = false;
-            } else {
-                timer = setInterval(() => {
-                    timeLeft--;
-                    updateDisplay();
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        isRunning = false;
-                        startBtn.textContent = 'START';
-                        alert('Time is up!');
-                    }
-                }, 1000);
-                startBtn.textContent = 'PAUSE';
-                isRunning = true;
-            }
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="80" height="64" viewBox="0 0 80 64" fill="none">
+              <rect x="14" y="36" width="52" height="12" rx="6" fill="#eab308"/>
+              <rect x="18" y="24" width="46" height="11" rx="5.5" fill="#16a34a"/>
+              <rect x="22" y="13" width="40" height="10" rx="5" fill="#7e22ce"/>
+            </svg>
+          </div>
+          <div class="category-title">Textilní vázací prostředky</div>
+        </div>
 
-        function resetTimer() {
-            clearInterval(timer);
-            isRunning = false;
-            startBtn.textContent = 'START';
-            
-            if (currentMode === 'pomodoro') timeLeft = 25 * 60;
-            else if (currentMode === 'short') timeLeft = 5 * 60;
-            else if (currentMode === 'long') timeLeft = 15 * 60;
-            
-            updateDisplay();
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <ellipse cx="32" cy="14" rx="6" ry="9" stroke="#d9261c" stroke-width="3"/>
+              <line x1="30" y1="23" x2="21" y2="68" stroke="#94a3b8" stroke-width="2.5"/>
+              <line x1="34" y1="23" x2="43" y2="68" stroke="#94a3b8" stroke-width="2.5"/>
+              <circle cx="20" cy="73" r="4" stroke="#d9261c" stroke-width="2.5"/>
+              <circle cx="44" cy="73" r="4" stroke="#d9261c" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <div class="category-title">Lana ocelová vázací</div>
+        </div>
 
-        function setMode(mode, minutes) {
-            currentMode = mode;
-            timeLeft = minutes * 60;
-            
-            document.getElementById('btn-pomodoro').classList.remove('active');
-            document.getElementById('btn-short').classList.remove('active');
-            document.getElementById('btn-long').classList.remove('active');
-            
-            document.getElementById(`btn-${mode}`).classList.add('active');
-            
-            resetTimer();
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
+              <path d="M22 36 V22 a10 10 0 0 1 20 0 v14" stroke="#ea580c" stroke-width="6"/>
+              <rect x="18" y="36" width="28" height="14" rx="2" fill="#64748b"/>
+              <rect x="27" y="50" width="10" height="18" fill="#475569"/>
+            </svg>
+          </div>
+          <div class="category-title">Vázací body, háky a třmeny</div>
+        </div>
 
-        // --- TASK LOGIC (Local Storage) ---
-        let tasks = JSON.cast || JSON.parse(localStorage.getItem('focusTasks')) || [];
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
+              <circle cx="32" cy="18" r="8" stroke="#1e293b" stroke-width="4.5"/>
+              <circle cx="32" cy="48" r="16" fill="#dc2626"/>
+              <circle cx="36" cy="50" r="5" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="category-title">Manipulační zařízení</div>
+        </div>
 
-        function renderTasks() {
-            const list = document.getElementById('task-list');
-            list.innerHTML = '';
-            
-            tasks.forEach((task, index) => {
-                const li = document.createElement('li');
-                li.className = 'task-item';
-                
-                li.innerHTML = `
-                    <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
-                    <div class="task-actions">
-                        <button onclick="toggleTask(${index})">✔</button>
-                        <button class="delete" onclick="deleteTask(${index})">✖</button>
-                    </div>
-                `;
-                list.appendChild(li);
-            });
-            
-            localStorage.setItem('focusTasks', JSON.stringify(tasks));
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <circle cx="32" cy="22" r="9" fill="#334155"/>
+              <line x1="29" y1="31" x2="29" y2="70" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
+              <line x1="35" y1="31" x2="35" y2="70" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
+              <circle cx="32" cy="74" r="4" stroke="#1e293b" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="category-title">Zvedací zařízení</div>
+        </div>
 
-        function addTask() {
-            const input = document.getElementById('task-input');
-            const text = input.value.trim();
-            
-            if (text !== '') {
-                tasks.push({ text: text, completed: false });
-                input.value = '';
-                renderTasks();
-            }
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <circle cx="32" cy="16" r="5" stroke="#64748b" stroke-width="3"/>
+              <ellipse cx="32" cy="48" rx="12" ry="20" fill="#dc2626"/>
+              <circle cx="32" cy="48" r="5" fill="#cbd5e1"/>
+            </svg>
+          </div>
+          <div class="category-title">Lesnické řetězy, kladky</div>
+        </div>
 
-        function toggleTask(index) {
-            tasks[index].completed = !tasks[index].completed;
-            renderTasks();
-        }
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <path d="M22 14 L42 14 L46 48 L18 48 Z" stroke="#dc2626" stroke-width="4" fill="none"/>
+              <line x1="18" y1="32" x2="46" y2="32" stroke="#1e293b" stroke-width="4"/>
+              <circle cx="24" cy="62" r="7" stroke="#1e293b" stroke-width="3.5"/>
+              <circle cx="40" cy="62" r="7" stroke="#1e293b" stroke-width="3.5"/>
+            </svg>
+          </div>
+          <div class="category-title">Ochranné prostředky/OOPP</div>
+        </div>
 
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            renderTasks();
-        }
+        <div class="category-card active">
+          <div class="category-img">
+            <svg width="64" height="84" viewBox="0 0 64 84" fill="none">
+              <path d="M28 12 v14 h8 V12" stroke="#dc2626" stroke-width="4"/>
+              <line x1="32" y1="26" x2="32" y2="52" stroke="#dc2626" stroke-width="4"/>
+              <rect x="29" y="52" width="6" height="22" stroke="#94a3b8" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <div class="category-title">Spotřební materiál</div>
+        </div>
 
-        // Initial render
-        updateDisplay();
-        renderTasks();
+        <div class="category-card">
+          <div class="category-img">
+            <svg width="80" height="64" viewBox="0 0 80 64" fill="none">
+              <polygon points="24,24 66,20 58,48 18,48" fill="#d97706"/>
+              <polygon points="18,28 32,24 32,48 14,44" fill="#15803d" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="category-title">Ostatní</div>
+        </div>
+      </div>
+    </section>
 
-        // Allow Enter key to add task
-        document.getElementById('task-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') addTask();
-        });
-    </script>
+    <!-- Z NAŠÍ NABÍDKY -->
+    <section class="products-section">
+      <h2 class="section-heading">Z naší nabídky</h2>
+      <div class="tabs-bar">
+        <button class="tab-btn active">Vybrali jsme pro vás</button>
+        <button class="tab-btn">Akce</button>
+        <button class="tab-btn">Novinky</button>
+      </div>
+
+      <div class="products-grid">
+        <!-- Produkt 1 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="160" height="70" viewBox="0 0 160 70" fill="none">
+                <rect x="14" y="24" width="132" height="22" rx="11" stroke="#64748b" stroke-width="7"/>
+                <rect x="42" y="20" width="14" height="8" fill="#2563eb"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Smyčka kruhová RS 4000kg/délka L1 dle výběru</a>
+            <div class="product-prices">
+              <div class="price-main">10,37 € / ks</div>
+              <div class="price-sub">8,57 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-teal">Zvolit variantu</button>
+          </div>
+        </div>
+
+        <!-- Produkt 2 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="160" height="70" viewBox="0 0 160 70" fill="none">
+                <line x1="28" y1="35" x2="132" y2="35" stroke="#16a34a" stroke-width="8"/>
+                <ellipse cx="20" cy="35" rx="10" ry="5" stroke="#1e3a8a" stroke-width="3.5"/>
+                <ellipse cx="140" cy="35" rx="10" ry="5" stroke="#1e3a8a" stroke-width="3.5"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Pás s oky plochý B-2 2000kg/šíře 60mm/délka L dle výběru</a>
+            <div class="product-prices">
+              <div class="price-main">6,54 € / ks</div>
+              <div class="price-sub">5,41 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-teal">Zvolit variantu</button>
+          </div>
+        </div>
+
+        <!-- Produkt 3 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="160" height="90" viewBox="0 0 160 90" fill="none">
+                <polygon points="35,45 115,32 122,62 32,68" fill="#64748b"/>
+                <line x1="15" y1="74" x2="148" y2="62" stroke="#1e293b" stroke-width="4"/>
+                <line x1="65" y1="38" x2="108" y2="14" stroke="#334155" stroke-width="5"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Zvedák lanový CSZ8 nosnost 800 kg a délkou lana dle výběru</a>
+            <div class="product-prices">
+              <div class="price-main">264,87 € / ks</div>
+              <div class="price-sub">218,90 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-teal">Zvolit variantu</button>
+          </div>
+        </div>
+
+        <!-- Produkt 4 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="56" cy="36" r="12" fill="#dc2626"/>
+                <line x1="58" y1="36" x2="84" y2="78" stroke="#dc2626" stroke-width="7"/>
+                <line x1="52" y1="48" x2="52" y2="105" stroke="#94a3b8" stroke-width="3.5" stroke-dasharray="4 2"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Zvedák řehtačkový LRZ750 nosnost 750 kg zdvih 1,5 m</a>
+            <div class="product-prices">
+              <div class="price-main">205,02 € / ks</div>
+              <div class="price-sub">169,44 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+              <span class="qty-val">1</span>
+              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+            <button class="btn-teal" onclick="addToCart(205.02, this)">Přidat do košíku</button>
+          </div>
+        </div>
+
+        <!-- Produkt 5 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="100" height="120" viewBox="0 0 100 120" fill="none">
+                <line x1="50" y1="15" x2="50" y2="95" stroke="#dc2626" stroke-width="5" stroke-dasharray="6 3"/>
+                <circle cx="50" cy="102" r="7" stroke="#dc2626" stroke-width="4"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Řetěz lesnický s C-hákem FOCKSR78 d 7/2 m s jehlou G8 + další délky dle výběru</a>
+            <div class="product-prices">
+              <div class="price-main">31,51 € / ks</div>
+              <div class="price-sub">26,04 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-teal">Zvolit variantu</button>
+          </div>
+        </div>
+
+        <!-- Produkt 6 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="100" height="120" viewBox="0 0 100 120" fill="none">
+                <circle cx="50" cy="34" r="14" stroke="#334155" stroke-width="4" fill="#e2e8f0"/>
+                <line x1="45" y1="48" x2="45" y2="104" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
+                <line x1="55" y1="48" x2="55" y2="104" stroke="#64748b" stroke-width="3" stroke-dasharray="4 2"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Kladkostroj řetězový FSTOPHZ500 nosnost 500 kg zdvih 3 m</a>
+            <div class="product-prices">
+              <div class="price-main">175,37 € / ks</div>
+              <div class="price-sub">144,93 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+              <span class="qty-val">1</span>
+              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+            <button class="btn-teal" onclick="addToCart(175.37, this)">Přidat do košíku</button>
+          </div>
+        </div>
+
+        <!-- Produkt 7 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="140" height="120" viewBox="0 0 140 120" fill="none">
+                <rect x="26" y="55" width="18" height="45" fill="#ea580c"/>
+                <rect x="60" y="45" width="20" height="55" fill="#ea580c"/>
+                <rect x="96" y="35" width="22" height="65" fill="#ea580c"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Zvedák patkový hydraulický CHH5000 nosnost 5000 kg zdvih patky 25-230 mm</a>
+            <div class="product-prices">
+              <div class="price-main">546,95 € / ks</div>
+              <div class="price-sub">452,03 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+              <span class="qty-val">1</span>
+              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+            <button class="btn-teal" onclick="addToCart(546.95, this)">Přidat do košíku</button>
+          </div>
+        </div>
+
+        <!-- Produkt 8 -->
+        <div class="product-card">
+          <div>
+            <div class="product-thumb">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="54" r="36" stroke="#64748b" stroke-width="9"/>
+                <circle cx="62" cy="96" r="8" stroke="#dc2626" stroke-width="4"/>
+              </svg>
+            </div>
+            <a href="#" class="product-title">Ocelové lano s hákem s pojistkou pr. 10 mm/délka lana dle výběru</a>
+            <div class="product-prices">
+              <div class="price-main">22 € / ks</div>
+              <div class="price-sub">18,18 € bez DPH</div>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-teal">Zvolit variantu</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PATIČKA -->
+  <footer id="kontakty">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Sloupec 1 -->
+        <div class="footer-col">
+          <h4>Informace o nás</h4>
+          <ul class="footer-links">
+            <li><a href="#">O nás</a></li>
+            <li><a href="#">Obchodní podmínky</a></li>
+            <li><a href="#">Jak nakupovat</a></li>
+            <li><a href="#">Doprava a platba</a></li>
+            <li><a href="#">Kde nás najdete</a></li>
+            <li><a href="#">GDPR</a></li>
+            <li><a href="#">Mapa webu</a></li>
+          </ul>
+          <div class="logitech-badge">
+            LOGITECH<br>servis s.r.o.
+            <span>VŠE PRO VÁŠ JEŘÁB A MANIPULACI</span>
+          </div>
+        </div>
+
+        <!-- Sloupec 2 -->
+        <div class="footer-col">
+          <h4>Proč s námi spolupracovat?</h4>
+          <ul class="footer-bullets">
+            <li>Máme více jak 20 let zkušeností na trhu</li>
+            <li>Provozujeme kamennou prodejnu</li>
+            <li>Vlastní výroba vázacích a manipulačních prostředků</li>
+            <li>Nabízíme zákaznický servis, revize a prohlídky</li>
+            <li>Zpracujeme Vaší evidenci vázacích prostředků</li>
+            <li>Poradíme Vám a pomůžeme s výběrem</li>
+            <li>Poskytujeme slevy pro registrované a stálé zákazníky</li>
+          </ul>
+        </div>
+
+        <!-- Sloupec 3 -->
+        <div class="footer-col">
+          <h4>Potřebujete poradit?</h4>
+          <div class="advice-card">
+            <svg width="100%" height="95" viewBox="0 0 180 95" fill="none">
+              <rect width="180" height="95" fill="#e2e8f0"/>
+              <rect x="16" y="14" width="90" height="65" fill="#fff" stroke="#94a3b8"/>
+              <path d="M135 28 C122 28, 122 52, 138 52 C150 52, 148 70, 130 70" stroke="#dc2626" stroke-width="6" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="firmy-badge">
+            <span style="color:#f43f5e;font-size:8px;">živéfirmy.cz</span>
+            <span style="font-size:16px;margin:4px 0;color:#fbbf24;">👍 2026</span>
+            <span>SPOLEHLIVÁ FIRMA</span>
+          </div>
+        </div>
+
+        <!-- Sloupec 4 -->
+        <div class="footer-col">
+          <h4>Zákaznický servis</h4>
+          <div class="logo">
+            <div class="logo-title" style="font-size:24px;">
+              ZVEDÁM
+              <span class="logo-cz" style="font-size:13px;">cz</span>
+            </div>
+            <span class="logo-sub" style="color:#cbd5e1;">Vázací a manipulační prostředky po ruce</span>
+          </div>
+
+          <div class="service-person">
+            <div class="avatar-box">VK</div>
+            <div>
+              <div style="font-size:12.5px;">Vlastimil Korčák</div>
+              <a href="tel:+420607849530" class="service-phone">+420 607 849 530</a>
+              <div style="font-size:12px;color:#cbd5e1;">7:00 - 15:30</div>
+            </div>
+          </div>
+
+          <div>
+            <a href="mailto:info@zvedam.cz" class="service-mail">
+              ✉ info@zvedam.cz
+            </a>
+          </div>
+          <a href="#" class="fb-icon">f</a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        Copyright © 2026 zvedam.cz LOGITECH servis s.r.o.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let cartItems = 0;
+    let cartSum = 0;
+
+    function changeQty(btn, delta) {
+      const span = btn.parentElement.querySelector('.qty-val');
+      let current = parseInt(span.textContent, 10) || 1;
+      current = Math.max(1, current + delta);
+      span.textContent = current;
+    }
+
+    function addToCart(price, btn) {
+      const card = btn.closest('.product-card');
+      const qtySpan = card.querySelector('.qty-val');
+      const qty = qtySpan ? parseInt(qtySpan.textContent, 10) : 1;
+
+      cartItems += qty;
+      cartSum += price * qty;
+
+      document.getElementById('cart-count').textContent = cartItems + ' ks';
+      document.getElementById('cart-total').textContent = cartSum.toFixed(2).replace('.', ',') + ' €';
+    }
+  </script>
 </body>
 </html>
