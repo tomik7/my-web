@@ -51,7 +51,7 @@
       padding: 0 16px;
     }
 
-    /* --- 1. SVĚŽÍ TYRKYSOVÁ HORNÍ LIŠTA (#03a2ac) --- */
+    /* --- 1. HORNÍ TYRKYSOVÁ LIŠTA S ČISTÝMI UI PRVKY --- */
     .top-nav-bar {
       background-color: var(--teal);
       color: #ffffff;
@@ -82,7 +82,7 @@
       cursor: pointer;
       padding: 4px 0;
       border-bottom: 2px solid transparent;
-      transition: border-color 0.15s, opacity 0.15s;
+      transition: border-color 0.15s;
     }
 
     .top-nav-links a:hover {
@@ -92,7 +92,7 @@
     .top-nav-right {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
     }
 
     .currency-switch {
@@ -107,7 +107,7 @@
     .currency-switch button {
       background: transparent;
       border: none;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.88);
       font-size: 12.5px;
       font-weight: 700;
       width: 44px;
@@ -123,25 +123,34 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     }
 
-    .top-login-link {
+    .top-login-btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       color: #ffffff;
       font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
-      padding: 4px 10px;
+      padding: 6px 14px;
       border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.14);
-      transition: background 0.15s;
+      background: rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      transition: background 0.15s, border-color 0.15s;
     }
 
-    .top-login-link:hover {
-      background: rgba(255, 255, 255, 0.25);
+    .top-login-btn:hover {
+      background: rgba(0, 0, 0, 0.26);
+      border-color: rgba(255, 255, 255, 0.45);
     }
 
-    /* --- 2. HLAVIČKA S PEVNÝM ROZVRŽENÍM (Žádné poskakování při změně měny) --- */
+    .top-login-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: #ffffff;
+      flex-shrink: 0;
+    }
+
+    /* --- 2. HLAVIČKA WEBU (Pevné rozvržení) --- */
     .site-header {
       background: #ffffff;
       padding: 20px 0;
@@ -395,74 +404,55 @@
       line-height: 1.35;
     }
 
-    /* --- 4. OPRAVENÉ KATEGORIE (Čistě bílé pozadí obrázků + zarovnaná mřížka 2x2 pro tlačítka) --- */
+    /* --- 4. JEDNODUCHÉ A ČISTÉ KATEGORIE (Bez vnitřních rámečků a bez složitých štítků) --- */
     .categories-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 52px;
+      gap: 20px;
+      margin-bottom: 56px;
     }
 
     .cat-box {
       background-color: var(--teal-light);
       border: 1px solid var(--teal-border);
       border-radius: var(--radius-md);
-      padding: 18px 14px 14px;
+      padding: 24px 18px 20px;
+      height: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 14px;
       text-align: center;
       cursor: pointer;
-      transition: box-shadow 0.25s, border-color 0.25s, background-color 0.25s;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.2s;
     }
 
     .cat-box:hover {
-      background-color: #ffffff;
       border-color: var(--teal);
-      box-shadow: 0 0 0 1px var(--teal), 0 0 0 5px rgba(3, 162, 172, 0.16);
+      box-shadow: 0 0 0 1px var(--teal), 0 0 0 5px rgba(3, 162, 172, 0.18);
+      transform: translateY(-2px);
     }
 
-    .cat-box-main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    /* Čistě bílý box pro každý obrázek kategorie, aby nikde nevznikl odlišný čtverec pozadí */
     .cat-box-img {
-      width: 100%;
       height: 120px;
-      background-color: #ffffff;
-      border: 1px solid #e4f0f0;
-      border-radius: var(--radius-sm);
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px;
-      margin-bottom: 12px;
     }
 
     .cat-box-img img {
-      max-height: 98px;
+      max-height: 115px;
       max-width: 100%;
       object-fit: contain;
-      /* Odfiltruje světle šedé/modré pozadí JPEGů do čisté bílé */
-      filter: brightness(1.05) contrast(1.06);
-      mix-blend-mode: multiply;
     }
 
     .cat-box-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 12px;
-      min-height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.25;
+      line-height: 1.3;
       transition: color 0.2s;
     }
 
@@ -470,40 +460,7 @@
       color: var(--teal);
     }
 
-    /* Zarovnaná mřížka 2x2 pro podkategorie – všechna tlačítka mají stejnou velikost */
-    .cat-subtags {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      width: 100%;
-      padding-top: 12px;
-      border-top: 1px solid rgba(3, 162, 172, 0.16);
-    }
-
-    .cat-subtag {
-      background: #ffffff;
-      border: 1px solid var(--teal-border);
-      color: #333333;
-      font-size: 11.5px;
-      font-weight: 600;
-      padding: 6px 6px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 34px;
-      line-height: 1.2;
-      transition: all 0.15s;
-    }
-
-    .cat-subtag:hover {
-      background: var(--teal);
-      border-color: var(--teal);
-      color: #ffffff;
-    }
-
-    /* --- 5. PRODUKTY (ČISTÉ KARTY + VOLBA DÉLKY) --- */
+    /* --- 5. KARTY PRODUKTŮ --- */
     .section-heading {
       font-size: 28px;
       font-weight: 700;
@@ -686,7 +643,6 @@
       box-shadow: none;
     }
 
-    /* Sjednocené plné tyrkysové tlačítko Zobrazit celý sortiment */
     .more-products-wrap {
       text-align: center;
       margin: 34px 0 64px;
@@ -706,16 +662,15 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(3, 162, 172, 0.22);
-      transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      transition: background-color 0.2s, box-shadow 0.2s;
     }
 
     .btn-all-products:hover {
       background-color: var(--teal-dark);
       box-shadow: none;
-      transform: translateY(-1px);
     }
 
-    /* --- 6. PODSTRÁNKY A OPRAVENÝ DETAIL PRODUKTU --- */
+    /* --- 6. PODSTRÁNKY + GALERIE S PŘEPÍNÁNÍM A LIGHTBOXEM --- */
     .subpage-grid {
       display: grid;
       grid-template-columns: 280px 1fr;
@@ -747,6 +702,7 @@
     .left-menu-link {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
       padding: 12px 14px;
       font-size: 14px;
@@ -754,6 +710,12 @@
       color: #1a1a1a;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
+    }
+
+    .left-menu-link-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .left-menu-link:hover,
@@ -819,7 +781,7 @@
       line-height: 1.25;
     }
 
-    /* Čistý nákupní box v detailu produktu (bez duplicitního obrázku) */
+    /* Galerie detailu produktu (1 hlavní obrázek + šipky + náhledy + lupa) */
     .detail-layout {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
@@ -827,12 +789,191 @@
       align-items: start;
     }
 
-    .detail-gallery-box {
+    .detail-gallery-card {
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 28px;
-      text-align: center;
+      padding: 20px;
       background: #ffffff;
+    }
+
+    .detail-main-stage {
+      position: relative;
+      height: 330px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .detail-main-stage img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+
+    .detail-main-stage:hover img {
+      transform: scale(1.03);
+    }
+
+    .zoom-hint-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #444;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .stage-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      color: var(--amber);
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .stage-nav-btn:hover {
+      background: var(--amber);
+      color: #ffffff;
+    }
+
+    .stage-nav-btn.prev { left: 8px; }
+    .stage-nav-btn.next { right: 8px; }
+
+    .detail-thumbs-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .detail-thumb-item {
+      width: 68px;
+      height: 68px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      padding: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: border-color 0.15s;
+    }
+
+    .detail-thumb-item.active,
+    .detail-thumb-item:hover {
+      border-color: var(--amber);
+    }
+
+    .detail-thumb-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Fullscreen Lightbox Modal */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 26px;
+      background: #ffffff;
+      color: #111;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 22px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .lightbox-stage {
+      position: relative;
+      max-width: 90vw;
+      max-height: 78vh;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-stage img {
+      max-width: 82vw;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    .lightbox-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      color: var(--amber);
+      font-size: 24px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+
+    .lightbox-arrow.prev { left: -23px; }
+    .lightbox-arrow.next { right: -23px; }
+
+    .lightbox-caption {
+      color: #ffffff;
+      margin-top: 14px;
+      font-size: 14.5px;
+      font-weight: 600;
     }
 
     .detail-buy-panel {
@@ -917,20 +1058,21 @@
       cursor: pointer;
     }
 
+    /* Styly pro věrné zobrazení článků z originálu */
     .article-content {
-      font-size: 15.5px;
+      font-size: 15px;
       line-height: 1.65;
       color: var(--text);
     }
 
     .article-content h2 {
-      font-size: 22px;
-      color: var(--brand-blue);
+      font-size: 20px;
+      color: #1a1a1a;
       margin: 24px 0 10px;
     }
 
     .article-content h3 {
-      font-size: 18px;
+      font-size: 17px;
       color: #1a1a1a;
       margin: 18px 0 8px;
     }
@@ -948,7 +1090,23 @@
       margin-bottom: 6px;
     }
 
-    /* --- 7. VYLADĚNÁ PATIČKA --- */
+    .warning-red-box {
+      background: #fdf2f2;
+      border-left: 4px solid #d93025;
+      padding: 16px 20px;
+      margin: 18px 0 22px;
+      font-size: 14.5px;
+      line-height: 1.55;
+    }
+
+    .warning-red-box strong.red-title {
+      color: #c5221f;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    /* --- 7. PATIČKA --- */
     .footer-wrap {
       background-color: var(--brand-blue);
       color: #dedede;
@@ -1077,14 +1235,14 @@
       .hero-banner p { font-size: 15px; }
       .usp-row { grid-template-columns: 1fr; text-align: left; gap: 16px; }
       .usp-item { flex-direction: row; }
-      .categories-grid { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .products-grid, .subcat-tiles-grid, .subpage-grid, .footer-cols { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. HORNÍ LIŠTA V TYRKYSOVÉ BARVĚ (#03a2ac) -->
+  <!-- 1. HORNÍ LIŠTA S ČISTÝM SVG UI PRVKEM PŘIHLÁŠENÍ -->
   <div class="top-nav-bar">
     <div class="container top-nav-inner">
       <ul class="top-nav-links">
@@ -1101,14 +1259,18 @@
           <button id="curr-czk" class="active" onclick="setCurrency('CZK')">CZK</button>
           <button id="curr-eur" onclick="setCurrency('EUR')">EUR</button>
         </div>
-        <a class="top-login-link" onclick="toggleLogin()">
-          <span>👤 Přihlášení</span>
-        </a>
+        <button type="button" class="top-login-btn" onclick="toggleLogin()">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Přihlášení</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- 2. HLAVIČKA WEBU (Pevný grid – při změně CZK/EUR nic neposkakuje) -->
+  <!-- 2. HLAVIČKA WEBU -->
   <header class="site-header">
     <div class="container header-row">
       <a class="logo-link" onclick="showHome()" title="Úvodní stránka">
@@ -1243,7 +1405,7 @@
 
   </main>
 
-  <!-- PATIČKA (Uhlazené detaily při zachování původního rozvržení) -->
+  <!-- PATIČKA -->
   <div class="container">
     <footer class="footer-wrap">
       <div class="footer-cols">
@@ -1311,10 +1473,20 @@
     </footer>
   </div>
 
+  <!-- LIGHTBOX PRO ZVĚTŠENÍ OBRÁZKŮ PŘES CELOU OBRAZOVKU -->
+  <div class="lightbox-overlay" id="lightbox-modal" onclick="if(event.target===this) closeLightbox()">
+    <button type="button" class="lightbox-close" onclick="closeLightbox()" title="Zavřít (Esc)">✕</button>
+    <div class="lightbox-stage">
+      <button type="button" class="lightbox-arrow prev" id="lb-prev" onclick="stepGallery(-1)">‹</button>
+      <img id="lb-image" src="" alt="">
+      <button type="button" class="lightbox-arrow next" id="lb-next" onclick="stepGallery(1)">›</button>
+    </div>
+    <div class="lightbox-caption" id="lb-caption"></div>
+  </div>
+
   <div id="toast">Zboží bylo přidáno do košíku</div>
 
   <script>
-    // 8 Kategorií (každá má na úvodní kartě zarovnanou mřížku 2x2 tlačítek podkategorií)
     const CATEGORIES = [
       {
         slug: "retezove",
@@ -1323,10 +1495,11 @@
         icon: "https://www.zvedam.cz/fotky27324/category/menu/menu_18_0_1_H2---SL.jpg",
         desc: "V této kategorii naleznete řetězové vázací prostředky pevnostní třídy G8, G10 (CARTEC, BASIC line) i nerezové řetězy INOX GK6 dle normy ČSN EN 818-4. Všechny úvazky kompletujeme ve vlastní výrobě přesně v délkách a kombinacích háků či ok dle vašeho požadavku.",
         subcats: [
-          { name: "Řetězy CARTEC G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_62_2_H2---SL.jpg" },
-          { name: "Řetězy CARTEC G10", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_63_2_HX2---SL.jpg" },
-          { name: "Řetězy BASIC line G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_152_2_zawiesie-łańcuchowe-2-cięgnowe-kl-8.png" },
-          { name: "NEREZ řetězy INOX", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_136_2_HI2---TYPOHNE.jpg" }
+          { name: "Vázací řetězy CARTEC G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_62_2_H2---SL.jpg" },
+          { name: "Vázací řetězy CARTEC G10", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_63_2_HX2---SL.jpg" },
+          { name: "Vázací řetězy BASIC line G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_152_2_zawiesie-łańcuchowe-2-cięgnowe-kl-8.png" },
+          { name: "Kotevní řetězy s ráčnou G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_88_2_ZRSVKH--SL.jpg" },
+          { name: "NEREZ řetězy INOX GK6", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_136_2_HI2---TYPOHNE.jpg" }
         ]
       },
       {
@@ -1337,7 +1510,8 @@
         desc: "V této kategorii Vám nabízíme textilní ploché PES zvedací pásy s oky dle EN 1492-1 a nekonečné kruhové smyčky dle EN 1492-2. Produkty jsou seřazeny od nejnižší nosnosti po nejvyšší. V případě, že požadujete jinou délku, nosnost nebo atypické provedení, nás prosím kontaktujte.",
         subcats: [
           { name: "Pásy s oky ploché", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_76_2_pasowe.jpg" },
-          { name: "Smyčky nekonečné", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_77_2_Beznazwy-1.jpg" },
+          { name: "Smyčky kruhové nekonečné", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_77_2_Beznazwy-1.jpg" },
+          { name: "Pásy kotevní upínací", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_84_2_B150---SR4.jpg" },
           { name: "Textilní závěsy s háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_109_2_RSG2_SLTyp4.jpg" },
           { name: "Lana tažná s oky", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_99_2_AS.jpg" },
           { name: "Pásy jednorázové", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_132_2_EWHB.jpg" }
@@ -1350,9 +1524,9 @@
         icon: "https://www.zvedam.cz/fotky27324/fotos/gen320/gen__vyr_1054_IMG_0925.jpeg",
         desc: "Kompletní sortiment pro bezpečné zajištění a kotvení nákladu při přepravě: upínací pásy s ráčnou (1-dílné i 2-dílné), kotevní řetězy s ráčnou G8, ráčnové napínáky, napínací žabky, ochranné rohy a protiskluzové rohože.",
         subcats: [
-          { name: "Pásy kotevní upínací", img: "https://www.zvedam.cz/fotky27324/category/list/list_19_84_2_B150---SR4.jpg" },
-          { name: "Kotevní řetězy G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_88_2_ZRSVKH--SL.jpg" },
-          { name: "Napínáky a žabky", img: "https://www.zvedam.cz/fotky27324/fotos/gen320/gen__vyr_1054_IMG_0925.jpeg" },
+          { name: "Pásy 2-dílné s ráčnou a háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_84_85_3_B275---SP10.jpg" },
+          { name: "Pásy 1-dílné s ráčnou", img: "https://www.zvedam.cz/fotky27324/category/list/list_84_86_3_B135---SR2.jpg" },
+          { name: "Kotevní řetězy s ráčnou G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_18_88_2_ZRSVKH--SL.jpg" },
           { name: "Ochrany pásů a rohy", img: "https://www.zvedam.cz/fotky27324/category/list/list_84_87_3_06000014.jpg" }
         ]
       },
@@ -1363,11 +1537,11 @@
         icon: "https://www.zvedam.cz/fotky27324/category/menu/menu_3_0_1_zawiesie-linowe-2-cięgnowe.jpg",
         desc: "Ocelová vázací lana lisovaná dle ČSN EN 13414-1 v provedení oko-oko, oko-hák i vícepramenné závěsy (2-závěsy a 4-závěsy), navijáková lana s hákem, ocelová lana v metráži a lanové příslušenství (svorky, očnice).",
         subcats: [
-          { name: "Lanový 1-závěs oko", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_55_2_zawiesie-linowe-pętla---pętla-F.png" },
-          { name: "Lanový 1-závěs hák", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_56_2_p_180_12.jpg" },
-          { name: "Lanový 2-závěs háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_57_2_zawiesie-linowe-2-cięgnowe.jpg" },
-          { name: "Lanový 4-závěs háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_58_2_zawiesie-linowe-4-cięgnowe.jpg" },
-          { name: "Lana navijáková", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_98_2_p_2140_1.jpg" },
+          { name: "Lanový 1-závěs oko-oko", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_55_2_zawiesie-linowe-pętla---pętla-F.png" },
+          { name: "Lanový 1-závěs s hákem", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_56_2_p_180_12.jpg" },
+          { name: "Lanový 2-závěs s háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_57_2_zawiesie-linowe-2-cięgnowe.jpg" },
+          { name: "Lanový 4-závěs s háky", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_58_2_zawiesie-linowe-4-cięgnowe.jpg" },
+          { name: "Lana navijáková s hákem", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_98_2_p_2140_1.jpg" },
           { name: "Lana ocelová metráž", img: "https://www.zvedam.cz/fotky27324/category/list/list_3_166_2_lano-svitek.png" }
         ]
       },
@@ -1393,11 +1567,11 @@
         icon: "https://www.zvedam.cz/fotky27324/category/menu/menu_16_0_1_CBG----rot.jpg",
         desc: "Manipulační prostředky pro dílny, sklady i stavby: vertikální a horizontální svěrky na plechy, svěrky na betonové skruže, kleště na kolejnice, permanentní břemenové magnety, paletové vidle, jeřábové váhy a nosiče sudů.",
         subcats: [
-          { name: "Svěrky a kleště", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_141_2_CBG.png" },
-          { name: "Magnety břemenové", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_102_2_CPLM.jpg" },
+          { name: "Svěrky/kleště", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_141_2_CBG.png" },
+          { name: "Magnety zvedací permanentní", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_102_2_CPLM.jpg" },
           { name: "Vidle paletové", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_53_2_CLG.jpg" },
-          { name: "Váhy jeřábové", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_100_2_CDKW----rot.jpg" },
-          { name: "Závěsy na VZV", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_133_2_CSHD.png" },
+          { name: "Váhy jeřábové závěsné", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_100_2_CDKW----rot.jpg" },
+          { name: "Závěsy s hákem na VZV", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_133_2_CSHD.png" },
           { name: "Vozík paletový", img: "https://www.zvedam.cz/fotky27324/category/list/list_16_168_2_CHW_.jpg" }
         ]
       },
@@ -1425,10 +1599,10 @@
         subcats: [
           { name: "Řetězy lesnické G8", img: "https://www.zvedam.cz/fotky27324/category/list/list_15_29_2__vyr_312_image--1.webp" },
           { name: "Řetězy lesnické G10", img: "https://www.zvedam.cz/fotky27324/category/list/list_15_47_2__vyr_326_image--6.webp" },
-          { name: "Kladky a klíny", img: "https://www.zvedam.cz/fotky27324/category/list/list_15_28_2__vyr_254_FSSRK1.png" },
-          { name: "Ochranné OOPP", img: "https://www.zvedam.cz/fotky27324/category/menu/menu_8_0_1_1586271583LX5.jpg" },
-          { name: "Plachty a sítě", img: "https://www.zvedam.cz/fotky27324/category/list/list_14_103_2_CCN.jpg" },
-          { name: "Maziva ELASKON", img: "https://www.zvedam.cz/fotky27324/category/list/list_14_208_2__vyr_1084_Elaskon_Hobbock_Seilschmierstoffe_Hobbock.webp" }
+          { name: "Kladky a klíny lesnické", img: "https://www.zvedam.cz/fotky27324/category/list/list_15_28_2__vyr_254_FSSRK1.png" },
+          { name: "Ochranné prostředky/OOPP", img: "https://www.zvedam.cz/fotky27324/category/menu/menu_8_0_1_1586271583LX5.jpg" },
+          { name: "Plachty a sítě ochranné", img: "https://www.zvedam.cz/fotky27324/category/list/list_14_103_2_CCN.jpg" },
+          { name: "Maziva na lana ELASKON", img: "https://www.zvedam.cz/fotky27324/category/list/list_14_208_2__vyr_1084_Elaskon_Hobbock_Seilschmierstoffe_Hobbock.webp" }
         ]
       }
     ];
@@ -1476,29 +1650,29 @@
       { id: 85, cat: "textilni", title: "Smyčka kruhová RS 4000kg/délka L1 dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_85BRS---grey.jpg", schemaImg: "/fotky27324/fotos/_vyrp11_85smycky-delka-L1.jpg", pdf: "/fotky27324/fotov/_ps_85Tabulka-nosnosti---kruhove-smycky-typ-BRS.pdf", czkVat: 249, czkNoVat: 206, unit: "ks", varKey: "len" },
       { id: 101, cat: "textilni", title: "Pás s oky plochý B-2 2000kg/šíře 60mm/délka L dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_101Screenshot_2016-03-30-19-21-23-1.png", schemaImg: "/fotky27324/fotos/_vyrp12_101Pasy-delka-L.jpg", pdf: "/fotky27324/fotov/_ps_101Tabulka-nosnosti---zvedaci-pasy-typ-BSB.pdf", czkVat: 157, czkNoVat: 130, unit: "ks", varKey: "len" },
       { id: 390, cat: "zvedaci", title: "Zvedák řehtačkový LRZ750 nosnost 750 kg zdvih 1,5 m", img: "/fotky27324/fotos/gen320/gen__vyr_390_LRZ.png", schemaImg: "/fotky27324/fotos/27324_390__vyrp11_226LRZ----PIKTO.jpg", czkVat: 4928, czkNoVat: 4073, unit: "ks", varKey: null },
-      { id: 312, cat: "lesnicke", title: "Řetěz lesnický s C-hákem FOCKSR78 d 7/2 m s jehlou G8 + další délky dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_312_image--1.webp", czkVat: 757, czkNoVat: 626, unit: "ks", varKey: "len" },
+      { id: 312, cat: "lesnicke", title: "Řetěz lesnický s C-hákem FOCKSR78 d 7/2 m s jehlou G8 + další délky dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_312_image--1.webp", schemaImg: "/fotky27324/fotos/_vyrp12_1154Gteklasse8.webp", czkVat: 757, czkNoVat: 626, unit: "ks", varKey: "len" },
       { id: 398, cat: "zvedaci", title: "Kladkostroj řetězový FSTOPHZ500 nosnost 500 kg zdvih 3 m", img: "/fotky27324/fotos/gen320/gen__vyr_398_FSTOPHZ.png", schemaImg: "/fotky27324/fotos/_vyrp11_39827324_398__vyrp11_397FSTOPHZ----PIKTO.webp", czkVat: 4216, czkNoVat: 3484, unit: "ks", varKey: null },
-      { id: 434, cat: "lana", title: "Ocelové lano s hákem s pojistkou pr. 10 mm/délka lana dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_434_27324_438__vyr_432p_2140_1.png", czkVat: 529, czkNoVat: 437, unit: "ks", varKey: "len" },
+      { id: 434, cat: "lana", title: "Ocelové lano s hákem s pojistkou pr. 10 mm/délka lana dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_434_27324_438__vyr_432p_2140_1.png", schemaImg: "/fotky27324/fotos/_vyrp11_43427324_438__vyrp11_432BILD0297_m.webp", czkVat: 529, czkNoVat: 437, unit: "ks", varKey: "len" },
 
       { id: 162, cat: "zvedaci", title: "Zvedák lanový CSZ8 nosnost 800 kg a délkou lana dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_162_CSZBODY.png", schemaImg: "/fotky27324/fotos/_vyrp11_162CSZ----PIKTO.jpg", czkVat: 6367, czkNoVat: 5262, unit: "ks", varKey: "len" },
       { id: 413, cat: "zvedaci", title: "Zvedák patkový hydraulický CHH5000 nosnost 5000 kg zdvih patky 25-230 mm", img: "/fotky27324/fotos/gen320/gen__vyr_413CHH.jpg", schemaImg: "/fotky27324/fotos/_vyrp11_413CHH----PIKTO.jpg", czkVat: 13148, czkNoVat: 10866, unit: "ks", varKey: null },
       { id: 520, cat: "textilni", title: "Lano tažné s oky typ AS350006 35000 daN/6 m", img: "/fotky27324/fotos/gen320/gen_27324_520__vyr_519AS.jpg", czkVat: 3536, czkNoVat: 2922, unit: "ks", varKey: null },
       { id: 539, cat: "lana", title: "Lanový 2-závěs s háky s pojistkou pr. 10 mm/délka L dle výběru - 1500/1050 kg", img: "/fotky27324/fotos/gen320/gen__vyr_539_zawiesie-linowe-2-cięgnowe.jpg", schemaImg: "/fotky27324/fotos/_vyrp11_539zawiesie-linowe-2-cięgnowe.jpg", czkVat: 713, czkNoVat: 589, unit: "ks", varKey: "len" },
-      { id: 706, cat: "textilni", title: "Textilní 4-závěs s háky s pojistkou/délka smyčky L1 dle výběru - 2100/1500 kg", img: "/fotky27324/fotos/gen320/gen__vyr_706__vyr_707_4-zaves-RS.png", czkVat: 4621, czkNoVat: 3819, unit: "ks", varKey: "len" },
+      { id: 706, cat: "textilni", title: "Textilní 4-závěs s háky s pojistkou/délka smyčky L1 dle výběru - 2100/1500 kg", img: "/fotky27324/fotos/gen320/gen__vyr_706__vyr_707_4-zaves-RS.png", schemaImg: "/fotky27324/fotos/_vyrp11_706_vyrp11_708_vyrp11_82smycky-delka-L1.jpg", czkVat: 4621, czkNoVat: 3819, unit: "ks", varKey: "len" },
       { id: 817, cat: "manipulacni", title: "Paletové vidle EZS-15.12 nosnost 1500 kg samovyvažovací", img: "/fotky27324/fotos/gen320/gen__vyr_817_ProductDetail--2.jpg", pdf: "/fotky27324/fotov/27324_817_27324_816_27324_815_27324_814_27324_813__ps_812EURO-zavesy-2017.pdf", czkVat: 28798, czkNoVat: 23800, unit: "ks", varKey: null },
       { id: 921, cat: "manipulacni", title: "Svěrky na skruže SET s řetězem MBSRG1501302SL - 1500kg/0-130mm/1,7m", img: "/fotky27324/fotos/gen320/gen__vyr_921_MBSRG_SL.jpg", schemaImg: "/fotky27324/fotos/_vyrp12_921MBSRG_-PIKTO.jpg", czkVat: 12729, czkNoVat: 10520, unit: "ks", varKey: null },
       { id: 1532, cat: "vazaci-body", title: "Oko navařovací otočné ASWHAX (nosnost dle výběru) G10", img: "/fotky27324/fotos/gen320/gen__vyr_982_ASWHAX.png", schemaImg: "/fotky27324/fotos/_vyrp11_982ASWHAXdia.png", czkVat: 2477, czkNoVat: 2047, unit: "ks", varKey: "ton" },
-      { id: 993, cat: "zvedaci", title: "Naviják lanový ruční RRZ nosnost 545kg délka lana 10m", img: "/fotky27324/fotos/gen320/gen__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 2055, czkNoVat: 1698, unit: "ks", varKey: null },
-      { id: 1054, cat: "upinaci", title: "Napínák ráčnový RN 2500N", img: "/fotky27324/fotos/gen320/gen__vyr_1054_IMG_0925.jpeg", czkVat: 3591, czkNoVat: 2968, unit: "ks", varKey: null },
-      { id: 1069, cat: "zvedaci", title: "Zvedák lanový elektrický HXS-800YT-32M nosnost 400/800kg", img: "/fotky27324/fotos/gen320/gen__vyr_1069_HXS-800YT.jpg", czkVat: 18604, czkNoVat: 15375, unit: "ks", varKey: null },
+      { id: 993, cat: "zvedaci", title: "Naviják lanový ruční RRZ nosnost 545kg délka lana 10m", img: "/fotky27324/fotos/gen320/gen__vyr_993_wciągarka-linowa-RRZ.png", schemaImg: "/fotky27324/fotos/_vyrp12_993wciągarka-linowa-RRZ.jpg", czkVat: 2055, czkNoVat: 1698, unit: "ks", varKey: null },
+      { id: 1054, cat: "upinaci", title: "Napínák ráčnový RN 2500N", img: "/fotky27324/fotos/gen320/gen__vyr_1054_IMG_0925.jpeg", schemaImg: "/fotky27324/fotos/_vyrp11_1054IMG_0928.jpeg", czkVat: 3591, czkNoVat: 2968, unit: "ks", varKey: null },
+      { id: 1069, cat: "zvedaci", title: "Zvedák lanový elektrický HXS-800YT-32M nosnost 400/800kg", img: "/fotky27324/fotos/gen320/gen__vyr_1069_HXS-800YT.jpg", schemaImg: "/fotky27324/fotos/_vyrp11_1069galeriebild_7.jpg", czkVat: 18604, czkNoVat: 15375, unit: "ks", varKey: null },
       { id: 1080, cat: "lana", title: "Lano ocelové 6x37-FC 1770/N/mm2 pozink/průměr lana dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_1080_Lina-6-x-37-FC.jpg", czkVat: 65, czkNoVat: 54, unit: "m", varKey: "diam" },
-      { id: 1090, cat: "upinaci", title: "Žabka napínací pro průměr 4-14mm do 7500N", img: "/fotky27324/fotos/gen320/gen_27324_1090__vyr_1089_zabka.png", czkVat: 3582, czkNoVat: 2960, unit: "ks", varKey: null },
+      { id: 1090, cat: "upinaci", title: "Žabka napínací pro průměr 4-14mm do 7500N", img: "/fotky27324/fotos/gen320/gen_27324_1090__vyr_1089_zabka.png", schemaImg: "/fotky27324/fotos/27324_1090__vyrp11_1089zabka2.png", czkVat: 3582, czkNoVat: 2960, unit: "ks", varKey: null },
       { id: 1091, cat: "zvedaci", title: "Závěsné zařízení s okem ZZ-CHO 010 s nosností 1000 kg a rozsahem 75-230 mm", img: "/fotky27324/fotos/gen320/gen__vyr_1091_ZZ-CHO.jpg", schemaImg: "/fotky27324/fotos/_vyrp11_1091ZZ-CHO1.jpg", czkVat: 1882, czkNoVat: 1555, unit: "ks", varKey: null },
-      { id: 1106, cat: "manipulacni", title: "Svěrka na plech výkyvná IPU10 500kg 0-16mm", img: "/fotky27324/fotos/gen320/gen__vyr_1106_Sverka-IPU10.webp", czkVat: 11925, czkNoVat: 9855, unit: "ks", varKey: null },
-      { id: 1119, cat: "manipulacni", title: "Magnet permanentní břemenový REVO150 nosnost 150/65 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1119_magnet_perma_fotka.webp", pdf: "/fotky27324/fotov/_ps_1119REVOLIFT_11_kapacitni-tabulka-Revolift_CZ_pdf_638343475070000000.pdf", czkVat: 13263, czkNoVat: 10961, unit: "ks", varKey: null },
-      { id: 1154, cat: "retezove", title: "Redukce řetěz oko + hák otočný d 6/0,35 m - 1 120 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1154_H1_SLTyp10R.webp", czkVat: 1016, czkNoVat: 840, unit: "ks", varKey: null },
-      { id: 1523, cat: "manipulacni", title: "Nosič sudů vertikální NSV 500/600 nosnost 500kg", img: "/fotky27324/fotos/gen320/gen__vyr_1523_NSV-1.webp", czkVat: 9255, czkNoVat: 7649, unit: "ks", varKey: null },
-      { id: 154, cat: "upinaci", title: "Pás upínací s ráčnou a háky TP2-50 - 5000 daN š. 50 mm/délka L dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_154B250---SP5-1.jpg", czkVat: 350, czkNoVat: 289, unit: "ks", varKey: "len" },
+      { id: 1106, cat: "manipulacni", title: "Svěrka na plech výkyvná IPU10 500kg 0-16mm", img: "/fotky27324/fotos/gen320/gen__vyr_1106_Sverka-IPU10.webp", schemaImg: "/fotky27324/fotos/_vyrp11_1106Sverka-IPU10-1--1.webp", czkVat: 11925, czkNoVat: 9855, unit: "ks", varKey: null },
+      { id: 1119, cat: "manipulacni", title: "Magnet permanentní břemenový REVO150 nosnost 150/65 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1119_magnet_perma_fotka.webp", schemaImg: "/fotky27324/fotos/_vyrp11_1119REVOLIFT_9_revolift_jpg_638342672220000000.webp", pdf: "/fotky27324/fotov/_ps_1119REVOLIFT_11_kapacitni-tabulka-Revolift_CZ_pdf_638343475070000000.pdf", czkVat: 13263, czkNoVat: 10961, unit: "ks", varKey: null },
+      { id: 1154, cat: "retezove", title: "Redukce řetěz oko + hák otočný d 6/0,35 m - 1 120 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1154_H1_SLTyp10R.webp", schemaImg: "/fotky27324/fotos/_vyrp11_1154Gteklasse8.webp", czkVat: 1016, czkNoVat: 840, unit: "ks", varKey: null },
+      { id: 1523, cat: "manipulacni", title: "Nosič sudů vertikální NSV 500/600 nosnost 500kg", img: "/fotky27324/fotos/gen320/gen__vyr_1523_NSV-1.webp", schemaImg: "/fotky27324/fotos/_vyrp11_1523nsv1.webp", czkVat: 9255, czkNoVat: 7649, unit: "ks", varKey: null },
+      { id: 154, cat: "upinaci", title: "Pás upínací s ráčnou a háky TP2-50 - 5000 daN š. 50 mm/délka L dle výběru", img: "/fotky27324/fotos/gen320/gen__vyr_154B250---SP5-1.jpg", schemaImg: "/fotky27324/fotos/_vyrp12_154Ratsche-50mm.jpg", czkVat: 350, czkNoVat: 289, unit: "ks", varKey: "len" },
       { id: 994, cat: "zvedaci", title: "Naviják lanový ruční RRZ nosnost 825kg délka lana 10m", img: "/fotky27324/fotos/gen320/gen_27324_994__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 2946, czkNoVat: 2435, unit: "ks", varKey: null },
       { id: 995, cat: "zvedaci", title: "Naviják lanový ruční RRZ nosnost 1200kg délka lana 10m", img: "/fotky27324/fotos/gen320/gen_27324_995_27324_994__vyr_993_wciągarka-linowa-RRZ.png", czkVat: 3842, czkNoVat: 3175, unit: "ks", varKey: null },
       { id: 1074, cat: "zvedaci", title: "Kladkostroj řetězový elektrický GPM2501N1Ph nosnost 125kg/3M", img: "/fotky27324/fotos/gen320/gen__vyr_1074_GP_.jpg", schemaImg: "/fotky27324/fotos/_vyrp13_1074Rozmery-GP.png", czkVat: 47755, czkNoVat: 39467, unit: "ks", varKey: "lift" },
@@ -1510,7 +1684,7 @@
       { id: 1274, cat: "retezove", title: "Řetězový 2-závěs s háky slévárenskými CYF08 d 8/délka L dle výběru - 2800/2000 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1230_2-zaves_sleva_vidlice.webp", czkVat: 3261, czkNoVat: 2695, unit: "ks", varKey: "len" },
       { id: 1275, cat: "retezove", title: "Řetězový 2-závěs s háky bezpečnostními CSC8 d 8/délka L dle výběru - 2800/2000 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1231_2zaves_vidlice_bezpecnostni_pojistka.webp", czkVat: 3907, czkNoVat: 3229, unit: "ks", varKey: "len" },
       { id: 1276, cat: "retezove", title: "Řetězový 2-závěs s oky A16 d 8/délka L dle výběru - 2800/2000 kg", img: "/fotky27324/fotos/gen320/gen__vyr_1232_2-zaves_oka.webp", czkVat: 2309, czkNoVat: 1908, unit: "ks", varKey: "len" },
-      { id: 1539, cat: "zvedaci", title: "Kladkostroj řetězový AKU 18V DC DBH.250 nosnost 250 kg zdvih 10 m", img: "/fotky27324/fotos/gen320/gen__vyr_1539_CZ-0-DBH-250-10--DELTA-Battery-chain-hoist---18V-DC---0-25-ton---10-meter-hoisting-height.webp", pdf: "/fotky27324/fotov/_ps_1539A9---2025---DELTA-Battery-chain-hoist--CZ-0-DBH---EN.pdf", czkVat: 43705, czkNoVat: 36120, unit: "ks", varKey: null },
+      { id: 1539, cat: "zvedaci", title: "Kladkostroj řetězový AKU 18V DC DBH.250 nosnost 250 kg zdvih 10 m", img: "/fotky27324/fotos/gen320/gen__vyr_1539_CZ-0-DBH-250-10--DELTA-Battery-chain-hoist---18V-DC---0-25-ton---10-meter-hoisting-height.webp", schemaImg: "/fotky27324/fotos/_vyrp11_1539Kufr_2.webp", pdf: "/fotky27324/fotov/_ps_1539A9---2025---DELTA-Battery-chain-hoist--CZ-0-DBH---EN.pdf", czkVat: 43705, czkNoVat: 36120, unit: "ks", varKey: null },
       { id: 1541, cat: "zvedaci", title: "Kladkostroj řetězový SG AL provedení nosnost 250 kg (výška zdvihu dle výběru)", img: "/fotky27324/fotos/gen320/gen__vyr_1541_SG-0-3600253--DELTA-ALUM-Manual-chain-hoist-360-0-25-ton-with-3-meter-hoisting-height.webp", czkVat: 5372, czkNoVat: 4440, unit: "ks", varKey: "lift" },
       { id: 1543, cat: "zvedaci", title: "Kladkostroj řetězový DSS NEREZ provedení nosnost 500 kg (výška zdvihu dle výběru)", img: "/fotky27324/fotos/gen320/gen__vyr_1543_DSS-0-06600503--DELTA-INOX-Stainless-steel-manual-chain-hoist-with-stainless-loadchain-and-handchain-0-5-ton-with-3-meter-hoisting-height.webp", czkVat: 57324, czkNoVat: 47375, unit: "ks", varKey: "lift" },
       { id: 1556, cat: "zvedaci", title: "Zvedák řehtačkový DC AL provedení nosnost 250 kg (výška zdvihu dle výběru)", img: "/fotky27324/fotos/gen320/gen__vyr_1556_DC-0-0780251-5--DELTA-ALUM-Lever-hoist-0-25-ton-with-1-5-meter-hoisting-height.webp", czkVat: 3499, czkNoVat: 2892, unit: "ks", varKey: "lift" },
@@ -1526,6 +1700,10 @@
     let selectedVar = {};
     let currentRoute = { view: 'home' };
     let cart = [];
+
+    // Stav galerie v detailu produktu a v Lightboxu
+    let currentGalleryImages = [];
+    let currentGalleryIndex = 0;
 
     function formatPrice(czk) {
       if (currency === 'CZK') {
@@ -1543,18 +1721,14 @@
       window._t = setTimeout(() => el.classList.remove('show'), 2500);
     }
 
+    // 8 čistých, jednoduchých dlaždic kategorií na úvodní straně (bez vnitřních rámečků a bez složitých podtlačítek)
     function renderHomeCategories() {
       document.getElementById('home-categories').innerHTML = CATEGORIES.map(c => `
         <div class="cat-box" onclick="showCategory('${c.slug}')">
-          <div class="cat-box-main">
-            <div class="cat-box-img">
-              <img src="${c.img}" alt="${c.title}">
-            </div>
-            <h3 class="cat-box-title">${c.title}</h3>
+          <div class="cat-box-img">
+            <img src="${c.img}" alt="${c.title}">
           </div>
-          <div class="cat-subtags">
-            ${c.subcats.slice(0, 4).map(sc => `<span class="cat-subtag" onclick="event.stopPropagation(); showCategory('${c.slug}', '${sc.name}')">${sc.name}</span>`).join('')}
-          </div>
+          <h3 class="cat-box-title">${c.title}</h3>
         </div>
       `).join('');
     }
@@ -1659,8 +1833,11 @@
       document.getElementById('sidebar-menu').innerHTML = CATEGORIES.map(c => `
         <li>
           <a class="left-menu-link ${c.slug === activeSlug ? 'active' : ''}" onclick="showCategory('${c.slug}')">
-            <img src="${c.icon}" alt="">
-            <span>${c.title}</span>
+            <span class="left-menu-link-left">
+              <img src="${c.icon}" alt="">
+              <span>${c.title}</span>
+            </span>
+            <span style="color:#888; font-size:12px;">⌄</span>
           </a>
         </li>
       `).join('');
@@ -1672,7 +1849,7 @@
       document.getElementById('view-subpage').style.display = 'none';
       renderHomeCategories();
       renderHomeProducts();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
 
     function showAllProducts(sortBy = 'default') {
@@ -1699,7 +1876,7 @@
           ${list.map(p => renderProductCard(p)).join('')}
         </div>
       `;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
 
     function showCategory(slug, subcatName = null, sortBy = 'default') {
@@ -1749,11 +1926,11 @@
           ${list.map(p => renderProductCard(p)).join('')}
         </div>
       `;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
 
-    // OPRAVENÝ DETAIL PRODUKTU: vlevo fotka + nákres, vpravo rovnou volba metrů a tlačítko Přidat do košíku (bez druhého obrázku)
-    function showProductDetail(prodId) {
+    // DETAIL PRODUKTU: Jedna hlavní fotka s přepínáním (miniatury + šipky) + Lightbox na celou obrazovku + automatický scroll nahoru
+    function showProductDetail(prodId, keepScroll = false) {
       const p = PRODUCTS.find(x => x.id === prodId) || PRODUCTS[0];
       const cat = CATEGORIES.find(c => c.slug === p.cat) || CATEGORIES[0];
       currentRoute = { view: 'product', prodId: p.id };
@@ -1761,6 +1938,18 @@
       document.getElementById('view-home').style.display = 'none';
       document.getElementById('view-subpage').style.display = 'block';
       renderSidebarMenu(cat.slug);
+
+      // Sestavení seznamu obrázků produktu (hlavní fotka + případný technický nákres)
+      currentGalleryImages = [
+        { url: 'https://www.zvedam.cz' + p.img, caption: p.title + ' – Produktová fotografie' }
+      ];
+      if (p.schemaImg) {
+        currentGalleryImages.push({
+          url: 'https://www.zvedam.cz' + p.schemaImg,
+          caption: p.title + ' – Technický nákres a rozměry'
+        });
+      }
+      if (!keepScroll) currentGalleryIndex = 0;
 
       const idx = selectedVar[p.id] || 0;
       const group = p.varKey ? VARIANTS[p.varKey] : null;
@@ -1770,12 +1959,27 @@
       const vatPrice = Math.round(p.czkVat * mult);
       const noVatPrice = Math.round(p.czkNoVat * mult);
 
-      const schemaHtml = p.schemaImg ? `
-        <div style="margin-top:16px; border:1px solid var(--border); border-radius:var(--radius-md); padding:14px; text-align:center; background:#fff;">
-          <div style="font-size:12px; color:#6b6b6b; margin-bottom:8px;">Technický nákres / rozměry:</div>
-          <img src="https://www.zvedam.cz${p.schemaImg}" alt="Technické schéma" style="max-width:100%; max-height:190px; object-fit:contain;">
+      const hasMulti = currentGalleryImages.length > 1;
+
+      const galleryHtml = `
+        <div class="detail-gallery-card">
+          <div class="detail-main-stage" onclick="openLightbox()">
+            <span class="zoom-hint-btn">🔍 Kliknutím zvětšíte</span>
+            ${hasMulti ? `<button type="button" class="stage-nav-btn prev" onclick="event.stopPropagation(); stepGallery(-1)" title="Předchozí obrázek">‹</button>` : ''}
+            <img id="detail-main-img" src="${currentGalleryImages[currentGalleryIndex].url}" alt="${p.title}">
+            ${hasMulti ? `<button type="button" class="stage-nav-btn next" onclick="event.stopPropagation(); stepGallery(1)" title="Další obrázek">›</button>` : ''}
+          </div>
+          ${hasMulti ? `
+            <div class="detail-thumbs-row">
+              ${currentGalleryImages.map((g, i) => `
+                <div class="detail-thumb-item ${i === currentGalleryIndex ? 'active' : ''}" onclick="setGalleryIndex(${i})">
+                  <img src="${g.url}" alt="">
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
         </div>
-      ` : '';
+      `;
 
       const variantSectionHtml = group ? `
         <div class="detail-variant-section">
@@ -1808,15 +2012,8 @@
         <h1 style="font-size:28px; margin-bottom:20px;">${p.title}</h1>
 
         <div class="detail-layout">
-          <!-- Levá část: Hlavní fotka produktu + případný technický nákres -->
-          <div>
-            <div class="detail-gallery-box">
-              <img src="https://www.zvedam.cz${p.img}" alt="${p.title}" style="max-width:100%; max-height:320px; object-fit:contain;">
-            </div>
-            ${schemaHtml}
-          </div>
+          ${galleryHtml}
 
-          <!-- Pravá část: Popis, volba metrů a přímé vložení do košíku (žádná duplicitní karta) -->
           <div>
             <p style="margin-bottom:18px; color:#444; font-size:15px;">
               Značkový a atestovaný produkt z kategorie <strong>${cat.title}</strong>. Zboží dodáváme včetně identifikačního štítku a potřebné certifikace dle ČSN EN. V případě požadavku na atypickou délku nebo provedení nás kontaktujte.
@@ -1861,13 +2058,62 @@
           </div>
         </div>
       `;
+
+      if (!keepScroll) {
+        window.scrollTo(0, 0);
+      }
     }
 
     function pickDetailVariant(prodId, optIdx) {
       selectedVar[prodId] = optIdx;
-      showProductDetail(prodId);
+      showProductDetail(prodId, true);
     }
 
+    function setGalleryIndex(idx) {
+      if (!currentGalleryImages.length) return;
+      currentGalleryIndex = (idx + currentGalleryImages.length) % currentGalleryImages.length;
+      const mainImg = document.getElementById('detail-main-img');
+      if (mainImg) mainImg.src = currentGalleryImages[currentGalleryIndex].url;
+
+      document.querySelectorAll('.detail-thumb-item').forEach((el, i) => {
+        el.classList.toggle('active', i === currentGalleryIndex);
+      });
+
+      const lbImg = document.getElementById('lb-image');
+      const lbCap = document.getElementById('lb-caption');
+      if (lbImg && document.getElementById('lightbox-modal').classList.contains('open')) {
+        lbImg.src = currentGalleryImages[currentGalleryIndex].url;
+        lbCap.textContent = `${currentGalleryImages[currentGalleryIndex].caption} (${currentGalleryIndex + 1}/${currentGalleryImages.length})`;
+      }
+    }
+
+    function stepGallery(delta) {
+      setGalleryIndex(currentGalleryIndex + delta);
+    }
+
+    function openLightbox() {
+      if (!currentGalleryImages.length) return;
+      const modal = document.getElementById('lightbox-modal');
+      const hasMulti = currentGalleryImages.length > 1;
+      document.getElementById('lb-prev').style.display = hasMulti ? 'block' : 'none';
+      document.getElementById('lb-next').style.display = hasMulti ? 'block' : 'none';
+      modal.classList.add('open');
+      setGalleryIndex(currentGalleryIndex);
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('lightbox-modal');
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') stepGallery(1);
+      if (e.key === 'ArrowLeft') stepGallery(-1);
+    });
+
+    // KOMPLETNÍ PODSTRÁNKY PODLE SCREENSHOTŮ Z ORIGINÁLNÍHO WEBU ZVEDAM.CZ
     function showArticle(slug) {
       currentRoute = { view: 'article', slug };
       document.getElementById('view-home').style.display = 'none';
@@ -1878,61 +2124,113 @@
         "o-nas": {
           title: "O nás",
           html: `
-            <p>Vítáme Vás na stránkách internetového obchodu <strong>zvedam.cz</strong> provozovaného společností <strong>LOGITECH servis s.r.o.</strong> Na trhu vázacích a manipulačních prostředků působíme již <strong>více než 20 let</strong>.</p>
-            <p>Provozujeme kamennou prodejnu a výrobní dílnu v Českých Budějovicích. Nabízíme značkové a atestované produkty pro firmy, průmyslové podniky, stavebnictví, lesnictví i profesionály.</p>
+            <p>V roce 2023 jsme si připomněli <strong>20 let založení naší firmy LOGITECH servis s.r.o.</strong>, specializující se na prodej, výrobu a servis vázacích a manipulačních prostředků a dalšího souvisejícího zboží.</p>
+            <p>Součástí našich služeb je provádění pravidelných prohlídek a revizí těchto prostředků, včetně zpracování a vedení evidence pro firmy a podnikatele.</p>
+            <p>Velkou část námi nabízeného sortimentu sami vyrábíme s možností zakoupení s ostatním zbožím v naší kamenné prodejně.</p>
+            <p>Dalším naším prodejním místem je tento internetový obchod, kde je cílem Vám nabídnout široký výběr těchto produktů, přehledně řazených do kategorií a podkategorií s on-line možností nákupu.</p>
+            <p>Tento e-shop slouží rovněž jako katalog zboží pro případné zaslání Vaší firemní objednávky.</p>
+            <p>Neustále vyvíjíme úsilí vedoucí k vylepšování tohoto e-shopu, pravidelně aktualizujeme nabídku stávajících produktů a rozšiřujeme ji o další kvalitní výrobky. Ty si u nás můžete rychle, jednoduše a levně nakoupit taktéž v mobilní verzi.</p>
+            <p>Všechny námi nabízené výrobky pocházejí od prověřených výrobců a spolehlivých dodavatelů. V případě zájmu Vám vyrobíme a zkompletujeme i atypická provedení prostředků, dle Vaší konkrétní specifikace a přání.</p>
+            <p>Těšíme se na případnou spolupráci</p>
 
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin:24px 0;">
-              <img src="https://www.zvedam.cz/fotky27324/onas2.jpg" alt="Prodejna a výroba ZVEDÁM.cz" style="width:100%; border-radius:8px; border:1px solid #ebebeb;">
-              <img src="https://www.zvedam.cz/fotky27324/1000003189.jpg" alt="Sklad a sortiment ZVEDÁM.cz" style="width:100%; border-radius:8px; border:1px solid #ebebeb;">
+            <div style="margin:24px 0;">
+              <img src="https://www.zvedam.cz/fotky27324/zvedam-homepage-banner.jpg" alt="Vázací a manipulační prostředky po ruce" style="max-width:520px; width:100%; border-radius:8px; border:1px solid #e2e8f0;">
             </div>
 
-            <h2>Co pro naše zákazníky zajišťujeme:</h2>
-            <ul>
-              <li><strong>Vlastní výroba a kompletace:</strong> Vyrábíme a kompletujeme řetězové, textilní i lanové vázací prostředky přesně dle požadavků zákazníka včetně atypických provedení.</li>
-              <li><strong>Zákaznický servis, revize a prohlídky:</strong> Provádíme pravidelné revizní prohlídky vázacích a manipulačních prostředků včetně kompletního zpracování a vedení Vaší evidence.</li>
-              <li><strong>Odborné poradenství a slevový program:</strong> Rádi Vám poradíme s výběrem správného prostředku a registrovaným či stálým zákazníkům poskytujeme věrnostní slevy.</li>
-            </ul>
+            <h2 style="color:var(--amber);">Nabízíme ZNAČKOVÉ a ATESTOVANÉ zboží</h2>
+            <p>Nabízíme značkové a atestované zboží od evropských výrobců a dodavatelů. Pro výrobu a kompletaci řetězových vázacích prostředků podle EN 818-4 používáme komponenty <strong>CARTEC s pevnostní třídou G8 a G10</strong>. Pro vlastní výrobu lanových vázacích prostředků dle EN 13414-1 jsou používány pouze certifikovaná ocelová lana a jejich komponenty. Textilní vázací prostředky (EN 1492-1 a EN 1492-2) dodáváme pod vlastní značkou <strong>zvedam.cz</strong>. <strong>Součástí každé dodávky vázacího prostředku je ATEST (certifikát, jakostní list nebo osvědčení).</strong></p>
 
-            <div style="margin-top:24px; background:var(--teal-light); border:1px solid var(--teal-border); border-radius:8px; padding:18px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
-              <img src="https://www.zvedam.cz/fotky27324/%C5%A0t%C3%ADtek.png" alt="Revizní štítek ZVEDÁM.cz" style="max-width:220px; border-radius:6px;">
-              <div style="flex:1; min-width:220px;">
-                <h3 style="margin-top:0;">Certifikace a značení vázacích prostředků</h3>
-                <p style="margin-bottom:0;">Každý náš vázací prostředek je opatřen originálním identifikačním a revizním štítkem s vyznačenou nosností, délkou a výrobním číslem dle platných norem ČSN EN.</p>
-              </div>
+            <h2 style="color:var(--amber);">Na dodané zboží poskytujeme SERVIS a REVIZE</h2>
+            <p>K námi nabízeným a dodávaným produktům poskytujeme záruční a pozáruční servis včetně následných oprav a prohlídek (revizí). Po provedené revizi vázacích a manipulačních prostředků zpracujeme a vedeme evidence v elektronické i papírové podobě s nastavením periody prohlídek. Tuto činnost jsme schopni provádět u nás na firmě nebo přímo u Vás v provozu. Součástí této činnosti je vizuální prohlídka (příp. defektoskopie/tahová dle EN 818-6 nebo zátěžová zkouška), kontrola identifikačních štítků a případná výměna vadných komponentů a příslušenství. Tento výsledek je zaznamenán v evidenční kartě vázacího a manipulačního prostředku s následným vygenerováním revizního certifikátu. Pro objednání této služby volejte <strong>+420 607 849 530</strong> nebo <strong>+420 602 889 847</strong>.</p>
+
+            <div style="margin:20px 0;">
+              <img src="https://www.zvedam.cz/fotky27324/onas2.jpg" alt="Odborný servis a revize zvedacího zařízení" style="max-width:340px; width:100%; border-radius:6px;">
             </div>
+
+            <h2 style="color:var(--amber);">Vyrábíme ATYPICKÉ zboží podle požadavků</h2>
+            <p>Mimo standardní produkty uvedené v našem e-shopu jsme schopni vyhotovit jiné nebo atypické provedení dle Vašeho požadavku. Toto se týká například jiných požadovaných délek vázacích prostředků, zvětšených závěsných ok, variant zakončení (háků, ok atd.). Za tímto účelem, nás prosím kontaktujte s Vaší přesnou specifikací, na základě které, Vám bude zpracována cenová nabídka. Pro tento požadavek volejte <strong>+420 607 849 530</strong> nebo <strong>+420 722 036 696</strong> případně nás kontaktujte na <a href="mailto:info@zvedam.cz" style="color:var(--amber); text-decoration:underline;">info@zvedam.cz</a>.</p>
           `
         },
         "doprava-a-platba": {
           title: "Doprava a platba",
           html: `
-            <p>Objednané zboží expedujeme v co nejkratším termínu z našeho skladu v Českých Budějovicích.</p>
-            <div style="display:flex; align-items:center; gap:24px; margin:20px 0; flex-wrap:wrap;">
-              <img src="https://www.zvedam.cz/fotky27324/DPD_logo_redgrad_rgb.png" alt="DPD" style="max-height:60px;">
-              <div>
-                <h3 style="margin:0 0 6px;">Možnosti dopravy</h3>
-                <ul>
-                  <li><strong>Přepravní služba DPD:</strong> Rychlé doručení balíkových zásilek po celé ČR a SR.</li>
-                  <li><strong>Osobní odběr na prodejně:</strong> Zdarma na adrese Topolová 11, 370 08 České Budějovice (Po–Pá 7:00 – 15:30).</li>
-                </ul>
-              </div>
-            </div>
-            <h3>Možnosti platby</h3>
+            <h2>DOPRAVA:</h2>
+            <p style="text-decoration:underline; font-weight:600; margin-bottom:10px;">DPD CLASSIC:</p>
             <ul>
-              <li><strong>Dobírkou:</strong> Platba v hotovosti nebo kartou řidiči při převzetí zásilky.</li>
-              <li><strong>Bankovním převodem:</strong> Platba předem na základě zálohové faktury (nebo na fakturu se splatností pro stálé firemní zákazníky).</li>
-              <li><strong>Hotově při osobním odběru:</strong> Přímo na naší kamenné prodejně.</li>
+              <li>Přeprava balíků do 31,5 kg v rámci České republiky, kdy příjemce je firma či podnikatel</li>
+              <li><strong>Doručení následující pracovní den v rozmezí 8:00 – 18:00 hod.</strong></li>
+              <li>Možnost volby sobotního doručení</li>
+              <li>Nejdelší strana zásilky s max. délkou 150 cm a zároveň součet obvodu a délky zásilky nesmí přesáhnout 300 cm</li>
+              <li>Pojištění zásilky do hodnoty 50 000 Kč v ceně přepravného</li>
+              <li>Inkaso dobírky od příjemce pomocí platební karty nebo v hotovosti</li>
+              <li>Sledování pohybu zásilek na <a href="https://www.dpd.com/cz/cs/" target="_blank" style="color:var(--amber); text-decoration:underline;">https://www.dpd.com/cz/cs/</a></li>
+              <li><strong>Průměrná cena dopravy 199 Kč bez DPH, dobírka 45 Kč bez DPH</strong></li>
+            </ul>
+
+            <div style="margin:18px 0 24px;">
+              <img src="https://www.zvedam.cz/fotky27324/DPD_logo_redgrad_rgb.png" alt="DPD" style="max-height:58px;">
+            </div>
+
+            <p style="text-decoration:underline; font-weight:600; margin-bottom:10px;">GEIS paletová přeprava:</p>
+            <ul>
+              <li>Systém je vhodný pro zásilky o hmotnosti od 50 do 2500 kg</li>
+              <li>Objem jedné zásilky je 10 m³ resp. 5 palet standardních rozměrů</li>
+              <li>Zásilku může tvořit více nákladových kusů (colli)</li>
+              <li>Maximální hmotnost jednoho kusu je 1200 kg</li>
+              <li>Maximální výška jednoho kusu je 220 cm</li>
+            </ul>
+
+            <h2>PLATEBNÍ METODY :</h2>
+            <p>Způsoby platby v následujících variantách:</p>
+            <ul>
+              <li>platba dobírkou</li>
+              <li>platba hotově nebo kartou (při osobním odběru v kamenné prodejně) <strong style="color:#c53939;">PŘIJÍMÁME PLATBY KARTOU</strong></li>
+              <li>platba předem na účet při úhradě daňového dokladu - platí rovněž pro výrobky z kategorií, které se přímo vyrábí dle požadavku zákazníka (odběratele). Do těchto kategorií patří řetězové vázací prostředky G8, G10, kotevní vázací řetězy a lanové vázací prostředky. Objednané zboží bude expedováno po připsání příslušné částky na náš účet.</li>
+              <li>platba převodem na účet při úhradě faktury se splatností. Tato platba je možná po dohodě pro registrované nebo smluvní zákazníky.</li>
+              <li>platba pomocí ThePay</li>
+            </ul>
+
+            <h3>Platební karty</h3>
+            <p>Platba platební kartou je nejpopulárnější platební metodou v prostředí internetu. Nabízí podporu všech nejrozšířenějších karetních asociací včetně široké podpory doprovodných funkcionalit, jako jsou opakované platby či předautorizace.</p>
+            <p>Výhody:</p>
+            <ul>
+              <li>řadí se mezi online platební metody</li>
+              <li>rychlé zpracování transakce s potvrzením o přijetí platby</li>
+              <li>vysoká bezpečnost</li>
+              <li>snadné použití</li>
+              <li>3D Secure.</li>
+            </ul>
+
+            <h3>Bankovní převody</h3>
+            <p>Běžný bankovní převod je stále velmi oblíbenou platební metodou. Díky vlastní ThePay bankovní síti (u vybraných velkých českých bank) vám nabízí běžný bankovní převod s rychlým potvrzením o provedené platbě (běžně do jedné hodiny). Platbu lze zadat kdykoliv, ale zpracována je v úředních hodinách banky.</p>
+            <p>Výhody:</p>
+            <ul>
+              <li>rychlé potvrzení platby,</li>
+              <li>platba z vlastního internetového bankovnictví,</li>
+              <li>oblíbená platební metoda.</li>
             </ul>
           `
         },
         "jak-nakupovat": {
-          title: "Jak nakupovat",
+          title: "Jak nakupovat a reklamace",
           html: `
-            <ol>
-              <li><strong>Výběr zboží:</strong> Vyberte si požadovanou kategorii v přehledu kategorií nebo vyhledejte produkt pomocí vyhledávacího pole.</li>
-              <li><strong>Volba délky nebo varianty:</strong> U vázacích prostředků s volitelnou délkou klikněte přímo na požadovanou délku (např. 1 m, 2 m, 3 m) – cena s DPH i bez DPH se okamžitě přepočítá.</li>
-              <li><strong>Vložení do košíku:</strong> Zvolte počet kusů a klikněte na tlačítko <em>Přidat do košíku</em>.</li>
-              <li><strong>Atypické požadavky:</strong> Pokud v nabídce nenajdete požadovanou délku, nosnost nebo kombinaci komponentů, kontaktujte nás na tel. <strong>+420 607 849 530</strong> nebo e-mailu <strong>info@zvedam.cz</strong> a připravíme Vám individuální nabídku.</li>
-            </ol>
+            <h3>Dostupnost zboží:</h3>
+            <p><strong>skladem</strong> – zboží je skladem na naší prodejně a připraveno k okamžité expedici</p>
+            <p><strong>do 30 dnů</strong> – zboží je na objednávku a není ve skladu dodavatele</p>
+            <p><strong>na objednávku</strong> – jedná se o specifické zboží, které se musí vyrobit</p>
+            <p><strong>na objednávku do 2 dnů</strong> – zboží je na objednávku a musí se vyrobit nebo je skladem u dodavatele (výrobce)</p>
+            <p><strong>neznámá</strong> – zboží je na dotaz</p>
+
+            <h2>REKLAMACE</h2>
+            <p>Při přebírání zásilky věnujte mimořádnou pozornost <strong>vnějšímu obalu zásilky</strong>! Pokud je obal poškozen a došlo tím k mechanickému poškození zboží, jde o zavinění na straně přepravce. Za tyto vady neručíme. V případě jakékoliv nesrovnalosti zásilku reklamujte u dopravce <strong>ihned při převzetí</strong> nebo nejpozději do dvou pracovních dnů po dodání zásilky (pokud nereklamujete ihned při převzetí, schovejte si pro reklamaci u dopravce celý obal včetně výplní).</p>
+            <p>Při nakupování v e-shopu www.zvedam.cz máte právo odstoupit od smlouvy bez uvedení důvodu <strong>do 14 dnů od převzetí zboží</strong>. Zboží musí být vráceno <strong><em>nepoškozené, bez známek opotřebování, pokud možno v původním obalu.</em></strong></p>
+            <p><strong>Reklamace výrobku v záruce</strong> (záruční lhůta je uvedena na obalu zboží) – záruka se vztahuje pouze na výrobní vady. Záruka se nevztahuje na vady vzniklé nesprávným skladováním a používáním.</p>
+
+            <h3>Postup při vrácení zboží nebo reklamaci:</h3>
+            <p>O vrácení nepoužitého zboží nebo o reklamaci nás informujte e-mailem na adrese <strong>info@zvedam.cz</strong></p>
+            <p>Zboží vraťte buď fyzickým dodáním do provozovny prodávajícího na adrese LOGITECH servis s.r.o. Topolová 1687/11, 370 08 České Budějovice nebo odesláním zboží na stejnou adresu.<br>
+            UPOZORNĚNÍ: zboží odeslané zpět na dobírku nebude prodávajícím převzato a naopak bude kupujícímu vráceno na jeho náklady zpět.<br>
+            Podle zákona musí být reklamace vyřízena do 30 dnů od uplatnění. Snažíme se však, abychom tuto lhůtu co nejvíce zkrátili.</p>
           `
         },
         "obchodni-podminky": {
@@ -1940,41 +2238,98 @@
           html: `
             <p>Tyto obchodní podmínky upravují práva a povinnosti při nákupu v internetovém obchodě <strong>www.zvedam.cz</strong>.</p>
             <h3>Provozovatel e-shopu:</h3>
-            <p><strong>LOGITECH servis s.r.o.</strong><br>
-            Sídlo a prodejna: Topolová 11, 370 08 České Budějovice<br>
-            IČO: 26055503 | DIČ: CZ26055503</p>
-            <h3>Dodací a reklamační podmínky</h3>
-            <p>Veškeré nabízené zboží je certifikováno dle příslušných technických norem EU. Kupující má právo odstoupit od smlouvy ve lhůtě 14 dnů od převzetí zboží (nevztahuje se na zboží upravené či vyrobené přímo na zakázku dle specifických požadavků kupujícího).</p>
+            <p><strong>LOGITECH servis s.r.o., se sídlem Topolová 1687/11, 370 08 České Budějovice</strong><br>
+            IČO: 26055503, DIČ: CZ26055503<br>
+            Firma je zapsaná v obchodním rejstříku vedeném u Krajského soudu v Českých Budějovicích, oddíl C, vložka 11365.</p>
+            <h3>Dodací, platební a reklamační podmínky</h3>
+            <p>Veškeré nabízené zboží je certifikováno dle příslušných technických norem EU. Při nakupování v e-shopu www.zvedam.cz máte právo odstoupit od smlouvy bez uvedení důvodu do 14 dnů od převzetí zboží. Zboží musí být vráceno nepoškozené, bez známek opotřebování, pokud možno v původním obalu (nevztahuje se na zboží upravené či vyrobené přímo na zakázku dle specifických požadavků kupujícího).</p>
           `
         },
         "kontakty": {
-          title: "Kontakty a kde nás najdete",
+          title: "Kontaktní informace",
           html: `
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:24px; align-items:start;">
-              <div>
-                <h3 style="margin-top:0;">Prodejna a sídlo firmy</h3>
-                <p><strong>LOGITECH servis s.r.o.</strong><br>
-                Topolová 11<br>
-                370 08 České Budějovice</p>
-                <p><strong>IČO:</strong> 26055503<br>
-                <strong>DIČ:</strong> CZ26055503</p>
-                <h3>Zákaznický servis a poradenství</h3>
-                <p><strong>Vlastimil Korčák</strong><br>
-                Telefon: <a href="tel:+420607849530" style="color:var(--amber); font-weight:700;">+420 607 849 530</a><br>
-                E-mail: <a href="mailto:info@zvedam.cz" style="color:var(--amber); font-weight:700; text-decoration:underline;">info@zvedam.cz</a><br>
-                Provozní doba: <strong>Po–Pá 7:00 – 15:30</strong></p>
+            <p style="font-size:16px; font-weight:700; color:var(--brand-blue);">
+              Sídlo firmy - prodejna, výroba, provozovatel a výdejní místo internetového obchodu <span style="color:var(--teal);">ZVEDAM.cz</span>:
+            </p>
+            <p style="font-size:19px; font-weight:800; color:#c8641e; margin-bottom:14px;">
+              LOGITECH servis s.r.o., se sídlem Topolová 1687/11, 370 08 České Budějovice
+            </p>
+
+            <div class="warning-red-box">
+              <strong class="red-title">⚠ POZOR – VJEZD DO AREÁLU FIRMY JE ZEZADU DO DVORA</strong>
+              Vjezd do areálu firmy LOGITECH servis s.r.o. je ze slepé <strong>Borovanské ulice dle firemních ukazatelů.</strong><br>
+              <strong>Nevjíždějte k firmě z Topolové ulice.</strong> Pokračujte do slepé Borovanské ulice až k vjezdu do areálu firmy.<br>
+              Z dálničního sjezdu D3 Pohůrka číslo 136 je sídlo firmy vzdálené 1,8 km.
+            </div>
+
+            <p><strong>IČO: 26055503, DIČ: CZ26055503</strong></p>
+            <p>Firma je zapsaná v obchodním rejstříku vedeném u Krajského soudu v Českých Budějovicích, oddíl C, vložka 11365.</p>
+
+            <h3>Bankovní spojení pro zákazníky:</h3>
+            <table style="border-collapse:collapse; margin-bottom:14px; font-size:14.5px;">
+              <tr>
+                <td style="padding:3px 20px 3px 0;">Česká republika:</td>
+                <td style="padding:3px 20px 3px 0;">CZK</td>
+                <td style="padding:3px 20px 3px 0;">ČSOB, a.s.</td>
+                <td style="padding:3px 0; font-weight:600;">182061460/0300</td>
+              </tr>
+              <tr>
+                <td style="padding:3px 20px 3px 0;">Mezinárodní platby:</td>
+                <td style="padding:3px 20px 3px 0;"></td>
+                <td style="padding:3px 20px 3px 0;">ČSOB, a.s.</td>
+                <td style="padding:3px 0; font-weight:600;">IBAN: CZ25 0300 0000 0001 8206 1460</td>
+              </tr>
+            </table>
+            <p>SWIFT/BIC: CEKOCZPP</p>
+
+            <p><strong>Provozní doba: pondělí až pátek: <span style="color:#b45309;">7:00 - 15:30 hodin</span></strong></p>
+
+            <p style="margin-bottom:6px;">Obchodní oddělení:</p>
+            <p style="margin-bottom:6px;"><strong style="color:#b45309;">+420 607 849 530</strong> – obchodní oddělení</p>
+            <p style="margin-bottom:14px;"><strong style="color:#b45309;">+420 722 036 696</strong> – KORČÁK Vlastimil</p>
+
+            <p style="margin-bottom:6px;">Výroba, servis a revize:</p>
+            <p style="margin-bottom:14px;"><strong style="color:#b45309;">+420 602 889 847</strong> – KREJČÍ Pavel</p>
+
+            <p>Email.: <a href="mailto:info@zvedam.cz" style="color:var(--amber); font-weight:700; text-decoration:underline;">info@zvedam.cz</a>, <a href="mailto:info@logitechservis.cz" style="color:var(--amber); font-weight:700; text-decoration:underline;">info@logitechservis.cz</a><br>
+            <a href="https://www.zvedam.cz/" target="_blank" style="color:var(--amber); font-weight:700; text-decoration:underline;">https://www.zvedam.cz/</a></p>
+
+            <div style="margin:20px 0;">
+              <img src="https://www.zvedam.cz/fotky27324/kontakt3.jpg" alt="Přijímáme platební karty" style="max-width:210px;">
+            </div>
+
+            <div style="margin:20px 0;">
+              <img src="https://www.zvedam.cz/fotky27324/1000003189.jpg" alt="Příjezdová mapa Borovanská ulice" style="max-width:650px; width:100%; border-radius:8px; border:1px solid #ddd;">
+              <div style="margin-top:6px;">
+                <a href="https://mapy.com/s/boropojace" target="_blank" style="color:var(--amber); text-decoration:underline; font-size:14px;">https://mapy.com/s/boropojace</a>
               </div>
-              <div>
-                <img src="https://www.zvedam.cz/fotky27324/kontakt3.jpg" alt="Kontakt ZVEDÁM.cz" style="max-width:100%; border-radius:8px; border:1px solid #ebebeb; margin-bottom:12px;">
-                <br>
-                <img src="https://www.zvedam.cz/fotky27324/LS_logo.jpg" alt="LOGITECH servis s.r.o." width="162" height="60">
+            </div>
+
+            <div style="margin:24px 0; max-width:650px;">
+              <iframe
+                src="https://www.google.com/maps?q=LOGITECH+servis+s.r.o.,+Topolov%C3%A1+1687/11,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice&output=embed"
+                width="100%"
+                height="360"
+                style="border:1px solid #ddd; border-radius:8px;"
+                allowfullscreen=""
+                loading="lazy">
+              </iframe>
+              <div style="margin-top:6px;">
+                <a href="https://maps.app.goo.gl/ZEUCft5u7PMAJ3Kx9" target="_blank" style="color:var(--amber); text-decoration:underline; font-size:14px;">https://maps.app.goo.gl/ZEUCft5u7PMAJ3Kx9</a>
               </div>
+            </div>
+
+            <div class="warning-red-box">
+              <strong class="red-title">⚠ POZOR – VJEZD DO AREÁLU FIRMY JE ZEZADU DO DVORA</strong>
+              Vjezd do areálu firmy LOGITECH servis s.r.o. je ze slepé <strong>Borovanské ulice dle firemních ukazatelů.</strong><br>
+              <strong>Nevjíždějte k firmě z Topolové ulice.</strong> Pokračujte do slepé Borovanské ulice až k vjezdu do areálu firmy.<br>
+              Z dálničního sjezdu D3 Pohůrka číslo 136 je sídlo firmy vzdálené 1,8 km.
             </div>
           `
         },
         "gdpr": {
           title: "Podmínky ochrany osobních údajů (GDPR)",
-          html: `<p>Společnost <strong>LOGITECH servis s.r.o.</strong>, IČO 26055503, se sídlem Topolová 11, 370 08 České Budějovice, zpracovává osobní údaje zákazníků v souladu s nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) výhradně za účelem vyřízení objednávek, plnění kupní smlouvy, vedení zákaznických účtů a evidence revizí.</p>`
+          html: `<p>Společnost <strong>LOGITECH servis s.r.o.</strong>, IČO 26055503, se sídlem Topolová 1687/11, 370 08 České Budějovice, zpracovává osobní údaje zákazníků v souladu s nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) výhradně za účelem vyřízení objednávek, plnění kupní smlouvy, vedení zákaznických účtů a evidence revizí.</p>`
         },
         "mapa-webu": {
           title: "Mapa webu",
@@ -1993,7 +2348,7 @@
         <h1 style="font-size:30px; margin-bottom:16px;">${a.title}</h1>
         <div class="article-content">${a.html}</div>
       `;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
 
     function handleSearch(e) {
@@ -2011,6 +2366,7 @@
         <h1 style="font-size:26px; margin-bottom:18px;">Výsledky hledání pro „${q}“ (${found.length})</h1>
         <div class="products-grid">${found.map(p => renderProductCard(p)).join('')}</div>
       `;
+      window.scrollTo(0, 0);
     }
 
     function showCart() {
@@ -2025,6 +2381,7 @@
           <h1 style="font-size:26px; margin-bottom:12px;">Nákupní košík je prázdný</h1>
           <button class="btn-buy-teal" style="padding:0 24px;" onclick="showHome()">Zpět do e-shopu</button>
         `;
+        window.scrollTo(0, 0);
         return;
       }
 
@@ -2062,6 +2419,7 @@
           </div>
         </div>
       `;
+      window.scrollTo(0, 0);
     }
 
     function updateCartHeader() {
@@ -2079,7 +2437,7 @@
       if (currentRoute.view === 'home') renderHomeProducts();
       else if (currentRoute.view === 'all') showAllProducts(currentRoute.sortBy);
       else if (currentRoute.view === 'category') showCategory(currentRoute.slug, currentRoute.subcatName, currentRoute.sortBy);
-      else if (currentRoute.view === 'product') showProductDetail(currentRoute.prodId);
+      else if (currentRoute.view === 'product') showProductDetail(currentRoute.prodId, true);
       else if (currentRoute.view === 'cart') showCart();
     }
 
